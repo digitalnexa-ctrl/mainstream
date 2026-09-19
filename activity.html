@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Activity | MAINSTREAM™</title>
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#0d0d0d;
+    color:#fff;
+}
+
+.header{
+    height:76px;
+    background:#090909;
+    border-bottom:1px solid #292929;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+}
+
+.logo{
+    width:165px;
+    filter:
+    brightness(0)
+    saturate(100%)
+    invert(82%)
+    sepia(99%)
+    saturate(1700%)
+    hue-rotate(4deg)
+    brightness(105%)
+    contrast(105%);
+}
+
+.back{
+    color:#FFD400;
+    text-decoration:none;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.main{
+    max-width:1000px;
+    margin:auto;
+    padding:30px;
+}
+
+.title{
+    font-size:30px;
+    font-weight:900;
+    margin-bottom:7px;
+}
+
+.subtitle{
+    color:#777;
+    font-size:13px;
+    margin-bottom:28px;
+}
+
+.panel{
+    background:#151515;
+    border:1px solid #292929;
+    border-radius:14px;
+    overflow:hidden;
+}
+
+.panel-header{
+    padding:20px;
+    border-bottom:1px solid #292929;
+}
+
+.panel-title{
+    font-size:16px;
+    font-weight:900;
+}
+
+.panel-subtitle{
+    color:#666;
+    font-size:10px;
+    margin-top:5px;
+}
+
+.activity{
+    padding:0 22px;
+}
+
+.activity-item{
+    display:flex;
+    gap:16px;
+    padding:22px 0;
+    border-bottom:1px solid #222;
+}
+
+.activity-item:last-child{
+    border-bottom:0;
+}
+
+.activity-icon{
+    width:42px;
+    height:42px;
+    border-radius:10px;
+    background:#222;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#FFD400;
+    font-size:18px;
+    flex-shrink:0;
+}
+
+.activity-content{
+    flex:1;
+}
+
+.activity-title{
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+.activity-description{
+    color:#888;
+    font-size:11px;
+    line-height:1.5;
+}
+
+.activity-time{
+    color:#555;
+    font-size:9px;
+    margin-top:8px;
+}
+
+.empty{
+    text-align:center;
+    padding:60px 20px;
+    color:#777;
+}
+
+.empty-icon{
+    font-size:40px;
+    margin-bottom:15px;
+}
+
+@media(max-width:700px){
+
+    .header{
+        padding:0 16px;
+    }
+
+    .logo{
+        width:125px;
+    }
+
+    .main{
+        padding:20px 15px 40px;
+    }
+
+    .title{
+        font-size:25px;
+    }
+
+    .activity{
+        padding:0 16px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <img
+        src="mainstream-logo.png"
+        class="logo"
+        alt="MAINSTREAM™">
+
+    <a href="admin.html" class="back">
+        ← DASHBOARD
+    </a>
+
+</header>
+
+
+<main class="main">
+
+    <h1 class="title">
+        Activity
+    </h1>
+
+    <p class="subtitle">
+        Recent activity and updates from your MAINSTREAM™ store.
+    </p>
+
+
+    <section class="panel">
+
+        <div class="panel-header">
+
+            <div class="panel-title">
+                Recent Activity
+            </div>
+
+            <div class="panel-subtitle">
+                Latest store events
+            </div>
+
+        </div>
+
+
+        <div class="activity">
+
+
+            <div class="activity-item">
+
+                <div class="activity-icon">
+                    ✓
+                </div>
+
+                <div class="activity-content">
+
+                    <div class="activity-title">
+                        Dashboard initialized
+                    </div>
+
+                    <div class="activity-description">
+                        MAINSTREAM™ admin dashboard has been successfully initialized.
+                    </div>
+
+                    <div class="activity-time">
+                        TODAY
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="activity-item">
+
+                <div class="activity-icon">
+                    👕
+                </div>
+
+                <div class="activity-content">
+
+                    <div class="activity-title">
+                        Products available
+                    </div>
+
+                    <div class="activity-description">
+                        7 products are currently listed in the MAINSTREAM™ store.
+                    </div>
+
+                    <div class="activity-time">
+                        TODAY
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="activity-item">
+
+                <div class="activity-icon">
+                    📦
+                </div>
+
+                <div class="activity-content">
+
+                    <div class="activity-title">
+                        Orders system ready
+                    </div>
+
+                    <div class="activity-description">
+                        The store is ready to receive and process customer orders.
+                    </div>
+
+                    <div class="activity-time">
+                        TODAY
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="activity-item">
+
+                <div class="activity-icon">
+                    ⚙
+                </div>
+
+                <div class="activity-content">
+
+                    <div class="activity-title">
+                        Inventory system ready
+                    </div>
+
+                    <div class="activity-description">
+                        Product inventory management is available from the admin dashboard.
+                    </div>
+
+                    <div class="activity-time">
+                        TODAY
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+</main>
+
+</body>
+</html>
