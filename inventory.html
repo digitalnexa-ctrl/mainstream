@@ -259,11 +259,26 @@ td{
 
                 <tbody>
 <script>
+<script>
 
 const savedProducts =
     JSON.parse(localStorage.getItem("mainstreamProducts")) || [];
 
+const uniqueProducts = [];
+const productNames = new Set();
+
 savedProducts.forEach(function(product){
+
+    const name = product.name.trim().toLowerCase();
+
+    if(!productNames.has(name)){
+        productNames.add(name);
+        uniqueProducts.push(product);
+    }
+
+});
+
+uniqueProducts.forEach(function(product){
 
     const row = document.createElement("tr");
 
