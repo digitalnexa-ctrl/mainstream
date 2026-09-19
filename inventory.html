@@ -258,7 +258,49 @@ td{
 
 
                 <tbody>
+<script>
 
+const savedProducts =
+    JSON.parse(localStorage.getItem("mainstreamProducts")) || [];
+
+savedProducts.forEach(function(product){
+
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+        <td>
+            <div class="product">
+                <div>
+                    <div class="product-name">
+                        ${product.name}
+                    </div>
+                    <div class="product-sub">
+                        Racing Collection
+                    </div>
+                </div>
+            </div>
+        </td>
+
+        <td>₹${product.price}</td>
+
+        <td>${product.stock}</td>
+
+        <td class="stock">
+            ${product.stock > 0 ? "IN STOCK" : "OUT OF STOCK"}
+        </td>
+
+        <td>
+            <a href="edit-product.html" class="action">
+                EDIT
+            </a>
+        </td>
+    `;
+
+    document.querySelector("tbody").appendChild(row);
+
+});
+
+</script>
 
                     <tr>
 
