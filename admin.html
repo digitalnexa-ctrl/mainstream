@@ -1718,21 +1718,73 @@ tr:last-child td{
 
 <script>
 
+<script>
+
 function changePeriod(period){
 
+    const salesAmount =
+        document.querySelector(".big-sales");
+
+    const salesNote =
+        document.querySelector(".sales-note");
+
+    const bars =
+        document.querySelectorAll(".mini-bars .bar");
+
     if(period === "week"){
-        alert("Sales period changed to THIS WEEK");
+
+        salesAmount.textContent = "₹0";
+
+        salesNote.textContent =
+            "Total sales this week";
+
+        bars[0].style.height = "20%";
+        bars[1].style.height = "20%";
+        bars[2].style.height = "20%";
+        bars[3].style.height = "20%";
+        bars[4].style.height = "20%";
+        bars[5].style.height = "20%";
+        bars[6].style.height = "20%";
+
     }
 
     else if(period === "year"){
-        alert("Sales period changed to THIS YEAR");
+
+        salesAmount.textContent = "₹0";
+
+        salesNote.textContent =
+            "Total sales this year";
+
+        bars[0].style.height = "20%";
+        bars[1].style.height = "20%";
+        bars[2].style.height = "20%";
+        bars[3].style.height = "20%";
+        bars[4].style.height = "20%";
+        bars[5].style.height = "20%";
+        bars[6].style.height = "20%";
+
     }
 
     else{
-        alert("Sales period changed to THIS MONTH");
+
+        salesAmount.textContent = "₹0";
+
+        salesNote.textContent =
+            "Total sales this month";
+
+        bars[0].style.height = "20%";
+        bars[1].style.height = "20%";
+        bars[2].style.height = "20%";
+        bars[3].style.height = "20%";
+        bars[4].style.height = "20%";
+        bars[5].style.height = "20%";
+        bars[6].style.height = "20%";
+
     }
 
 }
+
+</script>
 
 </script>
 </body>
