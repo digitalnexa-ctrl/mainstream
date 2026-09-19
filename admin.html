@@ -1100,9 +1100,11 @@ tr:last-child td{
                     </div>
                 </div>
 
-                <button class="panel-action">
-                    THIS MONTH ▾
-                </button>
+                <select class="panel-action" onchange="changePeriod(this.value)">
+    <option value="month">THIS MONTH</option>
+    <option value="week">THIS WEEK</option>
+    <option value="year">THIS YEAR</option>
+                </select>
 
             </div>
 
@@ -1249,9 +1251,9 @@ tr:last-child td{
             </div>
         </div>
 
-        <button class="panel-action">
-            VIEW ALL →
-        </button>
+        <a href="orders.html" class="panel-action">
+    VIEW ALL →
+</a>
 
     </div>
 
@@ -1450,9 +1452,9 @@ tr:last-child td{
                 </div>
             </div>
 
-            <button class="panel-action">
-                MANAGE →
-            </button>
+            <a href="inventory.html" class="panel-action">
+    MANAGE →
+            </a>
 
         </div>
 
@@ -1612,9 +1614,9 @@ tr:last-child td{
             </div>
         </div>
 
-        <button class="panel-action">
-            VIEW ALL →
-        </button>
+        <a href="activity.html" class="panel-action">
+    VIEW ALL →
+        </a>
 
     </div>
 
@@ -1714,6 +1716,24 @@ tr:last-child td{
 
 </nav>
 
+<script>
 
+function changePeriod(period){
+
+    if(period === "week"){
+        alert("Sales period changed to THIS WEEK");
+    }
+
+    else if(period === "year"){
+        alert("Sales period changed to THIS YEAR");
+    }
+
+    else{
+        alert("Sales period changed to THIS MONTH");
+    }
+
+}
+
+</script>
 </body>
 </html>
