@@ -374,6 +374,45 @@ textarea{
     </form>
 
 </main>
+<script>
 
+function saveProduct(event){
+
+    event.preventDefault();
+
+    const name =
+        document.getElementById("productName").value.trim();
+
+    const price =
+        document.getElementById("productPrice").value;
+
+    const stock =
+        document.getElementById("productStock").value;
+
+    const product = {
+        id: Date.now(),
+        name: name,
+        price: Number(price),
+        stock: Number(stock)
+    };
+
+    const products =
+        JSON.parse(
+            localStorage.getItem("mainstreamProducts")
+        ) || [];
+
+    products.push(product);
+
+    localStorage.setItem(
+        "mainstreamProducts",
+        JSON.stringify(products)
+    );
+
+    alert("Product added successfully!");
+
+    window.location.href = "inventory.html";
+}
+
+</script>
 </body>
 </html>
