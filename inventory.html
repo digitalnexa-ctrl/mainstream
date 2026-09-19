@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Inventory | MAINSTREAM™</title>
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#0d0d0d;
+    color:#fff;
+}
+
+.header{
+    height:76px;
+    background:#090909;
+    border-bottom:1px solid #292929;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 28px;
+}
+
+.logo{
+    width:165px;
+    filter:
+    brightness(0)
+    saturate(100%)
+    invert(82%)
+    sepia(99%)
+    saturate(1700%)
+    hue-rotate(4deg)
+    brightness(105%)
+    contrast(105%);
+}
+
+.back{
+    color:#FFD400;
+    text-decoration:none;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.main{
+    padding:30px;
+    max-width:1300px;
+    margin:auto;
+}
+
+.title{
+    font-size:30px;
+    font-weight:900;
+    margin-bottom:7px;
+}
+
+.subtitle{
+    color:#777;
+    font-size:13px;
+    margin-bottom:28px;
+}
+
+.panel{
+    background:#151515;
+    border:1px solid #292929;
+    border-radius:14px;
+    overflow:hidden;
+}
+
+.panel-head{
+    padding:20px;
+    border-bottom:1px solid #292929;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.panel-title{
+    font-size:16px;
+    font-weight:900;
+}
+
+.add-btn{
+    background:#FFD400;
+    color:#111;
+    border:0;
+    border-radius:7px;
+    padding:10px 14px;
+    font-size:10px;
+    font-weight:900;
+}
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    min-width:750px;
+    border-collapse:collapse;
+}
+
+th{
+    color:#666;
+    font-size:9px;
+    letter-spacing:1.5px;
+    text-align:left;
+    padding:16px 20px;
+    border-bottom:1px solid #292929;
+}
+
+td{
+    padding:16px 20px;
+    border-bottom:1px solid #222;
+    font-size:12px;
+}
+
+.product{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.product img{
+    width:48px;
+    height:48px;
+    border-radius:7px;
+    object-fit:cover;
+}
+
+.product-name{
+    font-weight:bold;
+}
+
+.product-sub{
+    color:#666;
+    font-size:9px;
+    margin-top:4px;
+}
+
+.stock{
+    color:#39D98A;
+    font-weight:bold;
+    font-size:10px;
+}
+
+.stock-low{
+    color:#FFD400;
+}
+
+.stock-out{
+    color:#FF5C5C;
+}
+
+.action{
+    color:#FFD400;
+    background:transparent;
+    border:1px solid #333;
+    padding:7px 10px;
+    border-radius:6px;
+    font-size:9px;
+}
+
+@media(max-width:700px){
+
+    .header{
+        padding:0 16px;
+    }
+
+    .logo{
+        width:125px;
+    }
+
+    .main{
+        padding:20px 15px;
+    }
+
+    .title{
+        font-size:25px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <img
+        src="mainstream-logo.png"
+        class="logo"
+        alt="MAINSTREAM™">
+
+    <a href="admin.html" class="back">
+        ← DASHBOARD
+    </a>
+
+</header>
+
+
+<main class="main">
+
+    <h1 class="title">
+        Inventory
+    </h1>
+
+    <p class="subtitle">
+        Monitor your MAINSTREAM™ product stock.
+    </p>
+
+
+    <section class="panel">
+
+        <div class="panel-head">
+
+            <div class="panel-title">
+                Product Inventory
+            </div>
+
+            <button class="add-btn">
+                + ADD PRODUCT
+            </button>
+
+        </div>
+
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>PRODUCT</th>
+                        <th>PRICE</th>
+                        <th>STOCK</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    <tr>
+
+                        <td>
+
+                            <div class="product">
+
+                                <img
+                                    src="max-front.png"
+                                    alt="MAX / 03 TEE">
+
+                                <div>
+                                    <div class="product-name">
+                                        MAX / 03 TEE
+                                    </div>
+
+                                    <div class="product-sub">
+                                        Racing Collection
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td>₹999</td>
+
+                        <td>—</td>
+
+                        <td class="stock">
+                            IN STOCK
+                        </td>
+
+                        <td>
+                            <button class="action">
+                                EDIT
+                            </button>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+
+                            <div class="product">
+
+                                <img
+                                    src="lewis-front.png"
+                                    alt="LEWIS / 44 TEE">
+
+                                <div>
+                                    <div class="product-name">
+                                        LEWIS / 44 TEE
+                                    </div>
+
+                                    <div class="product-sub">
+                                        Racing Collection
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td>₹999</td>
+                        <td>—</td>
+
+                        <td class="stock">
+                            IN STOCK
+                        </td>
+
+                        <td>
+                            <button class="action">
+                                EDIT
+                            </button>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+
+                            <div class="product">
+
+                                <img
+                                    src="charles-front.png"
+                                    alt="CHARLES / 16 TEE">
+
+                                <div>
+                                    <div class="product-name">
+                                        CHARLES / 16 TEE
+                                    </div>
+
+                                    <div class="product-sub">
+                                        Racing Collection
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td>₹999</td>
+                        <td>—</td>
+
+                        <td class="stock">
+                            IN STOCK
+                        </td>
+
+                        <td>
+                            <button class="action">
+                                EDIT
+                            </button>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+
+                            <div class="product">
+
+                                <img
+                                    src="lando-front.png"
+                                    alt="LANDO / 01 TEE">
+
+                                <div>
+                                    <div class="product-name">
+                                        LANDO / 01 TEE
+                                    </div>
+
+                                    <div class="product-sub">
+                                        Racing Collection
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td>₹999</td>
+                        <td>—</td>
+
+                        <td class="stock">
+                            IN STOCK
+                        </td>
+
+                        <td>
+                            <button class="action">
+                                EDIT
+                            </button>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+
+                            <div class="product">
+
+                                <img
+                                    src="oscar-front.png"
+                                    alt="OSCAR / 81 TEE">
+
+                                <div>
+                                    <div class="product-name">
+                                        OSCAR / 81 TEE
+                                    </div>
+
+                                    <div class="product-sub">
+                                        Racing Collection
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td>₹999</td>
+                        <td>—</td>
+
+                        <td class="stock">
+                            IN STOCK
+                        </td>
+
+                        <td>
+                            <button class="action">
+                                EDIT
+                            </button>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+
+                            <div class="product">
+
+                                <img
+                                    src="george-front.png"
+                                    alt="GEORGE / 63 TEE">
+
+                                <div>
+                                    <div class="product-name">
+                                        GEORGE / 63 TEE
+                                    </div>
+
+                                    <div class="product-sub">
+                                        Racing Collection
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td>₹999</td>
+                        <td>—</td>
+
+                        <td class="stock">
+                            IN STOCK
+                        </td>
+
+                        <td>
+                            <button class="action">
+                                EDIT
+                            </button>
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <td>
+
+                            <div class="product">
+
+                                <img
+                                    src="kimi-front.png"
+                                    alt="KIMI / 12 TEE">
+
+                                <div>
+                                    <div class="product-name">
+                                        KIMI / 12 TEE
+                                    </div>
+
+                                    <div class="product-sub">
+                                        Racing Collection
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </td>
+
+                        <td>₹999</td>
+                        <td>—</td>
+
+                        <td class="stock">
+                            IN STOCK
+                        </td>
+
+                        <td>
+                            <button class="action">
+                                EDIT
+                            </button>
+                        </td>
+
+                    </tr>
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+</body>
+</html>
