@@ -1295,7 +1295,7 @@ function addActivity(
    SAVE PRODUCT
 ========================================= */
 
-function saveProduct(event){
+async function saveProduct(event){
 
     event.preventDefault();
 
@@ -1437,19 +1437,42 @@ function saveProduct(event){
 };
 
 
-    /* SAVE */
+    //* SAVE TO SUPABASE */
 
-    products.push(
-        product
+const { data, error } = await mainstreamDB
+    .from("products")
+    .insert([{
+        name: product.name,
+        slug: product.slug,
+        price: product.price,
+        category: product.category,
+        stock: product.stock,
+        sku: product.sku,
+        description: product.description,
+        image_url: product.image,
+        active: true
+    }])
+    .select();
+
+if(error){
+    console.error("Supabase product error:", error);
+
+    alert(
+        "Product could not be added.\n\n" +
+        error.message
     );
 
+    return;
+}
 
-    localStorage.setItem(
-        "mainstreamProducts",
-        JSON.stringify(
-            products
-        )
-    );
+/* SAVE LOCAL COPY */
+
+products.push(product);
+
+localStorage.setItem(
+    "mainstreamProducts",
+    JSON.stringify(products)
+);
 
 
     /* ACTIVITY */
