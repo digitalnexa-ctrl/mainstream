@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
 <title>Edit Product | MAINSTREAM™</title>
+
+<link
+    rel="icon"
+    type="image/png"
+    href="mainstream-logo.png">
 
 <style>
 
@@ -15,202 +24,412 @@
     box-sizing:border-box;
 }
 
+:root{
+    --yellow:#FFD400;
+    --black:#080808;
+    --card:#151515;
+    --border:#292929;
+    --muted:#777;
+    --white:#fff;
+    --red:#FF5C5C;
+    --green:#39D98A;
+}
+
 body{
     font-family:Arial,Helvetica,sans-serif;
-    background:#0d0d0d;
-    color:#fff;
+    background:var(--black);
+    color:var(--white);
+    min-height:100vh;
 }
+
+
+/* HEADER */
 
 .header{
     height:76px;
     background:#090909;
-    border-bottom:1px solid #292929;
+    border-bottom:1px solid var(--border);
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     padding:0 28px;
+
+    position:sticky;
+    top:0;
+    z-index:100;
 }
 
 .logo{
     width:165px;
+
     filter:
-    brightness(0)
-    saturate(100%)
-    invert(82%)
-    sepia(99%)
-    saturate(1700%)
-    hue-rotate(4deg)
-    brightness(105%)
-    contrast(105%);
+        brightness(0)
+        saturate(100%)
+        invert(82%)
+        sepia(99%)
+        saturate(1700%)
+        hue-rotate(4deg)
+        brightness(105%)
+        contrast(105%);
 }
 
-.back{
-    color:#FFD400;
+.back-link{
+    color:var(--yellow);
     text-decoration:none;
-    font-size:12px;
-    font-weight:bold;
+
+    font-size:10px;
+    font-weight:900;
+
+    border:1px solid #333;
+    border-radius:6px;
+
+    padding:10px 13px;
 }
+
+.back-link:hover{
+    background:var(--yellow);
+    color:#000;
+}
+
+
+/* MAIN */
 
 .main{
     max-width:900px;
-    margin:auto;
-    padding:30px;
+    margin:0 auto;
+
+    padding:35px 25px 80px;
 }
 
-.title{
-    font-size:30px;
+.page-heading{
+    margin-bottom:25px;
+}
+
+.page-heading h1{
+    font-size:32px;
     font-weight:900;
-    margin-bottom:7px;
+    letter-spacing:-1px;
 }
 
-.subtitle{
-    color:#777;
-    font-size:13px;
-    margin-bottom:28px;
+.page-heading p{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:8px;
 }
+
+
+/* FORM */
 
 .form-card{
-    background:#151515;
-    border:1px solid #292929;
+    background:var(--card);
+
+    border:1px solid var(--border);
     border-radius:14px;
+
+    overflow:hidden;
+}
+
+
+/* CURRENT PRODUCT */
+
+.current-product{
     padding:25px;
+
+    border-bottom:1px solid var(--border);
 }
 
-.form-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
-}
+.section-title{
+    font-size:13px;
+    font-weight:900;
 
-.field{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-}
-
-.field.full{
-    grid-column:1/-1;
-}
-
-label{
-    color:#aaa;
-    font-size:10px;
-    font-weight:bold;
-    letter-spacing:1px;
-}
-
-input,
-select,
-textarea{
-    width:100%;
-    background:#0d0d0d;
-    border:1px solid #333;
-    color:#fff;
-    border-radius:8px;
-    padding:13px;
-    outline:none;
-    font-family:inherit;
-}
-
-input:focus,
-select:focus,
-textarea:focus{
-    border-color:#FFD400;
-}
-
-textarea{
-    min-height:100px;
-    resize:vertical;
+    margin-bottom:18px;
 }
 
 .product-preview{
     display:flex;
     align-items:center;
-    gap:15px;
-    background:#0d0d0d;
-    border:1px solid #292929;
+
+    gap:18px;
+
+    background:#0c0c0c;
+
+    border:1px solid #333;
+
     border-radius:10px;
+
     padding:15px;
 }
 
-.product-preview img{
-    width:70px;
-    height:70px;
-    object-fit:cover;
+.preview-image{
+    width:95px;
+    height:95px;
+
+    background:#222;
+
     border-radius:8px;
+
+    overflow:hidden;
+
+    flex-shrink:0;
+}
+
+.preview-image img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
 }
 
 .preview-name{
-    font-weight:bold;
+    font-size:18px;
+    font-weight:900;
 }
 
 .preview-price{
-    color:#FFD400;
-    font-size:12px;
-    margin-top:5px;
+    color:var(--yellow);
+
+    font-size:13px;
+    font-weight:bold;
+
+    margin-top:8px;
 }
 
-.actions{
+
+/* FORM SECTION */
+
+.form-section{
+    padding:25px;
+
+    border-bottom:1px solid var(--border);
+}
+
+.form-grid{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:18px;
+}
+
+.field{
     display:flex;
-    justify-content:flex-end;
-    gap:12px;
-    margin-top:25px;
+    flex-direction:column;
 }
 
-.cancel{
-    background:#222;
-    color:#aaa;
-    border:1px solid #333;
-    padding:13px 20px;
-    border-radius:8px;
-    text-decoration:none;
-    font-size:11px;
-    font-weight:bold;
+.field.full{
+    grid-column:1 / -1;
 }
 
-.save{
-    background:#FFD400;
-    color:#111;
-    border:0;
-    padding:13px 22px;
-    border-radius:8px;
-    font-size:11px;
+.field label{
+    color:#888;
+
+    font-size:9px;
     font-weight:900;
+
+    letter-spacing:1.4px;
+
+    margin-bottom:8px;
+}
+
+.field input,
+.field select,
+.field textarea{
+    width:100%;
+
+    background:#0c0c0c;
+    color:#fff;
+
+    border:1px solid #333;
+
+    border-radius:8px;
+
+    outline:none;
+
+    padding:14px;
+
+    font-family:inherit;
+
+    font-size:12px;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+    border-color:var(--yellow);
+}
+
+.field textarea{
+    min-height:130px;
+    resize:vertical;
+}
+
+.field input::placeholder,
+.field textarea::placeholder{
+    color:#555;
+}
+
+
+/* IMAGE */
+
+.upload-area{
+    border:1px dashed #444;
+
+    border-radius:10px;
+
+    background:#0c0c0c;
+
+    min-height:170px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:20px;
+
     cursor:pointer;
 }
 
-.delete{
-    margin-right:auto;
-    background:#211313;
-    color:#ff6b6b;
-    border:1px solid #4a2222;
-    padding:13px 20px;
+.upload-area:hover{
+    border-color:var(--yellow);
+}
+
+#productImage{
+    display:none;
+}
+
+.image-preview{
+    display:none;
+
+    max-width:220px;
+    max-height:220px;
+
+    margin:0 auto 12px;
+
     border-radius:8px;
+
+    border:1px solid #333;
+
+    object-fit:contain;
+}
+
+.upload-title{
+    color:#aaa;
+
     font-size:11px;
     font-weight:bold;
+}
+
+.upload-note{
+    color:#555;
+
+    font-size:9px;
+
+    margin-top:6px;
+}
+
+
+/* ACTIONS */
+
+.form-actions{
+    padding:20px 25px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:10px;
+}
+
+.left-actions,
+.right-actions{
+    display:flex;
+    gap:10px;
+}
+
+.cancel-btn,
+.delete-btn,
+.save-btn{
+    min-width:125px;
+
+    padding:13px 18px;
+
+    border-radius:7px;
+
+    font-size:10px;
+    font-weight:900;
+
     cursor:pointer;
 }
+
+.cancel-btn{
+    background:transparent;
+
+    color:#999;
+
+    border:1px solid #333;
+}
+
+.cancel-btn:hover{
+    color:#fff;
+    border-color:#555;
+}
+
+.delete-btn{
+    background:transparent;
+
+    color:var(--red);
+
+    border:1px solid #422020;
+}
+
+.delete-btn:hover{
+    background:var(--red);
+    color:#000;
+}
+
+.save-btn{
+    background:var(--yellow);
+
+    color:#000;
+
+    border:1px solid var(--yellow);
+}
+
+.save-btn:hover{
+    background:#ffe34d;
+}
+
+
+/* MOBILE */
 
 @media(max-width:650px){
 
     .header{
-        padding:0 16px;
+        height:64px;
+        padding:0 15px;
     }
 
     .logo{
         width:125px;
     }
 
+    .back-link{
+        font-size:8px;
+        padding:8px 9px;
+    }
+
     .main{
-        padding:20px 15px;
+        padding:25px 14px 50px;
     }
 
-    .title{
-        font-size:25px;
-    }
-
-    .form-card{
-        padding:18px;
+    .page-heading h1{
+        font-size:27px;
     }
 
     .form-grid{
@@ -221,286 +440,1259 @@ textarea{
         grid-column:auto;
     }
 
-    .actions{
-        flex-wrap:wrap;
+    .current-product,
+    .form-section{
+        padding:20px;
     }
 
-    .delete{
+    .product-preview{
+        gap:12px;
+    }
+
+    .preview-image{
+        width:75px;
+        height:75px;
+    }
+
+    .preview-name{
+        font-size:14px;
+    }
+
+    .form-actions{
+        flex-direction:column;
+
+        padding:18px;
+    }
+
+    .left-actions,
+    .right-actions{
         width:100%;
-        margin-right:0;
     }
 
-    .cancel,
-    .save{
+    .left-actions > *,
+    .right-actions > *{
         flex:1;
-        text-align:center;
+    }
+
+    .cancel-btn,
+    .delete-btn,
+    .save-btn{
+        width:100%;
+        min-width:0;
     }
 
 }
 
+
+/* MESSAGE */
+
+.message{
+    display:none;
+
+    position:fixed;
+
+    left:50%;
+    bottom:25px;
+
+    transform:translateX(-50%);
+
+    background:var(--yellow);
+    color:#000;
+
+    padding:13px 18px;
+
+    border-radius:7px;
+
+    font-size:10px;
+    font-weight:900;
+
+    z-index:500;
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- HEADER -->
+
 <header class="header">
 
-    <img
-        src="mainstream-logo.png"
-        class="logo"
-        alt="MAINSTREAM™">
+    <a href="admin.html">
 
-    <a href="inventory.html" class="back">
+        <img
+            src="mainstream-logo.png"
+            class="logo"
+            alt="MAINSTREAM™">
+
+    </a>
+
+
+    <a
+        href="inventory.html"
+        class="back-link">
+
         ← INVENTORY
+
     </a>
 
 </header>
 
 
+
 <main class="main">
 
-    <h1 class="title">
-        Edit Product
-    </h1>
 
-    <p class="subtitle">
-        Update your MAINSTREAM™ product information.
-    </p>
+    <div class="page-heading">
+
+        <h1>
+            Edit Product
+        </h1>
+
+        <p>
+            Update your MAINSTREAM™ product information.
+        </p>
+
+    </div>
 
 
-    <form class="form-card">
+
+    <form
+        class="form-card"
+        id="editForm"
+        onsubmit="saveChanges(event)">
 
 
-        <div class="field full">
+        <!-- CURRENT PRODUCT -->
 
-            <label>
+        <section class="current-product">
+
+            <div class="section-title">
                 CURRENT PRODUCT
-            </label>
+            </div>
+
 
             <div class="product-preview">
 
-                <img
-                    id="productImage"
-                    src="max-front.png"
-                    alt="Product">
+
+                <div class="preview-image">
+
+                    <img
+                        id="previewImage"
+                        src="mainstream-logo.png"
+                        alt="Product">
+
+                </div>
+
 
                 <div>
 
                     <div
                         class="preview-name"
                         id="previewName">
-                        MAX / 03 TEE
+
+                        Product
+
                     </div>
+
 
                     <div
                         class="preview-price"
                         id="previewPrice">
-                        ₹999
+
+                        ₹0
+
                     </div>
 
                 </div>
 
             </div>
 
-        </div>
+        </section>
 
 
-        <br>
+
+        <!-- PRODUCT DETAILS -->
+
+        <section class="form-section">
 
 
-        <div class="form-grid">
+            <div class="section-title">
+                PRODUCT DETAILS
+            </div>
 
 
-            <div class="field">
+            <div class="form-grid">
 
-                <label>
-                    PRODUCT NAME
-                </label>
 
-                <input
-                    id="productName"
-                    type="text"
-                    value="MAX / 03 TEE">
+                <div class="field full">
+
+                    <label for="productName">
+                        PRODUCT NAME
+                    </label>
+
+                    <input
+                        id="productName"
+                        type="text"
+                        required>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="productPrice">
+                        PRICE
+                    </label>
+
+                    <input
+                        id="productPrice"
+                        type="number"
+                        min="0"
+                        required>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="productCategory">
+                        CATEGORY
+                    </label>
+
+                    <select
+                        id="productCategory">
+
+                        <option value="Racing Collection">
+                            Racing Collection
+                        </option>
+
+                        <option value="Streetwear">
+                            Streetwear
+                        </option>
+
+                        <option value="Premium Collection">
+                            Premium Collection
+                        </option>
+
+                        <option value="New Drop">
+                            New Drop
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="productStock">
+                        STOCK QUANTITY
+                    </label>
+
+                    <input
+                        id="productStock"
+                        type="number"
+                        min="0"
+                        required>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="productSKU">
+                        SKU
+                    </label>
+
+                    <input
+                        id="productSKU"
+                        type="text">
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label for="productDescription">
+                        DESCRIPTION
+                    </label>
+
+                    <textarea
+                        id="productDescription"
+                        placeholder="Enter product description..."></textarea>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- IMAGE -->
+
+        <section class="form-section">
+
+
+            <div class="section-title">
+                PRODUCT IMAGE
+            </div>
+
+
+            <label
+                class="upload-area"
+                for="productImage">
+
+
+                <div>
+
+                    <img
+                        id="imagePreview"
+                        class="image-preview"
+                        alt="New product image">
+
+
+                    <div
+                        id="uploadTitle"
+                        class="upload-title">
+
+                        Change product image
+
+                    </div>
+
+
+                    <div
+                        id="uploadNote"
+                        class="upload-note">
+
+                        PNG, JPG or WEBP
+
+                    </div>
+
+                </div>
+
+
+            </label>
+
+
+            <input
+                id="productImage"
+                type="file"
+                accept="image/png,image/jpeg,image/webp">
+
+        </section>
+
+
+
+        <!-- ACTIONS -->
+
+        <div class="form-actions">
+
+
+            <div class="left-actions">
+
+                <button
+                    type="button"
+                    class="delete-btn"
+                    onclick="deleteProduct()">
+
+                    DELETE PRODUCT
+
+                </button>
 
             </div>
 
 
-            <div class="field">
+            <div class="right-actions">
 
-                <label>
-                    PRICE
-                </label>
+                <button
+                    type="button"
+                    class="cancel-btn"
+                    onclick="cancelEdit()">
 
-                <input
-                    id="productPrice"
-                    type="number"
-                    value="999">
+                    CANCEL
 
-            </div>
+                </button>
 
 
-            <div class="field">
+                <button
+                    type="submit"
+                    class="save-btn">
 
-                <label>
-                    CATEGORY
-                </label>
+                    SAVE CHANGES
 
-                <select>
-
-                    <option>
-                        Racing Collection
-                    </option>
-
-                    <option>
-                        Streetwear
-                    </option>
-
-                    <option>
-                        New Collection
-                    </option>
-
-                </select>
+                </button>
 
             </div>
-
-
-            <div class="field">
-
-                <label>
-                    STOCK QUANTITY
-                </label>
-
-                <input
-                    type="number"
-                    placeholder="Enter stock quantity">
-
-            </div>
-
-
-            <div class="field full">
-
-                <label>
-                    DESCRIPTION
-                </label>
-
-                <textarea
-                    placeholder="Enter product description..."></textarea>
-
-            </div>
-
-
-        </div>
-
-
-        <div class="actions">
-
-            <button
-                type="button"
-                class="delete"
-                onclick="deleteProduct()">
-                DELETE PRODUCT
-            </button>
-
-            <a
-                href="inventory.html"
-                class="cancel">
-                CANCEL
-            </a>
-
-            <button
-                type="submit"
-                class="save">
-                SAVE CHANGES
-            </button>
 
         </div>
 
 
     </form>
 
+
 </main>
 
 
-<script>
+<div
+    class="message"
+    id="message">
+
+    Saved
+
+</div>
+
+
 
 <script>
 
-const productData = {
+/* =========================================
+   MAINSTREAM™ EDIT PRODUCT
+========================================= */
 
-    max:{
+
+/* DEFAULT PRODUCTS */
+
+const defaultProducts = [
+
+    {
+        id:"max",
         name:"MAX / 03 TEE",
         price:999,
+        stock:0,
+        category:"Racing Collection",
+        sku:"MS-MAX-03",
+        description:"",
         image:"max-front.png"
     },
 
-    lewis:{
+    {
+        id:"lewis",
         name:"LEWIS / 44 TEE",
         price:999,
+        stock:0,
+        category:"Racing Collection",
+        sku:"MS-LEWIS-44",
+        description:"",
         image:"lewis-front.png"
     },
 
-    charles:{
+    {
+        id:"charles",
         name:"CHARLES / 16 TEE",
         price:999,
+        stock:0,
+        category:"Racing Collection",
+        sku:"MS-CHARLES-16",
+        description:"",
         image:"charles-front.png"
     },
 
-    lando:{
+    {
+        id:"lando",
         name:"LANDO / 01 TEE",
         price:999,
+        stock:0,
+        category:"Racing Collection",
+        sku:"MS-LANDO-01",
+        description:"",
         image:"lando-front.png"
     },
 
-    oscar:{
+    {
+        id:"oscar",
         name:"OSCAR / 81 TEE",
         price:999,
+        stock:0,
+        category:"Racing Collection",
+        sku:"MS-OSCAR-81",
+        description:"",
         image:"oscar-front.png"
     },
 
-    george:{
+    {
+        id:"george",
         name:"GEORGE / 63 TEE",
         price:999,
+        stock:0,
+        category:"Racing Collection",
+        sku:"MS-GEORGE-63",
+        description:"",
         image:"george-front.png"
     },
 
-    kimi:{
+    {
+        id:"kimi",
         name:"KIMI / 12 TEE",
         price:999,
+        stock:0,
+        category:"Racing Collection",
+        sku:"MS-KIMI-12",
+        description:"",
         image:"kimi-front.png"
     }
 
-};
+];
 
 
-const params =
-    new URLSearchParams(window.location.search);
+/* GET SAVED PRODUCTS */
 
-const productKey =
-    params.get("product") || "max";
+function getSavedProducts(){
 
-const product =
-    productData[productKey] || productData.max;
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "mainstreamProducts"
+            )
+        ) || [];
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
 
 
-document.getElementById("productName").value =
-    product.name;
+/* GET ALL PRODUCTS */
 
-document.getElementById("productPrice").value =
-    product.price;
+function getProducts(){
 
-document.getElementById("productImage").src =
-    product.image;
+    const saved =
+        getSavedProducts();
 
-document.getElementById("previewName").textContent =
-    product.name;
 
-document.getElementById("previewPrice").textContent =
-    "₹" + product.price;
+    const products = [];
 
+
+    defaultProducts.forEach(
+        function(defaultProduct){
+
+            const savedProduct =
+                saved.find(
+                    function(item){
+
+                        return (
+                            String(item.id)
+                            ===
+                            String(defaultProduct.id)
+                        )
+                        ||
+                        (
+                            item.name &&
+                            item.name
+                                .trim()
+                                .toLowerCase()
+                            ===
+                            defaultProduct.name
+                                .trim()
+                                .toLowerCase()
+                        );
+
+                    }
+                );
+
+
+            if(savedProduct){
+
+                products.push({
+
+                    ...defaultProduct,
+
+                    ...savedProduct,
+
+                    image:
+                        savedProduct.image ||
+                        savedProduct.front ||
+                        defaultProduct.image
+
+                });
+
+            }else{
+
+                products.push(
+                    defaultProduct
+                );
+
+            }
+
+        }
+    );
+
+
+    saved.forEach(
+        function(savedProduct){
+
+            const exists =
+                products.some(
+                    function(product){
+
+                        return (
+                            String(product.id)
+                            ===
+                            String(savedProduct.id)
+                        );
+
+                    }
+                );
+
+
+            if(!exists){
+
+                products.push({
+
+                    ...savedProduct,
+
+                    image:
+                        savedProduct.image ||
+                        savedProduct.front ||
+                        "mainstream-logo.png"
+
+                });
+
+            }
+
+        }
+    );
+
+
+    return products;
+
+}
+
+
+/* GET PRODUCT ID FROM URL */
+
+function getProductId(){
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    return params.get("product");
+
+}
+
+
+/* CURRENT PRODUCT */
+
+const productId =
+    getProductId();
+
+
+let currentProduct =
+    null;
+
+
+let selectedImage =
+    "";
+
+
+/* FIND PRODUCT */
+
+function findProduct(){
+
+    const products =
+        getProducts();
+
+
+    if(productId){
+
+        currentProduct =
+            products.find(
+                function(product){
+
+                    return String(product.id)
+                        ===
+                        String(productId);
+
+                }
+            );
+
+    }
+
+
+    /*
+       FALLBACK:
+       If an old link has no product ID,
+       do NOT automatically show MAX
+       unless there is genuinely no other
+       product available.
+    */
+
+    if(!currentProduct){
+
+        currentProduct =
+            products[0] || null;
+
+    }
+
+
+    return currentProduct;
+
+}
+
+
+/* HTML ESCAPE */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* MONEY */
+
+function money(value){
+
+    return "₹" +
+        Number(value || 0)
+        .toLocaleString("en-IN");
+
+}
+
+
+/* LOAD PRODUCT */
+
+function loadProduct(){
+
+    currentProduct =
+        findProduct();
+
+
+    if(!currentProduct){
+
+        alert(
+            "Product not found."
+        );
+
+        window.location.href =
+            "inventory.html";
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "productName"
+    ).value =
+        currentProduct.name || "";
+
+
+    document.getElementById(
+        "productPrice"
+    ).value =
+        Number(
+            currentProduct.price || 0
+        );
+
+
+    document.getElementById(
+        "productCategory"
+    ).value =
+        currentProduct.category ||
+        "Racing Collection";
+
+
+    document.getElementById(
+        "productStock"
+    ).value =
+        Number(
+            currentProduct.stock || 0
+        );
+
+
+    document.getElementById(
+        "productSKU"
+    ).value =
+        currentProduct.sku || "";
+
+
+    document.getElementById(
+        "productDescription"
+    ).value =
+        currentProduct.description || "";
+
+
+    const image =
+        currentProduct.image ||
+        currentProduct.front ||
+        "mainstream-logo.png";
+
+
+    document.getElementById(
+        "previewImage"
+    ).src =
+        image;
+
+
+    document.getElementById(
+        "previewName"
+    ).textContent =
+        currentProduct.name;
+
+
+    document.getElementById(
+        "previewPrice"
+    ).textContent =
+        money(
+            currentProduct.price
+        );
+
+}
+
+
+/* IMAGE CHANGE */
+
+document.getElementById(
+    "productImage"
+).addEventListener(
+    "change",
+    function(){
+
+        const file =
+            this.files &&
+            this.files[0];
+
+
+        if(!file){
+
+            return;
+
+        }
+
+
+        if(!file.type.startsWith("image/")){
+
+            alert(
+                "Please select a valid image."
+            );
+
+            this.value = "";
+
+            return;
+
+        }
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            function(event){
+
+                selectedImage =
+                    event.target.result;
+
+
+                const preview =
+                    document.getElementById(
+                        "imagePreview"
+                    );
+
+
+                preview.src =
+                    selectedImage;
+
+
+                          preview.style.display =
+                    "block";
+
+
+                document.getElementById(
+                    "uploadTitle"
+                ).textContent =
+                    file.name;
+
+
+                document.getElementById(
+                    "uploadNote"
+                ).textContent =
+                    "New image selected";
+
+            };
+
+
+        reader.readAsDataURL(file);
+
+    }
+);
+
+
+/* =========================================
+   ACTIVITY
+========================================= */
+
+function addActivity(
+    action,
+    productName
+){
+
+    let activities = [];
+
+
+    try{
+
+        activities =
+            JSON.parse(
+                localStorage.getItem(
+                    "mainstreamActivity"
+                )
+            ) || [];
+
+    }catch(error){
+
+        activities = [];
+
+    }
+
+
+    activities.unshift({
+
+        id:
+            Date.now(),
+
+        text:
+            action +
+            ": " +
+            productName,
+
+        time:
+            new Date().toLocaleString(
+                "en-IN",
+                {
+                    day:"2-digit",
+                    month:"short",
+                    year:"numeric",
+                    hour:"2-digit",
+                    minute:"2-digit"
+                }
+            )
+
+    });
+
+
+    localStorage.setItem(
+        "mainstreamActivity",
+        JSON.stringify(
+            activities.slice(0,50)
+        )
+    );
+
+}
+
+
+/* =========================================
+   SAVE CHANGES
+========================================= */
+
+function saveChanges(event){
+
+    event.preventDefault();
+
+
+    if(!currentProduct){
+
+        alert(
+            "Product not found."
+        );
+
+        return;
+
+    }
+
+
+    const name =
+        document.getElementById(
+            "productName"
+        )
+        .value
+        .trim();
+
+
+    const price =
+        Number(
+            document.getElementById(
+                "productPrice"
+            ).value
+        );
+
+
+    const category =
+        document.getElementById(
+            "productCategory"
+        ).value;
+
+
+    const stock =
+        Number(
+            document.getElementById(
+                "productStock"
+            ).value
+        );
+
+
+    const sku =
+        document.getElementById(
+            "productSKU"
+        )
+        .value
+        .trim();
+
+
+    const description =
+        document.getElementById(
+            "productDescription"
+        )
+        .value
+        .trim();
+
+
+    if(!name){
+
+        alert(
+            "Product name is required."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !Number.isFinite(price)
+        ||
+        price < 0
+    ){
+
+        alert(
+            "Please enter a valid price."
+        );
+
+        return;
+
+    }
+
+
+    if(
+        !Number.isFinite(stock)
+        ||
+        stock < 0
+    ){
+
+        alert(
+            "Please enter a valid stock quantity."
+        );
+
+        return;
+
+    }
+
+
+    const savedProducts =
+        getSavedProducts();
+
+
+    const updatedProduct = {
+
+        ...currentProduct,
+
+        name:
+            name,
+
+        price:
+            price,
+
+        category:
+            category,
+
+        stock:
+            stock,
+
+        sku:
+            sku,
+
+        description:
+            description
+
+    };
+
+
+    if(selectedImage){
+
+        updatedProduct.image =
+            selectedImage;
+
+    }
+
+
+    const existingIndex =
+        savedProducts.findIndex(
+            function(item){
+
+                return (
+                    String(item.id)
+                    ===
+                    String(currentProduct.id)
+                );
+
+            }
+        );
+
+
+    if(existingIndex >= 0){
+
+        savedProducts[
+            existingIndex
+        ] =
+            updatedProduct;
+
+    }else{
+
+        savedProducts.push(
+            updatedProduct
+        );
+
+    }
+
+
+    localStorage.setItem(
+        "mainstreamProducts",
+        JSON.stringify(
+            savedProducts
+        )
+    );
+
+
+    addActivity(
+        "Product updated",
+        name
+    );
+
+
+    alert(
+        "Product updated successfully!"
+    );
+
+
+    window.location.href =
+        "inventory.html";
+
+}
+
+
+/* =========================================
+   DELETE PRODUCT
+========================================= */
+
+function deleteProduct(){
+
+    if(!currentProduct){
+
+        alert(
+            "Product not found."
+        );
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            'Delete "' +
+            currentProduct.name +
+            '"?'
+        );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    const savedProducts =
+        getSavedProducts();
+
+
+    const updatedProducts =
+        savedProducts.filter(
+            function(item){
+
+                return (
+                    String(item.id)
+                    !==
+                    String(currentProduct.id)
+                );
+
+            }
+        );
+
+
+    localStorage.setItem(
+        "mainstreamProducts",
+        JSON.stringify(
+            updatedProducts
+        )
+    );
+
+
+    addActivity(
+        "Product deleted",
+        currentProduct.name
+    );
+
+
+    alert(
+        "Product deleted successfully!"
+    );
+
+
+    window.location.href =
+        "inventory.html";
+
+}
+
+
+/* =========================================
+   CANCEL
+========================================= */
+
+function cancelEdit(){
+
+    window.location.href =
+        "inventory.html";
+
+}
+
+
+/* =========================================
+   INITIALIZE
+========================================= */
+
+loadProduct();
 
 </script>
 
 
-
 </body>
+
 </html>
