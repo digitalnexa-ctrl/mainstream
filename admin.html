@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>MAINSTREAM™ — Admin Dashboard</title>
 
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="mainstream-logo.png">
 
 <style>
+
+/* ================================
+   RESET
+================================ */
 
 *{
     margin:0;
@@ -18,48 +24,48 @@
 
 :root{
     --yellow:#FFD400;
-    --yellow-dark:#E8BC00;
-    --black:#0A0A0A;
-    --dark:#111111;
-    --dark2:#171717;
-    --dark3:#202020;
-    --white:#FFFFFF;
-    --muted:#999999;
+    --black:#080808;
+    --dark:#101010;
+    --card:#151515;
     --border:#292929;
+    --muted:#777;
+    --white:#fff;
     --green:#39D98A;
     --red:#FF5C5C;
-    --blue:#5B8CFF;
 }
 
 body{
     font-family:Arial,Helvetica,sans-serif;
-    background:#0d0d0d;
-    color:#fff;
+    background:var(--black);
+    color:var(--white);
     min-height:100vh;
 }
 
-button{
+button,
+select{
     font-family:inherit;
 }
 
-/* =========================
-   TOP HEADER
-========================= */
+
+/* ================================
+   HEADER
+================================ */
 
 .topbar{
     height:76px;
     background:#090909;
     border-bottom:1px solid var(--border);
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     padding:0 28px;
+
     position:sticky;
     top:0;
     z-index:100;
 }
-
-/* LOGO */
 
 .brand{
     display:flex;
@@ -71,7 +77,6 @@ button{
     width:165px;
     height:auto;
 
-    /* Makes the MAINSTREAM logo clearly yellow */
     filter:
     brightness(0)
     saturate(100%)
@@ -84,15 +89,14 @@ button{
 }
 
 .dashboard-label{
-    color:#777;
+    color:#666;
+    border-left:1px solid #333;
+    padding-left:15px;
+
     font-size:10px;
     font-weight:bold;
     letter-spacing:2px;
-    border-left:1px solid #333;
-    padding-left:15px;
 }
-
-/* TOP RIGHT */
 
 .top-actions{
     display:flex;
@@ -103,15 +107,15 @@ button{
 .notification{
     width:40px;
     height:40px;
+
     border:1px solid #333;
     border-radius:10px;
+
     background:#151515;
     color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:18px;
+
     cursor:pointer;
+    font-size:17px;
 }
 
 .notification:hover{
@@ -128,91 +132,113 @@ button{
 .profile-circle{
     width:40px;
     height:40px;
+
     border-radius:50%;
+
     background:var(--yellow);
     color:#111;
+
     display:flex;
     align-items:center;
     justify-content:center;
+
     font-weight:900;
 }
 
-.profile-text{
-    font-size:12px;
+.profile-name{
+    font-size:11px;
     font-weight:bold;
 }
 
 .profile-role{
-    color:#777;
-    font-size:10px;
+    color:#666;
+    font-size:9px;
     margin-top:3px;
 }
 
-/* =========================
-   MAIN LAYOUT
-========================= */
+
+/* ================================
+   LAYOUT
+================================ */
 
 .layout{
     display:flex;
     min-height:calc(100vh - 76px);
 }
 
-/* =========================
+
+/* ================================
    SIDEBAR
-========================= */
+================================ */
 
 .sidebar{
     width:245px;
     flex-shrink:0;
+
     background:#101010;
     border-right:1px solid var(--border);
+
     padding:25px 15px;
+
     position:sticky;
     top:76px;
+
     height:calc(100vh - 76px);
 }
 
 .menu-title{
     color:#555;
+
     font-size:9px;
     font-weight:bold;
     letter-spacing:2px;
+
     padding:0 15px;
     margin-bottom:14px;
 }
 
 .nav-item{
     width:100%;
+
     border:0;
     background:transparent;
+
     color:#999;
+
     text-align:left;
+
     padding:13px 15px;
     margin-bottom:5px;
+
     border-radius:9px;
+
     cursor:pointer;
+
     display:flex;
     align-items:center;
+
     gap:13px;
+
     font-size:13px;
     font-weight:bold;
+
     transition:.2s;
 }
 
 .nav-item:hover{
-    background:#1b1b1b;
+    background:#1c1c1c;
     color:#fff;
 }
 
 .nav-item.active{
     background:var(--yellow);
-    color:#0b0b0b;
+    color:#080808;
 }
 
 .nav-icon{
-    width:21px;
+    width:20px;
     text-align:center;
-    font-size:17px;
+    font-size:16px;
 }
 
 .sidebar-bottom{
@@ -222,21 +248,25 @@ button{
     bottom:20px;
 }
 
-/* =========================
-   CONTENT
-========================= */
+
+/* ================================
+   MAIN
+================================ */
 
 .main{
     flex:1;
     min-width:0;
+
     padding:32px;
+
     overflow:hidden;
 }
 
 .page-heading{
     display:flex;
-    justify-content:space-between;
     align-items:flex-end;
+    justify-content:space-between;
+
     margin-bottom:28px;
 }
 
@@ -255,40 +285,55 @@ button{
 .date-box{
     border:1px solid var(--border);
     background:#141414;
+
     padding:11px 15px;
+
     border-radius:8px;
+
     color:#aaa;
-    font-size:11px;
+    font-size:10px;
 }
 
-/* =========================
-   KPI CARDS
-========================= */
+
+/* ================================
+   STATS
+================================ */
 
 .stats{
     display:grid;
     grid-template-columns:repeat(4,1fr);
+
     gap:16px;
+
     margin-bottom:22px;
 }
 
 .stat-card{
-    background:#151515;
+    background:var(--card);
+
     border:1px solid var(--border);
     border-radius:14px;
+
     padding:22px;
+
     position:relative;
     overflow:hidden;
 }
 
 .stat-card::after{
     content:"";
+
     position:absolute;
+
     width:80px;
     height:80px;
+
     border-radius:50%;
+
     background:var(--yellow);
+
     opacity:.05;
+
     right:-20px;
     top:-20px;
 }
@@ -297,11 +342,13 @@ button{
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     margin-bottom:18px;
 }
 
 .stat-label{
     color:#888;
+
     font-size:10px;
     font-weight:bold;
     letter-spacing:1.5px;
@@ -310,8 +357,11 @@ button{
 .stat-icon{
     width:35px;
     height:35px;
+
     border-radius:8px;
+
     background:#222;
+
     display:flex;
     align-items:center;
     justify-content:center;
@@ -327,41 +377,57 @@ button{
     font-size:10px;
 }
 
-.up{
+.green{
     color:var(--green);
 }
 
-.down{
+.yellow{
+    color:var(--yellow);
+}
+
+.red{
     color:var(--red);
 }
 
-/* =========================
+
+/* ================================
    GRID
-========================= */
+================================ */
 
 .dashboard-grid{
     display:grid;
-    grid-template-columns:1.65fr 1fr;
+
+    grid-template-columns:1.6fr 1fr;
+
     gap:18px;
+
     margin-bottom:18px;
 }
 
-/* =========================
-   PANELS
-========================= */
+
+/* ================================
+   PANEL
+================================ */
 
 .panel{
-    background:#151515;
+    background:var(--card);
+
     border:1px solid var(--border);
+
     border-radius:14px;
+
     overflow:hidden;
+
+    margin-bottom:18px;
 }
 
 .panel-header{
     padding:20px 22px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     border-bottom:1px solid var(--border);
 }
 
@@ -377,262 +443,98 @@ button{
 }
 
 .panel-action{
-    border:0;
-    background:transparent;
+    border:1px solid #333;
+
+    background:#111;
     color:var(--yellow);
-    font-size:10px;
-    font-weight:bold;
-    cursor:pointer;
-}
 
-/* =========================
-   CHART
-========================= */
+    padding:8px 11px;
 
-.chart-wrap{
-    padding:22px;
-}
+    border-radius:6px;
 
-.chart{
-    height:245px;
-    position:relative;
-    border-bottom:1px solid #292929;
-    background:
-    linear-gradient(to bottom,
-    transparent 24%,
-    #222 25%,
-    transparent 26%,
-    transparent 49%,
-    #222 50%,
-    transparent 51%,
-    transparent 74%,
-    #222 75%,
-    transparent 76%);
-}
-
-.chart svg{
-    width:100%;
-    height:100%;
-}
-
-.chart-labels{
-    display:flex;
-    justify-content:space-between;
-    color:#555;
     font-size:9px;
-    margin-top:10px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    text-decoration:none;
 }
 
-/* =========================
-   MINI SALES
-========================= */
+.panel-action:hover{
+    background:var(--yellow);
+    color:#000;
+}
 
-.sales-summary{
+
+/* ================================
+   SALES
+================================ */
+
+.sales-content{
     padding:22px;
 }
 
 .big-sales{
     font-size:32px;
     font-weight:900;
-    margin-bottom:6px;
 }
 
 .sales-note{
     color:#666;
     font-size:10px;
+    margin-top:5px;
 }
 
 .mini-bars{
+    height:175px;
+
     display:flex;
     align-items:flex-end;
-    justify-content:space-between;
-    height:180px;
-    margin-top:25px;
+
     gap:8px;
+
+    margin-top:25px;
+
+    border-bottom:1px solid #292929;
 }
 
 .bar{
     flex:1;
+
+    min-height:8px;
+
     background:#292929;
+
     border-radius:5px 5px 0 0;
-    min-height:15px;
+
+    transition:.3s;
 }
 
 .bar.highlight{
     background:var(--yellow);
 }
 
-/* =========================
-   ORDERS
-========================= */
-
-.table-wrap{
-    overflow-x:auto;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    min-width:650px;
-}
-
-th{
-    color:#555;
-    font-size:9px;
-    letter-spacing:1.3px;
-    text-align:left;
-    padding:15px 22px;
-    border-bottom:1px solid var(--border);
-}
-
-td{
-    padding:17px 22px;
-    border-bottom:1px solid #222;
-    font-size:12px;
-    color:#ddd;
-}
-
-tr:last-child td{
-    border-bottom:0;
-}
-
-.order-id{
-    color:var(--yellow);
-    font-weight:bold;
-}
-
-.product-name{
-    font-weight:bold;
-}
-
-.status{
-    display:inline-flex;
-    padding:6px 9px;
-    border-radius:20px;
-    font-size:8px;
-    font-weight:bold;
-    letter-spacing:.5px;
-}
-
-.status.delivered{
-    background:rgba(57,217,138,.12);
-    color:var(--green);
-}
-
-.status.processing{
-    background:rgba(255,212,0,.12);
-    color:var(--yellow);
-}
-
-.status.pending{
-    background:rgba(255,92,92,.12);
-    color:var(--red);
-}
-
-/* =========================
-   PRODUCTS
-========================= */
-
-.product-row{
+.chart-labels{
     display:flex;
-    align-items:center;
-    gap:13px;
-    padding:15px 22px;
-    border-bottom:1px solid #222;
+    gap:8px;
+
+    margin-top:8px;
 }
 
-.product-row:last-child{
-    border-bottom:0;
-}
-
-.product-image{
-    width:45px;
-    height:45px;
-    border-radius:7px;
-    background:#222;
-    overflow:hidden;
-    flex-shrink:0;
-}
-
-.product-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-.product-info{
+.chart-labels span{
     flex:1;
+
+    text-align:center;
+
+    color:#555;
+
+    font-size:8px;
 }
 
-.product-info strong{
-    display:block;
-    font-size:11px;
-}
 
-.product-info span{
-    display:block;
-    color:#666;
-    font-size:9px;
-    margin-top:4px;
-}
-
-.product-price{
-    font-size:11px;
-    font-weight:bold;
-}
-
-/* =========================
-   LOWER GRID
-========================= */
-
-.lower-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:18px;
-}
-
-/* =========================
-   INVENTORY
-========================= */
-
-.inventory-row{
-    padding:16px 22px;
-    border-bottom:1px solid #222;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-}
-
-.inventory-row:last-child{
-    border-bottom:0;
-}
-
-.stock-name{
-    font-size:11px;
-    font-weight:bold;
-}
-
-.stock-count{
-    font-size:10px;
-    color:#777;
-    margin-top:4px;
-}
-
-.stock-warning{
-    color:var(--red);
-    font-size:9px;
-    font-weight:bold;
-}
-
-.stock-ok{
-    color:var(--green);
-    font-size:9px;
-    font-weight:bold;
-}
-
-/* =========================
+/* ================================
    ACTIVITY
-========================= */
+================================ */
 
 .activity{
     padding:5px 22px;
@@ -640,8 +542,11 @@ tr:last-child td{
 
 .activity-item{
     display:flex;
-    gap:13px;
+
+    gap:12px;
+
     padding:16px 0;
+
     border-bottom:1px solid #222;
 }
 
@@ -652,16 +557,22 @@ tr:last-child td{
 .activity-dot{
     width:8px;
     height:8px;
+
     border-radius:50%;
+
     background:var(--yellow);
-    margin-top:4px;
+
+    margin-top:5px;
+
     flex-shrink:0;
 }
 
 .activity-text{
-    font-size:10px;
-    line-height:1.5;
     color:#aaa;
+
+    font-size:10px;
+
+    line-height:1.5;
 }
 
 .activity-text strong{
@@ -670,21 +581,179 @@ tr:last-child td{
 
 .activity-time{
     color:#555;
-    margin-top:3px;
+
     font-size:8px;
+
+    margin-top:4px;
 }
 
-/* =========================
+
+/* ================================
+   TABLE
+================================ */
+
+.table-wrap{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+
+    min-width:650px;
+}
+
+th{
+    color:#555;
+
+    font-size:9px;
+
+    letter-spacing:1.3px;
+
+    text-align:left;
+
+    padding:15px 22px;
+
+    border-bottom:1px solid var(--border);
+}
+
+td{
+    padding:17px 22px;
+
+    border-bottom:1px solid #222;
+
+    font-size:11px;
+
+    color:#ddd;
+}
+
+tr:last-child td{
+    border-bottom:0;
+}
+
+.status{
+    display:inline-flex;
+
+    padding:6px 9px;
+
+    border-radius:20px;
+
+    font-size:8px;
+
+    font-weight:bold;
+}
+
+.status.good{
+    background:rgba(57,217,138,.12);
+    color:var(--green);
+}
+
+.status.low{
+    background:rgba(255,212,0,.12);
+    color:var(--yellow);
+}
+
+.status.out{
+    background:rgba(255,92,92,.12);
+    color:var(--red);
+}
+
+
+/* ================================
+   PRODUCTS
+================================ */
+
+.product-row{
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+
+    padding:15px 22px;
+
+    border-bottom:1px solid #222;
+}
+
+.product-row:last-child{
+    border-bottom:0;
+}
+
+.product-image{
+    width:45px;
+    height:45px;
+
+    background:#222;
+
+    border-radius:7px;
+
+    overflow:hidden;
+
+    flex-shrink:0;
+}
+
+.product-image img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+}
+
+.product-info{
+    flex:1;
+}
+
+.product-info strong{
+    display:block;
+
+    font-size:11px;
+}
+
+.product-info span{
+    display:block;
+
+    color:#666;
+
+    font-size:9px;
+
+    margin-top:4px;
+}
+
+.product-price{
+    color:var(--yellow);
+
+    font-size:11px;
+    font-weight:bold;
+}
+
+
+/* ================================
+   EMPTY
+================================ */
+
+.empty{
+    padding:30px;
+
+    text-align:center;
+
+    color:#555;
+
+    font-size:10px;
+}
+
+
+/* ================================
    MOBILE NAV
-========================= */
+================================ */
 
 .mobile-nav{
     display:none;
 }
 
-/* =========================
+
+/* ================================
    RESPONSIVE
-========================= */
+================================ */
 
 @media(max-width:1100px){
 
@@ -696,15 +765,13 @@ tr:last-child td{
         grid-template-columns:1fr;
     }
 
-    .lower-grid{
-        grid-template-columns:1fr;
-    }
 }
 
 @media(max-width:800px){
 
     .topbar{
         height:64px;
+
         padding:0 16px;
     }
 
@@ -734,9 +801,9 @@ tr:last-child td{
     }
 
     .main{
-        padding:20px 15px 90px;
         width:100%;
-        overflow:hidden;
+
+        padding:20px 15px 90px;
     }
 
     .page-heading{
@@ -749,11 +816,13 @@ tr:last-child td{
 
     .date-box{
         display:inline-block;
+
         margin-top:15px;
     }
 
     .stats{
         grid-template-columns:1fr 1fr;
+
         gap:10px;
     }
 
@@ -765,55 +834,64 @@ tr:last-child td{
         font-size:22px;
     }
 
-    .stat-icon{
-        width:30px;
-        height:30px;
-        font-size:13px;
-    }
-
     .dashboard-grid{
         grid-template-columns:1fr;
-    }
-
-    .lower-grid{
-        grid-template-columns:1fr;
-    }
-
-    .chart{
-        height:190px;
     }
 
     .panel-header{
         padding:17px;
     }
 
-    .table-wrap{
-        margin:0;
+    .sales-content{
+        padding:17px;
+    }
+
+    .mini-bars{
+        height:140px;
+    }
+
+    .activity{
+        padding:5px 17px;
     }
 
     .mobile-nav{
-        display:flex;
         position:fixed;
-        bottom:0;
+
+        display:flex;
+
         left:0;
         right:0;
+        bottom:0;
+
         height:68px;
+
         background:#101010;
-        border-top:1px solid #292929;
+
+        border-top:1px solid var(--border);
+
         z-index:200;
+
         justify-content:space-around;
+
         align-items:center;
     }
 
     .mobile-nav button{
         border:0;
         background:none;
+
         color:#666;
+
         font-size:18px;
+
         display:flex;
         flex-direction:column;
+
         align-items:center;
+
         gap:4px;
+
+        cursor:pointer;
     }
 
     .mobile-nav button span{
@@ -824,16 +902,20 @@ tr:last-child td{
     .mobile-nav button.active{
         color:var(--yellow);
     }
+
 }
 
 </style>
+
 </head>
+
 
 <body>
 
-<!-- =========================
-     TOP BAR
-========================= -->
+
+<!-- ================================
+     HEADER
+================================ -->
 
 <header class="topbar">
 
@@ -853,9 +935,12 @@ tr:last-child td{
 
     <div class="top-actions">
 
-        <button class="notification">
+        <button
+            class="notification"
+            onclick="openActivity()">
             🔔
         </button>
+
 
         <div class="admin-profile">
 
@@ -864,10 +949,15 @@ tr:last-child td{
             </div>
 
             <div class="profile-text">
-                ADMIN
+
+                <div>
+                    ADMIN
+                </div>
+
                 <div class="profile-role">
                     Store Manager
                 </div>
+
             </div>
 
         </div>
@@ -877,11 +967,13 @@ tr:last-child td{
 </header>
 
 
+
 <div class="layout">
 
-<!-- =========================
+
+<!-- ================================
      SIDEBAR
-========================= -->
+================================ -->
 
 <aside class="sidebar">
 
@@ -889,59 +981,141 @@ tr:last-child td{
         OVERVIEW
     </div>
 
-    <button class="nav-item active">
-        <span class="nav-icon">▦</span>
+
+    <button
+        class="nav-item active"
+        onclick="go('admin.html')">
+
+        <span class="nav-icon">
+            ▦
+        </span>
+
         Dashboard
+
     </button>
 
-    <div class="menu-title" style="margin-top:25px;">
+
+    <div
+        class="menu-title"
+        style="margin-top:25px;">
+
         STORE
+
     </div>
 
-    <button class="nav-item">
-        <span class="nav-icon">▣</span>
+
+    <button
+        class="nav-item"
+        onclick="go('orders.html')">
+
+        <span class="nav-icon">
+            ▣
+        </span>
+
         Orders
+
     </button>
 
-    <button class="nav-item">
-        <span class="nav-icon">◈</span>
+
+    <button
+        class="nav-item"
+        onclick="go('inventory.html')">
+
+        <span class="nav-icon">
+            ◈
+        </span>
+
         Products
+
     </button>
 
-    <button class="nav-item">
-        <span class="nav-icon">▤</span>
+
+    <button
+        class="nav-item"
+        onclick="go('inventory.html')">
+
+        <span class="nav-icon">
+            ▤
+        </span>
+
         Inventory
+
     </button>
 
-    <button class="nav-item">
-        <span class="nav-icon">♙</span>
+
+    <button
+        class="nav-item"
+        onclick="showMessage('Customers')">
+
+        <span class="nav-icon">
+            ♙
+        </span>
+
         Customers
+
     </button>
 
-    <button class="nav-item">
-        <span class="nav-icon">♡</span>
+
+    <button
+        class="nav-item"
+        onclick="showMessage('Wishlist')">
+
+        <span class="nav-icon">
+            ♡
+        </span>
+
         Wishlist
+
     </button>
 
-    <div class="menu-title" style="margin-top:25px;">
+
+    <div
+        class="menu-title"
+        style="margin-top:25px;">
+
         ANALYTICS
+
     </div>
 
-    <button class="nav-item">
-        <span class="nav-icon">↗</span>
+
+    <button
+        class="nav-item"
+        onclick="showMessage('Sales')">
+
+        <span class="nav-icon">
+            ↗
+        </span>
+
         Sales
+
     </button>
 
-    <button class="nav-item">
-        <span class="nav-icon">⚙</span>
+
+    <button
+        class="nav-item"
+        onclick="showMessage('Settings')">
+
+        <span class="nav-icon">
+            ⚙
+        </span>
+
         Settings
+
     </button>
+
 
     <div class="sidebar-bottom">
 
-        <button class="nav-item">
-            <span class="nav-icon">↪</span>
+        <button
+            class="nav-item"
+            onclick="logout()">
+
+            <span class="nav-icon">
+                ↪
+            </span>
+
             Logout
+
         </button>
 
     </div>
@@ -949,34 +1123,49 @@ tr:last-child td{
 </aside>
 
 
-<!-- =========================
+
+<!-- ================================
      MAIN
-========================= -->
+================================ -->
 
 <main class="main">
+
+
+    <!-- PAGE HEADING -->
 
     <div class="page-heading">
 
         <div>
-            <h1>Dashboard</h1>
+
+            <h1>
+                Dashboard
+            </h1>
 
             <p>
                 Welcome back. Here's what's happening with your store.
             </p>
+
         </div>
 
-        <div class="date-box">
+
+        <div
+            class="date-box"
+            id="currentDate">
+
             SEPTEMBER 2026
+
         </div>
 
     </div>
 
 
-    <!-- =====================
+
+    <!-- ============================
          STATS
-    ====================== -->
+    ============================= -->
 
     <section class="stats">
+
 
         <div class="stat-card">
 
@@ -992,15 +1181,22 @@ tr:last-child td{
 
             </div>
 
-            <div class="stat-number">
+
+            <div
+                class="stat-number"
+                id="revenueValue">
+
                 ₹0
+
             </div>
 
-            <div class="stat-change up">
-                ↑ 0% this month
+
+            <div class="stat-change green">
+                Store revenue
             </div>
 
         </div>
+
 
 
         <div class="stat-card">
@@ -1017,15 +1213,22 @@ tr:last-child td{
 
             </div>
 
-            <div class="stat-number">
+
+            <div
+                class="stat-number"
+                id="ordersValue">
+
                 0
+
             </div>
 
-            <div class="stat-change up">
-                ↑ 0% this month
+
+            <div class="stat-change">
+                Orders received
             </div>
 
         </div>
+
 
 
         <div class="stat-card">
@@ -1042,15 +1245,22 @@ tr:last-child td{
 
             </div>
 
-            <div class="stat-number">
+
+            <div
+                class="stat-number"
+                id="productsValue">
+
                 7
+
             </div>
 
-            <div class="stat-change">
+
+            <div class="stat-change yellow">
                 Active products
             </div>
 
         </div>
+
 
 
         <div class="stat-card">
@@ -1058,39 +1268,51 @@ tr:last-child td{
             <div class="stat-top">
 
                 <div class="stat-label">
-                    CUSTOMERS
+                    INVENTORY
                 </div>
 
                 <div class="stat-icon">
-                    👥
+                    📊
                 </div>
 
             </div>
 
-            <div class="stat-number">
+
+            <div
+                class="stat-number"
+                id="inventoryValue">
+
                 0
+
             </div>
 
+
             <div class="stat-change">
-                Registered customers
+                Units available
             </div>
 
         </div>
 
+
     </section>
 
 
-    <!-- =====================
-         CHART + SALES
-    ====================== -->
+
+    <!-- ============================
+         SALES + ACTIVITY
+    ============================= -->
 
     <section class="dashboard-grid">
+
+
+        <!-- REVENUE -->
 
         <div class="panel">
 
             <div class="panel-header">
 
                 <div>
+
                     <div class="panel-title">
                         Revenue Overview
                     </div>
@@ -1098,80 +1320,101 @@ tr:last-child td{
                     <div class="panel-subtitle">
                         Store revenue performance
                     </div>
+
                 </div>
 
-                <select class="panel-action" onchange="changePeriod(this.value)">
-    <option value="month">THIS MONTH</option>
-    <option value="week">THIS WEEK</option>
-    <option value="year">THIS YEAR</option>
+
+                <select
+                    class="panel-action"
+                    onchange="changePeriod(this.value)">
+
+                    <option value="month">
+                        THIS MONTH
+                    </option>
+
+                    <option value="week">
+                        THIS WEEK
+                    </option>
+
+                    <option value="year">
+                        THIS YEAR
+                    </option>
+
                 </select>
 
             </div>
 
 
-            <div class="chart-wrap">
+            <div class="sales-content">
 
-                <div class="chart">
+                <div
+                    class="big-sales"
+                    id="salesValue">
 
-                    <svg
-                        viewBox="0 0 700 245"
-                        preserveAspectRatio="none">
+                    ₹0
 
-                        <defs>
+                </div>
 
-                            <linearGradient
-                                id="area"
-                                x1="0"
-                                y1="0"
-                                x2="0"
-                                y2="1">
 
-                                <stop
-                                    offset="0%"
-                                    stop-color="#FFD400"
-                                    stop-opacity=".25"/>
+                <div
+                    class="sales-note"
+                    id="salesNote">
 
-                                <stop
-                                    offset="100%"
-                                    stop-color="#FFD400"
-                                    stop-opacity="0"/>
+                    Current month revenue
 
-                            </linearGradient>
+                </div>
 
-                        </defs>
 
-                        <path
-                            d="M0 210
-                            C70 205 80 170 145 180
-                            C210 190 220 115 285 130
-                            C350 145 365 90 430 105
-                            C495 120 505 65 565 80
-                            C625 95 650 45 700 55
-                            L700 245
-                            L0 245 Z"
-                            fill="url(#area)"/>
+                <div class="mini-bars">
 
-                        <path
-                            d="M0 210
-                            C70 205 80 170 145 180
-                            C210 190 220 115 285 130
-                            C350 145 365 90 430 105
-                            C495 120 505 65 565 80
-                            C625 95 650 45 700 55"
-                            fill="none"
-                            stroke="#FFD400"
-                            stroke-width="4"/>
+                    <div
+                        class="bar highlight"
+                        style="height:30%">
+                    </div>
 
-                    </svg>
+                    <div
+                        class="bar"
+                        style="height:45%">
+                    </div>
+
+                    <div
+                        class="bar"
+                        style="height:25%">
+                    </div>
+
+                    <div
+                        class="bar"
+                        style="height:65%">
+                    </div>
+
+                    <div
+                        class="bar"
+                        style="height:40%">
+                    </div>
+
+                    <div
+                        class="bar"
+                        style="height:75%">
+                    </div>
+
+                    <div
+                        class="bar"
+                        style="height:55%">
+                    </div>
 
                 </div>
 
 
                 <div class="chart-labels">
-                    <span>W1</span>
-                    <span>W2</span>
-                    <span>W3</span>
-                    <span>W4</span>
+
+                    <span>1</span>
+                    <span>2</span>
+                    <span>3</span>
+                    <span>4</span>
+                    <span>5</span>
+                    <span>6</span>
+                    <span>7</span>
+
                 </div>
 
             </div>
@@ -1179,53 +1422,42 @@ tr:last-child td{
         </div>
 
 
-        <div class="panel">
 
-            <div class="panel-header">
+        <!-- ACTIVITY -->
 
-                <div>
-                    <div class="panel-title">
-                        Sales
-                    </div>
+<div class="panel">
 
-                    <div class="panel-subtitle">
-                        Monthly performance
-                    </div>
-                </div>
+<div class="panel-header">
 
-                <button class="panel-action">
-    2026
-</button>
+<div>
+
+<div class="panel-title"> Recent Activity
 
 </div>
 
-<div class="sales-summary">
+<div class="panel-subtitle"> Latest admin actions
 
-    <div class="big-sales">
-        ₹0
-    </div>
+</div>
 
-    <div class="sales-note">
-        Total sales this month
-    </div>
+</div>
 
-    <div class="mini-bars">
+<a
 
-        <div class="bar" style="height:25%"></div>
+</a>
 
-        <div class="bar" style="height:42%"></div>
+</div>
 
-        <div class="bar" style="height:35%"></div>
+href="activity.html" class="panel-action">
 
-        <div class="bar" style="height:55%"></div>
+VIEW ALL →
 
-        <div class="bar" style="height:48%"></div>
+<div
 
-        <div class="bar highlight" style="height:70%"></div>
+class="activity" id="dashboardActivity">
 
-        <div class="bar" style="height:60%"></div>
+<div class="empty"> No activity yet.
 
-    </div>
+</div>
 
 </div>
 
@@ -1233,559 +1465,878 @@ tr:last-child td{
 
     </section>
 
-    <!-- =========================
-     ORDERS
-========================= -->
+    <!-- ============================
+         INVENTORY
+    ============================= -->
 
-<section class="panel" style="margin-bottom:18px;">
+<section class="panel">
 
-    <div class="panel-header">
+<div class="panel-header">
 
-        <div>
-            <div class="panel-title">
-                Recent Orders
+<div>
+
+<div class="panel-title"> Inventory Status
+
+</div>
+
+<div class="panel-subtitle"> Current product stock
+
+</div>
+
+                    </div>
+
+                <a
+                    href="inventory.html"
+                    class="panel-action">
+                    VIEW ALL →
+                </a>
+
             </div>
 
-            <div class="panel-subtitle">
-                Latest customer orders
+            <div
+                class="product-list"
+                id="productList">
+
             </div>
-        </div>
 
-        <a href="orders.html" class="panel-action">
-    VIEW ALL →
-</a>
-
-    </div>
+        </section>
 
 
-    <div class="table-wrap">
+        <!-- RECENT ORDERS -->
 
-        <table>
+        <section class="panel full">
 
-            <thead>
-                <tr>
-                    <th>ORDER ID</th>
-                    <th>PRODUCT</th>
-                    <th>CUSTOMER</th>
-                    <th>SIZE</th>
-                    <th>AMOUNT</th>
-                    <th>STATUS</th>
-                </tr>
-            </thead>
+            <div class="panel-header">
 
-            <tbody>
+                <div>
 
-                <tr>
+                    <div class="panel-title">
+                        Recent Orders
+                    </div>
 
-                    <td class="order-id">
-                        —
-                    </td>
+                    <div class="panel-subtitle">
+                        Latest customer orders
+                    </div>
 
-                    <td class="product-name">
-                        No orders yet
-                    </td>
-
-                    <td>
-                        —
-                    </td>
-
-                    <td>
-                        —
-                    </td>
-
-                    <td>
-                        ₹0
-                    </td>
-
-                    <td>
-                        <span class="status processing">
-                            WAITING
-                        </span>
-                    </td>
-
-                </tr>
-
-            </tbody>
-
-        </table>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     PRODUCTS + INVENTORY
-========================= -->
-
-<section class="dashboard-grid">
-
-
-    <!-- TOP PRODUCTS -->
-
-    <div class="panel">
-
-        <div class="panel-header">
-
-            <div>
-                <div class="panel-title">
-                    Top Products
                 </div>
 
-                <div class="panel-subtitle">
-                    Your current collection
-                </div>
+                <a
+                    href="orders.html"
+                    class="panel-action">
+                    VIEW ALL →
+                </a>
+
             </div>
 
-            <a href="shop.html" class="panel-action">
-    PRODUCTS →
-            </a>
 
-        </div>
+            <div class="table-wrap">
 
+                <table>
 
-        <div class="product-row">
+                    <thead>
 
-            <div class="product-image">
-                <img src="max-front.png" alt="MAX / 03 TEE">
+                        <tr>
+
+                            <th>
+                                ORDER
+                            </th>
+
+                            <th>
+                                CUSTOMER
+                            </th>
+
+                            <th>
+                                TOTAL
+                            </th>
+
+                            <th>
+                                STATUS
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="ordersTable">
+
+                    </tbody>
+
+                </table>
+
             </div>
 
-            <div class="product-info">
-                <strong>MAX / 03 TEE</strong>
-                <span>Racing Collection</span>
-            </div>
-
-            <div class="product-price">
-                ₹999
-            </div>
-
-        </div>
+        </section>
 
 
-        <div class="product-row">
+        <!-- INVENTORY STATUS -->
 
-            <div class="product-image">
-                <img src="lewis-front.png" alt="LEWIS / 44 TEE">
-            </div>
+        <section class="panel full">
 
-            <div class="product-info">
-                <strong>LEWIS / 44 TEE</strong>
-                <span>Racing Collection</span>
-            </div>
+            <div class="panel-header">
 
-            <div class="product-price">
-                ₹999
-            </div>
+                <div>
 
-        </div>
+                    <div class="panel-title">
+                        Inventory Status
+                    </div>
 
+                    <div class="panel-subtitle">
+                        Current product stock
+                    </div>
 
-        <div class="product-row">
-
-            <div class="product-image">
-                <img src="charles-front.png" alt="CHARLES / 16 TEE">
-            </div>
-
-            <div class="product-info">
-                <strong>CHARLES / 16 TEE</strong>
-                <span>Racing Collection</span>
-            </div>
-
-            <div class="product-price">
-                ₹999
-            </div>
-
-        </div>
-
-
-        <div class="product-row">
-
-            <div class="product-image">
-                <img src="lando-front.png" alt="LANDO / 01 TEE">
-            </div>
-
-            <div class="product-info">
-                <strong>LANDO / 01 TEE</strong>
-                <span>Racing Collection</span>
-            </div>
-
-            <div class="product-price">
-                ₹999
-            </div>
-
-        </div>
-
-
-        <div class="product-row">
-
-            <div class="product-image">
-                <img src="oscar-front.png" alt="OSCAR / 81 TEE">
-            </div>
-
-            <div class="product-info">
-                <strong>OSCAR / 81 TEE</strong>
-                <span>Racing Collection</span>
-            </div>
-
-            <div class="product-price">
-                ₹999
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- INVENTORY -->
-
-    <div class="panel">
-
-        <div class="panel-header">
-
-            <div>
-                <div class="panel-title">
-                    Inventory Status
                 </div>
 
-                <div class="panel-subtitle">
-                    Stock monitoring
-                </div>
+                <a
+                    href="inventory.html"
+                    class="panel-action">
+                    MANAGE →
+                </a>
+
             </div>
 
-            <a href="inventory.html" class="panel-action">
-    MANAGE →
-            </a>
 
-        </div>
+            <div class="table-wrap">
 
+                <table>
 
-        <div class="inventory-row">
+                    <thead>
 
-            <div>
-                <div class="stock-name">
-                    MAX / 03 TEE
-                </div>
+                        <tr>
 
-                <div class="stock-count">
-                    Stock available
-                </div>
+                            <th>
+                                PRODUCT
+                            </th>
+
+                            <th>
+                                PRICE
+                            </th>
+
+                            <th>
+                                STOCK
+                            </th>
+
+                            <th>
+                                STATUS
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="inventoryTable">
+
+                    </tbody>
+
+                </table>
+
             </div>
 
-            <div class="stock-ok">
-                IN STOCK
-            </div>
-
-        </div>
+        </section>
 
 
-        <div class="inventory-row">
+        <!-- RECENT ACTIVITY -->
 
-            <div>
-                <div class="stock-name">
-                    LEWIS / 44 TEE
-                </div>
+        <section class="panel full">
 
-                <div class="stock-count">
-                    Stock available
-                </div>
-            </div>
+            <div class="panel-header">
 
-            <div class="stock-ok">
-                IN STOCK
-            </div>
+                <div>
 
-        </div>
+                    <div class="panel-title">
+                        Recent Activity
+                    </div>
 
+                    <div class="panel-subtitle">
+                        Latest admin activity
+                    </div>
 
-        <div class="inventory-row">
-
-            <div>
-                <div class="stock-name">
-                    CHARLES / 16 TEE
-                </div>
-
-                <div class="stock-count">
-                    Stock available
-                </div>
-            </div>
-
-            <div class="stock-ok">
-                IN STOCK
-            </div>
-
-        </div>
-
-
-        <div class="inventory-row">
-
-            <div>
-                <div class="stock-name">
-                    LANDO / 01 TEE
                 </div>
 
-                <div class="stock-count">
-                    Stock available
-                </div>
-            </div>
-
-            <div class="stock-ok">
-                IN STOCK
-            </div>
-
-        </div>
-
-
-        <div class="inventory-row">
-
-            <div>
-                <div class="stock-name">
-                    OSCAR / 81 TEE
-                </div>
-
-                <div class="stock-count">
-                    Stock available
-                </div>
-            </div>
-
-            <div class="stock-ok">
-                IN STOCK
-            </div>
-
-        </div>
-
-
-        <div class="inventory-row">
-
-            <div>
-                <div class="stock-name">
-                    GEORGE / 63 TEE
-                </div>
-
-                <div class="stock-count">
-                    Stock available
-                </div>
-            </div>
-
-            <div class="stock-ok">
-                IN STOCK
-            </div>
-
-        </div>
-
-
-        <div class="inventory-row">
-
-            <div>
-                <div class="stock-name">
-                    KIMI / 12 TEE
-                </div>
-
-                <div class="stock-count">
-                    Stock available
-                </div>
-            </div>
-
-            <div class="stock-ok">
-                IN STOCK
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     ACTIVITY
-========================= -->
-
-<section class="panel" style="margin-top:18px;">
-
-    <div class="panel-header">
-
-        <div>
-            <div class="panel-title">
-                Recent Activity
-            </div>
-
-            <div class="panel-subtitle">
-                Store activity and updates
-            </div>
-        </div>
-
-        <a href="activity.html" class="panel-action">
-    VIEW ALL →
-        </a>
-
-    </div>
-
-
-    <div class="activity">
-
-
-        <div class="activity-item">
-
-            <div class="activity-dot"></div>
-
-            <div class="activity-text">
-
-                <strong>MAINSTREAM™</strong>
-                admin dashboard initialized.
-
-                <div class="activity-time">
-                    Today
-                </div>
+                <a
+                    href="activity.html"
+                    class="panel-action">
+                    VIEW ALL →
+                </a>
 
             </div>
 
-        </div>
 
-
-        <div class="activity-item">
-
-            <div class="activity-dot"></div>
-
-            <div class="activity-text">
-
-                <strong>7 products</strong>
-                are currently listed in the store.
-
-                <div class="activity-time">
-                    Today
-                </div>
+            <div
+                class="activity-list"
+                id="dashboardActivity">
 
             </div>
 
-        </div>
+        </section>
 
 
-        <div class="activity-item">
+    </main>
 
-            <div class="activity-dot"></div>
-
-            <div class="activity-text">
-
-                <strong>MAINSTREAM™</strong>
-                store dashboard is ready.
-
-                <div class="activity-time">
-                    Today
-                </div>
-
-            </div>
-
-        </div>
+</div>
 
 
-    </div>
-
-</section>
-
-
-<!-- =========================
-     MOBILE NAVIGATION
-========================= -->
+<!-- MOBILE NAVIGATION -->
 
 <nav class="mobile-nav">
 
-    <button class="active">
-        ▦
-        <span>HOME</span>
-    </button>
+    <a
+        href="admin.html"
+        class="active">
 
-    <button>
-        📦
-        <span>ORDERS</span>
-    </button>
+        <span class="mobile-nav-icon">
+            ⌂
+        </span>
 
-    <button>
-        👕
-        <span>PRODUCTS</span>
-    </button>
+        DASHBOARD
 
-    <button>
-        📈
-        <span>SALES</span>
-    </button>
+    </a>
 
-    <button>
-        ⚙
-        <span>MORE</span>
-    </button>
+
+    <a href="orders.html">
+
+        <span class="mobile-nav-icon">
+            ▣
+        </span>
+
+        ORDERS
+
+    </a>
+
+
+    <a href="inventory.html">
+
+        <span class="mobile-nav-icon">
+            ◫
+        </span>
+
+        PRODUCTS
+
+    </a>
+
+
+    <a href="activity.html">
+
+        <span class="mobile-nav-icon">
+            ≡
+        </span>
+
+        ACTIVITY
+
+    </a>
 
 </nav>
 
-<script>
 
 <script>
 
-function changePeriod(period){
+/* =========================================
+   MAINSTREAM™ ADMIN DATA
+========================================= */
 
-    const salesAmount =
-        document.querySelector(".big-sales");
 
-    const salesNote =
-        document.querySelector(".sales-note");
+/* DEFAULT PRODUCTS */
 
-    const bars =
-        document.querySelectorAll(".mini-bars .bar");
+const defaultProducts = [
 
-    if(period === "week"){
+    {
+        id:"max",
+        name:"MAX / 03 TEE",
+        price:999,
+        stock:0
+    },
 
-        salesAmount.textContent = "₹0";
+    {
+        id:"lewis",
+        name:"LEWIS / 44 TEE",
+        price:999,
+        stock:0
+    },
 
-        salesNote.textContent =
-            "Total sales this week";
+    {
+        id:"charles",
+        name:"CHARLES / 16 TEE",
+        price:999,
+        stock:0
+    },
 
-        bars[0].style.height = "20%";
-        bars[1].style.height = "20%";
-        bars[2].style.height = "20%";
-        bars[3].style.height = "20%";
-        bars[4].style.height = "20%";
-        bars[5].style.height = "20%";
-        bars[6].style.height = "20%";
+    {
+        id:"lando",
+        name:"LANDO / 01 TEE",
+        price:999,
+        stock:0
+    },
 
+    {
+        id:"oscar",
+        name:"OSCAR / 81 TEE",
+        price:999,
+        stock:0
+    },
+
+    {
+        id:"george",
+        name:"GEORGE / 63 TEE",
+        price:999,
+        stock:0
+    },
+
+    {
+        id:"kimi",
+        name:"KIMI / 12 TEE",
+        price:999,
+        stock:0
     }
 
-    else if(period === "year"){
+];
 
-        salesAmount.textContent = "₹0";
 
-        salesNote.textContent =
-            "Total sales this year";
+/* GET PRODUCTS */
 
-        bars[0].style.height = "20%";
-        bars[1].style.height = "20%";
-        bars[2].style.height = "20%";
-        bars[3].style.height = "20%";
-        bars[4].style.height = "20%";
-        bars[5].style.height = "20%";
-        bars[6].style.height = "20%";
+function getProducts(){
 
-    }
+    try{
 
-    else{
+        return JSON.parse(
+            localStorage.getItem(
+                "mainstreamProducts"
+            )
+        ) || [];
 
-        salesAmount.textContent = "₹0";
+    }catch(error){
 
-        salesNote.textContent =
-            "Total sales this month";
-
-        bars[0].style.height = "20%";
-        bars[1].style.height = "20%";
-        bars[2].style.height = "20%";
-        bars[3].style.height = "20%";
-        bars[4].style.height = "20%";
-        bars[5].style.height = "20%";
-        bars[6].style.height = "20%";
+        return [];
 
     }
 
 }
 
-</script>
+
+/* GET ORDERS */
+
+function getOrders(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "mainstreamOrders"
+            )
+        ) || [];
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+/* GET ACTIVITY */
+
+function getActivity(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "mainstreamActivity"
+            )
+        ) || [];
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+/* SAFE TEXT */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* RENDER PRODUCTS */
+
+function renderProducts(){
+
+    const savedProducts =
+        getProducts();
+
+    const products =
+        savedProducts.length
+        ? savedProducts
+        : defaultProducts;
+
+
+    document.getElementById(
+        "totalProducts"
+    ).textContent =
+        products.length;
+
+
+    let totalStock = 0;
+
+
+    products.forEach(function(product){
+
+        totalStock +=
+            Number(product.stock || 0);
+
+    });
+
+
+    document.getElementById(
+        "totalStock"
+    ).textContent =
+        totalStock;
+
+
+    const productList =
+        document.getElementById(
+            "productList"
+        );
+
+
+    productList.innerHTML = "";
+
+
+    products.slice(0,7).forEach(
+        function(product){
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "product-row";
+
+
+            row.innerHTML = `
+
+                <div class="product-info">
+
+                    <strong>
+                        ${escapeHTML(product.name)}
+                    </strong>
+
+                    <span>
+                        ${Number(product.stock || 0)}
+                        units in stock
+                    </span>
+
+                </div>
+
+                <div class="product-price">
+
+                    ₹${Number(
+                        product.price || 0
+                    ).toLocaleString("en-IN")}
+
+                </div>
+
+            `;
+
+
+            productList.appendChild(row);
+
+        }
+    );
+
+}
+
+
+/* RENDER ORDERS */
+
+function renderOrders(){
+
+    const orders =
+        getOrders();
+
+
+    document.getElementById(
+        "totalOrders"
+    ).textContent =
+        orders.length;
+
+
+    let revenue = 0;
+
+
+    orders.forEach(function(order){
+
+        revenue +=
+            Number(
+                order.total ||
+                order.amount ||
+                0
+            );
+
+    });
+
+
+    document.getElementById(
+        "totalRevenue"
+    ).textContent =
+        "₹" +
+        revenue.toLocaleString("en-IN");
+
+
+    const table =
+        document.getElementById(
+            "ordersTable"
+        );
+
+
+    table.innerHTML = "";
+
+
+    if(orders.length === 0){
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="4"
+                    style="
+                        text-align:center;
+                        color:#555;
+                        padding:30px;
+                    ">
+
+                    No orders yet.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    orders.slice(0,5).forEach(
+        function(order,index){
+
+            const tr =
+                document.createElement(
+                    "tr"
+                );
+
+
+            const orderId =
+                order.id ||
+                "#MS" +
+                String(index + 1)
+                .padStart(4,"0");
+
+
+            const customer =
+                order.customer ||
+                order.name ||
+                "Customer";
+
+
+            const total =
+                Number(
+                    order.total ||
+                    order.amount ||
+                    0
+                );
+
+
+            const status =
+                order.status ||
+                "PROCESSING";
+
+
+            tr.innerHTML = `
+
+                <td>
+                    ${escapeHTML(orderId)}
+                </td>
+
+                <td>
+                    ${escapeHTML(customer)}
+                </td>
+
+                <td>
+                    ₹${total.toLocaleString("en-IN")}
+                </td>
+
+                <td>
+                    ${escapeHTML(status)}
+                </td>
+
+            `;
+
+
+            table.appendChild(tr);
+
+        }
+    );
+
+}
+
+
+/* RENDER INVENTORY */
+
+function renderInventory(){
+
+    const savedProducts =
+        getProducts();
+
+    const products =
+        savedProducts.length
+        ? savedProducts
+        : defaultProducts;
+
+
+    const table =
+        document.getElementById(
+            "inventoryTable"
+        );
+
+
+    table.innerHTML = "";
+
+
+    products.slice(0,7).forEach(
+        function(product){
+
+            const stock =
+                Number(
+                    product.stock || 0
+                );
+
+
+            let status =
+                "IN STOCK";
+
+            let statusClass =
+                "stock-good";
+
+
+            if(stock <= 0){
+
+                status =
+                    "OUT OF STOCK";
+
+                statusClass =
+                    "stock-out";
+
+            }else if(stock <= 10){
+
+                status =
+                    "LOW STOCK";
+
+                statusClass =
+                    "stock-low";
+
+            }
+
+
+            const tr =
+                document.createElement(
+                    "tr"
+                );
+
+
+            tr.innerHTML = `
+
+                <td>
+
+                    <div class="product-name">
+
+                        ${escapeHTML(
+                            product.name
+                        )}
+
+                    </div>
+
+                    <div class="product-sub">
+                        Racing Collection
+                    </div>
+
+                </td>
+
+                <td>
+
+                    ₹${Number(
+                        product.price || 0
+                    ).toLocaleString("en-IN")}
+
+                </td>
+
+                <td>
+                    ${stock}
+                </td>
+
+                <td class="${statusClass}">
+                    ${status}
+                </td>
+
+            `;
+
+
+            table.appendChild(tr);
+
+        }
+    );
+
+}
+
+
+/* RENDER ACTIVITY */
+
+function renderActivity(){
+
+    const activity =
+        getActivity();
+
+
+    const container =
+        document.getElementById(
+            "dashboardActivity"
+        );
+
+
+    container.innerHTML = "";
+
+
+    if(activity.length === 0){
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                No activity yet.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    activity
+        .slice(0,5)
+        .forEach(function(item){
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.className =
+                "activity-item";
+
+
+            div.innerHTML = `
+
+                <div class="activity-dot"></div>
+
+                <div class="activity-text">
+
+                    ${escapeHTML(
+                        item.text ||
+                        item.action ||
+                        "Activity recorded"
+                    )}
+
+                    <span class="activity-time">
+
+                        ${escapeHTML(
+                            item.time ||
+                            "Recently"
+                        )}
+
+                    </span>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(div);
+
+        });
+
+}
+
+
+/* SALES PERIOD */
+
+function changePeriod(period){
+
+    const salesNote =
+        document.getElementById(
+            "salesNote"
+        );
+
+
+    if(!salesNote){
+        return;
+    }
+
+
+    if(period === "week"){
+
+        salesNote.textContent =
+            "Current week revenue";
+
+    }
+
+    else if(period === "year"){
+
+        salesNote.textContent =
+            "Current year revenue";
+
+    }
+
+    else{
+
+        salesNote.textContent =
+            "Current month revenue";
+
+    }
+
+}
+
+
+/* INITIALIZE */
+
+renderProducts();
+
+renderOrders();
+
+renderInventory();
+
+renderActivity();
 
 </script>
+
+
 </body>
+
 </html>
+    
