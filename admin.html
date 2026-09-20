@@ -2885,7 +2885,7 @@ async function updateProductCount(){
 
     const { data, error } = await mainstreamAuth
         .from("products")
-        .select("id")
+        .select("id, stock")
         .eq("active", true);
 
     if(error){
@@ -2893,11 +2893,33 @@ async function updateProductCount(){
         return;
     }
 
+    const products = data || [];
+
+    /* PRODUCTS */
     const productsElement =
         document.getElementById("productsValue");
 
     if(productsElement){
-        productsElement.textContent = data ? data.length : 0;
+        productsElement.textContent =
+            products.length;
+    }
+
+    /* TOTAL INVENTORY UNITS */
+    const inventoryElement =
+        document.getElementById("inventoryValue");
+
+    if(inventoryElement){
+
+        const totalStock =
+            products.reduce(function(total, product){
+
+                return total +
+                    (Number(product.stock) || 0);
+
+            }, 0);
+
+        inventoryElement.textContent =
+            totalStock;
     }
 }
 async function checkAdminLogin(){
