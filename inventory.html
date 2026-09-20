@@ -1869,6 +1869,58 @@ window.addEventListener(
 
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+
+<script>
+
+const mainstreamDB = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+async function loadInventoryFromSupabase(){
+
+    const { data, error } = await mainstreamDB
+        .from("products")
+        .select("*")
+        .eq("active", true)
+        .order("created_at", { ascending: true });
+
+    if(error){
+        console.error("Inventory Supabase error:", error);
+        return;
+    }
+
+    const products = data.map(function(product){
+
+        return {
+            id: product.slug,
+            name: product.name,
+            price: product.price,
+            stock: product.stock,
+            category: product.category || "Racing Collection",
+            image:
+                product.combined_image ||
+                product.image_url ||
+                "mainstream-logo.png"
+        };
+
+    });
+
+    updateStats(products);
+    renderRows(products);
+
+    console.log(
+        "MAINSTREAM Inventory loaded:",
+        products.length
+    );
+}
+
+loadInventoryFromSupabase();
+
+</script>
+
 
 </body>
 
