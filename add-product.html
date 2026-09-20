@@ -1420,35 +1420,21 @@ function saveProduct(event){
     /* CREATE PRODUCT */
 
     const product = {
-
-        id:
-            Date.now(),
-
-        name:
-            name,
-
-        price:
-            price,
-
-        stock:
-            stock,
-
-        category:
-            category,
-
-        sku:
-            sku,
-
-        description:
-            description,
-
-        image:
-            selectedImage || "",
-
-        createdAt:
-            new Date().toISOString()
-
-    };
+    id: Date.now(),
+    name: name,
+    slug: name
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, ""),
+    price: price,
+    stock: stock,
+    category: category,
+    sku: sku,
+    description: description,
+    image: selectedImage || "",
+    createdAt: new Date().toISOString()
+};
 
 
     /* SAVE */
