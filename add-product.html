@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
 <title>Add Product | MAINSTREAM™</title>
 
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link
+    rel="icon"
+    type="image/png"
+    href="mainstream-logo.png">
 
 <style>
+
+/* =========================================
+   RESET
+========================================= */
 
 *{
     margin:0;
@@ -17,402 +28,1491 @@
     box-sizing:border-box;
 }
 
-body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#0d0d0d;
-    color:#fff;
+
+:root{
+
+    --yellow:#FFD400;
+
+    --black:#080808;
+
+    --dark:#101010;
+
+    --card:#151515;
+
+    --border:#292929;
+
+    --muted:#777;
+
+    --white:#fff;
+
+    --green:#39D98A;
+
+    --red:#FF5C5C;
+
 }
+
+
+/* =========================================
+   BODY
+========================================= */
+
+body{
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        var(--black);
+
+    color:
+        var(--white);
+
+    min-height:100vh;
+
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
 
 .header{
+
     height:76px;
+
     background:#090909;
-    border-bottom:1px solid #292929;
+
+    border-bottom:
+        1px solid var(--border);
+
     display:flex;
+
     align-items:center;
+
     justify-content:space-between;
-    padding:0 28px;
+
+    padding:
+        0 28px;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:100;
+
 }
+
 
 .logo{
+
     width:165px;
+
+    display:block;
+
     filter:
-    brightness(0)
-    saturate(100%)
-    invert(82%)
-    sepia(99%)
-    saturate(1700%)
-    hue-rotate(4deg)
-    brightness(105%)
-    contrast(105%);
+        brightness(0)
+        saturate(100%)
+        invert(82%)
+        sepia(99%)
+        saturate(1700%)
+        hue-rotate(4deg)
+        brightness(105%)
+        contrast(105%);
+
 }
 
-.back{
-    color:#FFD400;
+
+.back-link{
+
+    color:
+        var(--yellow);
+
     text-decoration:none;
-    font-size:12px;
-    font-weight:bold;
+
+    font-size:10px;
+
+    font-weight:900;
+
+    letter-spacing:.5px;
+
+    border:
+        1px solid #333;
+
+    border-radius:6px;
+
+    padding:
+        10px 13px;
+
+    transition:.2s;
+
 }
+
+
+.back-link:hover{
+
+    background:
+        var(--yellow);
+
+    color:
+        #000;
+
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
 
 .main{
-    max-width:900px;
-    margin:auto;
-    padding:30px;
+
+    max-width:
+        900px;
+
+    margin:
+        0 auto;
+
+    padding:
+        35px 25px 80px;
+
 }
 
-.title{
-    font-size:30px;
-    font-weight:900;
-    margin-bottom:7px;
+
+.page-heading{
+
+    margin-bottom:
+        25px;
+
 }
 
-.subtitle{
-    color:#777;
-    font-size:13px;
-    margin-bottom:28px;
+
+.page-heading h1{
+
+    font-size:
+        32px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        -1px;
+
 }
+
+
+.page-heading p{
+
+    color:
+        var(--muted);
+
+    font-size:
+        12px;
+
+    margin-top:
+        8px;
+
+}
+
+
+/* =========================================
+   FORM CARD
+========================================= */
 
 .form-card{
-    background:#151515;
-    border:1px solid #292929;
-    border-radius:14px;
-    padding:25px;
+
+    background:
+        var(--card);
+
+    border:
+        1px solid var(--border);
+
+    border-radius:
+        14px;
+
+    overflow:
+        hidden;
+
 }
+
+
+/* =========================================
+   FORM SECTION
+========================================= */
+
+.form-section{
+
+    padding:
+        25px;
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+
+.section-title{
+
+    font-size:
+        13px;
+
+    font-weight:
+        900;
+
+    margin-bottom:
+        20px;
+
+}
+
+
+.section-subtitle{
+
+    color:
+        #666;
+
+    font-size:
+        9px;
+
+    margin-top:
+        -14px;
+
+    margin-bottom:
+        20px;
+
+}
+
+
+/* =========================================
+   GRID
+========================================= */
 
 .form-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:20px;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:
+        18px;
+
 }
+
 
 .field{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
 }
+
 
 .field.full{
-    grid-column:1/-1;
+
+    grid-column:
+        1 / -1;
+
 }
 
-label{
-    color:#aaa;
-    font-size:10px;
-    font-weight:bold;
-    letter-spacing:1px;
+
+.field label{
+
+    color:
+        #888;
+
+    font-size:
+        9px;
+
+    font-weight:
+        900;
+
+    letter-spacing:
+        1.4px;
+
+    margin-bottom:
+        8px;
+
 }
 
-input,
-select,
-textarea{
-    width:100%;
-    background:#0d0d0d;
-    border:1px solid #333;
-    color:#fff;
-    border-radius:8px;
-    padding:13px;
-    outline:none;
-    font-family:inherit;
+
+.field input,
+.field select,
+.field textarea{
+
+    width:
+        100%;
+
+    background:
+        #0c0c0c;
+
+    color:
+        #fff;
+
+    border:
+        1px solid #333;
+
+    border-radius:
+        8px;
+
+    outline:
+        none;
+
+    padding:
+        14px;
+
+    font-family:
+        inherit;
+
+    font-size:
+        12px;
+
+    transition:
+        border-color .2s;
+
 }
 
-input:focus,
-select:focus,
-textarea:focus{
-    border-color:#FFD400;
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus{
+
+    border-color:
+        var(--yellow);
+
 }
 
-textarea{
-    min-height:100px;
-    resize:vertical;
+
+.field textarea{
+
+    min-height:
+        130px;
+
+    resize:
+        vertical;
+
 }
 
-.image-box{
-    border:1px dashed #444;
-    border-radius:10px;
-    padding:25px;
-    text-align:center;
-    color:#777;
+
+.field input::placeholder,
+.field textarea::placeholder{
+
+    color:
+        #555;
+
 }
 
-.image-box input{
-    border:0;
-    background:transparent;
-    padding:10px 0;
+
+/* =========================================
+   PRICE PREFIX
+========================================= */
+
+.price-field{
+
+    position:
+        relative;
+
 }
 
-.actions{
-    display:flex;
-    justify-content:flex-end;
-    gap:12px;
-    margin-top:25px;
+
+.price-symbol{
+
+    position:
+        absolute;
+
+    left:
+        14px;
+
+    top:
+        50%;
+
+    transform:
+        translateY(-50%);
+
+    color:
+        var(--yellow);
+
+    font-weight:
+        bold;
+
+    pointer-events:
+        none;
+
 }
 
-.cancel{
-    background:#222;
-    color:#aaa;
-    border:1px solid #333;
-    padding:13px 20px;
-    border-radius:8px;
-    text-decoration:none;
-    font-size:11px;
-    font-weight:bold;
+
+.price-field input{
+
+    padding-left:
+        32px;
+
 }
 
-.save{
-    background:#FFD400;
-    color:#111;
-    border:0;
-    padding:13px 22px;
-    border-radius:8px;
-    font-size:11px;
-    font-weight:900;
-    cursor:pointer;
+
+/* =========================================
+   IMAGE UPLOAD
+========================================= */
+
+.upload-area{
+
+    border:
+        1px dashed #444;
+
+    border-radius:
+        10px;
+
+    background:
+        #0c0c0c;
+
+    min-height:
+        180px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    text-align:
+        center;
+
+    padding:
+        20px;
+
+    cursor:
+        pointer;
+
+    transition:
+        .2s;
+
 }
 
-.save:hover{
-    background:#e8bc00;
+
+.upload-area:hover{
+
+    border-color:
+        var(--yellow);
+
 }
+
+
+.upload-content{
+
+    width:
+        100%;
+
+}
+
+
+.upload-icon{
+
+    font-size:
+        30px;
+
+    margin-bottom:
+        10px;
+
+}
+
+
+.upload-title{
+
+    color:
+        #aaa;
+
+    font-size:
+        11px;
+
+    font-weight:
+        bold;
+
+}
+
+
+.upload-note{
+
+    color:
+        #555;
+
+    font-size:
+        9px;
+
+    margin-top:
+        6px;
+
+}
+
+
+#productImage{
+
+    display:
+        none;
+
+}
+
+
+.image-preview{
+
+    display:
+        none;
+
+    max-width:
+        220px;
+
+    max-height:
+        220px;
+
+    margin:
+        0 auto 12px;
+
+    border-radius:
+        8px;
+
+    border:
+        1px solid #333;
+
+    object-fit:
+        contain;
+
+}
+
+
+/* =========================================
+   ACTIONS
+========================================= */
+
+.form-actions{
+
+    padding:
+        20px 25px;
+
+    display:
+        flex;
+
+    justify-content:
+        flex-end;
+
+    gap:
+        10px;
+
+}
+
+
+.cancel-btn,
+.save-btn{
+
+    min-width:
+        130px;
+
+    padding:
+        13px 18px;
+
+    border-radius:
+        7px;
+
+    font-size:
+        10px;
+
+    font-weight:
+        900;
+
+    cursor:
+        pointer;
+
+}
+
+
+.cancel-btn{
+
+    background:
+        transparent;
+
+    color:
+        #999;
+
+    border:
+        1px solid #333;
+
+}
+
+
+.cancel-btn:hover{
+
+    color:
+        #fff;
+
+    border-color:
+        #555;
+
+}
+
+
+.save-btn{
+
+    background:
+        var(--yellow);
+
+    color:
+        #000;
+
+    border:
+        1px solid var(--yellow);
+
+}
+
+
+.save-btn:hover{
+
+    background:
+        #ffe34d;
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
 
 @media(max-width:650px){
 
     .header{
-        padding:0 16px;
+
+        height:
+            64px;
+
+        padding:
+            0 15px;
+
     }
+
 
     .logo{
-        width:125px;
+
+        width:
+            125px;
+
     }
+
+
+    .back-link{
+
+        font-size:
+            8px;
+
+        padding:
+            8px 9px;
+
+    }
+
 
     .main{
-        padding:20px 15px;
+
+        padding:
+            25px 14px 50px;
+
     }
 
-    .title{
-        font-size:25px;
+
+    .page-heading h1{
+
+        font-size:
+            27px;
+
     }
 
-    .form-card{
-        padding:18px;
-    }
 
     .form-grid{
-        grid-template-columns:1fr;
+
+        grid-template-columns:
+            1fr;
+
     }
+
 
     .field.full{
-        grid-column:auto;
+
+        grid-column:
+            auto;
+
     }
 
-    .actions{
-        flex-direction:column;
+
+    .form-section{
+
+        padding:
+            20px;
+
     }
 
-    .cancel,
-    .save{
-        width:100%;
-        text-align:center;
+
+    .form-actions{
+
+        padding:
+            18px;
+
+        flex-direction:
+            column-reverse;
+
+    }
+
+
+    .cancel-btn,
+    .save-btn{
+
+        width:
+            100%;
+
     }
 
 }
 
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
 <header class="header">
 
-    <img
-        src="mainstream-logo.png"
-        class="logo"
-        alt="MAINSTREAM™">
 
-    <a href="inventory.html" class="back">
-        ← INVENTORY
+    <a href="admin.html">
+
+        <img
+            src="mainstream-logo.png"
+            class="logo"
+            alt="MAINSTREAM™">
+
     </a>
+
+
+    <a
+        href="inventory.html"
+        class="back-link">
+
+        ← INVENTORY
+
+    </a>
+
 
 </header>
 
 
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
 <main class="main">
 
-    <h1 class="title">
-        Add Product
-    </h1>
 
-    <p class="subtitle">
-        Add a new product to your MAINSTREAM™ collection.
-    </p>
+    <div class="page-heading">
+
+        <h1>
+            Add Product
+        </h1>
+
+        <p>
+            Add a new product to your MAINSTREAM™ catalogue.
+        </p>
+
+    </div>
 
 
-<form class="form-card" onsubmit="saveProduct(event)">
 
-        <div class="form-grid">
+    <!-- =====================================
+         FORM
+    ====================================== -->
+
+    <form
+        class="form-card"
+        id="productForm"
+        onsubmit="saveProduct(event)">
 
 
-            <div class="field">
+        <!-- PRODUCT INFORMATION -->
 
-                <label>
-                    PRODUCT NAME
-                </label>
+        <section class="form-section">
 
-                <input
-    id="productName"
-    type="text"
-    placeholder="Example: MAX / 03 TEE"
-    required>
+
+            <div class="section-title">
+                PRODUCT INFORMATION
             </div>
 
 
-            <div class="field">
-
-                <label>
-                    PRICE
-                </label>
-
-                <input
-    id="productPrice"
-    type="number"
-    placeholder="999"
-    required>
-
+            <div class="section-subtitle">
+                Enter the basic details of your new product.
             </div>
 
 
-            <div class="field">
-
-                <label>
-                    CATEGORY
-                </label>
-
-                <select>
-
-                    <option>
-                        Racing Collection
-                    </option>
-
-                    <option>
-                        Streetwear
-                    </option>
-
-                    <option>
-                        New Collection
-                    </option>
-
-                </select>
-
-            </div>
+            <div class="form-grid">
 
 
-            <div class="field">
+                <!-- NAME -->
 
-                <label>
-                    STOCK QUANTITY
-                </label>
+                <div class="field full">
 
-                <input
-    id="productStock"
-    type="number"
-    placeholder="100"
-    min="0"
-    required>
-
-            </div>
-
-
-            <div class="field full">
-
-                <label>
-                    PRODUCT DESCRIPTION
-                </label>
-
-                <textarea
-                    placeholder="Enter product description..."></textarea>
-
-            </div>
-
-
-            <div class="field full">
-
-                <label>
-                    PRODUCT IMAGE
-                </label>
-
-                <div class="image-box">
-
-                    <div>
-                        Upload product image
-                    </div>
+                    <label for="productName">
+                        PRODUCT NAME
+                    </label>
 
                     <input
-                        type="file"
-                        accept="image/*">
+                        id="productName"
+                        type="text"
+                        placeholder="Example: MAX / 03 TEE"
+                        autocomplete="off"
+                        required>
 
                 </div>
 
+
+                <!-- PRICE -->
+
+                <div class="field">
+
+                    <label for="productPrice">
+                        PRICE
+                    </label>
+
+                    <div class="price-field">
+
+                        <span class="price-symbol">
+                            ₹
+                        </span>
+
+                        <input
+                            id="productPrice"
+                            type="number"
+                            min="0"
+                            step="1"
+                            placeholder="999"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CATEGORY -->
+
+                <div class="field">
+
+                    <label for="productCategory">
+                        CATEGORY
+                    </label>
+
+                    <select
+                        id="productCategory">
+
+                        <option value="Racing Collection">
+                            Racing Collection
+                        </option>
+
+                        <option value="Streetwear">
+                            Streetwear
+                        </option>
+
+                        <option value="Premium Collection">
+                            Premium Collection
+                        </option>
+
+                        <option value="New Drop">
+                            New Drop
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- STOCK -->
+
+                <div class="field">
+
+                    <label for="productStock">
+                        STOCK QUANTITY
+                    </label>
+
+                    <input
+                        id="productStock"
+                        type="number"
+                        min="0"
+                        step="1"
+                        placeholder="100"
+                        required>
+
+                </div>
+
+
+                <!-- SKU -->
+
+                <div class="field">
+
+                    <label for="productSKU">
+                        SKU
+                    </label>
+
+                    <input
+                        id="productSKU"
+                        type="text"
+                        placeholder="Example: MS-MAX-03"
+                        autocomplete="off">
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="field full">
+
+                    <label for="productDescription">
+                        DESCRIPTION
+                    </label>
+
+                    <textarea
+                        id="productDescription"
+                        placeholder="Enter product description..."></textarea>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- PRODUCT IMAGE -->
+
+        <section class="form-section">
+
+
+            <div class="section-title">
+                PRODUCT IMAGE
             </div>
 
 
-        </div>
+            <div class="section-subtitle">
+                Upload the main product image.
+            </div>
 
 
-        <div class="actions">
+            <label
+                class="upload-area"
+                for="productImage">
 
-            <a
-                href="inventory.html"
-                class="cancel">
+
+                <div class="upload-content">
+
+
+                    <img
+                        id="imagePreview"
+                        class="image-preview"
+                        alt="Product preview">
+
+
+                    <div
+                        class="upload-icon"
+                        id="uploadIcon">
+
+                        ↑
+
+                    </div>
+
+
+                    <div
+                        class="upload-title"
+                        id="uploadTitle">
+
+                        Upload product image
+
+                    </div>
+
+
+                    <div
+                        class="upload-note"
+                        id="uploadNote">
+
+                        PNG, JPG or WEBP
+
+                    </div>
+
+
+                </div>
+
+
+            </label>
+
+
+            <input
+                id="productImage"
+                type="file"
+                accept="image/png,image/jpeg,image/webp">
+
+
+        </section>
+
+
+
+        <!-- ACTIONS -->
+
+        <div class="form-actions">
+
+
+            <button
+                type="button"
+                class="cancel-btn"
+                onclick="cancelProduct()">
+
                 CANCEL
-            </a>
+
+            </button>
+
 
             <button
                 type="submit"
-                class="save">
+                class="save-btn">
+
                 SAVE PRODUCT
+
             </button>
+
 
         </div>
 
+
     </form>
 
+
 </main>
+
+
+
 <script>
+
+/* =========================================
+   MAINSTREAM™ ADD PRODUCT
+========================================= */
+
+
+/* =========================================
+   IMAGE DATA
+========================================= */
+
+let selectedImage = "";
+
+
+/* =========================================
+   IMAGE UPLOAD
+========================================= */
+
+const imageInput =
+    document.getElementById(
+        "productImage"
+    );
+
+
+imageInput.addEventListener(
+    "change",
+    function(){
+
+        const file =
+            this.files &&
+            this.files[0];
+
+
+        if(!file){
+
+            selectedImage = "";
+
+            return;
+
+        }
+
+
+        if(!file.type.startsWith("image/")){
+
+            alert(
+                "Please select a valid image file."
+            );
+
+            this.value = "";
+
+            return;
+
+        }
+
+
+        const reader =
+            new FileReader();
+
+
+        reader.onload =
+            function(event){
+
+                selectedImage =
+                    event.target.result;
+
+
+                const preview =
+                    document.getElementById(
+                        "imagePreview"
+                    );
+
+
+                preview.src =
+                    selectedImage;
+
+
+                preview.style.display =
+                    "block";
+
+
+                document.getElementById(
+                    "uploadIcon"
+                ).style.display =
+                    "none";
+
+
+                document.getElementById(
+                    "uploadTitle"
+                ).textContent =
+                    file.name;
+
+
+                document.getElementById(
+                    "uploadNote"
+                ).textContent =
+                    "Image selected successfully";
+
+            };
+
+
+        reader.readAsDataURL(file);
+
+    }
+);
+
+
+/* =========================================
+   GET PRODUCTS
+========================================= */
+
+function getProducts(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "mainstreamProducts"
+            )
+        ) || [];
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================
+   SAVE ACTIVITY
+========================================= */
+
+function addActivity(
+    action,
+    productName
+){
+
+    let activities = [];
+
+
+    try{
+
+        activities =
+            JSON.parse(
+                localStorage.getItem(
+                    "mainstreamActivity"
+                )
+            ) || [];
+
+    }catch(error){
+
+        activities = [];
+
+    }
+
+
+    activities.unshift({
+
+        id:
+            Date.now(),
+
+        text:
+            action +
+            ": " +
+            productName,
+
+        time:
+            new Date().toLocaleString(
+                "en-IN",
+                {
+                    day:"2-digit",
+                    month:"short",
+                    year:"numeric",
+                    hour:"2-digit",
+                    minute:"2-digit"
+                }
+            )
+
+    });
+
+
+    localStorage.setItem(
+        "mainstreamActivity",
+        JSON.stringify(
+            activities.slice(0,50)
+        )
+    );
+
+}
+
+
+/* =========================================
+   SAVE PRODUCT
+========================================= */
 
 function saveProduct(event){
 
     event.preventDefault();
 
+
     const name =
-        document.getElementById("productName").value.trim();
+        document.getElementById(
+            "productName"
+        )
+        .value
+        .trim();
+
 
     const price =
-        document.getElementById("productPrice").value;
+        Number(
+            document.getElementById(
+                "productPrice"
+            ).value
+        );
+
+
+    const category =
+        document.getElementById(
+            "productCategory"
+        ).value;
+
 
     const stock =
-        document.getElementById("productStock").value;
+        Number(
+            document.getElementById(
+                "productStock"
+            ).value
+        );
 
-    const product = {
-        id: Date.now(),
-        name: name,
-        price: Number(price),
-        stock: Number(stock)
-    };
+
+    const sku =
+        document.getElementById(
+            "productSKU"
+        )
+        .value
+        .trim();
+
+
+    const description =
+        document.getElementById(
+            "productDescription"
+        )
+        .value
+        .trim();
+
+
+    /* VALIDATION */
+
+    if(!name){
+
+        alert(
+            "Please enter a product name."
+        );
+
+        return;
+
+    }
+
+
+    if(!Number.isFinite(price) || price < 0){
+
+        alert(
+            "Please enter a valid price."
+        );
+
+        return;
+
+    }
+
+
+    if(!Number.isFinite(stock) || stock < 0){
+
+        alert(
+            "Please enter a valid stock quantity."
+        );
+
+        return;
+
+    }
+
 
     const products =
-        JSON.parse(
-            localStorage.getItem("mainstreamProducts")
-        ) || [];
+        getProducts();
 
-    products.push(product);
+
+    /* CHECK DUPLICATE NAME */
+
+    const duplicate =
+        products.some(
+            function(product){
+
+                return (
+                    String(
+                        product.name || ""
+                    )
+                    .trim()
+                    .toLowerCase()
+                    ===
+                    name
+                    .toLowerCase()
+                );
+
+            }
+        );
+
+
+    if(duplicate){
+
+        alert(
+            "A product with this name already exists."
+        );
+
+        return;
+
+    }
+
+
+    /* CREATE PRODUCT */
+
+    const product = {
+
+        id:
+            Date.now(),
+
+        name:
+            name,
+
+        price:
+            price,
+
+        stock:
+            stock,
+
+        category:
+            category,
+
+        sku:
+            sku,
+
+        description:
+            description,
+
+        image:
+            selectedImage || "",
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+
+    /* SAVE */
+
+    products.push(
+        product
+    );
+
 
     localStorage.setItem(
         "mainstreamProducts",
-        JSON.stringify(products)
+        JSON.stringify(
+            products
+        )
     );
 
-    alert("Product added successfully!");
 
-    window.location.href = "inventory.html";
+    /* ACTIVITY */
+
+    addActivity(
+        "Product added",
+        name
+    );
+
+
+    /* SUCCESS */
+
+    alert(
+        "Product added successfully!"
+    );
+
+
+    /* GO INVENTORY */
+
+    window.location.href =
+        "inventory.html";
+
+}
+
+
+/* =========================================
+   CANCEL
+========================================= */
+
+function cancelProduct(){
+
+    const confirmed =
+        confirm(
+            "Discard this product?"
+        );
+
+
+    if(confirmed){
+
+        window.location.href =
+            "inventory.html";
+
+    }
+
 }
 
 </script>
+
+
 </body>
+
 </html>
