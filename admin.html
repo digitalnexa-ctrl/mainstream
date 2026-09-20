@@ -2881,7 +2881,30 @@ const mainstreamAuth = supabase.createClient(
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
 );
+async function updateProductCount(){
 
+    const { count, error } = await mainstreamAuth
+        .from("products")
+        .select("id", {
+            count: "exact",
+            head: true
+        })
+        .eq("active", true);
+
+    if(error){
+        console.error("Product count error:", error);
+        return;
+    }
+
+    const productsElement =
+        document.getElementById("productsValue");
+
+    if(productsElement){
+        productsElement.textContent = count || 0;
+    }
+}
+
+updateProductCount();
 async function checkAdminLogin(){
 
     const {
