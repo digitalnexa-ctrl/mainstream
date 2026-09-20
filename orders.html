@@ -1602,7 +1602,33 @@ window.addEventListener(
 renderOrders();
 
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
 
+<script>
+
+const ordersAuth = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+async function checkOrdersLogin(){
+
+    const {
+        data: { session }
+    } = await ordersAuth.auth.getSession();
+
+    if(!session){
+        window.location.href = "login.html";
+        return;
+    }
+
+    console.log("MAINSTREAM Orders authenticated");
+}
+
+checkOrdersLogin();
+
+</script>
 
 </body>
 
