@@ -1176,18 +1176,22 @@ function getProducts(){
 
                 products.push({
 
-                    ...savedProduct,
+    ...savedProduct,
 
-                    category:
-                        savedProduct.category ||
-                        "Racing Collection",
+    slug:
+        savedProduct.slug ||
+        savedProduct.id,
 
-                    image:
-                        savedProduct.image ||
-                        savedProduct.front ||
-                        "mainstream-logo.png"
+    category:
+        savedProduct.category ||
+        "Racing Collection",
 
-                });
+    image:
+        savedProduct.image ||
+        savedProduct.front ||
+        "mainstream-logo.png"
+
+});
 
             }
 
