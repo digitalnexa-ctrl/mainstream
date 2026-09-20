@@ -1535,6 +1535,24 @@ const mainstreamDB = supabase.createClient(
 
 console.log("MAINSTREAM Add Product Supabase connected");
 </script>
+<script>
 
+async function checkAddProductLogin(){
+
+    const {
+        data: { session }
+    } = await mainstreamDB.auth.getSession();
+
+    if(!session){
+        window.location.href = "login.html";
+        return;
+    }
+
+    console.log("MAINSTREAM Add Product authenticated");
+}
+
+checkAddProductLogin();
+
+</script>
 </body>
 </html>
