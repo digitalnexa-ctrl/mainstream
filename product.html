@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
 <title>MAINSTREAM™ Product</title>
 
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+
 <style>
-
-/* ================= BASIC ================= */
-
 *{
     box-sizing:border-box;
     margin:0;
@@ -22,8 +20,6 @@ body{
     background:#f7f7f2;
     color:#111;
 }
-
-/* ================= HEADER ================= */
 
 header{
     height:90px;
@@ -52,8 +48,6 @@ header{
     cursor:pointer;
 }
 
-/* ================= PAGE ================= */
-
 .page{
     max-width:1250px;
     margin:auto;
@@ -66,15 +60,11 @@ header{
     margin-bottom:40px;
 }
 
-/* ================= PRODUCT LAYOUT ================= */
-
 .product-layout{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:55px;
 }
-
-/* ================= GALLERY ================= */
 
 .gallery{
     display:flex;
@@ -107,8 +97,6 @@ header{
     object-fit:cover;
 }
 
-/* Front / Back thumbnail crop */
-
 .thumb.front img{
     object-position:left center;
 }
@@ -117,19 +105,10 @@ header{
     object-position:right center;
 }
 
-/* Combined thumbnail */
-
-.thumb.combined img{
-    object-fit:contain;
-}
-
-/* Size chart */
-
+.thumb.combined img,
 .thumb.sizechart img{
     object-fit:contain;
 }
-
-/* ================= MAIN IMAGE ================= */
 
 .main-image-box{
     flex:1;
@@ -146,26 +125,15 @@ header{
     display:block;
 }
 
-/* Front crop */
-
 .main-photo.front{
     object-position:left center;
 }
-
-/* Back crop */
 
 .main-photo.back{
     object-position:right center;
 }
 
-/* Combined */
-
-.main-photo.combined{
-    object-fit:contain;
-}
-
-/* Size chart */
-
+.main-photo.combined,
 .main-photo.sizechart{
     object-fit:contain;
 }
@@ -183,8 +151,6 @@ header{
     white-space:nowrap;
 }
 
-/* ================= PRODUCT INFO ================= */
-
 .product-info{
     padding-top:10px;
 }
@@ -201,8 +167,6 @@ header{
     font-weight:800;
     margin-bottom:45px;
 }
-
-/* ================= SIZE ================= */
 
 .option-group{
     margin-bottom:35px;
@@ -234,8 +198,6 @@ header{
     color:#fff;
 }
 
-/* ================= QUANTITY ================= */
-
 .quantity-box{
     display:flex;
     align-items:center;
@@ -257,8 +219,6 @@ header{
     font-size:20px;
     font-weight:700;
 }
-
-/* ================= BUTTONS ================= */
 
 .action-buttons{
     display:flex;
@@ -286,14 +246,6 @@ header{
     color:#111;
 }
 
-.add-cart:hover,
-.buy-now:hover,
-.cart-btn:hover{
-    transform:translateY(-2px);
-}
-
-/* ================= DETAILS ================= */
-
 .details{
     margin-top:50px;
     border-top:1px solid #ccc;
@@ -310,7 +262,11 @@ header{
     line-height:1.7;
 }
 
-/* ================= MOBILE ================= */
+.loading{
+    padding:40px;
+    text-align:center;
+    font-weight:700;
+}
 
 @media(max-width:800px){
 
@@ -371,7 +327,6 @@ header{
     .product-price{
         font-size:28px;
     }
-
 }
 
 @media(max-width:500px){
@@ -388,27 +343,19 @@ header{
     .product-name{
         font-size:34px;
     }
-
 }
-
 </style>
-
 </head>
 
 <body>
 
-
-<!-- ================= HEADER ================= -->
-
 <header>
 
 <a href="index.html">
-
 <img
 src="mainstream-logo.png"
 class="logo"
 alt="MAINSTREAM">
-
 </a>
 
 <button
@@ -422,22 +369,27 @@ CART <span id="cartCount">0</span>
 </header>
 
 
-<!-- ================= PAGE ================= -->
-
 <main class="page">
 
-
 <div class="breadcrumb">
-
 Home → Shop → Product
+</div>
+
+
+<div
+id="loading"
+class="loading">
+
+Loading product...
 
 </div>
 
 
-<div class="product-layout">
+<div
+class="product-layout"
+id="productLayout"
+style="display:none">
 
-
-<!-- ================= GALLERY ================= -->
 
 <section class="gallery">
 
@@ -445,21 +397,17 @@ Home → Shop → Product
 <div class="thumbnails">
 
 
-<!-- FRONT -->
-
 <div
 class="thumb front active"
 onclick="showImage('front',this)">
 
 <img
 id="frontThumb"
-src="max-front.png"
+src="mainstream-logo.png"
 alt="Front">
 
 </div>
 
-
-<!-- BACK -->
 
 <div
 class="thumb back"
@@ -467,13 +415,11 @@ onclick="showImage('back',this)">
 
 <img
 id="backThumb"
-src="max-back.png"
+src="mainstream-logo.png"
 alt="Back">
 
 </div>
 
-
-<!-- COMBINED -->
 
 <div
 class="thumb combined"
@@ -481,13 +427,11 @@ onclick="showImage('combined',this)">
 
 <img
 id="combinedThumb"
-src="max.jpg"
+src="mainstream-logo.png"
 alt="Combined">
 
 </div>
 
-
-<!-- SIZE CHART -->
 
 <div
 class="thumb sizechart"
@@ -503,8 +447,6 @@ alt="Size Chart">
 </div>
 
 
-<!-- MAIN IMAGE -->
-
 <div
 class="main-image-box"
 id="imageBox">
@@ -512,13 +454,11 @@ id="imageBox">
 <img
 id="mainProductImage"
 class="main-photo front"
-src="max.jpg"
+src="mainstream-logo.png"
 alt="Product">
 
 <div class="drag-label">
-
 ↔ DRAG TO ROTATE
-
 </div>
 
 </div>
@@ -527,8 +467,6 @@ alt="Product">
 </section>
 
 
-<!-- ================= PRODUCT INFO ================= -->
-
 <section class="product-info">
 
 
@@ -536,126 +474,89 @@ alt="Product">
 class="product-name"
 id="productName">
 
-MAX / 03 TEE
+PRODUCT
 
 </h1>
 
 
-<div class="product-price">
+<div
+class="product-price"
+id="productPrice">
 
-₹999
+₹0
 
 </div>
 
 
-<!-- ================= SIZE ================= -->
-
 <div class="option-group">
 
 <div class="option-title">
-
 SIZE
-
 </div>
 
 
 <div class="size-options">
 
-
 <button
 class="size-option"
 onclick="selectSize('S',this)">
-
 S
-
 </button>
-
 
 <button
 class="size-option active"
 onclick="selectSize('M',this)">
-
 M
-
 </button>
-
 
 <button
 class="size-option"
 onclick="selectSize('L',this)">
-
 L
-
 </button>
-
 
 <button
 class="size-option"
 onclick="selectSize('XL',this)">
-
 XL
-
 </button>
-
 
 <button
 class="size-option"
 onclick="selectSize('XXL',this)">
-
 XXL
-
 </button>
 
-
 </div>
 
 </div>
 
-
-<!-- ================= QUANTITY ================= -->
 
 <div class="option-title">
-
 QUANTITY
-
 </div>
 
 
 <div class="quantity-box">
 
-
-<button
-onclick="changeQuantity(-1)">
-
+<button onclick="changeQuantity(-1)">
 −
-
 </button>
-
 
 <div
 class="quantity-number"
 id="quantity">
-
 1
-
 </div>
 
-
-<button
-onclick="changeQuantity(1)">
-
+<button onclick="changeQuantity(1)">
 +
-
 </button>
 
-
 </div>
 
 
-<!-- ================= BUTTONS ================= -->
-
 <div class="action-buttons">
-
 
 <button
 class="add-cart"
@@ -674,21 +575,16 @@ BUY NOW
 
 </button>
 
-
 </div>
 
-
-<!-- ================= DETAILS ================= -->
 
 <div class="details">
 
 <h3>
-
 PRODUCT DETAILS
-
 </h3>
 
-<p>
+<p id="productDescription">
 
 Premium oversized tee designed for everyday
 streetwear with a racing-inspired look.
@@ -706,230 +602,389 @@ Comfortable fit with a clean MAINSTREAM™ aesthetic.
 </main>
 
 
-<script 
-    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="supabase-config.js"></script>
 
+
 <script>
-const mainstreamDB = supabase.createClient(
+
+const mainstreamDB =
+supabase.createClient(
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
 );
 
-/* ================= PRODUCT DATA ================= */
 
-const products = {
-
-    max:{
-    name:"MAX / 03 TEE",
-    front:"max-front.png",
-    back:"max-back.png",
-    combined:"max.jpg"
-},
-    lewis:{
-    name:"LEWIS / 44 TEE",
-    front:"lewis-front.png",
-    back:"lewis-back.png",
-    combined:"lewis.jpg"
-},
-
-charles:{
-    name:"CHARLES / 16 TEE",
-    front:"charles-front.png",
-    back:"charles-back.png",
-    combined:"charles.jpg"
-},
-
-lando:{
-    name:"LANDO / 01 TEE",
-    front:"lando-front.png",
-    back:"lando-back.png",
-    combined:"lando.jpg"
-},
-
-oscar:{
-    name:"OSCAR / 81 TEE",
-    front:"oscar-front.png",
-    back:"oscar-back.png",
-    combined:"oscar.jpg"
-},
-
-george:{
-    name:"GEORGE / 63 TEE",
-    front:"george-front.png",
-    back:"george-back.png",
-    combined:"george.jpg"
-},
-
-kimi:{
-    name:"KIMI / 12 TEE",
-    front:"kimi-front.png",
-    back:"kimi-back.png",
-    combined:"kimi.jpg"
-},
-};   
-
-
-/* ================= GET PRODUCT ================= */
+/* ================= PRODUCT ================= */
 
 const params =
 new URLSearchParams(
-window.location.search
+    window.location.search
 );
 
 const productKey =
 params.get("product") || "max";
 
 
-let currentProduct = null;
+/* ================= FALLBACK PRODUCTS ================= */
 
-async function loadProductFromSupabase(){
+const fallbackProducts = {
 
-    const { data, error } = await mainstreamDB
-        .from("products")
-        .select("*")
-        .eq("slug", productKey)
-        .eq("active", true)
-        .single();
+    max:{
+        name:"MAX / 03 TEE",
+        price:999,
+        front:"max-front.png",
+        back:"max-back.png",
+        combined:"max.jpg"
+    },
 
-    if(error || !data){
-        console.error("Product error:", error);
-        alert("Product not found.");
-        return;
+    lewis:{
+        name:"LEWIS / 44 TEE",
+        price:999,
+        front:"lewis-front.png",
+        back:"lewis-back.png",
+        combined:"lewis.jpg"
+    },
+
+    charles:{
+        name:"CHARLES / 16 TEE",
+        price:999,
+        front:"charles-front.png",
+        back:"charles-back.png",
+        combined:"charles.jpg"
+    },
+
+    lando:{
+        name:"LANDO / 01 TEE",
+        price:999,
+        front:"lando-front.png",
+        back:"lando-back.png",
+        combined:"lando.jpg"
+    },
+
+    oscar:{
+        name:"OSCAR / 81 TEE",
+        price:999,
+        front:"oscar-front.png",
+        back:"oscar-back.png",
+        combined:"oscar.jpg"
+    },
+
+    george:{
+        name:"GEORGE / 63 TEE",
+        price:999,
+        front:"george-front.png",
+        back:"george-back.png",
+        combined:"george.jpg"
+    },
+
+    kimi:{
+        name:"KIMI / 12 TEE",
+        price:999,
+        front:"kimi-front.png",
+        back:"kimi-back.png",
+        combined:"kimi.jpg"
     }
 
-    const productImage =
-        data.image_url || "mainstream-logo.png";
+};
 
-    currentProduct = {
-        name: data.name,
-        price: Number(data.price || 0),
 
-        front:
-            data.front_image ||
-            productImage,
+let currentProduct = null;
 
-        back:
-            data.back_image ||
-            productImage,
+let selectedSize = "M";
 
-        combined:
-            data.combined_image ||
-            productImage
-    };
+let quantity = 1;
+
+let currentView = "front";
+
+
+/* ================= IMAGE HELPERS ================= */
+
+function usable(value){
+
+    return (
+        typeof value === "string" &&
+        value.trim() !== ""
+    );
+
+}
+
+
+function pick(value,fallback){
+
+    return usable(value)
+        ? value
+        : fallback;
+
+}
+
+
+/* ================= LOAD PRODUCT ================= */
+
+async function loadProduct(){
+
+    const fallback =
+        fallbackProducts[productKey]
+        || fallbackProducts.max;
+
+
+    try{
+
+        const {data,error} =
+            await mainstreamDB
+            .from("products")
+            .select("*")
+            .eq("slug",productKey)
+            .eq("active",true)
+            .single();
+
+
+        if(error || !data){
+
+            console.warn(
+                "Supabase product not found:",
+                error
+            );
+
+            currentProduct = fallback;
+
+        }
+
+        else{
+
+            currentProduct = {
+
+                id:data.id,
+
+                name:
+                    data.name
+                    || fallback.name,
+
+                price:
+                    Number(
+                        data.price
+                        || fallback.price
+                        || 0
+                    ),
+
+                front:
+                    pick(
+                        data.front_image,
+                        pick(
+                            data.image_url,
+                            fallback.front
+                        )
+                    ),
+
+                back:
+                    pick(
+                        data.back_image,
+                        pick(
+                            data.image_url,
+                            fallback.back
+                        )
+                    ),
+
+                combined:
+                    pick(
+                        data.combined_image,
+                        pick(
+                            data.image_url,
+                            fallback.combined
+                        )
+                    ),
+
+                description:
+                    data.description || ""
+
+            };
+
+        }
+
+
+        renderProduct();
+
+
+    }
+
+    catch(error){
+
+        console.error(
+            "Product loading error:",
+            error
+        );
+
+        currentProduct = fallback;
+
+        renderProduct();
+
+    }
+
+}
+
+
+/* ================= RENDER ================= */
+
+function renderProduct(){
 
     document.getElementById(
         "productName"
     ).textContent =
         currentProduct.name;
 
-    document.querySelector(
-        ".product-price"
+
+    document.getElementById(
+        "productPrice"
     ).textContent =
         "₹" +
-        currentProduct.price.toLocaleString("en-IN");
+        Number(
+            currentProduct.price || 0
+        ).toLocaleString("en-IN");
+
 
     document.getElementById(
         "frontThumb"
     ).src =
         currentProduct.front;
 
+
     document.getElementById(
         "backThumb"
     ).src =
         currentProduct.back;
+
 
     document.getElementById(
         "combinedThumb"
     ).src =
         currentProduct.combined;
 
-    mainImage.src =
-        currentProduct.front;
-}
 
-loadProductFromSupabase();
+    document.getElementById(
+        "mainProductImage"
+    ).src =
+        currentProduct.front;
+
+
+    if(currentProduct.description){
+
+        document.getElementById(
+            "productDescription"
+        ).textContent =
+            currentProduct.description;
+
+    }
+
+
+    document.getElementById(
+        "loading"
+    ).style.display =
+        "none";
+
+
+    document.getElementById(
+        "productLayout"
+    ).style.display =
+        "grid";
+
+
+    updateCartCount();
+
+}
 
 
 /* ================= GALLERY ================= */
 
-let currentView =
-"front";
-
-
 function showImage(type,button){
-mainImage.className = "main-photo " + type;
+
+    const mainImage =
+        document.getElementById(
+            "mainProductImage"
+        );
+
+
+    mainImage.className =
+        "main-photo " + type;
+
+
     currentView = type;
 
-    document
-    .querySelectorAll(".thumb")
-    .forEach(function(item){
-        item.classList.remove("active");
-    });
 
-    button.classList.add("active");
+    document
+        .querySelectorAll(".thumb")
+        .forEach(function(item){
+
+            item.classList.remove("active");
+
+        });
+
+
+    if(button){
+
+        button.classList.add("active");
+
+    }
+
 
     if(type === "front"){
-        mainImage.src = currentProduct.front;
+
+        mainImage.src =
+            currentProduct.front;
+
     }
+
 
     else if(type === "back"){
-        mainImage.src = currentProduct.back;
+
+        mainImage.src =
+            currentProduct.back;
+
     }
+
 
     else if(type === "combined"){
-        mainImage.src = currentProduct.combined;
+
+        mainImage.src =
+            currentProduct.combined;
+
     }
 
+
     else if(type === "sizechart"){
-        mainImage.src = "size-chart.png";
+
+        mainImage.src =
+            "size-chart.png";
+
     }
+
 }
 
 
 /* ================= SIZE ================= */
 
-let selectedSize =
-"M";
+function selectSize(size,button){
 
-
-function selectSize(
-size,
-button
-){
-
-    selectedSize =
-        size;
+    selectedSize = size;
 
 
     document
-    .querySelectorAll(
-        ".size-option"
-    )
-    .forEach(function(item){
+        .querySelectorAll(".size-option")
+        .forEach(function(item){
 
-        item.classList.remove(
-            "active"
-        );
+            item.classList.remove("active");
 
-    });
+        });
 
 
-    button.classList.add(
-        "active"
-    );
+    button.classList.add("active");
 
 }
 
 
 /* ================= QUANTITY ================= */
 
-let quantity = 1;
-
-
-function changeQuantity(
-amount
-){
+function changeQuantity(amount){
 
     quantity += amount;
 
@@ -953,13 +1008,21 @@ amount
 
 function getCart(){
 
-    return JSON.parse(
+    try{
 
-        localStorage.getItem(
-            "mainstreamCart"
-        ) || "[]"
+        return JSON.parse(
+            localStorage.getItem(
+                "mainstreamCart"
+            ) || "[]"
+        );
 
-    );
+    }
+
+    catch(error){
+
+        return [];
+
+    }
 
 }
 
@@ -967,17 +1030,21 @@ function getCart(){
 function saveCart(cart){
 
     localStorage.setItem(
-
         "mainstreamCart",
-
         JSON.stringify(cart)
-
     );
 
 }
 
 
 function addToCart(){
+
+    if(!currentProduct){
+
+        return;
+
+    }
+
 
     const cart =
         getCart();
@@ -989,7 +1056,10 @@ function addToCart(){
             currentProduct.name,
 
         price:
-            "₹999",
+            "₹" +
+            Number(
+                currentProduct.price || 0
+            ).toLocaleString("en-IN"),
 
         image:
             currentProduct.front,
@@ -1004,7 +1074,6 @@ function addToCart(){
 
 
     saveCart(cart);
-
 
     updateCartCount();
 
@@ -1021,20 +1090,47 @@ function addToCart(){
 
 function buyNow(){
 
+    if(!currentProduct){
+
+        return;
+
+    }
+
+
     const buyNowProduct = {
-        name: currentProduct.name,
-        price: "₹999",
-        image: currentProduct.front,
-        size: selectedSize,
-        quantity: quantity
+
+        name:
+            currentProduct.name,
+
+        price:
+            "₹" +
+            Number(
+                currentProduct.price || 0
+            ).toLocaleString("en-IN"),
+
+        image:
+            currentProduct.front,
+
+        size:
+            selectedSize,
+
+        quantity:
+            quantity
+
     };
+
 
     localStorage.setItem(
         "mainstreamBuyNow",
-        JSON.stringify(buyNowProduct)
+        JSON.stringify(
+            buyNowProduct
+        )
     );
 
-    window.location.href = "shipping.html";
+
+    window.location.href =
+        "shipping.html";
+
 }
 
 
@@ -1049,16 +1145,14 @@ function updateCartCount(){
     let total = 0;
 
 
-    cart.forEach(
-        function(item){
+    cart.forEach(function(item){
 
-            total +=
-                Number(
-                    item.quantity || 1
-                );
+        total +=
+            Number(
+                item.quantity || 1
+            );
 
-        }
-    );
+    });
 
 
     document.getElementById(
@@ -1069,15 +1163,15 @@ function updateCartCount(){
 }
 
 
-/* ================= SWIPE ================= */
+/* ================= MOBILE SWIPE ================= */
 
 let startX = 0;
 
 
 const imageBox =
-document.getElementById(
-    "imageBox"
-);
+    document.getElementById(
+        "imageBox"
+    );
 
 
 imageBox.addEventListener(
@@ -1103,10 +1197,7 @@ imageBox.addEventListener(
             endX - startX;
 
 
-        if(
-            Math.abs(difference)
-            < 50
-        ){
+        if(Math.abs(difference) < 50){
 
             return;
 
@@ -1118,6 +1209,7 @@ imageBox.addEventListener(
             nextGallery();
 
         }
+
         else{
 
             previousGallery();
@@ -1133,12 +1225,10 @@ imageBox.addEventListener(
 function nextGallery(){
 
     const views = [
-
         "front",
         "back",
         "combined",
         "sizechart"
-
     ];
 
 
@@ -1175,12 +1265,10 @@ function nextGallery(){
 function previousGallery(){
 
     const views = [
-
         "front",
         "back",
         "combined",
         "sizechart"
-
     ];
 
 
@@ -1217,10 +1305,11 @@ function previousGallery(){
 
 /* ================= START ================= */
 
+loadProduct();
+
 updateCartCount();
 
 </script>
-
 
 </body>
 </html>
