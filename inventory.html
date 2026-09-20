@@ -1910,6 +1910,7 @@ async function loadInventoryFromSupabase(){
 
         return {
             id: product.slug,
+            slug: product.slug,
             name: product.name,
             price: product.price,
             stock: product.stock,
