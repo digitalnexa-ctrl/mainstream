@@ -2587,10 +2587,10 @@ async function loadShopProducts(){
             "";
 
         const imageUrl =
-            imageFile.startsWith("http")
-            ? imageFile
-            : "https://digitalnexa-ctrl.github.io/mainstream/" + imageFile;
-
+    imageFile.startsWith("http") ||
+    imageFile.startsWith("data:")
+    ? imageFile
+    : "https://digitalnexa-ctrl.github.io/mainstream/" + imageFile;
         const price = Number(product.price || 0);
 
         const team = product.category || "all";
