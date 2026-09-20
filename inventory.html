@@ -1919,6 +1919,29 @@ async function loadInventoryFromSupabase(){
 
 loadInventoryFromSupabase();
 
+<script>
+
+const inventoryAuth = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+async function checkInventoryLogin(){
+
+    const {
+        data: { session }
+    } = await inventoryAuth.auth.getSession();
+
+    if(!session){
+        window.location.href = "login.html";
+        return;
+    }
+
+    console.log("MAINSTREAM Inventory authenticated");
+}
+
+checkInventoryLogin();
+
 </script>
 
 
