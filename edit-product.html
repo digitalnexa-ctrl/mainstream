@@ -1691,7 +1691,25 @@ function cancelEdit(){
 loadProduct();
 
 </script>
+<script>
 
+async function checkEditProductLogin(){
+
+    const {
+        data: { session }
+    } = await mainstreamDB.auth.getSession();
+
+    if(!session){
+        window.location.href = "login.html";
+        return;
+    }
+
+    console.log("MAINSTREAM Edit Product authenticated");
+}
+
+checkEditProductLogin();
+
+</script>
 
 </body>
 
