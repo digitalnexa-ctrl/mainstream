@@ -1675,7 +1675,21 @@ async function deleteProduct(productId){
         return;
 
     }
+const { error: deleteError } = await mainstreamDB
+    .from("products")
+    .delete()
+    .eq("slug", product.slug);
 
+if(deleteError){
+    console.error("Supabase delete error:", deleteError);
+
+    alert(
+        "Product could not be deleted from Supabase.\n\n" +
+        deleteError.message
+    );
+
+    return;
+}
 
     const updatedProducts =
         savedProducts.filter(
