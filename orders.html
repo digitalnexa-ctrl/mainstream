@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
 <title>Orders | MAINSTREAM™</title>
 
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link
+    rel="icon"
+    type="image/png"
+    href="mainstream-logo.png">
 
 <style>
 
@@ -17,327 +24,1595 @@
     box-sizing:border-box;
 }
 
+:root{
+    --yellow:#FFD400;
+    --black:#080808;
+    --card:#151515;
+    --border:#292929;
+    --muted:#777;
+    --white:#fff;
+    --green:#39D98A;
+    --red:#FF5C5C;
+    --orange:#FFB020;
+}
+
 body{
     font-family:Arial,Helvetica,sans-serif;
-    background:#0d0d0d;
-    color:#fff;
+    background:var(--black);
+    color:var(--white);
+    min-height:100vh;
 }
+
+
+/* =========================================
+   HEADER
+========================================= */
 
 .header{
     height:76px;
+
     background:#090909;
-    border-bottom:1px solid #292929;
+
+    border-bottom:1px solid var(--border);
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     padding:0 28px;
+
     position:sticky;
     top:0;
-    z-index:10;
+    z-index:100;
 }
 
 .logo{
     width:165px;
+
+    display:block;
+
     filter:
-    brightness(0)
-    saturate(100%)
-    invert(82%)
-    sepia(99%)
-    saturate(1700%)
-    hue-rotate(4deg)
-    brightness(105%)
-    contrast(105%);
+        brightness(0)
+        saturate(100%)
+        invert(82%)
+        sepia(99%)
+        saturate(1700%)
+        hue-rotate(4deg)
+        brightness(105%)
+        contrast(105%);
 }
 
-.back{
-    color:#FFD400;
-    text-decoration:none;
-    font-size:12px;
-    font-weight:bold;
+.header-actions{
+    display:flex;
+    gap:8px;
 }
+
+.header-link{
+    color:var(--yellow);
+
+    text-decoration:none;
+
+    font-size:10px;
+    font-weight:900;
+
+    border:1px solid #333;
+
+    border-radius:6px;
+
+    padding:10px 13px;
+}
+
+.header-link:hover{
+    background:var(--yellow);
+    color:#000;
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
 
 .main{
-    padding:30px;
-    max-width:1300px;
-    margin:auto;
+    max-width:1200px;
+
+    margin:0 auto;
+
+    padding:35px 25px 80px;
 }
 
-.title{
-    font-size:30px;
+.page-heading{
+    margin-bottom:25px;
+}
+
+.page-heading h1{
+    font-size:32px;
+
     font-weight:900;
-    margin-bottom:7px;
+
+    letter-spacing:-1px;
 }
 
-.subtitle{
-    color:#777;
-    font-size:13px;
-    margin-bottom:28px;
+.page-heading p{
+    color:var(--muted);
+
+    font-size:12px;
+
+    margin-top:8px;
 }
+
+
+/* =========================================
+   STATS
+========================================= */
 
 .stats{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:15px;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:14px;
+
     margin-bottom:20px;
 }
 
-.card{
-    background:#151515;
-    border:1px solid #292929;
-    border-radius:14px;
-    padding:22px;
+.stat{
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
+    padding:20px;
 }
 
-.label{
-    color:#777;
-    font-size:10px;
-    letter-spacing:1.5px;
-    font-weight:bold;
-}
+.stat-label{
+    color:#666;
 
-.value{
-    font-size:27px;
+    font-size:9px;
+
     font-weight:900;
-    margin-top:12px;
+
+    letter-spacing:1px;
 }
 
-.panel{
-    background:#151515;
-    border:1px solid #292929;
+.stat-value{
+    font-size:25px;
+
+    font-weight:900;
+
+    margin-top:8px;
+}
+
+.stat-note{
+    color:#555;
+
+    font-size:9px;
+
+    margin-top:6px;
+}
+
+
+/* =========================================
+   ORDERS PANEL
+========================================= */
+
+.orders-panel{
+    background:var(--card);
+
+    border:1px solid var(--border);
+
     border-radius:14px;
+
     overflow:hidden;
 }
 
-.panel-head{
-    padding:20px;
-    border-bottom:1px solid #292929;
+.panel-header{
+    padding:22px 25px;
+
+    border-bottom:1px solid var(--border);
+
     display:flex;
-    justify-content:space-between;
+
     align-items:center;
+
+    justify-content:space-between;
+
+    gap:15px;
 }
 
 .panel-title{
     font-size:16px;
+
     font-weight:900;
 }
 
-.filter{
-    background:#222;
-    border:1px solid #333;
-    color:#FFD400;
-    padding:9px 12px;
-    border-radius:7px;
+.panel-subtitle{
+    color:#666;
+
+    font-size:10px;
+
+    margin-top:5px;
 }
 
+
+/* =========================================
+   CONTROLS
+========================================= */
+
+.controls{
+    display:flex;
+
+    gap:8px;
+
+    align-items:center;
+}
+
+.search-box,
+.status-filter{
+    background:#0c0c0c;
+
+    color:#fff;
+
+    border:1px solid #333;
+
+    border-radius:7px;
+
+    outline:none;
+
+    padding:11px 12px;
+
+    font-family:inherit;
+
+    font-size:10px;
+}
+
+.search-box{
+    width:210px;
+}
+
+.search-box:focus,
+.status-filter:focus{
+    border-color:var(--yellow);
+}
+
+.search-box::placeholder{
+    color:#555;
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
 .table-wrap{
+    width:100%;
+
     overflow-x:auto;
 }
 
-table{
+.orders-table{
     width:100%;
-    min-width:700px;
+
     border-collapse:collapse;
+
+    min-width:850px;
 }
 
-th{
-    color:#666;
-    font-size:9px;
-    letter-spacing:1.5px;
+.orders-table th{
     text-align:left;
+
+    color:#666;
+
+    font-size:9px;
+
+    letter-spacing:1.2px;
+
+    font-weight:900;
+
     padding:16px 20px;
-    border-bottom:1px solid #292929;
+
+    border-bottom:1px solid var(--border);
+
+    white-space:nowrap;
 }
 
-td{
+.orders-table td{
     padding:18px 20px;
+
     border-bottom:1px solid #222;
-    font-size:12px;
+
+    font-size:11px;
+
+    vertical-align:middle;
 }
+
+.orders-table tbody tr:hover{
+    background:#181818;
+}
+
+.orders-table tbody tr:last-child td{
+    border-bottom:none;
+}
+
+
+/* =========================================
+   ORDER ID
+========================================= */
+
+.order-id{
+    color:var(--yellow);
+
+    font-weight:900;
+
+    font-size:10px;
+}
+
+
+/* =========================================
+   CUSTOMER
+========================================= */
+
+.customer-name{
+    font-weight:800;
+
+    font-size:11px;
+}
+
+.customer-email{
+    color:#666;
+
+    font-size:9px;
+
+    margin-top:4px;
+}
+
+
+/* =========================================
+   PRODUCT
+========================================= */
+
+.product-name{
+    font-weight:800;
+
+    font-size:11px;
+}
+
+.product-quantity{
+    color:#666;
+
+    font-size:9px;
+
+    margin-top:4px;
+}
+
+
+/* =========================================
+   AMOUNT
+========================================= */
+
+.amount{
+    font-weight:900;
+
+    font-size:11px;
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+.status{
+    display:inline-block;
+
+    padding:6px 9px;
+
+    border-radius:20px;
+
+    font-size:8px;
+
+    font-weight:900;
+
+    white-space:nowrap;
+}
+
+.status-pending{
+    color:var(--orange);
+
+    background:#2b210b;
+
+    border:1px solid #55400e;
+}
+
+.status-paid{
+    color:var(--green);
+
+    background:#10291e;
+
+    border:1px solid #1d5239;
+}
+
+.status-shipped{
+    color:#67B7FF;
+
+    background:#102131;
+
+    border:1px solid #1d4561;
+}
+
+.status-delivered{
+    color:var(--green);
+
+    background:#10291e;
+
+    border:1px solid #1d5239;
+}
+
+.status-cancelled{
+    color:var(--red);
+
+    background:#2b1010;
+
+    border:1px solid #522020;
+}
+
+
+/* =========================================
+   VIEW BUTTON
+========================================= */
+
+.view-btn{
+    display:inline-block;
+
+    color:var(--yellow);
+
+    text-decoration:none;
+
+    border:1px solid #333;
+
+    border-radius:6px;
+
+    padding:7px 10px;
+
+    font-size:8px;
+
+    font-weight:900;
+}
+
+.view-btn:hover{
+    background:var(--yellow);
+
+    color:#000;
+}
+
+
+/* =========================================
+   EMPTY
+========================================= */
 
 .empty{
     text-align:center;
-    padding:60px 20px;
-    color:#777;
+
+    padding:70px 25px;
 }
 
 .empty-icon{
-    font-size:40px;
-    margin-bottom:15px;
+    width:55px;
+    height:55px;
+
+    margin:0 auto 15px;
+
+    border-radius:50%;
+
+    background:#171717;
+
+    border:1px solid #333;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:#666;
+
+    font-size:20px;
 }
 
-.status{
-    color:#FFD400;
+.empty-title{
+    font-size:14px;
+
+    font-weight:900;
+}
+
+.empty-text{
+    color:#666;
+
+    font-size:10px;
+
+    margin-top:7px;
+}
+
+
+/* =========================================
+   NOTE
+========================================= */
+
+.note{
+    color:#555;
+
     font-size:9px;
-    font-weight:bold;
+
+    line-height:1.6;
+
+    margin-top:15px;
 }
 
-@media(max-width:700px){
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:750px){
 
     .header{
-        padding:0 16px;
+        height:64px;
+
+        padding:0 15px;
     }
 
     .logo{
         width:125px;
     }
 
-    .main{
-        padding:20px 15px 40px;
+    .header-actions{
+        gap:4px;
     }
 
-    .title{
-        font-size:25px;
+    .header-link{
+        font-size:8px;
+
+        padding:8px 9px;
+    }
+
+    .main{
+        padding:25px 14px 50px;
+    }
+
+    .page-heading h1{
+        font-size:27px;
     }
 
     .stats{
-        grid-template-columns:1fr;
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .stat{
+        padding:16px;
+    }
+
+    .stat-value{
+        font-size:21px;
+    }
+
+    .panel-header{
+        padding:18px;
+
+        flex-direction:column;
+
+        align-items:stretch;
+    }
+
+    .controls{
+        flex-direction:column;
+
+        width:100%;
+    }
+
+    .search-box,
+    .status-filter{
+        width:100%;
     }
 
 }
 
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
 <header class="header">
 
-    <img
-        src="mainstream-logo.png"
-        class="logo"
-        alt="MAINSTREAM™">
 
-    <a href="admin.html" class="back">
-        ← DASHBOARD
+    <a href="admin.html">
+
+        <img
+            src="mainstream-logo.png"
+            class="logo"
+            alt="MAINSTREAM™">
+
     </a>
+
+
+    <div class="header-actions">
+
+
+        <a
+            href="inventory.html"
+            class="header-link">
+
+            ← INVENTORY
+
+        </a>
+
+
+        <a
+            href="admin.html"
+            class="header-link">
+
+            DASHBOARD
+
+        </a>
+
+
+    </div>
+
 
 </header>
 
 
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
 <main class="main">
 
-    <h1 class="title">
-        Orders
-    </h1>
 
-    <p class="subtitle">
-        Manage and track all customer orders.
-    </p>
+    <div class="page-heading">
 
+        <h1>
+            Orders
+        </h1>
+
+        <p>
+            Manage and monitor your MAINSTREAM™ customer orders.
+        </p>
+
+    </div>
+
+
+
+    <!-- =====================================
+         STATS
+    ====================================== -->
 
     <section class="stats">
 
-        <div class="card">
 
-            <div class="label">
+        <div class="stat">
+
+            <div class="stat-label">
                 TOTAL ORDERS
             </div>
 
-            <div class="value">
+            <div
+                class="stat-value"
+                id="totalOrders">
+
                 0
+
+            </div>
+
+            <div class="stat-note">
+                All orders
             </div>
 
         </div>
 
 
-        <div class="card">
+        <div class="stat">
 
-            <div class="label">
-                TOTAL REVENUE
-            </div>
-
-            <div class="value">
-                ₹0
-            </div>
-
-        </div>
-
-
-        <div class="card">
-
-            <div class="label">
+            <div class="stat-label">
                 PENDING
             </div>
 
-            <div class="value">
+            <div
+                class="stat-value"
+                id="pendingOrders">
+
                 0
+
+            </div>
+
+            <div class="stat-note">
+                Awaiting processing
             </div>
 
         </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                COMPLETED
+            </div>
+
+            <div
+                class="stat-value"
+                id="completedOrders">
+
+                0
+
+            </div>
+
+            <div class="stat-note">
+                Delivered orders
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                REVENUE
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalRevenue">
+
+                ₹0
+
+            </div>
+
+            <div class="stat-note">
+                Recorded order value
+            </div>
+
+        </div>
+
 
     </section>
 
 
-    <section class="panel">
 
-        <div class="panel-head">
+    <!-- =====================================
+         ORDERS
+    ====================================== -->
 
-            <div class="panel-title">
-                All Orders
+    <section class="orders-panel">
+
+
+        <div class="panel-header">
+
+
+            <div>
+
+                <div class="panel-title">
+                    All Orders
+                </div>
+
+                <div class="panel-subtitle">
+                    Recent customer purchases
+                </div>
+
             </div>
 
-            <select class="filter">
-                <option>ALL ORDERS</option>
-                <option>PENDING</option>
-                <option>PROCESSING</option>
-                <option>DELIVERED</option>
-            </select>
+
+            <div class="controls">
+
+
+                <input
+                    id="searchBox"
+                    class="search-box"
+                    type="search"
+                    placeholder="Search order...">
+
+
+                <select
+                    id="statusFilter"
+                    class="status-filter">
+
+                    <option value="all">
+                        ALL STATUS
+                    </option>
+
+                    <option value="pending">
+                        PENDING
+                    </option>
+
+                    <option value="paid">
+                        PAID
+                    </option>
+
+                    <option value="shipped">
+                        SHIPPED
+                    </option>
+
+                    <option value="delivered">
+                        DELIVERED
+                    </option>
+
+                    <option value="cancelled">
+                        CANCELLED
+                    </option>
+
+                </select>
+
+
+            </div>
+
 
         </div>
 
 
+
+        <!-- TABLE -->
+
         <div class="table-wrap">
 
-            <table>
+
+            <table class="orders-table">
+
 
                 <thead>
 
                     <tr>
-                        <th>ORDER ID</th>
-                        <th>PRODUCT</th>
-                        <th>CUSTOMER</th>
-                        <th>SIZE</th>
-                        <th>AMOUNT</th>
-                        <th>STATUS</th>
+
+                        <th>
+                            ORDER
+                        </th>
+
+                        <th>
+                            CUSTOMER
+                        </th>
+
+                        <th>
+                            PRODUCT
+                        </th>
+
+                        <th>
+                            AMOUNT
+                        </th>
+
+                        <th>
+                            STATUS
+                        </th>
+
+                        <th>
+                            DATE
+                        </th>
+
+                        <th>
+                            ACTION
+                        </th>
+
                     </tr>
 
                 </thead>
 
-                <tbody>
 
-                    <tr>
-
-                        <td colspan="6">
-
-                            <div class="empty">
-
-                                <div class="empty-icon">
-                                    📦
-                                </div>
-
-                                <strong>
-                                    No orders yet
-                                </strong>
-
-                                <p style="margin-top:8px;">
-                                    Customer orders will appear here.
-                                </p>
-
-                            </div>
-
-                        </td>
-
-                    </tr>
+                <tbody id="ordersBody">
 
                 </tbody>
 
+
             </table>
+
 
         </div>
 
+
     </section>
+
+
+
+    <div class="note">
+
+        Orders shown here are stored locally until a real backend/database
+        is connected. Customer orders from other devices will require a
+        shared database and secure server-side order processing.
+
+    </div>
+
 
 </main>
 
+
+
+<script>
+
+/* =========================================
+   MAINSTREAM™ ORDERS
+========================================= */
+
+
+/* =========================================
+   GET ORDERS
+========================================= */
+
+function getOrders(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "mainstreamOrders"
+            )
+        ) || [];
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================
+   SAVE ORDERS
+========================================= */
+
+function saveOrders(orders){
+
+    localStorage.setItem(
+        "mainstreamOrders",
+        JSON.stringify(orders)
+    );
+
+}
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================
+   MONEY
+========================================= */
+
+function money(value){
+
+    return "₹" +
+        Number(value || 0)
+        .toLocaleString("en-IN");
+
+}
+
+
+/* =========================================
+   STATUS CLASS
+========================================= */
+
+function getStatusClass(status){
+
+    const value =
+        String(status || "pending")
+        .toLowerCase();
+
+    if(value === "paid"){
+        return "status-paid";
+    }
+
+    if(value === "shipped"){
+        return "status-shipped";
+    }
+
+    if(value === "delivered"){
+        return "status-delivered";
+    }
+
+    if(value === "cancelled"){
+        return "status-cancelled";
+    }
+
+    return "status-pending";
+
+}
+
+
+/* =========================================
+   STATUS TEXT
+========================================= */
+
+function getStatusText(status){
+
+    const value =
+        String(status || "pending")
+        .toLowerCase();
+
+    return value
+        .replace(
+            /^\w/,
+            function(letter){
+                return letter.toUpperCase();
+            }
+        );
+
+}
+
+
+/* =========================================
+   RENDER ORDERS
+========================================= */
+
+function renderOrders(){
+
+    const body =
+        document.getElementById(
+            "ordersBody"
+        );
+
+
+    const search =
+        document.getElementById(
+            "searchBox"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const filter =
+        document.getElementById(
+            "statusFilter"
+        ).value;
+
+
+    let orders =
+        getOrders();
+
+
+    if(search){
+
+        orders =
+            orders.filter(
+                function(order){
+
+                    const text = [
+
+                        order.id,
+
+                        order.orderId,
+
+                        order.customerName,
+
+                        order.customerEmail,
+
+                        order.productName,
+
+                        order.status
+
+                    ]
+                    .join(" ")
+                    .toLowerCase();
+
+
+                    return text.includes(search);
+
+                }
+            );
+
+    }
+
+
+    if(filter !== "all"){
+
+        orders =
+            orders.filter(
+                function(order){
+
+                    return (
+                        String(
+                            order.status ||
+                            "pending"
+                        )
+                        .toLowerCase()
+                        ===
+                        filter
+                    );
+
+                }
+            );
+
+    }
+
+
+    updateStats(
+        getOrders()
+    );
+
+
+    if(orders.length === 0){
+
+        body.innerHTML = `
+
+            <tr>
+
+                <td colspan="7">
+
+                    <div class="empty">
+
+                        <div class="empty-icon">
+                            #
+                        </div>
+
+                        <div class="empty-title">
+                            No orders found
+                        </div>
+
+                        <div class="empty-text">
+                            Customer orders will appear here when they are recorded.
+                        </div>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    body.innerHTML = "";
+
+
+    orders.forEach(
+        function(order){
+
+            const orderId =
+                order.orderId ||
+                order.id ||
+                "MS-ORDER";
+
+
+            const customerName =
+                order.customerName ||
+                order.customer ||
+                "Guest Customer";
+
+
+            const customerEmail =
+                order.customerEmail ||
+                order.email ||
+                "—";
+
+
+            const productName =
+                order.productName ||
+                order.product ||
+                "MAINSTREAM™ Product";
+
+
+            const quantity =
+                Number(
+                    order.quantity || 1
+                );
+
+
+            const amount =
+                Number(
+                    order.total ||
+                    order.amount ||
+                    (
+                        Number(order.price || 0) *
+                        quantity
+                    )
+                );
+
+
+            const status =
+                String(
+                    order.status ||
+                    "pending"
+                )
+                .toLowerCase();
+
+
+            const date =
+                order.date ||
+                order.createdAt ||
+                "—";
+
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            row.innerHTML = `
+
+                <td>
+
+                    <div class="order-id">
+
+                        #${escapeHTML(
+                            orderId
+                        )}
+
+                    </div>
+
+                </td>
+
+
+                <td>
+
+                    <div class="customer-name">
+
+                        ${escapeHTML(
+                            customerName
+                        )}
+
+                    </div>
+
+                    <div class="customer-email">
+
+                        ${escapeHTML(
+                            customerEmail
+                        )}
+
+                    </div>
+
+                </td>
+
+
+                <td>
+
+                    <div class="product-name">
+
+                        ${escapeHTML(
+                            productName
+                        )}
+
+                    </div>
+
+                    <div class="product-quantity">
+
+                        Qty: ${quantity}
+
+                    </div>
+
+                </td>
+
+
+                <td>
+
+                    <div class="amount">
+
+                        ${money(amount)}
+
+                    </div>
+
+                <td>
+
+    <span
+        class="status
+        ${getStatusClass(status)}">
+
+        ${escapeHTML(
+            getStatusText(status)
+        )}
+
+    </span>
+
+</td>
+
+
+<td>
+
+    ${escapeHTML(
+        String(date)
+    )}
+
+</td>
+
+
+<td>
+
+    <a
+        href="#"
+        class="view-btn"
+        onclick="viewOrder('${String(orderId).replace(/'/g,"\\'")}'); return false;">
+
+        VIEW
+
+    </a>
+
+</td>
+
+`;
+
+
+body.appendChild(
+    row
+);
+
+}
+);
+
+}
+
+
+/* =========================================
+   UPDATE STATS
+========================================= */
+
+function updateStats(orders){
+
+const total =
+    orders.length;
+
+
+const pending =
+    orders.filter(
+        function(order){
+
+            return (
+                String(
+                    order.status ||
+                    "pending"
+                )
+                .toLowerCase()
+                ===
+                "pending"
+            );
+
+        }
+    ).length;
+
+
+const completed =
+    orders.filter(
+        function(order){
+
+            return (
+                String(
+                    order.status ||
+                    ""
+                )
+                .toLowerCase()
+                ===
+                "delivered"
+            );
+
+        }
+    ).length;
+
+
+const revenue =
+    orders.reduce(
+        function(sum,order){
+
+            return sum +
+                Number(
+                    order.total ||
+                    order.amount ||
+                    0
+                );
+
+        },
+        0
+    );
+
+
+document.getElementById(
+    "totalOrders"
+).textContent =
+    total;
+
+
+document.getElementById(
+    "pendingOrders"
+).textContent =
+    pending;
+
+
+document.getElementById(
+    "completedOrders"
+).textContent =
+    completed;
+
+
+document.getElementById(
+    "totalRevenue"
+).textContent =
+    money(revenue);
+
+}
+
+
+/* =========================================
+   VIEW ORDER
+========================================= */
+
+function viewOrder(orderId){
+
+const orders =
+    getOrders();
+
+
+const order =
+    orders.find(
+        function(item){
+
+            return String(
+                item.orderId ||
+                item.id
+            )
+            ===
+            String(orderId);
+
+        }
+    );
+
+
+if(!order){
+
+    alert(
+        "Order not found."
+    );
+
+    return;
+
+}
+
+
+const customer =
+    order.customerName ||
+    order.customer ||
+    "Guest Customer";
+
+
+const product =
+    order.productName ||
+    order.product ||
+    "MAINSTREAM™ Product";
+
+
+const amount =
+    Number(
+        order.total ||
+        order.amount ||
+        0
+    );
+
+
+alert(
+
+    "ORDER #" +
+    orderId +
+
+    "\n\nCustomer: " +
+    customer +
+
+    "\nProduct: " +
+    product +
+
+    "\nQuantity: " +
+    Number(
+        order.quantity || 1
+    ) +
+
+    "\nAmount: " +
+    money(amount) +
+
+    "\nStatus: " +
+    getStatusText(
+        order.status ||
+        "pending"
+    )
+
+);
+
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+document.getElementById(
+    "searchBox"
+).addEventListener(
+    "input",
+    function(){
+
+        renderOrders();
+
+    }
+);
+
+
+/* =========================================
+   STATUS FILTER
+========================================= */
+
+document.getElementById(
+    "statusFilter"
+).addEventListener(
+    "change",
+    function(){
+
+        renderOrders();
+
+    }
+);
+
+
+/* =========================================
+   STORAGE UPDATE
+========================================= */
+
+window.addEventListener(
+    "storage",
+    function(event){
+
+        if(
+            event.key ===
+            "mainstreamOrders"
+        ){
+
+            renderOrders();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   PAGE RETURN
+========================================= */
+
+window.addEventListener(
+    "pageshow",
+    function(){
+
+        renderOrders();
+
+    }
+);
+
+
+/* =========================================
+   INITIAL LOAD
+========================================= */
+
+renderOrders();
+
+</script>
+
+
 </body>
+
 </html>
+
+
+              
