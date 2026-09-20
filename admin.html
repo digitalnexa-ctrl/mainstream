@@ -1421,143 +1421,122 @@ tr:last-child td{
 
         </div>
 
+        <!-- CLOSE REVENUE PANEL -->
+        </div>
 
+        <!-- RECENT ACTIVITY -->
+        <div class="panel">
 
-        <!-- ACTIVITY -->
-
-<div class="panel">
-
-<div class="panel-header">
-
-<div>
-
-<div class="panel-title"> Recent Activity
-
-</div>
-
-<div class="panel-subtitle"> Latest admin actions
-
-</div>
-
-</div>
-
-<a
-
-</a>
-
-</div>
-
-href="activity.html" class="panel-action">
-
-VIEW ALL →
-
-<div
-
-class="activity" id="dashboardActivity">
-
-<div class="empty"> No activity yet.
-
-</div>
-
-</div>
-
-</div>
-
-    </section>
-
-    <!-- ============================
-         INVENTORY
-    ============================= -->
-
-<section class="panel">
-
-<div class="panel-header">
-
-<div>
-
-<div class="panel-title"> Inventory Status
-
-</div>
-
-<div class="panel-subtitle"> Current product stock
-
-</div>
-
+            <div class="panel-head">
+                <div>
+                    <div class="panel-title">
+                        RECENT ACTIVITY
                     </div>
 
-                <a
-                    href="inventory.html"
-                    class="panel-action">
+                    <div class="panel-subtitle">
+                        Latest admin actions
+                    </div>
+                </div>
+
+                <a href="activity.html" class="panel-action">
                     VIEW ALL →
                 </a>
+            </div>
+
+            <div class="activity-list">
+
+                <div class="activity-item">
+                    <div class="activity-icon">+</div>
+
+                    <div class="activity-content">
+                        <strong>Product Added</strong>
+                        <span>New product added to inventory</span>
+                    </div>
+
+                    <div class="activity-time">
+                        Recently
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon">↻</div>
+
+                    <div class="activity-content">
+                        <strong>Inventory Updated</strong>
+                        <span>Product stock information updated</span>
+                    </div>
+
+                    <div class="activity-time">
+                        Recently
+                    </div>
+                </div>
+
+                <div class="activity-item">
+                    <div class="activity-icon">•</div>
+
+                    <div class="activity-content">
+                        <strong>Dashboard Viewed</strong>
+                        <span>Admin dashboard accessed</span>
+                    </div>
+
+                    <div class="activity-time">
+                        Recently
+                    </div>
+                </div>
 
             </div>
 
-            <div
-                class="product-list"
-                id="productList">
-
-            </div>
-
-        </section>
+        </div>
 
 
         <!-- RECENT ORDERS -->
+        <div class="panel wide-panel">
 
-        <section class="panel full">
-
-            <div class="panel-header">
+            <div class="panel-head">
 
                 <div>
-
                     <div class="panel-title">
-                        Recent Orders
+                        RECENT ORDERS
                     </div>
 
                     <div class="panel-subtitle">
                         Latest customer orders
                     </div>
-
                 </div>
 
-                <a
-                    href="orders.html"
-                    class="panel-action">
+                <a href="orders.html" class="panel-action">
                     VIEW ALL →
                 </a>
 
             </div>
-
 
             <div class="table-wrap">
 
                 <table>
 
                     <thead>
-
                         <tr>
-
-                            <th>
-                                ORDER
-                            </th>
-
-                            <th>
-                                CUSTOMER
-                            </th>
-
-                            <th>
-                                TOTAL
-                            </th>
-
-                            <th>
-                                STATUS
-                            </th>
-
+                            <th>ORDER</th>
+                            <th>CUSTOMER</th>
+                            <th>PRODUCT</th>
+                            <th>AMOUNT</th>
+                            <th>STATUS</th>
                         </tr>
-
                     </thead>
 
-                    <tbody id="ordersTable">
+                    <tbody id="recentOrdersBody">
+
+                        <tr>
+                            <td>#MS001</td>
+                            <td>—</td>
+                            <td>No orders yet</td>
+                            <td>₹0</td>
+                            <td>
+                                <span class="status pending">
+                                    PENDING
+                                </span>
+                            </td>
+                        </tr>
 
                     </tbody>
 
@@ -1565,113 +1544,211 @@ class="activity" id="dashboardActivity">
 
             </div>
 
-        </section>
+        </div>
 
 
-        <!-- INVENTORY STATUS -->
+        <!-- TOP PRODUCTS -->
+        <div class="panel">
 
-        <section class="panel full">
-
-            <div class="panel-header">
+            <div class="panel-head">
 
                 <div>
-
                     <div class="panel-title">
-                        Inventory Status
+                        TOP PRODUCTS
                     </div>
 
                     <div class="panel-subtitle">
-                        Current product stock
+                        Best performing products
+                    </div>
+                </div>
+
+                <a href="shop.html" class="panel-action">
+                    PRODUCTS →
+                </a>
+
+            </div>
+
+            <div class="product-ranking">
+
+                <div class="rank-product">
+
+                    <span class="rank-number">
+                        01
+                    </span>
+
+                    <img
+                        src="max-front.png"
+                        alt="MAX / 03 TEE"
+                    >
+
+                    <div class="rank-info">
+                        <strong>MAX / 03 TEE</strong>
+                        <span>₹999</span>
                     </div>
 
                 </div>
 
-                <a
-                    href="inventory.html"
-                    class="panel-action">
+
+                <div class="rank-product">
+
+                    <span class="rank-number">
+                        02
+                    </span>
+
+                    <img
+                        src="lewis-front.png"
+                        alt="LEWIS / 44 TEE"
+                    >
+
+                    <div class="rank-info">
+                        <strong>LEWIS / 44 TEE</strong>
+                        <span>₹999</span>
+                    </div>
+
+                </div>
+
+
+                <div class="rank-product">
+
+                    <span class="rank-number">
+                        03
+                    </span>
+
+                    <img
+                        src="charles-front.png"
+                        alt="CHARLES / 16 TEE"
+                    >
+
+                    <div class="rank-info">
+                        <strong>CHARLES / 16 TEE</strong>
+                        <span>₹999</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- INVENTORY STATUS -->
+        <div class="panel">
+
+            <div class="panel-head">
+
+                <div>
+                    <div class="panel-title">
+                        INVENTORY STATUS
+                    </div>
+
+                    <div class="panel-subtitle">
+                        Current stock overview
+                    </div>
+                </div>
+
+                <a href="inventory.html" class="panel-action">
                     MANAGE →
                 </a>
 
             </div>
 
 
-            <div class="table-wrap">
+            <div class="inventory-summary">
 
-                <table>
+                <div class="inventory-stat">
+                    <span class="inventory-number">
+                        7
+                    </span>
 
-                    <thead>
+                    <span class="inventory-label">
+                        TOTAL PRODUCTS
+                    </span>
+                </div>
 
-                        <tr>
 
-                            <th>
-                                PRODUCT
-                            </th>
+                <div class="inventory-stat">
+                    <span class="inventory-number">
+                        7
+                    </span>
 
-                            <th>
-                                PRICE
-                            </th>
+                    <span class="inventory-label">
+                        IN STOCK
+                    </span>
+                </div>
 
-                            <th>
-                                STOCK
-                            </th>
 
-                            <th>
-                                STATUS
-                            </th>
+                <div class="inventory-stat">
+                    <span class="inventory-number">
+                        0
+                    </span>
 
-                        </tr>
+                    <span class="inventory-label">
+                        LOW STOCK
+                    </span>
+                </div>
 
-                    </thead>
 
-                    <tbody id="inventoryTable">
+                <div class="inventory-stat">
+                    <span class="inventory-number">
+                        0
+                    </span>
 
-                    </tbody>
-
-                </table>
+                    <span class="inventory-label">
+                        OUT OF STOCK
+                    </span>
+                </div>
 
             </div>
 
-        </section>
+        </div>
 
 
-        <!-- RECENT ACTIVITY -->
+        <!-- ACTIVITY PANEL -->
+        <div class="panel wide-panel">
 
-        <section class="panel full">
-
-            <div class="panel-header">
+            <div class="panel-head">
 
                 <div>
-
                     <div class="panel-title">
-                        Recent Activity
+                        SYSTEM ACTIVITY
                     </div>
 
                     <div class="panel-subtitle">
-                        Latest admin activity
+                        Dashboard activity overview
                     </div>
-
                 </div>
 
-                <a
-                    href="activity.html"
-                    class="panel-action">
+                <a href="activity.html" class="panel-action">
                     VIEW ALL →
                 </a>
 
             </div>
 
 
-            <div
-                class="activity-list"
-                id="dashboardActivity">
+            <div class="system-message">
+
+                <div class="system-dot"></div>
+
+                <div>
+                    <strong>
+                        MAINSTREAM™ ADMIN SYSTEM
+                    </strong>
+
+                    <p>
+                        Dashboard is running normally.
+                        Inventory and product management
+                        modules are available.
+                    </p>
+                </div>
 
             </div>
 
-        </section>
+        </div>
+
+    </section>
 
 
-    </main>
-
+</main>
 </div>
 
 
@@ -1679,49 +1756,24 @@ class="activity" id="dashboardActivity">
 
 <nav class="mobile-nav">
 
-    <a
-        href="admin.html"
-        class="active">
-
-        <span class="mobile-nav-icon">
-            ⌂
-        </span>
-
-        DASHBOARD
-
+    <a href="admin.html" class="mobile-nav-item active">
+        <span>⌂</span>
+        <small>HOME</small>
     </a>
 
-
-    <a href="orders.html">
-
-        <span class="mobile-nav-icon">
-            ▣
-        </span>
-
-        ORDERS
-
+    <a href="orders.html" class="mobile-nav-item">
+        <span>▤</span>
+        <small>ORDERS</small>
     </a>
 
-
-    <a href="inventory.html">
-
-        <span class="mobile-nav-icon">
-            ◫
-        </span>
-
-        PRODUCTS
-
+    <a href="inventory.html" class="mobile-nav-item">
+        <span>□</span>
+        <small>PRODUCTS</small>
     </a>
 
-
-    <a href="activity.html">
-
-        <span class="mobile-nav-icon">
-            ≡
-        </span>
-
-        ACTIVITY
-
+    <a href="activity.html" class="mobile-nav-item">
+        <span>◌</span>
+        <small>ACTIVITY</small>
     </a>
 
 </nav>
@@ -1730,97 +1782,15 @@ class="activity" id="dashboardActivity">
 <script>
 
 /* =========================================
-   MAINSTREAM™ ADMIN DATA
+   DASHBOARD DATA
 ========================================= */
-
-
-/* DEFAULT PRODUCTS */
-
-const defaultProducts = [
-
-    {
-        id:"max",
-        name:"MAX / 03 TEE",
-        price:999,
-        stock:0
-    },
-
-    {
-        id:"lewis",
-        name:"LEWIS / 44 TEE",
-        price:999,
-        stock:0
-    },
-
-    {
-        id:"charles",
-        name:"CHARLES / 16 TEE",
-        price:999,
-        stock:0
-    },
-
-    {
-        id:"lando",
-        name:"LANDO / 01 TEE",
-        price:999,
-        stock:0
-    },
-
-    {
-        id:"oscar",
-        name:"OSCAR / 81 TEE",
-        price:999,
-        stock:0
-    },
-
-    {
-        id:"george",
-        name:"GEORGE / 63 TEE",
-        price:999,
-        stock:0
-    },
-
-    {
-        id:"kimi",
-        name:"KIMI / 12 TEE",
-        price:999,
-        stock:0
-    }
-
-];
-
-
-/* GET PRODUCTS */
-
-function getProducts(){
-
-    try{
-
-        return JSON.parse(
-            localStorage.getItem(
-                "mainstreamProducts"
-            )
-        ) || [];
-
-    }catch(error){
-
-        return [];
-
-    }
-
-}
-
-
-/* GET ORDERS */
 
 function getOrders(){
 
     try{
 
         return JSON.parse(
-            localStorage.getItem(
-                "mainstreamOrders"
-            )
+            localStorage.getItem("mainstreamOrders")
         ) || [];
 
     }catch(error){
@@ -1832,194 +1802,60 @@ function getOrders(){
 }
 
 
-/* GET ACTIVITY */
+/* =========================================
+   FORMAT MONEY
+========================================= */
 
-function getActivity(){
+function money(value){
 
-    try{
-
-        return JSON.parse(
-            localStorage.getItem(
-                "mainstreamActivity"
-            )
-        ) || [];
-
-    }catch(error){
-
-        return [];
-
-    }
-
-}
-
-
-/* SAFE TEXT */
-
-function escapeHTML(value){
-
-    return String(value)
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
-}
-
-
-/* RENDER PRODUCTS */
-
-function renderProducts(){
-
-    const savedProducts =
-        getProducts();
-
-    const products =
-        savedProducts.length
-        ? savedProducts
-        : defaultProducts;
-
-
-    document.getElementById(
-        "totalProducts"
-    ).textContent =
-        products.length;
-
-
-    let totalStock = 0;
-
-
-    products.forEach(function(product){
-
-        totalStock +=
-            Number(product.stock || 0);
-
-    });
-
-
-    document.getElementById(
-        "totalStock"
-    ).textContent =
-        totalStock;
-
-
-    const productList =
-        document.getElementById(
-            "productList"
-        );
-
-
-    productList.innerHTML = "";
-
-
-    products.slice(0,7).forEach(
-        function(product){
-
-            const row =
-                document.createElement(
-                    "div"
-                );
-
-
-            row.className =
-                "product-row";
-
-
-            row.innerHTML = `
-
-                <div class="product-info">
-
-                    <strong>
-                        ${escapeHTML(product.name)}
-                    </strong>
-
-                    <span>
-                        ${Number(product.stock || 0)}
-                        units in stock
-                    </span>
-
-                </div>
-
-                <div class="product-price">
-
-                    ₹${Number(
-                        product.price || 0
-                    ).toLocaleString("en-IN")}
-
-                </div>
-
-            `;
-
-
-            productList.appendChild(row);
-
-        }
+    const number = Number(
+        String(value || 0)
+            .replace("₹","")
+            .replace(/,/g,"")
     );
 
+    return "₹" + number.toLocaleString("en-IN");
+
 }
 
 
-/* RENDER ORDERS */
+/* =========================================
+   UPDATE DASHBOARD ORDERS
+========================================= */
 
-function renderOrders(){
+function updateRecentOrders(){
 
     const orders =
         getOrders();
 
-
-    document.getElementById(
-        "totalOrders"
-    ).textContent =
-        orders.length;
-
-
-    let revenue = 0;
-
-
-    orders.forEach(function(order){
-
-        revenue +=
-            Number(
-                order.total ||
-                order.amount ||
-                0
-            );
-
-    });
-
-
-    document.getElementById(
-        "totalRevenue"
-    ).textContent =
-        "₹" +
-        revenue.toLocaleString("en-IN");
-
-
-    const table =
+    const body =
         document.getElementById(
-            "ordersTable"
+            "recentOrdersBody"
         );
 
-
-    table.innerHTML = "";
+    if(!body){
+        return;
+    }
 
 
     if(orders.length === 0){
 
-        table.innerHTML = `
+        body.innerHTML = `
 
             <tr>
 
-                <td
-                    colspan="4"
-                    style="
-                        text-align:center;
-                        color:#555;
-                        padding:30px;
-                    ">
+                <td>#MS001</td>
 
-                    No orders yet.
+                <td>—</td>
 
+                <td>No orders yet</td>
+
+                <td>₹0</td>
+
+                <td>
+                    <span class="status pending">
+                        PENDING
+                    </span>
                 </td>
 
             </tr>
@@ -2031,312 +1867,259 @@ function renderOrders(){
     }
 
 
-    orders.slice(0,5).forEach(
-        function(order,index){
+    body.innerHTML =
+        orders
+        .slice(0,5)
+        .map(function(order){
 
-            const tr =
-                document.createElement(
-                    "tr"
-                );
-
-
-            const orderId =
-                order.id ||
-                "#MS" +
-                String(index + 1)
-                .padStart(4,"0");
-
-
-            const customer =
-                order.customer ||
-                order.name ||
-                "Customer";
-
-
-            const total =
-                Number(
-                    order.total ||
-                    order.amount ||
-                    0
-                );
-
+            const amount =
+                order.total ||
+                order.amount ||
+                order.price ||
+                0;
 
             const status =
-                order.status ||
-                "PROCESSING";
+                String(
+                    order.status ||
+                    "Pending"
+                );
 
 
-            tr.innerHTML = `
+            return `
 
-                <td>
-                    ${escapeHTML(orderId)}
-                </td>
+                <tr>
 
-                <td>
-                    ${escapeHTML(customer)}
-                </td>
+                    <td>
+                        #${order.id || "MS001"}
+                    </td>
 
-                <td>
-                    ₹${total.toLocaleString("en-IN")}
-                </td>
+                    <td>
+                        ${order.customer ||
+                        order.name ||
+                        "Customer"}
+                    </td>
 
-                <td>
-                    ${escapeHTML(status)}
-                </td>
+                    <td>
+                        ${order.product ||
+                        order.productName ||
+                        "MAINSTREAM PRODUCT"}
+                    </td>
+
+                    <td>
+                        ${money(amount)}
+                    </td>
+
+                    <td>
+
+                        <span class="status ${status
+                            .toLowerCase()
+                            .replace(/\s+/g,"-")}">
+
+                            ${status.toUpperCase()}
+
+                        </span>
+
+                    </td>
+
+                </tr>
 
             `;
 
-
-            table.appendChild(tr);
-
-        }
-    );
+        })
+        .join("");
 
 }
 
 
-/* RENDER INVENTORY */
+/* =========================================
+   DASHBOARD COUNTERS
+========================================= */
 
-function renderInventory(){
+function updateDashboardStats(){
 
-    const savedProducts =
-        getProducts();
+    const orders =
+        getOrders();
 
-    const products =
-        savedProducts.length
-        ? savedProducts
-        : defaultProducts;
+    let revenue = 0;
 
 
-    const table =
-        document.getElementById(
-            "inventoryTable"
+    orders.forEach(function(order){
+
+        revenue += Number(
+            String(
+                order.total ||
+                order.amount ||
+                order.price ||
+                0
+            )
+            .replace("₹","")
+            .replace(/,/g,"")
+        ) || 0;
+
+    });
+
+
+    const revenueElement =
+        document.querySelector(
+            ".stats .stat-card:nth-child(1) .stat-number"
+        );
+
+    const orderElement =
+        document.querySelector(
+            ".stats .stat-card:nth-child(2) .stat-number"
         );
 
 
-    table.innerHTML = "";
+    if(revenueElement){
 
-
-    products.slice(0,7).forEach(
-        function(product){
-
-            const stock =
-                Number(
-                    product.stock || 0
-                );
-
-
-            let status =
-                "IN STOCK";
-
-            let statusClass =
-                "stock-good";
-
-
-            if(stock <= 0){
-
-                status =
-                    "OUT OF STOCK";
-
-                statusClass =
-                    "stock-out";
-
-            }else if(stock <= 10){
-
-                status =
-                    "LOW STOCK";
-
-                statusClass =
-                    "stock-low";
-
-            }
-
-
-            const tr =
-                document.createElement(
-                    "tr"
-                );
-
-
-            tr.innerHTML = `
-
-                <td>
-
-                    <div class="product-name">
-
-                        ${escapeHTML(
-                            product.name
-                        )}
-
-                    </div>
-
-                    <div class="product-sub">
-                        Racing Collection
-                    </div>
-
-                </td>
-
-                <td>
-
-                    ₹${Number(
-                        product.price || 0
-                    ).toLocaleString("en-IN")}
-
-                </td>
-
-                <td>
-                    ${stock}
-                </td>
-
-                <td class="${statusClass}">
-                    ${status}
-                </td>
-
-            `;
-
-
-            table.appendChild(tr);
-
-        }
-    );
-
-}
-
-
-/* RENDER ACTIVITY */
-
-function renderActivity(){
-
-    const activity =
-        getActivity();
-
-
-    const container =
-        document.getElementById(
-            "dashboardActivity"
-        );
-
-
-    container.innerHTML = "";
-
-
-    if(activity.length === 0){
-
-        container.innerHTML = `
-
-            <div class="empty">
-
-                No activity yet.
-
-            </div>
-
-        `;
-
-        return;
+        revenueElement.textContent =
+            money(revenue);
 
     }
 
 
-    activity
-        .slice(0,5)
-        .forEach(function(item){
+    if(orderElement){
 
-            const div =
-                document.createElement(
-                    "div"
-                );
+        orderElement.textContent =
+            orders.length;
 
-
-            div.className =
-                "activity-item";
-
-
-            div.innerHTML = `
-
-                <div class="activity-dot"></div>
-
-                <div class="activity-text">
-
-                    ${escapeHTML(
-                        item.text ||
-                        item.action ||
-                        "Activity recorded"
-                    )}
-
-                    <span class="activity-time">
-
-                        ${escapeHTML(
-                            item.time ||
-                            "Recently"
-                        )}
-
-                    </span>
-
-                </div>
-
-            `;
-
-
-            container.appendChild(div);
-
-        });
+    }
 
 }
 
 
-/* SALES PERIOD */
+/* =========================================
+   SALES PERIOD
+========================================= */
 
 function changePeriod(period){
 
+    const salesNumber =
+        document.querySelector(
+            ".big-sales"
+        );
+
     const salesNote =
-        document.getElementById(
-            "salesNote"
+        document.querySelector(
+            ".sales-note"
         );
 
 
-    if(!salesNote){
-        return;
-    }
+    const bars =
+        document.querySelectorAll(
+            ".mini-bar"
+        );
 
 
     if(period === "week"){
 
-        salesNote.textContent =
-            "Current week revenue";
+        if(salesNumber){
+            salesNumber.textContent =
+                "₹0";
+        }
+
+        if(salesNote){
+            salesNote.textContent =
+                "THIS WEEK";
+        }
+
+        bars.forEach(function(bar,index){
+
+            bar.style.height =
+                (20 + index * 6) + "%";
+
+        });
 
     }
+
 
     else if(period === "year"){
 
-        salesNote.textContent =
-            "Current year revenue";
+        if(salesNumber){
+            salesNumber.textContent =
+                "₹0";
+        }
+
+        if(salesNote){
+            salesNote.textContent =
+                "THIS YEAR";
+        }
+
+        bars.forEach(function(bar,index){
+
+            bar.style.height =
+                (35 + index * 5) + "%";
+
+        });
 
     }
 
+
     else{
 
-        salesNote.textContent =
-            "Current month revenue";
+        if(salesNumber){
+            salesNumber.textContent =
+                "₹0";
+        }
+
+        if(salesNote){
+            salesNote.textContent =
+                "THIS MONTH";
+        }
+
+        bars.forEach(function(bar,index){
+
+            bar.style.height =
+                (25 + index * 7) + "%";
+
+        });
 
     }
 
 }
 
 
-/* INITIALIZE */
+/* =========================================
+   LIVE UPDATE
+========================================= */
 
-renderProducts();
+window.addEventListener(
+    "storage",
+    function(){
 
-renderOrders();
+        updateRecentOrders();
+        updateDashboardStats();
 
-renderInventory();
+    }
+);
 
-renderActivity();
+
+window.addEventListener(
+    "pageshow",
+    function(){
+
+        updateRecentOrders();
+        updateDashboardStats();
+
+    }
+);
+
+
+/* =========================================
+   INITIAL LOAD
+========================================= */
+
+updateRecentOrders();
+
+updateDashboardStats();
 
 </script>
-
 
 </body>
 
 </html>
-    
+
+        
+
+
+                        
