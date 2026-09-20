@@ -2895,7 +2895,8 @@ async function updateProductCount(){
 
     const products = data || [];
 
-    /* PRODUCTS */
+    /* PRODUCTS COUNT */
+
     const productsElement =
         document.getElementById("productsValue");
 
@@ -2904,25 +2905,94 @@ async function updateProductCount(){
             products.length;
     }
 
+
     /* TOTAL INVENTORY UNITS */
+
     const inventoryElement =
         document.getElementById("inventoryValue");
 
+    let totalStock = 0;
+
+    products.forEach(function(product){
+
+        totalStock +=
+            Number(product.stock) || 0;
+
+    });
+
     if(inventoryElement){
-
-        const totalStock =
-            products.reduce(function(total, product){
-
-                return total +
-                    (Number(product.stock) || 0);
-
-            }, 0);
-
         inventoryElement.textContent =
             totalStock;
     }
+
+
+    /* INVENTORY STATUS */
+
+    let inStock = 0;
+    let lowStock = 0;
+    let outOfStock = 0;
+
+
+    products.forEach(function(product){
+
+        const stock =
+            Number(product.stock) || 0;
+
+
+        if(stock === 0){
+
+            outOfStock++;
+
+        }
+        else if(stock <= 5){
+
+            lowStock++;
+
+        }
+        else{
+
+            inStock++;
+
+        }
+
+    });
+
+
+    const totalProducts =
+        document.getElementById("totalProducts");
+
+    const inStockElement =
+        document.getElementById("inStockProducts");
+
+    const lowStockElement =
+        document.getElementById("lowStockProducts");
+
+    const outOfStockElement =
+        document.getElementById("outOfStockProducts");
+
+
+    if(totalProducts){
+        totalProducts.textContent =
+            products.length;
+    }
+
+    if(inStockElement){
+        inStockElement.textContent =
+            inStock;
+    }
+
+    if(lowStockElement){
+        lowStockElement.textContent =
+            lowStock;
+    }
+
+    if(outOfStockElement){
+        outOfStockElement.textContent =
+            outOfStock;
+    }
+
 }
-async function checkAdminLogin(){
+   async function checkAdminLogin(){
 
     const {
         data: { session }
