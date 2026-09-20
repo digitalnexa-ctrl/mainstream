@@ -1332,7 +1332,331 @@ body{
 
 }
 
-</style>
+/* =========================================
+   ADMIN MOBILE — INVENTORY STYLE
+========================================= */
+
+@media (max-width:768px){
+
+    body{
+        background:#080808 !important;
+        color:#fff;
+        overflow-x:hidden;
+    }
+
+    .layout{
+        display:block !important;
+        width:100% !important;
+    }
+
+    .sidebar{
+        display:none !important;
+    }
+
+    .main{
+        width:100% !important;
+        max-width:100% !important;
+        min-width:0 !important;
+        padding:0 0 90px !important;
+    }
+
+
+    /* HEADER */
+
+    .topbar{
+        height:106px !important;
+        min-height:106px !important;
+        padding:0 24px !important;
+
+        display:flex !important;
+        align-items:center !important;
+        justify-content:space-between !important;
+
+        border-bottom:1px solid #292929 !important;
+    }
+
+
+    /* PAGE HEADING */
+
+    .page-heading{
+        padding:38px 24px 24px !important;
+        margin:0 !important;
+    }
+
+    .page-heading h1{
+        font-size:40px !important;
+        line-height:1 !important;
+        margin:0 0 14px !important;
+        letter-spacing:-1.5px !important;
+    }
+
+    .page-heading p{
+        font-size:16px !important;
+        line-height:1.5 !important;
+        margin:0 !important;
+    }
+
+
+    /* STAT CARDS */
+
+    .stats{
+        width:100% !important;
+        padding:0 24px !important;
+        margin:0 !important;
+
+        display:grid !important;
+        grid-template-columns:1fr 1fr !important;
+        gap:14px !important;
+    }
+
+    .stat-card{
+        width:100% !important;
+        min-width:0 !important;
+        padding:22px !important;
+
+        border-radius:18px !important;
+    }
+
+    .stat-label{
+        font-size:11px !important;
+        letter-spacing:2px !important;
+    }
+
+    .stat-number{
+        font-size:34px !important;
+        line-height:1.1 !important;
+        margin-top:14px !important;
+    }
+
+
+    /* DASHBOARD GRID */
+
+    .dashboard-grid{
+        width:100% !important;
+        padding:28px 24px 0 !important;
+        margin:0 !important;
+
+        display:grid !important;
+        grid-template-columns:1fr !important;
+        gap:14px !important;
+    }
+
+    .dashboard-grid > .panel{
+        width:100% !important;
+        min-width:0 !important;
+        max-width:100% !important;
+
+        margin:0 !important;
+        padding:24px !important;
+
+        border-radius:20px !important;
+    }
+
+
+    /* PANEL HEAD */
+
+    .panel-head{
+        width:100% !important;
+        min-width:0 !important;
+
+        display:flex !important;
+        align-items:flex-start !important;
+        justify-content:space-between !important;
+        gap:15px !important;
+    }
+
+    .panel-title{
+        font-size:20px !important;
+        line-height:1.15 !important;
+        letter-spacing:-.3px !important;
+    }
+
+    .panel-subtitle{
+        font-size:13px !important;
+        margin-top:7px !important;
+    }
+
+    .panel-action{
+        flex-shrink:0 !important;
+        white-space:nowrap !important;
+        font-size:11px !important;
+    }
+
+
+    /* REVENUE */
+
+    .big-sales{
+        font-size:38px !important;
+        margin-top:20px !important;
+    }
+
+    .sales-note{
+        font-size:13px !important;
+    }
+
+    .chart{
+        width:100% !important;
+        height:230px !important;
+        margin-top:20px !important;
+        overflow:hidden !important;
+    }
+
+
+    /* ACTIVITY */
+
+    .activity-item{
+        padding:18px 0 !important;
+        gap:14px !important;
+    }
+
+    .activity-content{
+        min-width:0 !important;
+    }
+
+    .activity-content strong{
+        font-size:17px !important;
+    }
+
+    .activity-content span{
+        font-size:15px !important;
+        line-height:1.35 !important;
+    }
+
+
+    /* ORDERS */
+
+    .table-wrap{
+        width:100% !important;
+        max-width:100% !important;
+        overflow-x:auto !important;
+    }
+
+    table{
+        min-width:600px !important;
+    }
+
+
+    /* TOP PRODUCTS */
+
+    .product-ranking{
+        width:100% !important;
+        margin-top:12px !important;
+    }
+
+    .rank-product{
+        width:100% !important;
+        min-width:0 !important;
+        padding:14px 0 !important;
+    }
+
+    .rank-product img{
+        width:58px !important;
+        height:58px !important;
+        min-width:58px !important;
+        max-width:58px !important;
+
+        object-fit:cover !important;
+        border-radius:10px !important;
+    }
+
+    .rank-info{
+        min-width:0 !important;
+    }
+
+
+    /* INVENTORY STATUS */
+
+    .inventory-summary{
+        width:100% !important;
+
+        display:grid !important;
+        grid-template-columns:1fr 1fr !important;
+
+        gap:12px !important;
+        margin-top:18px !important;
+    }
+
+    .inventory-stat{
+        min-width:0 !important;
+        padding:12px 0 !important;
+    }
+
+    .inventory-number{
+        font-size:28px !important;
+    }
+
+    .inventory-label{
+        font-size:10px !important;
+        line-height:1.3 !important;
+    }
+
+
+    /* SYSTEM ACTIVITY */
+
+    .system-message{
+        margin-top:18px !important;
+        width:100% !important;
+    }
+
+
+    /* MOBILE NAV */
+
+    .mobile-nav{
+        position:fixed !important;
+        bottom:0 !important;
+        left:0 !important;
+        right:0 !important;
+
+        width:100% !important;
+        height:74px !important;
+
+        display:flex !important;
+        align-items:center !important;
+        justify-content:space-around !important;
+
+        background:#101010 !important;
+        border-top:1px solid #292929 !important;
+
+        z-index:9999 !important;
+    }
+
+    .mobile-nav-item{
+        flex:1 !important;
+        height:100% !important;
+
+        display:flex !important;
+        flex-direction:column !important;
+        align-items:center !important;
+        justify-content:center !important;
+
+        gap:6px !important;
+
+        color:#777 !important;
+        text-decoration:none !important;
+    }
+
+    .mobile-nav-item:visited{
+        color:#777 !important;
+    }
+
+    .mobile-nav-item span{
+        font-size:20px !important;
+        color:#777 !important;
+    }
+
+    .mobile-nav-item small{
+        font-size:10px !important;
+        letter-spacing:.5px !important;
+        color:#777 !important;
+    }
+
+    .mobile-nav-item.active,
+    .mobile-nav-item.active span,
+    .mobile-nav-item.active small{
+        color:#FFD400 !important;
+    }
+
+}
 </style>
 
 </head>
