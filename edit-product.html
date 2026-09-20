@@ -846,335 +846,66 @@ body{
 
 </div>
 
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
 
 <script>
 
+const mainstreamDB = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+);
+
+
 /* =========================================
-   MAINSTREAM™ EDIT PRODUCT
+   PRODUCT ID
 ========================================= */
 
-
-/* DEFAULT PRODUCTS */
-
-const defaultProducts = [
-
-    {
-        id:"max",
-        name:"MAX / 03 TEE",
-        price:999,
-        stock:0,
-        category:"Racing Collection",
-        sku:"MS-MAX-03",
-        description:"",
-        image:"max-front.png"
-    },
-
-    {
-        id:"lewis",
-        name:"LEWIS / 44 TEE",
-        price:999,
-        stock:0,
-        category:"Racing Collection",
-        sku:"MS-LEWIS-44",
-        description:"",
-        image:"lewis-front.png"
-    },
-
-    {
-        id:"charles",
-        name:"CHARLES / 16 TEE",
-        price:999,
-        stock:0,
-        category:"Racing Collection",
-        sku:"MS-CHARLES-16",
-        description:"",
-        image:"charles-front.png"
-    },
-
-    {
-        id:"lando",
-        name:"LANDO / 01 TEE",
-        price:999,
-        stock:0,
-        category:"Racing Collection",
-        sku:"MS-LANDO-01",
-        description:"",
-        image:"lando-front.png"
-    },
-
-    {
-        id:"oscar",
-        name:"OSCAR / 81 TEE",
-        price:999,
-        stock:0,
-        category:"Racing Collection",
-        sku:"MS-OSCAR-81",
-        description:"",
-        image:"oscar-front.png"
-    },
-
-    {
-        id:"george",
-        name:"GEORGE / 63 TEE",
-        price:999,
-        stock:0,
-        category:"Racing Collection",
-        sku:"MS-GEORGE-63",
-        description:"",
-        image:"george-front.png"
-    },
-
-    {
-        id:"kimi",
-        name:"KIMI / 12 TEE",
-        price:999,
-        stock:0,
-        category:"Racing Collection",
-        sku:"MS-KIMI-12",
-        description:"",
-        image:"kimi-front.png"
-    }
-
-];
-
-
-/* GET SAVED PRODUCTS */
-
-function getSavedProducts(){
-
-    try{
-
-        return JSON.parse(
-            localStorage.getItem(
-                "mainstreamProducts"
-            )
-        ) || [];
-
-    }catch(error){
-
-        return [];
-
-    }
-
-}
-
-
-/* GET ALL PRODUCTS */
-
-function getProducts(){
-
-    const saved =
-        getSavedProducts();
-
-
-    const products = [];
-
-
-    defaultProducts.forEach(
-        function(defaultProduct){
-
-            const savedProduct =
-                saved.find(
-                    function(item){
-
-                        return (
-                            String(item.id)
-                            ===
-                            String(defaultProduct.id)
-                        )
-                        ||
-                        (
-                            item.name &&
-                            item.name
-                                .trim()
-                                .toLowerCase()
-                            ===
-                            defaultProduct.name
-                                .trim()
-                                .toLowerCase()
-                        );
-
-                    }
-                );
-
-
-            if(savedProduct){
-
-                products.push({
-
-                    ...defaultProduct,
-
-                    ...savedProduct,
-
-                    image:
-                        savedProduct.image ||
-                        savedProduct.front ||
-                        defaultProduct.image
-
-                });
-
-            }else{
-
-                products.push(
-                    defaultProduct
-                );
-
-            }
-
-        }
-    );
-
-
-    saved.forEach(
-        function(savedProduct){
-
-            const exists =
-                products.some(
-                    function(product){
-
-                        return (
-                            String(product.id)
-                            ===
-                            String(savedProduct.id)
-                        );
-
-                    }
-                );
-
-
-            if(!exists){
-
-                products.push({
-
-                    ...savedProduct,
-
-                    image:
-                        savedProduct.image ||
-                        savedProduct.front ||
-                        "mainstream-logo.png"
-
-                });
-
-            }
-
-        }
-    );
-
-
-    return products;
-
-}
-
-
-/* GET PRODUCT ID FROM URL */
-
-function getProductId(){
-
-    const params =
-        new URLSearchParams(
-            window.location.search
-        );
-
-
-    return params.get("product");
-
-}
-
-
-/* CURRENT PRODUCT */
+const params =
+    new URLSearchParams(window.location.search);
 
 const productId =
-    getProductId();
+    params.get("product");
 
 
-let currentProduct =
-    null;
+let currentProduct = null;
+let selectedImage = "";
 
 
-let selectedImage =
-    "";
+/* =========================================
+   GET PRODUCT
+========================================= */
 
+async function loadProduct(){
 
-/* FIND PRODUCT */
+    if(!productId){
 
-function findProduct(){
+        alert("Product ID missing.");
 
-    const products =
-        getProducts();
+        window.location.href =
+            "inventory.html";
 
-
-    if(productId){
-
-        currentProduct =
-            products.find(
-                function(product){
-
-                    return String(product.id)
-                        ===
-                        String(productId);
-
-                }
-            );
-
+        return;
     }
 
 
-    /*
-       FALLBACK:
-       If an old link has no product ID,
-       do NOT automatically show MAX
-       unless there is genuinely no other
-       product available.
-    */
-
-    if(!currentProduct){
-
-        currentProduct =
-            products[0] || null;
-
-    }
+    const {
+        data,
+        error
+    } =
+        await mainstreamDB
+        .from("products")
+        .select("*")
+        .eq("slug", productId)
+        .single();
 
 
-    return currentProduct;
+    if(error || !data){
 
-}
-
-
-/* HTML ESCAPE */
-
-function escapeHTML(value){
-
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
-}
-
-
-/* MONEY */
-
-function money(value){
-
-    return "₹" +
-        Number(value || 0)
-        .toLocaleString("en-IN");
-
-}
-
-
-/* LOAD PRODUCT */
-
-function loadProduct(){
-
-    currentProduct =
-        findProduct();
-
-
-    if(!currentProduct){
+        console.error(
+            "Product loading error:",
+            error
+        );
 
         alert(
             "Product not found."
@@ -1184,54 +915,66 @@ function loadProduct(){
             "inventory.html";
 
         return;
-
     }
 
+
+    currentProduct = data;
+
+
+    /* PRODUCT NAME */
 
     document.getElementById(
         "productName"
     ).value =
-        currentProduct.name || "";
+        data.name || "";
 
+
+    /* PRICE */
 
     document.getElementById(
         "productPrice"
     ).value =
-        Number(
-            currentProduct.price || 0
-        );
+        Number(data.price || 0);
 
+
+    /* CATEGORY */
 
     document.getElementById(
         "productCategory"
     ).value =
-        currentProduct.category ||
+        data.category ||
         "Racing Collection";
 
+
+    /* STOCK */
 
     document.getElementById(
         "productStock"
     ).value =
-        Number(
-            currentProduct.stock || 0
-        );
+        Number(data.stock || 0);
 
+
+    /* SKU */
 
     document.getElementById(
         "productSKU"
     ).value =
-        currentProduct.sku || "";
+        data.sku || "";
 
+
+    /* DESCRIPTION */
 
     document.getElementById(
         "productDescription"
     ).value =
-        currentProduct.description || "";
+        data.description || "";
 
+
+    /* IMAGE */
 
     const image =
-        currentProduct.image ||
-        currentProduct.front ||
+        data.image_url ||
+        data.front_image ||
         "mainstream-logo.png";
 
 
@@ -1244,49 +987,42 @@ function loadProduct(){
     document.getElementById(
         "previewName"
     ).textContent =
-        currentProduct.name;
+        data.name || "Product";
 
 
     document.getElementById(
         "previewPrice"
     ).textContent =
-        money(
-            currentProduct.price
-        );
+        "₹" +
+        Number(
+            data.price || 0
+        ).toLocaleString("en-IN");
 
+
+    console.log(
+        "MAINSTREAM product loaded:",
+        data
+    );
 }
 
 
-/* IMAGE CHANGE */
+/* =========================================
+   IMAGE UPLOAD
+========================================= */
 
-document.getElementById(
-    "productImage"
-).addEventListener(
+document
+.getElementById("productImage")
+.addEventListener(
     "change",
-    function(){
+    function(event){
 
         const file =
-            this.files &&
-            this.files[0];
+            event.target.files[0];
 
 
         if(!file){
 
             return;
-
-        }
-
-
-        if(!file.type.startsWith("image/")){
-
-            alert(
-                "Please select a valid image."
-            );
-
-            this.value = "";
-
-            return;
-
         }
 
 
@@ -1295,36 +1031,34 @@ document.getElementById(
 
 
         reader.onload =
-            function(event){
+            function(e){
 
                 selectedImage =
-                    event.target.result;
+                    e.target.result;
 
 
-                const preview =
-                    document.getElementById(
-                        "imagePreview"
-                    );
-
-
-                preview.src =
+                document.getElementById(
+                    "imagePreview"
+                ).src =
                     selectedImage;
 
 
-                          preview.style.display =
+                document.getElementById(
+                    "imagePreview"
+                ).style.display =
                     "block";
 
 
                 document.getElementById(
                     "uploadTitle"
                 ).textContent =
-                    file.name;
+                    "New image selected";
 
 
                 document.getElementById(
                     "uploadNote"
                 ).textContent =
-                    "New image selected";
+                    file.name;
 
             };
 
@@ -1336,73 +1070,10 @@ document.getElementById(
 
 
 /* =========================================
-   ACTIVITY
-========================================= */
-
-function addActivity(
-    action,
-    productName
-){
-
-    let activities = [];
-
-
-    try{
-
-        activities =
-            JSON.parse(
-                localStorage.getItem(
-                    "mainstreamActivity"
-                )
-            ) || [];
-
-    }catch(error){
-
-        activities = [];
-
-    }
-
-
-    activities.unshift({
-
-        id:
-            Date.now(),
-
-        text:
-            action +
-            ": " +
-            productName,
-
-        time:
-            new Date().toLocaleString(
-                "en-IN",
-                {
-                    day:"2-digit",
-                    month:"short",
-                    year:"numeric",
-                    hour:"2-digit",
-                    minute:"2-digit"
-                }
-            )
-
-    });
-
-
-    localStorage.setItem(
-        "mainstreamActivity",
-        JSON.stringify(
-            activities.slice(0,50)
-        )
-    );
-
-}
-
-
-/* =========================================
    SAVE CHANGES
 ========================================= */
 
-function saveChanges(event){
+async function saveChanges(event){
 
     event.preventDefault();
 
@@ -1410,20 +1081,17 @@ function saveChanges(event){
     if(!currentProduct){
 
         alert(
-            "Product not found."
+            "Product not loaded."
         );
 
         return;
-
     }
 
 
     const name =
         document.getElementById(
             "productName"
-        )
-        .value
-        .trim();
+        ).value.trim();
 
 
     const price =
@@ -1451,145 +1119,245 @@ function saveChanges(event){
     const sku =
         document.getElementById(
             "productSKU"
-        )
-        .value
-        .trim();
+        ).value.trim();
 
 
     const description =
         document.getElementById(
             "productDescription"
-        )
-        .value
-        .trim();
+        ).value.trim();
 
 
     if(!name){
 
         alert(
-            "Product name is required."
+            "Please enter product name."
         );
 
         return;
-
     }
 
 
-    if(
-        !Number.isFinite(price)
-        ||
-        price < 0
-    ){
+    if(price < 0){
 
         alert(
-            "Please enter a valid price."
+            "Price cannot be negative."
         );
 
         return;
-
     }
 
 
-    if(
-        !Number.isFinite(stock)
-        ||
-        stock < 0
-    ){
+    if(stock < 0){
 
         alert(
-            "Please enter a valid stock quantity."
+            "Stock cannot be negative."
         );
 
         return;
+    }
+
+
+    /* -----------------------------------------
+       CREATE NEW SLUG ONLY IF NAME CHANGED
+    ----------------------------------------- */
+
+    const newSlug =
+        name
+        .toLowerCase()
+        .trim()
+        .replace(
+            /[^a-z0-9]+/g,
+            "-"
+        )
+        .replace(
+            /^-+|-+$/g,
+            "");
+
+
+    /* -----------------------------------------
+       CHECK SLUG CONFLICT
+    ----------------------------------------- */
+
+    if(newSlug !== currentProduct.slug){
+
+        const {
+            data:existingProduct
+        } =
+            await mainstreamDB
+            .from("products")
+            .select("id,slug")
+            .eq("slug", newSlug)
+            .maybeSingle();
+
+
+        if(existingProduct){
+
+            alert(
+                "Another product already uses this name."
+            );
+
+            return;
+        }
 
     }
 
 
-    const savedProducts =
-        getSavedProducts();
+    /* -----------------------------------------
+       UPDATE OBJECT
+    ----------------------------------------- */
 
+    const updateData = {
 
-    const updatedProduct = {
+        name:name,
 
-        ...currentProduct,
+        slug:newSlug,
 
-        name:
-            name,
+        price:price,
 
-        price:
-            price,
+        category:category,
 
-        category:
-            category,
+        stock:stock,
 
-        stock:
-            stock,
-
-        sku:
-            sku,
+        sku:sku || null,
 
         description:
-            description
+            description || null,
+
+        updated_at:
+            new Date().toISOString()
 
     };
 
 
+    /* -----------------------------------------
+       IMAGE
+    ----------------------------------------- */
+
     if(selectedImage){
 
-        updatedProduct.image =
+        updateData.image_url =
             selectedImage;
 
     }
 
 
-    const existingIndex =
-        savedProducts.findIndex(
-            function(item){
+    /* -----------------------------------------
+       UPDATE SUPABASE
+    ----------------------------------------- */
 
-                return (
-                    String(item.id)
-                    ===
-                    String(currentProduct.id)
-                );
+    const {
+        data,
+        error
+    } =
+        await mainstreamDB
+        .from("products")
+        .update(updateData)
+        .eq("id", currentProduct.id)
+        .select()
+        .single();
 
-            }
+
+    if(error){
+
+        console.error(
+            "Supabase update error:",
+            error
         );
 
 
-    if(existingIndex >= 0){
-
-        savedProducts[
-            existingIndex
-        ] =
-            updatedProduct;
-
-    }else{
-
-        savedProducts.push(
-            updatedProduct
+        alert(
+            "Product could not be updated.\n\n" +
+            error.message
         );
 
+
+        return;
     }
 
 
-    localStorage.setItem(
-        "mainstreamProducts",
-        JSON.stringify(
-            savedProducts
-        )
-    );
+    /* -----------------------------------------
+       UPDATE LOCAL STORAGE TOO
+    ----------------------------------------- */
+
+    try{
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    "mainstreamProducts"
+                ) || "[]"
+            );
 
 
-    addActivity(
-        "Product updated",
-        name
-    );
+        const updated =
+            saved.map(
+                function(product){
+
+                    if(
+                        String(product.slug)
+                        ===
+                        String(currentProduct.slug)
+                    ){
+
+                        return {
+
+                            ...product,
+
+                            name:name,
+
+                            slug:newSlug,
+
+                            price:price,
+
+                            category:category,
+
+                            stock:stock,
+
+                            sku:sku,
+
+                            description:description,
+
+                            image:
+                                selectedImage ||
+                                product.image ||
+                                ""
+
+                        };
+
+                    }
+
+
+                    return product;
+
+                }
+            );
+
+
+        localStorage.setItem(
+            "mainstreamProducts",
+            JSON.stringify(updated)
+        );
+
+    }catch(error){
+
+        console.warn(
+            "Local storage update skipped:",
+            error
+        );
+
+    }
 
 
     alert(
         "Product updated successfully!"
     );
 
+
+    /*
+       If slug changed, go to the
+       new edit URL.
+    */
 
     window.location.href =
         "inventory.html";
@@ -1601,64 +1369,99 @@ function saveChanges(event){
    DELETE PRODUCT
 ========================================= */
 
-function deleteProduct(){
+async function deleteProduct(){
 
     if(!currentProduct){
 
-        alert(
-            "Product not found."
-        );
-
         return;
-
     }
 
 
     const confirmed =
         confirm(
-            'Delete "' +
+            "Delete " +
             currentProduct.name +
-            '"?'
+            " permanently?"
         );
 
 
     if(!confirmed){
 
         return;
-
     }
 
 
-    const savedProducts =
-        getSavedProducts();
-
-
-    const updatedProducts =
-        savedProducts.filter(
-            function(item){
-
-                return (
-                    String(item.id)
-                    !==
-                    String(currentProduct.id)
-                );
-
-            }
+    const {
+        error
+    } =
+        await mainstreamDB
+        .from("products")
+        .delete()
+        .eq(
+            "id",
+            currentProduct.id
         );
 
 
-    localStorage.setItem(
-        "mainstreamProducts",
-        JSON.stringify(
-            updatedProducts
-        )
-    );
+    if(error){
+
+        console.error(
+            "Supabase delete error:",
+            error
+        );
 
 
-    addActivity(
-        "Product deleted",
-        currentProduct.name
-    );
+        alert(
+            "Product could not be deleted.\n\n" +
+            error.message
+        );
+
+
+        return;
+    }
+
+
+    /* REMOVE FROM LOCAL STORAGE */
+
+    try{
+
+        const saved =
+            JSON.parse(
+                localStorage.getItem(
+                    "mainstreamProducts"
+                ) || "[]"
+            );
+
+
+        const filtered =
+            saved.filter(
+                function(product){
+
+                    return String(
+                        product.slug
+                    )
+                    !==
+                    String(
+                        currentProduct.slug
+                    );
+
+                }
+            );
+
+
+        localStorage.setItem(
+            "mainstreamProducts",
+            JSON.stringify(filtered)
+        );
+
+    }catch(error){
+
+        console.warn(
+            "Local storage delete skipped:",
+            error
+        );
+
+    }
 
 
     alert(
@@ -1685,12 +1488,16 @@ function cancelEdit(){
 
 
 /* =========================================
-   INITIALIZE
+   START
 ========================================= */
 
 loadProduct();
 
-</script>
+                    </script>
+
+                                            
+
+
 <script>
 
 async function checkEditProductLogin(){
