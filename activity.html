@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0">
 
 <title>Activity | MAINSTREAM™</title>
 
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link
+    rel="icon"
+    type="image/png"
+    href="mainstream-logo.png">
 
 <style>
 
@@ -17,70 +24,139 @@
     box-sizing:border-box;
 }
 
+:root{
+    --yellow:#FFD400;
+    --black:#080808;
+    --dark:#101010;
+    --card:#151515;
+    --border:#292929;
+    --muted:#777;
+    --white:#fff;
+    --green:#39D98A;
+    --red:#FF5C5C;
+}
+
 body{
     font-family:Arial,Helvetica,sans-serif;
-    background:#0d0d0d;
-    color:#fff;
+    background:var(--black);
+    color:var(--white);
+    min-height:100vh;
 }
+
+
+/* =========================================
+   HEADER
+========================================= */
 
 .header{
     height:76px;
     background:#090909;
-    border-bottom:1px solid #292929;
+    border-bottom:1px solid var(--border);
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     padding:0 28px;
+
+    position:sticky;
+    top:0;
+    z-index:100;
 }
 
 .logo{
     width:165px;
+
     filter:
-    brightness(0)
-    saturate(100%)
-    invert(82%)
-    sepia(99%)
-    saturate(1700%)
-    hue-rotate(4deg)
-    brightness(105%)
-    contrast(105%);
+        brightness(0)
+        saturate(100%)
+        invert(82%)
+        sepia(99%)
+        saturate(1700%)
+        hue-rotate(4deg)
+        brightness(105%)
+        contrast(105%);
 }
 
-.back{
-    color:#FFD400;
-    text-decoration:none;
-    font-size:12px;
-    font-weight:bold;
+.header-actions{
+    display:flex;
+    align-items:center;
+    gap:10px;
 }
+
+.header-link{
+    color:var(--yellow);
+    text-decoration:none;
+
+    font-size:10px;
+    font-weight:900;
+
+    border:1px solid #333;
+    border-radius:6px;
+
+    padding:10px 13px;
+
+    transition:.2s;
+}
+
+.header-link:hover{
+    background:var(--yellow);
+    color:#000;
+}
+
+
+/* =========================================
+   MAIN
+========================================= */
 
 .main{
     max-width:1000px;
-    margin:auto;
-    padding:30px;
+    margin:0 auto;
+
+    padding:35px 25px 80px;
 }
 
-.title{
-    font-size:30px;
+.page-heading{
+    margin-bottom:25px;
+}
+
+.page-heading h1{
+    font-size:32px;
     font-weight:900;
-    margin-bottom:7px;
+    letter-spacing:-1px;
 }
 
-.subtitle{
-    color:#777;
-    font-size:13px;
-    margin-bottom:28px;
+.page-heading p{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:8px;
 }
 
-.panel{
-    background:#151515;
-    border:1px solid #292929;
+
+/* =========================================
+   ACTIVITY PANEL
+========================================= */
+
+.activity-panel{
+    background:var(--card);
+
+    border:1px solid var(--border);
+
     border-radius:14px;
+
     overflow:hidden;
 }
 
 .panel-header{
-    padding:20px;
-    border-bottom:1px solid #292929;
+    padding:22px 25px;
+
+    border-bottom:1px solid var(--border);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:15px;
 }
 
 .panel-title{
@@ -94,244 +170,741 @@ body{
     margin-top:5px;
 }
 
-.activity{
-    padding:0 22px;
+
+/* =========================================
+   CONTROLS
+========================================= */
+
+.controls{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.search-box{
+    width:210px;
+
+    background:#0c0c0c;
+
+    color:#fff;
+
+    border:1px solid #333;
+
+    border-radius:7px;
+
+    outline:none;
+
+    padding:11px 13px;
+
+    font-family:inherit;
+
+    font-size:10px;
+}
+
+.search-box:focus{
+    border-color:var(--yellow);
+}
+
+.search-box::placeholder{
+    color:#555;
+}
+
+.clear-btn{
+    background:transparent;
+
+    color:var(--red);
+
+    border:1px solid #422020;
+
+    border-radius:7px;
+
+    padding:11px 13px;
+
+    font-size:9px;
+
+    font-weight:900;
+
+    cursor:pointer;
+}
+
+.clear-btn:hover{
+    background:var(--red);
+    color:#000;
+}
+
+
+/* =========================================
+   ACTIVITY LIST
+========================================= */
+
+.activity-list{
+    width:100%;
 }
 
 .activity-item{
     display:flex;
-    gap:16px;
-    padding:22px 0;
+
+    align-items:flex-start;
+
+    gap:15px;
+
+    padding:20px 25px;
+
     border-bottom:1px solid #222;
+
+    transition:.2s;
 }
 
 .activity-item:last-child{
-    border-bottom:0;
+    border-bottom:none;
+}
+
+.activity-item:hover{
+    background:#181818;
 }
 
 .activity-icon{
-    width:42px;
-    height:42px;
-    border-radius:10px;
-    background:#222;
+    width:38px;
+    height:38px;
+
+    border-radius:50%;
+
+    background:#211f00;
+
+    border:1px solid #4a4300;
+
+    color:var(--yellow);
+
     display:flex;
+
     align-items:center;
     justify-content:center;
-    color:#FFD400;
-    font-size:18px;
+
+    font-size:14px;
+
     flex-shrink:0;
 }
 
 .activity-content{
+    min-width:0;
     flex:1;
 }
 
-.activity-title{
+.activity-text{
     font-size:12px;
-    font-weight:bold;
-    margin-bottom:6px;
-}
+    font-weight:700;
 
-.activity-description{
-    color:#888;
-    font-size:11px;
     line-height:1.5;
 }
 
 .activity-time{
-    color:#555;
+    color:#666;
+
     font-size:9px;
-    margin-top:8px;
+
+    margin-top:6px;
 }
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
 
 .empty{
     text-align:center;
-    padding:60px 20px;
-    color:#777;
+
+    padding:70px 25px;
 }
 
 .empty-icon{
-    font-size:40px;
-    margin-bottom:15px;
+    width:55px;
+    height:55px;
+
+    margin:0 auto 15px;
+
+    border-radius:50%;
+
+    background:#171717;
+
+    border:1px solid #333;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#666;
+
+    font-size:20px;
 }
+
+.empty-title{
+    font-size:14px;
+    font-weight:900;
+}
+
+.empty-text{
+    color:#666;
+    font-size:10px;
+    margin-top:7px;
+}
+
+
+/* =========================================
+   FOOTER NOTE
+========================================= */
+
+.activity-note{
+    color:#555;
+
+    font-size:9px;
+
+    margin-top:15px;
+
+    line-height:1.6;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
 
 @media(max-width:700px){
 
     .header{
-        padding:0 16px;
+        height:64px;
+        padding:0 15px;
     }
 
     .logo{
         width:125px;
     }
 
+    .header-actions{
+        gap:5px;
+    }
+
+    .header-link{
+        font-size:8px;
+        padding:8px 9px;
+    }
+
     .main{
-        padding:20px 15px 40px;
+        padding:25px 14px 50px;
     }
 
-    .title{
-        font-size:25px;
+    .page-heading h1{
+        font-size:27px;
     }
 
-    .activity{
-        padding:0 16px;
+    .panel-header{
+        padding:18px;
+        flex-direction:column;
+        align-items:stretch;
+    }
+
+    .controls{
+        width:100%;
+        flex-direction:column;
+    }
+
+    .search-box{
+        width:100%;
+    }
+
+    .clear-btn{
+        width:100%;
+    }
+
+    .activity-item{
+        padding:17px 18px;
+    }
+
+    .activity-icon{
+        width:34px;
+        height:34px;
+        font-size:12px;
+    }
+
+    .activity-text{
+        font-size:11px;
     }
 
 }
 
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
 <header class="header">
 
-    <img
-        src="mainstream-logo.png"
-        class="logo"
-        alt="MAINSTREAM™">
+    <a href="admin.html">
 
-    <a href="admin.html" class="back">
-        ← DASHBOARD
+        <img
+            src="mainstream-logo.png"
+            class="logo"
+            alt="MAINSTREAM™">
+
     </a>
+
+
+    <div class="header-actions">
+
+        <a
+            href="inventory.html"
+            class="header-link">
+
+            ← INVENTORY
+
+        </a>
+
+
+        <a
+            href="admin.html"
+            class="header-link">
+
+            DASHBOARD
+
+        </a>
+
+    </div>
 
 </header>
 
 
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
 <main class="main">
 
-    <h1 class="title">
-        Activity
-    </h1>
 
-    <p class="subtitle">
-        Recent activity and updates from your MAINSTREAM™ store.
-    </p>
+    <div class="page-heading">
+
+        <h1>
+            Activity
+        </h1>
+
+        <p>
+            Track recent changes made to your MAINSTREAM™ catalogue.
+        </p>
+
+    </div>
 
 
-    <section class="panel">
+
+    <section class="activity-panel">
+
+
+        <!-- PANEL HEADER -->
 
         <div class="panel-header">
 
-            <div class="panel-title">
-                Recent Activity
-            </div>
 
-            <div class="panel-subtitle">
-                Latest store events
-            </div>
+            <div>
 
-        </div>
-
-
-        <div class="activity">
-
-
-            <div class="activity-item">
-
-                <div class="activity-icon">
-                    ✓
+                <div class="panel-title">
+                    Recent Activity
                 </div>
 
-                <div class="activity-content">
-
-                    <div class="activity-title">
-                        Dashboard initialized
-                    </div>
-
-                    <div class="activity-description">
-                        MAINSTREAM™ admin dashboard has been successfully initialized.
-                    </div>
-
-                    <div class="activity-time">
-                        TODAY
-                    </div>
-
+                <div class="panel-subtitle">
+                    Product changes and admin actions
                 </div>
 
             </div>
 
 
-            <div class="activity-item">
+            <div class="controls">
 
-                <div class="activity-icon">
-                    👕
-                </div>
-
-                <div class="activity-content">
-
-                    <div class="activity-title">
-                        Products available
-                    </div>
-
-                    <div class="activity-description">
-                        7 products are currently listed in the MAINSTREAM™ store.
-                    </div>
-
-                    <div class="activity-time">
-                        TODAY
-                    </div>
-
-                </div>
-
-            </div>
+                <input
+                    id="activitySearch"
+                    class="search-box"
+                    type="search"
+                    placeholder="Search activity...">
 
 
-            <div class="activity-item">
+                <button
+                    type="button"
+                    class="clear-btn"
+                    onclick="clearActivity()">
 
-                <div class="activity-icon">
-                    📦
-                </div>
+                    CLEAR ALL
 
-                <div class="activity-content">
-
-                    <div class="activity-title">
-                        Orders system ready
-                    </div>
-
-                    <div class="activity-description">
-                        The store is ready to receive and process customer orders.
-                    </div>
-
-                    <div class="activity-time">
-                        TODAY
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="activity-item">
-
-                <div class="activity-icon">
-                    ⚙
-                </div>
-
-                <div class="activity-content">
-
-                    <div class="activity-title">
-                        Inventory system ready
-                    </div>
-
-                    <div class="activity-description">
-                        Product inventory management is available from the admin dashboard.
-                    </div>
-
-                    <div class="activity-time">
-                        TODAY
-                    </div>
-
-                </div>
+                </button>
 
             </div>
 
 
         </div>
+
+
+
+        <!-- ACTIVITY LIST -->
+
+        <div
+            id="activityList"
+            class="activity-list">
+
+        </div>
+
 
     </section>
 
+
+
+    <div class="activity-note">
+
+        Activity is stored locally in this browser. A real multi-user
+        admin activity system requires a shared database/backend.
+
+    </div>
+
+
 </main>
 
+
+
+<script>
+
+/* =========================================
+   MAINSTREAM™ ACTIVITY
+========================================= */
+
+
+/* =========================================
+   GET ACTIVITIES
+========================================= */
+
+function getActivities(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "mainstreamActivity"
+            )
+        ) || [];
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================
+   ICON
+========================================= */
+
+function getActivityIcon(text){
+
+    const value =
+        String(text || "")
+        .toLowerCase();
+
+
+    if(
+        value.includes("added")
+    ){
+
+        return "+";
+
+    }
+
+
+    if(
+        value.includes("updated")
+    ){
+
+        return "↻";
+
+    }
+
+
+    if(
+        value.includes("deleted")
+    ){
+
+        return "×";
+
+    }
+
+
+    return "•";
+
+}
+
+
+/* =========================================
+   RENDER ACTIVITY
+========================================= */
+
+function renderActivity(){
+
+    const list =
+        document.getElementById(
+            "activityList"
+        );
+
+
+    const search =
+        document.getElementById(
+            "activitySearch"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    let activities =
+        getActivities();
+
+
+    if(search){
+
+        activities =
+            activities.filter(
+                function(activity){
+
+                    return (
+                        String(
+                            activity.text || ""
+                        )
+                        .toLowerCase()
+                        .includes(search)
+                        ||
+                        String(
+                            activity.time || ""
+                        )
+                        .toLowerCase()
+                        .includes(search)
+                    );
+
+                }
+            );
+
+    }
+
+
+    if(activities.length === 0){
+
+        list.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    •
+                </div>
+
+                <div class="empty-title">
+                    No activity found
+                </div>
+
+                <div class="empty-text">
+                    Product changes will appear here automatically.
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    list.innerHTML = "";
+
+
+    activities.forEach(
+        function(activity){
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "activity-item";
+
+
+            item.innerHTML = `
+
+                <div class="activity-icon">
+
+                    ${getActivityIcon(
+                        activity.text
+                    )}
+
+                </div>
+
+
+                <div class="activity-content">
+
+                    <div class="activity-text">
+
+                        ${escapeHTML(
+                            activity.text
+                        )}
+
+                    </div>
+
+
+                    <div class="activity-time">
+
+                        ${escapeHTML(
+                            activity.time ||
+                            "Recently"
+                        )}
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            list.appendChild(
+                item
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   CLEAR ACTIVITY
+========================================= */
+
+function clearActivity(){
+
+    const activities =
+        getActivities();
+
+
+    if(activities.length === 0){
+
+        alert(
+            "There is no activity to clear."
+        );
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            "Clear all activity?"
+        );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    localStorage.removeItem(
+        "mainstreamActivity"
+    );
+
+
+    renderActivity();
+
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+document.getElementById(
+    "activitySearch"
+).addEventListener(
+    "input",
+    function(){
+
+        renderActivity();
+
+    }
+);
+
+
+/* =========================================
+   LIVE UPDATE
+========================================= */
+
+window.addEventListener(
+    "storage",
+    function(event){
+
+        if(
+            event.key ===
+            "mainstreamActivity"
+        ){
+
+            renderActivity();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   PAGE RETURN
+========================================= */
+
+window.addEventListener(
+    "pageshow",
+    function(){
+
+        renderActivity();
+
+    }
+);
+
+
+/* =========================================
+   INITIAL LOAD
+========================================= */
+
+renderActivity();
+
+</script>
+
+
 </body>
+
 </html>
