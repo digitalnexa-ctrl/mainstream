@@ -904,7 +904,390 @@ tr:last-child td{
     }
 
 }
+/* =========================================
+   MOBILE DASHBOARD FIX
+========================================= */
 
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden;
+}
+
+body{
+    margin:0;
+}
+
+.main{
+    min-width:0;
+    width:100%;
+    max-width:100%;
+}
+
+.dashboard-grid{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+}
+
+.panel{
+    min-width:0;
+    max-width:100%;
+    overflow:hidden;
+}
+
+.panel-head{
+    min-width:0;
+    max-width:100%;
+}
+
+.panel-title,
+.panel-subtitle{
+    max-width:100%;
+    overflow:hidden;
+}
+
+.table-wrap{
+    width:100%;
+    max-width:100%;
+    overflow-x:auto;
+}
+
+
+/* =========================================
+   TOP PRODUCTS
+========================================= */
+
+.product-ranking{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+}
+
+.rank-product{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    padding:14px 0;
+}
+
+.rank-product img{
+    width:58px !important;
+    height:58px !important;
+
+    min-width:58px;
+    max-width:58px;
+
+    object-fit:cover;
+
+    display:block;
+
+    border-radius:8px;
+}
+
+.rank-info{
+    min-width:0;
+    flex:1;
+}
+
+.rank-info strong,
+.rank-info span{
+    display:block;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+
+/* =========================================
+   INVENTORY
+========================================= */
+
+.inventory-summary{
+    width:100%;
+    max-width:100%;
+
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.inventory-stat{
+    min-width:0;
+}
+
+
+/* =========================================
+   ACTIVITY
+========================================= */
+
+.activity-list{
+    width:100%;
+    max-width:100%;
+}
+
+.activity-item{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.activity-content{
+    min-width:0;
+    flex:1;
+}
+
+.activity-content strong,
+.activity-content span{
+    max-width:100%;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.activity-content strong{
+    display:block;
+}
+
+.activity-content span{
+    display:block;
+}
+
+.activity-time{
+    flex-shrink:0;
+}
+
+
+/* =========================================
+   SYSTEM MESSAGE
+========================================= */
+
+.system-message{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+}
+
+.system-message > div:last-child{
+    min-width:0;
+}
+
+.system-message p{
+    max-width:100%;
+    word-break:break-word;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:768px){
+
+    .layout{
+        display:block;
+        width:100%;
+        max-width:100%;
+    }
+
+    .sidebar{
+        display:none !important;
+    }
+
+    .main{
+        width:100%;
+        max-width:100%;
+        padding:18px 0 100px !important;
+    }
+
+    .page-heading{
+        padding-left:16px;
+        padding-right:16px;
+    }
+
+    .stats{
+        width:100%;
+        padding:0 16px;
+        grid-template-columns:repeat(2,1fr) !important;
+    }
+
+    .dashboard-grid{
+        width:100%;
+        padding:0 0;
+        display:grid !important;
+        grid-template-columns:1fr !important;
+        gap:14px !important;
+    }
+
+    .panel{
+        width:100%;
+        max-width:100%;
+        border-radius:20px;
+        padding:16px !important;
+    }
+
+    .wide-panel{
+        grid-column:auto !important;
+    }
+
+    .panel-head{
+        display:flex;
+        align-items:flex-start;
+        justify-content:space-between;
+        gap:10px;
+    }
+
+    .panel-title{
+        font-size:18px !important;
+        line-height:1.2;
+    }
+
+    .panel-subtitle{
+        font-size:12px !important;
+        margin-top:5px;
+    }
+
+    .panel-action{
+        flex-shrink:0;
+        white-space:nowrap;
+    }
+
+
+    /* Revenue chart */
+
+    .chart{
+        width:100%;
+        max-width:100%;
+        overflow:hidden;
+    }
+
+    .chart-bars{
+        width:100%;
+        max-width:100%;
+    }
+
+
+    /* Recent orders */
+
+    .table-wrap{
+        width:100%;
+        overflow-x:auto;
+        -webkit-overflow-scrolling:touch;
+    }
+
+    table{
+        min-width:600px;
+    }
+
+
+    /* Top products */
+
+    .rank-product{
+        min-height:80px;
+    }
+
+    .rank-product img{
+        width:64px !important;
+        height:64px !important;
+        min-width:64px;
+        max-width:64px;
+        flex-shrink:0;
+    }
+
+
+    /* Inventory */
+
+    .inventory-summary{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+
+    /* Activity */
+
+    .activity-item{
+        align-items:flex-start;
+        padding:14px 0;
+    }
+
+    .activity-icon{
+        flex-shrink:0;
+    }
+
+    .activity-time{
+        font-size:10px;
+    }
+
+
+    /* Mobile bottom navigation */
+
+    .mobile-nav{
+        width:100%;
+        max-width:100%;
+        left:0;
+        right:0;
+        overflow:hidden;
+    }
+
+    .mobile-nav-item{
+        min-width:0;
+        flex:1;
+    }
+
+}
+
+
+@media(max-width:420px){
+
+    .stats{
+        gap:10px;
+    }
+
+    .stat-card{
+        min-width:0;
+        padding:14px !important;
+    }
+
+    .stat-number{
+        font-size:22px !important;
+    }
+
+    .panel{
+        padding:14px !important;
+    }
+
+    .panel-title{
+        font-size:17px !important;
+    }
+
+    .inventory-summary{
+        gap:8px;
+    }
+
+    .inventory-number{
+        font-size:22px !important;
+    }
+
+    .rank-product img{
+        width:55px !important;
+        height:55px !important;
+        min-width:55px;
+        max-width:55px;
+    }
+
+   }
 </style>
 
 </head>
