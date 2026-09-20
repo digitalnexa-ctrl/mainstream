@@ -2883,12 +2883,9 @@ const mainstreamAuth = supabase.createClient(
 );
 async function updateProductCount(){
 
-    const { count, error } = await mainstreamAuth
+    const { data, error } = await mainstreamAuth
         .from("products")
-        .select("id", {
-            count: "exact",
-            head: true
-        })
+        .select("id")
         .eq("active", true);
 
     if(error){
@@ -2900,11 +2897,9 @@ async function updateProductCount(){
         document.getElementById("productsValue");
 
     if(productsElement){
-        productsElement.textContent = count || 0;
+        productsElement.textContent = data ? data.length : 0;
     }
 }
-
-updateProductCount();
 async function checkAdminLogin(){
 
     const {
