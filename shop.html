@@ -2556,6 +2556,128 @@ const mainstreamDB = supabase.createClient(
 );
 
 console.log("MAINSTREAM Supabase connected");
+async function loadShopProducts(){
+
+    const grid = document.getElementById("productGrid");
+
+    if(!grid){
+        console.error("productGrid not found");
+        return;
+    }
+
+    const { data, error } = await mainstreamDB
+        .from("products")
+        .select("*")
+        .eq("active", true)
+        .order("created_at", { ascending: true });
+
+    if(error){
+        console.error("Products loading error:", error);
+        return;
+    }
+
+    // Remove the old hard-coded products
+    grid.innerHTML = "";
+
+    data.forEach(function(product, index){
+
+        const imageFile =
+            product.combined_image ||
+            product.image_url ||
+            "";
+
+        const imageUrl =
+            imageFile.startsWith("http")
+            ? imageFile
+            : "https://digitalnexa-ctrl.github.io/mainstream/" + imageFile;
+
+        const price = Number(product.price || 0);
+
+        const team = product.category || "all";
+
+        const collection =
+            team === "all"
+            ? "MAINSTREAM COLLECTION"
+            : team.toUpperCase() + " COLLECTION";
+
+        const card = document.createElement("article");
+
+        card.className = "product";
+
+        card.dataset.team = team;
+        card.dataset.name = product.name;
+
+        card.innerHTML = `
+            <div class="product-image">
+
+                <span class="product-number">
+                    ${String(index + 1).padStart(2,"0")}
+                </span>
+
+                <img
+                    src="${imageUrl}"
+                    alt="${product.name}"
+                    loading="lazy"
+                >
+
+            </div>
+
+            <div class="product-info">
+
+                <h2>${product.name}</h2>
+
+                <p class="collection">
+                    ${collection}
+                </p>
+
+                <div class="price">
+                    ₹${price.toLocaleString("en-IN")}
+                </div>
+
+                <div class="actions">
+
+                    <button
+                        class="wishlist-btn"
+                        onclick="saveProductToWishlist('${product.slug}')">
+                        ♡ ADD TO WISHLIST
+                    </button>
+
+                    <button
+                        class="view-btn"
+                        onclick="window.location.href='product.html?product=${product.slug}'">
+                        VIEW PRODUCT
+                    </button>
+
+                    <button
+                        class="add-btn"
+                        onclick="addToCart('${product.name}',${price},'${imageUrl}')">
+                        ADD TO CART
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+
+        grid.appendChild(card);
+
+    });
+
+    const productCount =
+        document.getElementById("productCount");
+
+    if(productCount){
+        productCount.textContent =
+            data.length + " PRODUCTS";
+    }
+
+    console.log(
+        "MAINSTREAM products loaded:",
+        data.length
+    );
+}
+
+loadShopProducts();
 </script>
 </body>
 
