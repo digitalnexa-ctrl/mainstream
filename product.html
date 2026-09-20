@@ -781,44 +781,74 @@ const productKey =
 params.get("product") || "max";
 
 
-const currentProduct =
-products[productKey];
+let currentProduct = null;
 
+async function loadProductFromSupabase(){
 
-/* ================= SET PRODUCT ================= */
+    const { data, error } = await mainstreamDB
+        .from("products")
+        .select("*")
+        .eq("slug", productKey)
+        .eq("active", true)
+        .single();
 
-document.getElementById(
-"productName"
-).textContent =
-currentProduct.name;
+    if(error || !data){
+        console.error("Product error:", error);
+        alert("Product not found.");
+        return;
+    }
 
+    const productImage =
+        data.image_url || "mainstream-logo.png";
 
-document.getElementById(
-    "frontThumb"
-).src =
-currentProduct.front;
+    currentProduct = {
+        name: data.name,
+        price: Number(data.price || 0),
 
+        front:
+            data.front_image ||
+            productImage,
 
-document.getElementById(
-"backThumb"
-).src =
-currentProduct.back;
+        back:
+            data.back_image ||
+            productImage,
 
+        combined:
+            data.combined_image ||
+            productImage
+    };
 
-document.getElementById(
-"combinedThumb"
-).src =
-currentProduct.combined
+    document.getElementById(
+        "productName"
+    ).textContent =
+        currentProduct.name;
 
+    document.querySelector(
+        ".product-price"
+    ).textContent =
+        "₹" +
+        currentProduct.price.toLocaleString("en-IN");
 
-const mainImage =
-document.getElementById(
-"mainProductImage"
-);
+    document.getElementById(
+        "frontThumb"
+    ).src =
+        currentProduct.front;
 
+    document.getElementById(
+        "backThumb"
+    ).src =
+        currentProduct.back;
 
-mainImage.src =
-currentProduct.front;
+    document.getElementById(
+        "combinedThumb"
+    ).src =
+        currentProduct.combined;
+
+    mainImage.src =
+        currentProduct.front;
+}
+
+loadProductFromSupabase();
 
 
 /* ================= GALLERY ================= */
