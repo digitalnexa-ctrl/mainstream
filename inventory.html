@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -7,7 +8,7 @@
 
 <title>Inventory | MAINSTREAM™</title>
 
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" href="mainstream-logo.png">
 
 <style>
 
@@ -17,24 +18,45 @@
     box-sizing:border-box;
 }
 
+:root{
+    --yellow:#FFD400;
+    --black:#080808;
+    --card:#151515;
+    --border:#292929;
+    --muted:#777;
+    --white:#fff;
+    --green:#39D98A;
+    --red:#FF5C5C;
+}
+
 body{
     font-family:Arial,Helvetica,sans-serif;
-    background:#0d0d0d;
-    color:#fff;
+    background:var(--black);
+    color:var(--white);
+    min-height:100vh;
 }
+
+/* HEADER */
 
 .header{
     height:76px;
     background:#090909;
-    border-bottom:1px solid #292929;
+    border-bottom:1px solid var(--border);
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
     padding:0 28px;
+
+    position:sticky;
+    top:0;
+    z-index:100;
 }
 
 .logo{
     width:165px;
+
     filter:
     brightness(0)
     saturate(100%)
@@ -46,60 +68,226 @@ body{
     contrast(105%);
 }
 
-.back{
-    color:#FFD400;
-    text-decoration:none;
-    font-size:12px;
-    font-weight:bold;
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:12px;
 }
+
+.header-link{
+    color:var(--yellow);
+    text-decoration:none;
+
+    font-size:10px;
+    font-weight:bold;
+
+    padding:10px 13px;
+
+    border:1px solid #333;
+    border-radius:6px;
+}
+
+.header-link:hover{
+    background:var(--yellow);
+    color:#000;
+}
+
+
+/* MAIN */
 
 .main{
-    padding:30px;
-    max-width:1300px;
+    max-width:1250px;
     margin:auto;
+
+    padding:32px;
 }
 
-.title{
-    font-size:30px;
+
+/* HEADING */
+
+.page-heading{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+
+    margin-bottom:25px;
+}
+
+.page-heading h1{
+    font-size:32px;
     font-weight:900;
-    margin-bottom:7px;
+    letter-spacing:-1px;
 }
 
-.subtitle{
-    color:#777;
-    font-size:13px;
-    margin-bottom:28px;
+.page-heading p{
+    color:var(--muted);
+    font-size:12px;
+    margin-top:7px;
 }
+
+
+/* ADD BUTTON */
+
+.add-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    background:var(--yellow);
+    color:#000;
+
+    text-decoration:none;
+
+    padding:12px 16px;
+
+    border-radius:7px;
+
+    font-size:10px;
+    font-weight:900;
+
+    border:0;
+
+    cursor:pointer;
+}
+
+.add-btn:hover{
+    background:#ffe34d;
+}
+
+
+/* STATS */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+
+    gap:14px;
+
+    margin-bottom:20px;
+}
+
+.stat{
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:10px;
+
+    padding:19px;
+}
+
+.stat-label{
+    color:#666;
+
+    font-size:9px;
+    font-weight:bold;
+
+    letter-spacing:1.5px;
+}
+
+.stat-value{
+    font-size:25px;
+    font-weight:900;
+
+    margin-top:10px;
+}
+
+.stat-note{
+    color:#555;
+
+    font-size:9px;
+
+    margin-top:5px;
+}
+
+
+/* PANEL */
 
 .panel{
-    background:#151515;
-    border:1px solid #292929;
-    border-radius:14px;
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:12px;
+
     overflow:hidden;
 }
 
-.panel-head{
-    padding:20px;
-    border-bottom:1px solid #292929;
+.panel-header{
+    min-height:66px;
+
+    padding:0 22px;
+
     display:flex;
     align-items:center;
     justify-content:space-between;
+
+    border-bottom:1px solid var(--border);
 }
 
 .panel-title{
-    font-size:16px;
+    font-size:14px;
     font-weight:900;
 }
 
-.add-btn{
-    background:#FFD400;
-    color:#111;
-    border:0;
-    border-radius:7px;
-    padding:10px 14px;
-    font-size:10px;
-    font-weight:900;
+.panel-subtitle{
+    color:#666;
+
+    font-size:9px;
+
+    margin-top:4px;
 }
+
+
+/* FILTER */
+
+.filter-area{
+    display:flex;
+    align-items:center;
+
+    gap:10px;
+}
+
+.search-box{
+    width:220px;
+
+    background:#0d0d0d;
+
+    color:#fff;
+
+    border:1px solid #333;
+
+    border-radius:6px;
+
+    padding:10px 12px;
+
+    outline:none;
+
+    font-size:10px;
+}
+
+.search-box:focus{
+    border-color:var(--yellow);
+}
+
+.filter-select{
+    background:#0d0d0d;
+
+    color:#fff;
+
+    border:1px solid #333;
+
+    border-radius:6px;
+
+    padding:10px 12px;
+
+    outline:none;
+
+    font-size:10px;
+}
+
+
+/* TABLE */
 
 .table-wrap{
     overflow-x:auto;
@@ -107,495 +295,609 @@ body{
 
 table{
     width:100%;
-    min-width:750px;
+
     border-collapse:collapse;
+
+    min-width:800px;
 }
 
 th{
-    color:#666;
-    font-size:9px;
+    color:#555;
+
+    font-size:8px;
+
     letter-spacing:1.5px;
+
     text-align:left;
-    padding:16px 20px;
-    border-bottom:1px solid #292929;
+
+    padding:15px 20px;
+
+    border-bottom:1px solid var(--border);
 }
 
 td{
     padding:16px 20px;
+
     border-bottom:1px solid #222;
-    font-size:12px;
+
+    font-size:11px;
+
+    color:#ddd;
+
+    vertical-align:middle;
 }
 
-.product{
+tr:last-child td{
+    border-bottom:0;
+}
+
+
+/* PRODUCT */
+
+.product-cell{
     display:flex;
     align-items:center;
+
     gap:12px;
 }
 
-.product img{
-    width:48px;
-    height:48px;
+.product-image{
+    width:52px;
+    height:52px;
+
+    background:#222;
+
     border-radius:7px;
+
+    overflow:hidden;
+
+    flex-shrink:0;
+}
+
+.product-image img{
+    width:100%;
+    height:100%;
+
     object-fit:cover;
+
+    display:block;
 }
 
 .product-name{
+    color:#fff;
+
+    font-size:11px;
+    font-weight:900;
+}
+
+.product-category{
+    color:#555;
+
+    font-size:8px;
+
+    margin-top:5px;
+}
+
+
+/* PRICE */
+
+.price{
+    color:#fff;
     font-weight:bold;
 }
 
-.product-sub{
-    color:#666;
-    font-size:9px;
-    margin-top:4px;
+
+/* STOCK */
+
+.stock-number{
+    font-weight:bold;
 }
 
-.stock{
-    color:#39D98A;
-    font-weight:bold;
-    font-size:10px;
+.stock-good{
+    color:var(--green);
 }
 
 .stock-low{
-    color:#FFD400;
+    color:var(--yellow);
 }
 
 .stock-out{
-    color:#FF5C5C;
+    color:var(--red);
 }
 
-.action{
-    display:inline-block;
+
+/* STATUS */
+
+.status{
+    display:inline-flex;
+
+    padding:6px 9px;
+
+    border-radius:20px;
+
+    font-size:8px;
+    font-weight:bold;
+}
+
+.status.good{
+    background:rgba(57,217,138,.12);
+    color:var(--green);
+}
+
+.status.low{
+    background:rgba(255,212,0,.12);
+    color:var(--yellow);
+}
+
+.status.out{
+    background:rgba(255,92,92,.12);
+    color:var(--red);
+}
+
+
+/* ACTIONS */
+
+.actions{
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.edit-btn,
+.delete-btn{
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
     text-decoration:none;
-    cursor:pointer;
-    color:#FFD400;
-    background:transparent;
-    border:1px solid #333;
+
     padding:7px 10px;
-    border-radius:6px;
+
+    border-radius:5px;
+
+    font-size:8px;
+    font-weight:bold;
+
+    cursor:pointer;
+}
+
+.edit-btn{
+    color:var(--yellow);
+
+    border:1px solid #333;
+
+    background:transparent;
+}
+
+.edit-btn:hover{
+    background:var(--yellow);
+    color:#000;
+}
+
+.delete-btn{
+    color:var(--red);
+
+    border:1px solid #3b2020;
+
+    background:transparent;
+}
+
+.delete-btn:hover{
+    background:var(--red);
+    color:#000;
+}
+
+
+/* EMPTY */
+
+.empty{
+    padding:55px 20px;
+
+    text-align:center;
+
+    color:#555;
+}
+
+.empty-title{
+    color:#777;
+
+    font-size:12px;
+    font-weight:bold;
+}
+
+.empty-text{
+    color:#444;
+
     font-size:9px;
+
+    margin-top:6px;
+}
+
+
+/* MOBILE NAV */
+
+.mobile-nav{
+    display:none;
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
 }
 
 @media(max-width:700px){
 
     .header{
-        padding:0 16px;
+        height:64px;
+
+        padding:0 15px;
     }
 
     .logo{
         width:125px;
     }
 
-    .main{
-        padding:20px 15px;
+    .header-link{
+        font-size:8px;
+        padding:8px 9px;
     }
 
-    .title{
-        font-size:25px;
+    .main{
+        padding:22px 14px 90px;
+    }
+
+    .page-heading{
+        display:block;
+    }
+
+    .page-heading h1{
+        font-size:26px;
+    }
+
+    .add-btn{
+        margin-top:15px;
+
+        width:100%;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+
+        gap:9px;
+    }
+
+    .stat{
+        padding:14px;
+    }
+
+    .stat-value{
+        font-size:21px;
+    }
+
+    .panel-header{
+        display:block;
+
+        padding:17px;
+    }
+
+    .filter-area{
+        margin-top:15px;
+
+        display:grid;
+        grid-template-columns:1fr;
+    }
+
+    .search-box{
+        width:100%;
+    }
+
+    .mobile-nav{
+        position:fixed;
+
+        display:flex;
+
+        left:0;
+        right:0;
+        bottom:0;
+
+        height:68px;
+
+        background:#101010;
+
+        border-top:1px solid var(--border);
+
+        z-index:200;
+
+        align-items:center;
+        justify-content:space-around;
+    }
+
+    .mobile-nav a{
+        color:#666;
+
+        text-decoration:none;
+
+        display:flex;
+        flex-direction:column;
+
+        align-items:center;
+
+        gap:5px;
+
+        font-size:8px;
+    }
+
+    .mobile-nav a.active{
+        color:var(--yellow);
+    }
+
+    .mobile-icon{
+        font-size:17px;
     }
 
 }
 
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- HEADER -->
+
 <header class="header">
 
-    <img
-        src="mainstream-logo.png"
-        class="logo"
-        alt="MAINSTREAM™">
+    <a href="admin.html">
 
-    <a href="admin.html" class="back">
-        ← DASHBOARD
+        <img
+            src="mainstream-logo.png"
+            class="logo"
+            alt="MAINSTREAM™">
+
     </a>
+
+
+    <div class="header-right">
+
+        <a
+            href="admin.html"
+            class="header-link">
+
+            ← DASHBOARD
+
+        </a>
+
+    </div>
 
 </header>
 
 
+
 <main class="main">
 
-    <h1 class="title">
-        Inventory
-    </h1>
 
-    <p class="subtitle">
-        Monitor your MAINSTREAM™ product stock.
-    </p>
+    <!-- HEADING -->
 
+    <div class="page-heading">
 
-    <section class="panel">
+        <div>
 
-        <div class="panel-head">
+            <h1>
+                Inventory
+            </h1>
 
-            <div class="panel-title">
-                Product Inventory
-            </div>
-
-            <a href="add-product.html" class="add-btn">
-    + ADD PRODUCT
-            </a>
+            <p>
+                Manage your MAINSTREAM™ product catalogue and stock.
+            </p>
 
         </div>
 
 
-        <div class="table-wrap">
+        <a
+            href="add-product.html"
+            class="add-btn">
+
+            + ADD PRODUCT
+
+        </a>
+
+    </div>
+
+
+
+    <!-- STATS -->
+
+    <section class="stats">
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                TOTAL PRODUCTS
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalProducts">
+
+                0
+
+            </div>
+
+            <div class="stat-note">
+                Products in catalogue
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                TOTAL STOCK
+            </div>
+
+            <div
+                class="stat-value"
+                id="totalStock">
+
+                0
+
+            </div>
+
+            <div class="stat-note">
+                Units available
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                LOW STOCK
+            </div>
+
+            <div
+                class="stat-value"
+                id="lowStock">
+
+                0
+
+            </div>
+
+            <div class="stat-note">
+                Products needing attention
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-label">
+                OUT OF STOCK
+            </div>
+
+            <div
+                class="stat-value"
+                id="outOfStock">
+
+                0
+
+            </div>
+
+            <div class="stat-note">
+                Products unavailable
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- INVENTORY PANEL -->
+
+    <section class="panel">
+
+
+        <div class="panel-header">
+
+            <div>
+
+                <div class="panel-title">
+                    Product Inventory
+                </div>
+
+                <div class="panel-subtitle">
+                    View and manage all products
+                </div>
+
+            </div>
+
+
+            <div class="filter-area">
+
+                <input
+                    type="search"
+                    id="searchBox"
+                    class="search-box"
+                    placeholder="Search products...">
+
+                <select
+                    id="stockFilter"
+                    class="filter-select">
+
+                    <option value="all">
+                        ALL STOCK
+                    </option>
+
+                    <option value="in">
+                        IN STOCK
+                    </option>
+
+                    <option value="low">
+                        LOW STOCK
+                    </option>
+
+                    <option value="out">
+                        OUT OF STOCK
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+
+        <div
+            class="table-wrap">
 
             <table>
 
                 <thead>
 
                     <tr>
-                        <th>PRODUCT</th>
-                        <th>PRICE</th>
-                        <th>STOCK</th>
-                        <th>STATUS</th>
-                        <th>ACTION</th>
+
+                        <th>
+                            PRODUCT
+                        </th>
+
+                        <th>
+                            PRICE
+                        </th>
+
+                        <th>
+                            STOCK
+                        </th>
+
+                        <th>
+                            STATUS
+                        </th>
+
+                        <th>
+                            ACTION
+                        </th>
+
                     </tr>
 
                 </thead>
 
 
-                <tbody>
-<script>
-<script>
-
-const savedProducts =
-    JSON.parse(localStorage.getItem("mainstreamProducts")) || [];
-
-const uniqueProducts = [];
-const productNames = new Set();
-
-savedProducts.forEach(function(product){
-
-    const name = product.name.trim().toLowerCase();
-
-    if(!productNames.has(name)){
-        productNames.add(name);
-        uniqueProducts.push(product);
-    }
-
-});
-
-uniqueProducts.forEach(function(product){
-
-    const row = document.createElement("tr");
-
-    row.innerHTML = `
-        <td>
-            <div class="product">
-                <div>
-                    <div class="product-name">
-                        ${product.name}
-                    </div>
-                    <div class="product-sub">
-                        Racing Collection
-                    </div>
-                </div>
-            </div>
-        </td>
-
-        <td>₹${product.price}</td>
-
-        <td>${product.stock}</td>
-
-        <td class="stock">
-            ${product.stock > 0 ? "IN STOCK" : "OUT OF STOCK"}
-        </td>
-
-        <td>
-            <a href="edit-product.html" class="action">
-                EDIT
-            </a>
-        </td>
-    `;
-
-    document.querySelector("tbody").appendChild(row);
-
-});
-
-</script>
-
-                    <tr>
-
-                        <td>
-
-                            <div class="product">
-
-                                <img
-                                    src="max-front.png"
-                                    alt="MAX / 03 TEE">
-
-                                <div>
-                                    <div class="product-name">
-                                        MAX / 03 TEE
-                                    </div>
-
-                                    <div class="product-sub">
-                                        Racing Collection
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </td>
-
-                        <td>₹999</td>
-
-                        <td>—</td>
-
-                        <td class="stock">
-                            IN STOCK
-                        </td>
-
-                        <td>
-                            <a href="edit-product.html" class="action">
-    EDIT
-                            </a>
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>
-
-                            <div class="product">
-
-                                <img
-                                    src="lewis-front.png"
-                                    alt="LEWIS / 44 TEE">
-
-                                <div>
-                                    <div class="product-name">
-                                        LEWIS / 44 TEE
-                                    </div>
-
-                                    <div class="product-sub">
-                                        Racing Collection
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </td>
-
-                        <td>₹999</td>
-                        <td>—</td>
-
-                        <td class="stock">
-                            IN STOCK
-                        </td>
-
-                        <td>
-                            <a href="edit-product.html?product=lewis" class="action">
-    EDIT
-                            </a>
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>
-
-                            <div class="product">
-
-                                <img
-                                    src="charles-front.png"
-                                    alt="CHARLES / 16 TEE">
-
-                                <div>
-                                    <div class="product-name">
-                                        CHARLES / 16 TEE
-                                    </div>
-
-                                    <div class="product-sub">
-                                        Racing Collection
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </td>
-
-                        <td>₹999</td>
-                        <td>—</td>
-
-                        <td class="stock">
-                            IN STOCK
-                        </td>
-
-                        <td>
-                            <a href="edit-product.html?product=charles" class="action">
-    EDIT
-                            </a>
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>
-
-                            <div class="product">
-
-                                <img
-                                    src="lando-front.png"
-                                    alt="LANDO / 01 TEE">
-
-                                <div>
-                                    <div class="product-name">
-                                        LANDO / 01 TEE
-                                    </div>
-
-                                    <div class="product-sub">
-                                        Racing Collection
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </td>
-
-                        <td>₹999</td>
-                        <td>—</td>
-
-                        <td class="stock">
-                            IN STOCK
-                        </td>
-
-                        <td><a href="edit-product.html?product=lando" class="action">
-    EDIT
-                        </a>
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>
-
-                            <div class="product">
-
-                                <img
-                                    src="oscar-front.png"
-                                    alt="OSCAR / 81 TEE">
-
-                                <div>
-                                    <div class="product-name">
-                                        OSCAR / 81 TEE
-                                    </div>
-
-                                    <div class="product-sub">
-                                        Racing Collection
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </td>
-
-                        <td>₹999</td>
-                        <td>—</td>
-
-                        <td class="stock">
-                            IN STOCK
-                        </td>
-
-                        <td>
-                            <a href="edit-product.html?product=oscar" class="action">
-    EDIT
-                            </a>
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>
-
-                            <div class="product">
-
-                                <img
-                                    src="george-front.png"
-                                    alt="GEORGE / 63 TEE">
-
-                                <div>
-                                    <div class="product-name">
-                                        GEORGE / 63 TEE
-                                    </div>
-
-                                    <div class="product-sub">
-                                        Racing Collection
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </td>
-
-                        <td>₹999</td>
-                        <td>—</td>
-
-                        <td class="stock">
-                            IN STOCK
-                        </td>
-
-                        <td>
-                            <a href="edit-product.html?product=george" class="action">
-    EDIT
-                            </a>
-                        </td>
-
-                    </tr>
-
-
-                    <tr>
-
-                        <td>
-
-                            <div class="product">
-
-                                <img
-                                    src="kimi-front.png"
-                                    alt="KIMI / 12 TEE">
-
-                                <div>
-                                    <div class="product-name">
-                                        KIMI / 12 TEE
-                                    </div>
-
-                                    <div class="product-sub">
-                                        Racing Collection
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </td>
-
-                        <td>₹999</td>
-                        <td>—</td>
-
-                        <td class="stock">
-                            IN STOCK
-                        </td>
-
-                        <td>
-                            <a href="edit-product.html?product=kimi" class="action">
-    EDIT
-                            </a>
-                        </td>
-
-                    </tr>
-
+                <tbody
+                    id="inventoryBody">
 
                 </tbody>
 
@@ -603,9 +905,971 @@ uniqueProducts.forEach(function(product){
 
         </div>
 
+
     </section>
+
 
 </main>
 
+
+
+<!-- MOBILE NAV -->
+
+<nav class="mobile-nav">
+
+    <a
+        href="admin.html">
+
+        <span class="mobile-icon">
+            ⌂
+        </span>
+
+        DASHBOARD
+
+    </a>
+
+
+    <a
+        href="orders.html">
+
+        <span class="mobile-icon">
+            ▣
+        </span>
+
+        ORDERS
+
+    </a>
+
+
+    <a
+        href="inventory.html"
+        class="active">
+
+        <span class="mobile-icon">
+            ◈
+        </span>
+
+        INVENTORY
+
+    </a>
+
+
+    <a
+        href="activity.html">
+
+        <span class="mobile-icon">
+            ≡
+        </span>
+
+        ACTIVITY
+
+    </a>
+
+</nav>
+
+
+
+<script>
+
+/* =========================================
+   MAINSTREAM™ INVENTORY
+========================================= */
+
+
+/* DEFAULT PRODUCTS */
+
+const defaultProducts = [
+
+    {
+        id:"max",
+        name:"MAX / 03 TEE",
+        price:999,
+        stock:0,
+        category:"Racing Collection",
+        image:"max-front.png"
+    },
+
+    {
+        id:"lewis",
+        name:"LEWIS / 44 TEE",
+        price:999,
+        stock:0,
+        category:"Racing Collection",
+        image:"lewis-front.png"
+    },
+
+    {
+        id:"charles",
+        name:"CHARLES / 16 TEE",
+        price:999,
+        stock:0,
+        category:"Racing Collection",
+        image:"charles-front.png"
+    },
+
+    {
+        id:"lando",
+        name:"LANDO / 01 TEE",
+        price:999,
+        stock:0,
+        category:"Racing Collection",
+        image:"lando-front.png"
+    },
+
+    {
+        id:"oscar",
+        name:"OSCAR / 81 TEE",
+        price:999,
+        stock:0,
+        category:"Racing Collection",
+        image:"oscar-front.png"
+    },
+
+    {
+        id:"george",
+        name:"GEORGE / 63 TEE",
+        price:999,
+        stock:0,
+        category:"Racing Collection",
+        image:"george-front.png"
+    },
+
+    {
+        id:"kimi",
+        name:"KIMI / 12 TEE",
+        price:999,
+        stock:0,
+        category:"Racing Collection",
+        image:"kimi-front.png"
+    }
+
+];
+
+
+/* GET SAVED PRODUCTS */
+
+function getSavedProducts(){
+
+    try{
+
+        return JSON.parse(
+            localStorage.getItem(
+                "mainstreamProducts"
+            )
+        ) || [];
+
+    }catch(error){
+
+        return [];
+
+    }
+
+}
+
+
+/* BUILD COMPLETE PRODUCT LIST */
+
+function getProducts(){
+
+    const saved =
+        getSavedProducts();
+
+
+    const products = [];
+
+
+    /* ORIGINAL PRODUCTS */
+
+    defaultProducts.forEach(
+        function(defaultProduct){
+
+            const savedProduct =
+                saved.find(
+                    function(item){
+
+                        return (
+                            String(item.id)
+                            ===
+                            String(defaultProduct.id)
+                        )
+                        ||
+                        (
+                            item.name &&
+                            item.name
+                            .trim()
+                            .toLowerCase()
+                            ===
+                            defaultProduct.name
+                            .trim()
+                            .toLowerCase()
+                        );
+
+                    }
+                );
+
+
+            if(savedProduct){
+
+                products.push({
+
+                    ...defaultProduct,
+
+                    ...savedProduct,
+
+                    image:
+                        savedProduct.image ||
+                        savedProduct.front ||
+                        defaultProduct.image
+
+                });
+
+            }else{
+
+                products.push(
+                    defaultProduct
+                );
+
+            }
+
+        }
+    );
+
+
+    /* NEW PRODUCTS */
+
+    saved.forEach(
+        function(savedProduct){
+
+            const alreadyExists =
+                products.some(
+                    function(product){
+
+                        return (
+                            String(product.id)
+                            ===
+                            String(savedProduct.id)
+                        )
+                        ||
+                        (
+                            product.name &&
+                            savedProduct.name &&
+                            product.name
+                            .trim()
+                            .toLowerCase()
+                            ===
+                            savedProduct.name
+                            .trim()
+                            .toLowerCase()
+                        );
+
+                    }
+                );
+
+
+            if(!alreadyExists){
+
+                products.push({
+
+                    ...savedProduct,
+
+                    category:
+                        savedProduct.category ||
+                        "Racing Collection",
+
+                    image:
+                        savedProduct.image ||
+                        savedProduct.front ||
+                        "mainstream-logo.png"
+
+                });
+
+            }
+
+        }
+    );
+
+
+    return products;
+
+}
+
+
+/* SAFE HTML */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+
+/* STATUS */
+
+function getStatus(stock){
+
+    stock =
+        Number(stock || 0);
+
+
+    if(stock <= 0){
+
+        return {
+            text:"OUT OF STOCK",
+            className:"out",
+            numberClass:"stock-out"
+        };
+
+    }
+
+
+    if(stock <= 10){
+
+        return {
+            text:"LOW STOCK",
+            className:"low",
+            numberClass:"stock-low"
+        };
+
+    }
+
+
+    return {
+        text:"IN STOCK",
+        className:"good",
+        numberClass:"stock-good"
+    };
+
+}
+
+
+/* RENDER */
+
+function renderInventory(){
+
+    const products =
+        getProducts();
+
+
+    updateStats(products);
+
+
+    applyFilters(products);
+
+}
+
+
+/* STATS */
+
+function updateStats(products){
+
+    let totalStock = 0;
+    let lowStock = 0;
+    let outOfStock = 0;
+
+
+    products.forEach(
+        function(product){
+
+            const stock =
+                Number(product.stock || 0);
+
+
+            totalStock += stock;
+
+
+            if(stock <= 0){
+
+                outOfStock++;
+
+            }
+
+            else if(stock <= 10){
+
+                lowStock++;
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "totalProducts"
+    ).textContent =
+        products.length;
+
+
+    document.getElementById(
+        "totalStock"
+    ).textContent =
+        totalStock;
+
+
+    document.getElementById(
+        "lowStock"
+    ).textContent =
+        lowStock;
+
+
+    document.getElementById(
+        "outOfStock"
+    ).textContent =
+        outOfStock;
+
+}
+
+
+/* FILTER */
+
+function applyFilters(products){
+
+    const search =
+        document.getElementById(
+            "searchBox"
+        )
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const filter =
+        document.getElementById(
+            "stockFilter"
+        )
+        .value;
+
+
+    const filtered =
+        products.filter(
+            function(product){
+
+                const name =
+                    String(
+                        product.name || ""
+                    )
+                    .toLowerCase();
+
+
+                const stock =
+                    Number(
+                        product.stock || 0
+                    );
+
+
+                const matchesSearch =
+                    name.includes(search);
+
+
+                let matchesFilter = true;
+
+
+                if(filter === "in"){
+
+                    matchesFilter =
+                        stock > 10;
+
+                }
+
+                else if(filter === "low"){
+
+                    matchesFilter =
+                        stock > 0 &&
+                        stock <= 10;
+
+                }
+
+                else if(filter === "out"){
+
+                    matchesFilter =
+                        stock <= 0;
+
+                }
+
+
+                return (
+                    matchesSearch &&
+                    matchesFilter
+                );
+
+            }
+        );
+
+
+    renderRows(filtered);
+
+}
+
+
+/* RENDER ROWS */
+
+function renderRows(products){
+
+    const body =
+        document.getElementById(
+            "inventoryBody"
+        );
+
+
+    body.innerHTML = "";
+
+
+    if(products.length === 0){
+
+        body.innerHTML = `
+
+            <tr>
+
+                <td colspan="5">
+
+                    <div class="empty">
+
+                        <div class="empty-title">
+                            No products found
+                        </div>
+
+                        <div class="empty-text">
+                            Try another search or filter.
+                        </div>
+
+                    </div>
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    products.forEach(
+        function(product){
+
+            const stock =
+                Number(
+                    product.stock || 0
+                );
+
+
+            let statusText =
+                "IN STOCK";
+
+            let statusClass =
+                "good";
+
+            let stockClass =
+                "stock-good";
+
+
+            if(stock <= 0){
+
+                statusText =
+                    "OUT OF STOCK";
+
+                statusClass =
+                    "out";
+
+                stockClass =
+                    "stock-out";
+
+            }
+
+            else if(stock <= 10){
+
+                statusText =
+                    "LOW STOCK";
+
+                statusClass =
+                    "low";
+
+                stockClass =
+                    "stock-low";
+
+            }
+
+
+            const image =
+                product.image ||
+                product.front ||
+                "mainstream-logo.png";
+
+
+            const productId =
+                String(
+                    product.id || ""
+                );
+
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            row.innerHTML = `
+
+                <td>
+
+                    <div class="product-cell">
+
+                        <div class="product-image">
+
+                            <img
+                                src="${escapeHTML(image)}"
+                                alt="${escapeHTML(product.name)}"
+                                onerror="this.src='mainstream-logo.png'">
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="product-name">
+
+                                ${escapeHTML(
+                                    product.name
+                                )}
+
+                            </div>
+
+
+                            <div class="product-category">
+
+                                ${escapeHTML(
+                                    product.category ||
+                                    "Racing Collection"
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </td>
+
+
+                <td>
+
+                    <span class="price">
+
+                        ₹${Number(
+                            product.price || 0
+                        ).toLocaleString("en-IN")}
+
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <span
+                        class="${stockClass}">
+
+                        ${stock}
+
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <span
+                        class="status ${statusClass}">
+
+                        ${statusText}
+
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    <div class="actions">
+
+                        <a
+                            href="edit-product.html?product=${encodeURIComponent(productId)}"
+                            class="edit-btn">
+
+                            EDIT
+
+                        </a>
+
+
+                        <button
+                            type="button"
+                            class="delete-btn"
+                            onclick="deleteProduct('${productId.replace(/'/g,"\\'")}')">
+
+                            DELETE
+
+                        </button>
+
+                    </div>
+
+                </td>
+
+            `;
+
+
+            body.appendChild(row);
+
+        }
+    );
+
+}
+
+/* =========================================
+   DELETE PRODUCT
+========================================= */
+
+function deleteProduct(productId){
+
+    const savedProducts =
+        getSavedProducts();
+
+
+    const product =
+        getProducts().find(
+            function(item){
+
+                return String(item.id)
+                    ===
+                    String(productId);
+
+            }
+        );
+
+
+    if(!product){
+
+        alert(
+            "Product not found."
+        );
+
+        return;
+
+    }
+
+
+    const confirmed =
+        confirm(
+            'Are you sure you want to delete "' +
+            product.name +
+            '"?'
+        );
+
+
+    if(!confirmed){
+
+        return;
+
+    }
+
+
+    const updatedProducts =
+        savedProducts.filter(
+            function(item){
+
+                return String(item.id)
+                    !==
+                    String(productId);
+
+            }
+        );
+
+
+    localStorage.setItem(
+        "mainstreamProducts",
+        JSON.stringify(updatedProducts)
+    );
+
+
+    addActivity(
+        "Product deleted",
+        product.name
+    );
+
+
+    alert(
+        product.name +
+        " deleted successfully."
+    );
+
+
+    renderInventory();
+
+}
+
+
+/* =========================================
+   ACTIVITY LOGGER
+========================================= */
+
+function addActivity(
+    action,
+    productName
+){
+
+    let activities = [];
+
+
+    try{
+
+        activities =
+            JSON.parse(
+                localStorage.getItem(
+                    "mainstreamActivity"
+                )
+            ) || [];
+
+    }catch(error){
+
+        activities = [];
+
+    }
+
+
+    activities.unshift({
+
+        id:Date.now(),
+
+        text:
+            action +
+            ": " +
+            productName,
+
+        time:
+            new Date().toLocaleString(
+                "en-IN",
+                {
+                    day:"2-digit",
+                    month:"short",
+                    year:"numeric",
+                    hour:"2-digit",
+                    minute:"2-digit"
+                }
+            )
+
+    });
+
+
+    localStorage.setItem(
+        "mainstreamActivity",
+        JSON.stringify(
+            activities.slice(0,50)
+        )
+    );
+
+}
+
+
+/* =========================================
+   SEARCH
+========================================= */
+
+const searchBox =
+    document.getElementById(
+        "searchBox"
+    );
+
+
+if(searchBox){
+
+    searchBox.addEventListener(
+        "input",
+        function(){
+
+            applyFilters(
+                getProducts()
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   STOCK FILTER
+========================================= */
+
+const stockFilter =
+    document.getElementById(
+        "stockFilter"
+    );
+
+
+if(stockFilter){
+
+    stockFilter.addEventListener(
+        "change",
+        function(){
+
+            applyFilters(
+                getProducts()
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   INITIAL LOAD
+========================================= */
+
+renderInventory();
+
+
+/* =========================================
+   REFRESH WHEN PAGE RETURNS
+========================================= */
+
+window.addEventListener(
+    "pageshow",
+    function(){
+
+        renderInventory();
+
+    }
+);
+
+
+/* =========================================
+   REFRESH WHEN STORAGE CHANGES
+========================================= */
+
+window.addEventListener(
+    "storage",
+    function(event){
+
+        if(
+            event.key ===
+            "mainstreamProducts"
+        ){
+
+            renderInventory();
+
+        }
+
+    }
+);
+
+</script>
+
+
 </body>
+
 </html>
