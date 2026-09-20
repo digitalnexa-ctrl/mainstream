@@ -1112,16 +1112,22 @@ function getProducts(){
 
                 products.push({
 
-                    ...defaultProduct,
+    ...defaultProduct,
 
-                    ...savedProduct,
+    ...savedProduct,
 
-                    image:
-                        savedProduct.image ||
-                        savedProduct.front ||
-                        defaultProduct.image
+    slug:
+        savedProduct.slug ||
+        savedProduct.id ||
+        defaultProduct.slug ||
+        defaultProduct.id,
 
-                });
+    image:
+        savedProduct.image ||
+        savedProduct.front ||
+        defaultProduct.image
+
+});
 
             }else{
 
