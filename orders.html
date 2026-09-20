@@ -1302,60 +1302,53 @@ function renderOrders(){
                 </td>
 
 
-                <td>
+                       </td>
 
-                    <div class="amount">
-
-                        ${money(amount)}
-
-                    </div>
 
                 <td>
 
-    <span
-        class="status
-        ${getStatusClass(status)}">
+                    <span
+                        class="status
+                        ${getStatusClass(status)}">
 
-        ${escapeHTML(
-            getStatusText(status)
-        )}
+                        ${escapeHTML(
+                            getStatusText(status)
+                        )}
 
-    </span>
+                    </span>
 
-</td>
-
-
-<td>
-
-    ${escapeHTML(
-        String(date)
-    )}
-
-</td>
+                </td>
 
 
-<td>
+                <td>
 
-    <a
-        href="#"
-        class="view-btn"
-        onclick="viewOrder('${String(orderId).replace(/'/g,"\\'")}'); return false;">
+                    ${escapeHTML(
+                        String(date)
+                    )}
 
-        VIEW
-
-    </a>
-
-</td>
-
-`;
+                </td>
 
 
-body.appendChild(
-    row
-);
+                <td>
 
-}
-);
+                    <a
+                        href="#"
+                        class="view-btn"
+                        onclick="viewOrder('${String(orderId).replace(/'/g,"\\'")}'); return false;">
+
+                        VIEW
+
+                    </a>
+
+                </td>
+
+            `;
+
+
+            body.appendChild(row);
+
+        }
+    );
 
 }
 
@@ -1366,84 +1359,80 @@ body.appendChild(
 
 function updateStats(orders){
 
-const total =
-    orders.length;
+    const total =
+        orders.length;
 
 
-const pending =
-    orders.filter(
-        function(order){
+    const pending =
+        orders.filter(
+            function(order){
 
-            return (
-                String(
-                    order.status ||
-                    "pending"
+                return String(
+                    order.status || "pending"
                 )
                 .toLowerCase()
-                ===
-                "pending"
-            );
+                === "pending";
 
-        }
-    ).length;
+            }
+        ).length;
 
 
-const completed =
-    orders.filter(
-        function(order){
+    const completed =
+        orders.filter(
+            function(order){
 
-            return (
-                String(
-                    order.status ||
-                    ""
+                return String(
+                    order.status || ""
                 )
                 .toLowerCase()
-                ===
-                "delivered"
-            );
+                === "delivered";
 
-        }
-    ).length;
+            }
+        ).length;
 
 
-const revenue =
-    orders.reduce(
-        function(sum,order){
+    const revenue =
+        orders.reduce(
+            function(sum,order){
 
-            return sum +
-                Number(
-                    order.total ||
-                    order.amount ||
-                    0
-                );
+                return sum +
+                    Number(
+                        order.total ||
+                        order.amount ||
+                        (
+                            Number(
+                                order.price || 0
+                            ) *
+                            Number(
+                                order.quantity || 1
+                            )
+                        ) ||
+                        0
+                    );
 
-        },
-        0
-    );
-
-
-document.getElementById(
-    "totalOrders"
-).textContent =
-    total;
-
-
-document.getElementById(
-    "pendingOrders"
-).textContent =
-    pending;
+            },
+            0
+        );
 
 
-document.getElementById(
-    "completedOrders"
-).textContent =
-    completed;
+    document.getElementById(
+        "totalOrders"
+    ).textContent = total;
 
 
-document.getElementById(
-    "totalRevenue"
-).textContent =
-    money(revenue);
+    document.getElementById(
+        "pendingOrders"
+    ).textContent = pending;
+
+
+    document.getElementById(
+        "completedOrders"
+    ).textContent = completed;
+
+
+    document.getElementById(
+        "totalRevenue"
+    ).textContent = money(revenue);
 
 }
 
@@ -1454,82 +1443,87 @@ document.getElementById(
 
 function viewOrder(orderId){
 
-const orders =
-    getOrders();
+    const orders =
+        getOrders();
 
 
-const order =
-    orders.find(
-        function(item){
+    const order =
+        orders.find(
+            function(item){
 
-            return String(
-                item.orderId ||
-                item.id
+                return String(
+                    item.orderId ||
+                    item.id
+                )
+                ===
+                String(orderId);
+
+            }
+        );
+
+
+    if(!order){
+
+        alert("Order not found.");
+
+        return;
+
+    }
+
+
+    const customer =
+        order.customerName ||
+        order.customer ||
+        "Guest Customer";
+
+
+    const product =
+        order.productName ||
+        order.product ||
+        "MAINSTREAM™ Product";
+
+
+    const quantity =
+        Number(
+            order.quantity || 1
+        );
+
+
+    const amount =
+        Number(
+            order.total ||
+            order.amount ||
+            (
+                Number(order.price || 0) *
+                quantity
             )
-            ===
-            String(orderId);
+        );
 
-        }
-    );
-
-
-if(!order){
 
     alert(
-        "Order not found."
+
+        "ORDER #" +
+        orderId +
+
+        "\n\nCustomer: " +
+        customer +
+
+        "\nProduct: " +
+        product +
+
+        "\nQuantity: " +
+        quantity +
+
+        "\nAmount: " +
+        money(amount) +
+
+        "\nStatus: " +
+        getStatusText(
+            order.status ||
+            "pending"
+        )
+
     );
-
-    return;
-
-}
-
-
-const customer =
-    order.customerName ||
-    order.customer ||
-    "Guest Customer";
-
-
-const product =
-    order.productName ||
-    order.product ||
-    "MAINSTREAM™ Product";
-
-
-const amount =
-    Number(
-        order.total ||
-        order.amount ||
-        0
-    );
-
-
-alert(
-
-    "ORDER #" +
-    orderId +
-
-    "\n\nCustomer: " +
-    customer +
-
-    "\nProduct: " +
-    product +
-
-    "\nQuantity: " +
-    Number(
-        order.quantity || 1
-    ) +
-
-    "\nAmount: " +
-    money(amount) +
-
-    "\nStatus: " +
-    getStatusText(
-        order.status ||
-        "pending"
-    )
-
-);
 
 }
 
@@ -1613,6 +1607,3 @@ renderOrders();
 </body>
 
 </html>
-
-
-              
