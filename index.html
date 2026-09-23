@@ -2328,7 +2328,41 @@ function addToCart(name,image,price){
 
 }
 
+/* ================= WISHLIST ================= */
 
+function saveProductToWishlist(key){
+
+    let wishlist = [];
+
+    try{
+        wishlist =
+            JSON.parse(
+                localStorage.getItem("mainstreamWishlist")
+            ) || [];
+
+    }catch(error){
+        wishlist = [];
+    }
+
+    key = key.toLowerCase();
+
+    if(!wishlist.includes(key)){
+
+        wishlist.push(key);
+
+        localStorage.setItem(
+            "mainstreamWishlist",
+            JSON.stringify(wishlist)
+        );
+
+        alert("Added to wishlist ♡");
+
+    }else{
+
+        alert("Already in your wishlist ♡");
+
+    }
+}
 /* ================= PRODUCT SELECTION ================= */
 
 const productData = {
