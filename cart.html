@@ -439,6 +439,71 @@ header .logo{
         font-size:12px;
     }
 }   
+    /* =====================================================
+   MAINSTREAM™ — CART TITLE FIX
+   ===================================================== */
+
+.cart-title{
+    text-align:center;
+    padding:75px 20px 45px;
+    margin:0;
+}
+
+.cart-title h1{
+    margin:0;
+    color:#111;
+    font-size:clamp(48px,7vw,82px);
+    line-height:1;
+    font-weight:900;
+    letter-spacing:-3px;
+    text-transform:uppercase;
+}
+
+.cart-title p{
+    display:block;
+    margin:18px auto 0;
+    color:#777;
+    font-size:14px;
+    line-height:1.6;
+    letter-spacing:1.5px;
+    font-weight:500;
+    text-transform:uppercase;
+}
+
+/* Yellow accent line */
+.cart-title p::before{
+    content:"";
+    display:inline-block;
+    width:32px;
+    height:3px;
+    margin-right:12px;
+    vertical-align:middle;
+    background:#ffd900;
+}
+
+@media(max-width:600px){
+
+    .cart-title{
+        padding:50px 18px 35px;
+    }
+
+    .cart-title h1{
+        font-size:46px;
+        letter-spacing:-2px;
+    }
+
+    .cart-title p{
+        margin-top:16px;
+        font-size:11px;
+        letter-spacing:1px;
+    }
+
+    .cart-title p::before{
+        width:24px;
+        height:2px;
+        margin-right:8px;
+    }
+}
 </style>
 
 </head>
