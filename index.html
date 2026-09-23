@@ -274,8 +274,33 @@ header{
 }
 
 .product-card:hover{
-    transform:translateY(-8px);
-    box-shadow:10px 10px 0 #111;
+    transform:translateY(-10px);
+    box-shadow:0 20px 45px rgba(0,0,0,.16);
+}
+
+.product-card{
+    border:1px solid #e5e5e0;
+    transition:
+        opacity .7s ease,
+        transform .5s cubic-bezier(.2,.8,.2,1),
+        box-shadow .5s ease;
+}
+
+.product-image{
+    position:relative;
+}
+
+.product-image::after{
+    content:"MAINSTREAM™";
+    position:absolute;
+    left:15px;
+    bottom:15px;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:3px;
+    color:#fff;
+    opacity:.75;
+    pointer-events:none;
 }
 
 .product-image{
