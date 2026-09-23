@@ -1053,6 +1053,146 @@ footer a:hover{
         top:-70px;
     }
 }
+/* =====================================================
+   MAINSTREAM™ — PREMIUM PRODUCT CARDS
+   ===================================================== */
+
+.product-card{
+    border:1px solid #e2e2dd;
+    background:#fff;
+    transition:
+        transform .5s cubic-bezier(.2,.8,.2,1),
+        box-shadow .5s ease,
+        border-color .4s ease;
+}
+
+.product-card:hover{
+    transform:translateY(-10px);
+    box-shadow:12px 12px 0 #111;
+    border-color:#111;
+}
+
+.product-image{
+    position:relative;
+    overflow:hidden;
+    background:#e4e4e1;
+}
+
+.product-image::after{
+    content:"MAINSTREAM™";
+    position:absolute;
+    top:15px;
+    left:15px;
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:3px;
+    color:#fff;
+    mix-blend-mode:difference;
+    pointer-events:none;
+}
+
+.product-image img{
+    transition:
+        transform .8s cubic-bezier(.2,.8,.2,1),
+        filter .5s ease;
+}
+
+.product-card:hover .product-image img{
+    transform:scale(1.045);
+}
+
+.product-info{
+    padding:24px;
+    position:relative;
+}
+
+.product-name{
+    font-size:20px;
+    letter-spacing:.5px;
+    text-transform:uppercase;
+}
+
+.product-price{
+    font-size:18px;
+    color:#555;
+}
+
+.product-actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+}
+
+.product-btn{
+    min-height:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1.5px solid #111;
+    letter-spacing:.8px;
+    transition:
+        background .3s ease,
+        color .3s ease,
+        transform .3s ease;
+}
+
+.product-btn:hover{
+    background:#111;
+    color:#fff;
+    transform:translateY(-2px);
+}
+
+/* Wishlist gets a quieter luxury treatment */
+
+.wishlist-btn{
+    grid-column:1 / -1;
+    background:#f5f5f0;
+    border-color:#ddd;
+}
+
+.wishlist-btn:hover{
+    background:#ffd900;
+    color:#111;
+    border-color:#111;
+}
+
+/* Mobile */
+
+@media(max-width:800px){
+
+    .product-card:hover{
+        transform:translateY(-4px);
+        box-shadow:5px 5px 0 #111;
+    }
+
+    .product-info{
+        padding:14px 12px;
+    }
+
+    .product-name{
+        font-size:13px;
+        letter-spacing:.3px;
+    }
+
+    .product-price{
+        font-size:14px;
+    }
+
+    .product-actions{
+        display:grid;
+        grid-template-columns:1fr;
+        gap:6px;
+    }
+
+    .product-btn{
+        min-height:42px;
+        font-size:9px;
+    }
+
+    .wishlist-btn{
+        grid-column:auto;
+    }
+}    
 </style>
 </head>
 
