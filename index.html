@@ -1193,9 +1193,92 @@ footer a:hover{
         grid-column:auto;
     }
 }    
+/* =====================================================
+   MAINSTREAM™ — PREMIUM BRAND STORY
+   ===================================================== */
+
+.story{
+    position:relative;
+    overflow:hidden;
+    min-height:430px;
+    margin:0 5% 110px;
+    padding:70px;
+    background:#ffd900;
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    align-items:end;
+    gap:70px;
+    border:1px solid #111;
+}
+
+.story::before{
+    content:"01";
+    position:absolute;
+    top:25px;
+    right:35px;
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:4px;
+}
+
+.story::after{
+    content:"";
+    position:absolute;
+    width:320px;
+    height:320px;
+    border:2px solid rgba(17,17,17,.18);
+    border-radius:50%;
+    right:-120px;
+    bottom:-180px;
+}
+
+.story h2{
+    position:relative;
+    z-index:2;
+    font-size:clamp(55px,7vw,105px);
+    line-height:.82;
+    letter-spacing:-6px;
+    text-transform:uppercase;
+}
+
+.story p{
+    position:relative;
+    z-index:2;
+    max-width:500px;
+    font-size:18px;
+    line-height:1.8;
+}
+
+@media(max-width:800px){
+
+    .story{
+        min-height:500px;
+        margin:0 20px 70px;
+        padding:40px 25px;
+        display:flex;
+        flex-direction:column;
+        align-items:flex-start;
+        justify-content:flex-end;
+        gap:30px;
+    }
+
+    .story h2{
+        font-size:58px;
+        letter-spacing:-4px;
+    }
+
+    .story p{
+        font-size:16px;
+        line-height:1.7;
+    }
+
+    .story::before{
+        top:20px;
+        right:20px;
+    }
+}
 </style>
 </head>
-
 <body>
 
 <!-- ================= HEADER ================= -->
