@@ -939,6 +939,120 @@ footer a:hover{
         height:430px;
     }
 }
+    /* =====================================================
+   PREMIUM NEW DROP — MAINSTREAM™
+   ===================================================== */
+
+.drop-banner{
+    margin:0 5% 100px;
+    min-height:280px;
+    padding:55px 60px;
+    background:#111;
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border:1px solid #222;
+}
+
+.drop-banner::before{
+    content:"";
+    position:absolute;
+    width:420px;
+    height:420px;
+    border:1px solid rgba(255,217,0,.45);
+    border-radius:50%;
+    right:-150px;
+    top:-170px;
+    animation:dropOrbit 14s linear infinite;
+}
+
+.drop-banner::after{
+    content:"";
+    position:absolute;
+    width:260px;
+    height:260px;
+    border:1px solid rgba(255,217,0,.2);
+    border-radius:50%;
+    right:-70px;
+    top:-90px;
+}
+
+.drop-text{
+    position:relative;
+    z-index:2;
+    color:#ffd900;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:5px;
+    text-transform:uppercase;
+}
+
+.drop-title{
+    position:relative;
+    z-index:2;
+    margin-top:12px;
+    font-size:clamp(48px,6vw,88px);
+    line-height:.9;
+    letter-spacing:-4px;
+    text-transform:uppercase;
+}
+
+.drop-banner > .drop-text{
+    align-self:flex-end;
+    margin-bottom:8px;
+    font-size:10px;
+    white-space:nowrap;
+}
+
+@keyframes dropOrbit{
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+@media(max-width:800px){
+
+    .drop-banner{
+        margin:0 20px 70px;
+        min-height:260px;
+        padding:40px 25px;
+        display:flex;
+        flex-direction:column;
+        align-items:flex-start;
+        justify-content:center;
+    }
+
+    .drop-title{
+        font-size:48px;
+        letter-spacing:-3px;
+    }
+
+    .drop-banner > .drop-text{
+        align-self:flex-start;
+        margin-top:35px;
+        margin-bottom:0;
+    }
+
+    .drop-banner::before{
+        width:300px;
+        height:300px;
+        right:-150px;
+        top:-120px;
+    }
+
+    .drop-banner::after{
+        width:190px;
+        height:190px;
+        right:-80px;
+        top:-70px;
+    }
+}
 </style>
 </head>
 
