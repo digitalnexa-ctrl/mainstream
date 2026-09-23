@@ -1500,7 +1500,99 @@ header:hover{
         font-size:10px;
     }
 }
+/* =====================================================
+   MAINSTREAM™ — FINAL MOBILE POLISH
+   ===================================================== */
 
+@media(max-width:800px){
+
+    html{
+        overflow-x:hidden;
+    }
+
+    body{
+        overflow-x:hidden;
+    }
+
+    header{
+        position:sticky;
+        top:0;
+        z-index:9999;
+    }
+
+    .hero,
+    .drop-banner,
+    .story,
+    footer{
+        width:auto;
+    }
+
+    .hero{
+        min-height:auto;
+    }
+
+    .hero-content{
+        width:100%;
+    }
+
+    .hero-image{
+        object-fit:cover;
+    }
+
+    .products-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .product-card{
+        min-width:0;
+    }
+
+    .product-image{
+        width:100%;
+    }
+
+    .product-info{
+        overflow:hidden;
+    }
+
+    .product-name{
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+    }
+
+    .footer-grid{
+        width:100%;
+    }
+}
+
+@media(max-width:430px){
+
+    .products-grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .product-info{
+        padding:12px 10px;
+    }
+
+    .product-name{
+        font-size:12px;
+    }
+
+    .product-price{
+        font-size:13px;
+    }
+
+    .product-btn{
+        font-size:8px;
+    }
+
+    .hero-title{
+        max-width:100%;
+    }
+}
 </style>
 </head>
 <body>
