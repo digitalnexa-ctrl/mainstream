@@ -199,7 +199,101 @@ select:focus{
   }
 
 }
+/* =====================================================
+   MAINSTREAM™ — PREMIUM SHIPPING PAGE
+   ===================================================== */
 
+body{
+    background:#f5f5f0;
+}
+
+.shipping-container{
+    max-width:1200px;
+    margin:0 auto;
+    padding:70px 5% 100px;
+}
+
+.shipping-title{
+    font-size:clamp(55px,8vw,110px);
+    line-height:.82;
+    letter-spacing:-6px;
+    text-transform:uppercase;
+    margin-bottom:25px;
+}
+
+.shipping-intro{
+    max-width:600px;
+    color:#666;
+    line-height:1.8;
+    margin-bottom:55px;
+}
+
+.shipping-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.shipping-card{
+    position:relative;
+    background:#fff;
+    border:1px solid #deded8;
+    padding:35px;
+    min-height:190px;
+    transition:.35s ease;
+}
+
+.shipping-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:4px;
+    height:0;
+    background:#ffd900;
+    transition:.35s ease;
+}
+
+.shipping-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 18px 40px rgba(0,0,0,.09);
+}
+
+.shipping-card:hover::before{
+    height:100%;
+}
+
+.shipping-card h2{
+    font-size:17px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    margin-bottom:18px;
+}
+
+.shipping-card p{
+    color:#666;
+    line-height:1.8;
+}
+
+@media(max-width:700px){
+
+    .shipping-container{
+        padding:45px 18px 70px;
+    }
+
+    .shipping-title{
+        font-size:58px;
+        letter-spacing:-4px;
+    }
+
+    .shipping-grid{
+        grid-template-columns:1fr;
+    }
+
+    .shipping-card{
+        padding:25px;
+    }
+}
 </style>
 
 </head>
