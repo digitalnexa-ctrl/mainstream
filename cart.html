@@ -369,6 +369,76 @@ header{
         padding:25px;
     }
 }
+ /* =====================================================
+   MAINSTREAM™ — CART PAGE TEXT & LOGO FIX
+   ===================================================== */
+
+/* Cart heading area */
+.cart-title{
+    color:#111;
+    font-size:clamp(48px,8vw,90px);
+    line-height:1;
+    letter-spacing:-4px;
+    text-align:center;
+    margin-bottom:25px;
+}
+
+/* Text/buttons directly below YOUR CART */
+.cart-title + *{
+    color:#555;
+    font-size:14px;
+    line-height:1.6;
+}
+
+/* Cart navigation links */
+.cart-container a{
+    color:#111;
+    text-decoration:none;
+    font-weight:800;
+    letter-spacing:1px;
+    transition:.3s ease;
+}
+
+.cart-container a:hover{
+    color:#ffd900;
+}
+
+/* MAINSTREAM logo */
+.logo{
+    filter:none !important;
+}
+
+/* Yellow logo/header branding */
+header .logo{
+    background:#ffd900;
+    padding:8px 12px;
+}
+
+/* Keep cart count yellow */
+.cart-btn{
+    background:#ffd900;
+    color:#111;
+    border-color:#111;
+}
+
+/* Mobile text clarity */
+@media(max-width:600px){
+
+    .cart-title{
+        font-size:48px;
+        letter-spacing:-3px;
+        margin-bottom:30px;
+    }
+
+    .cart-container{
+        padding-left:18px;
+        padding-right:18px;
+    }
+
+    .cart-container a{
+        font-size:12px;
+    }
+}   
 </style>
 
 </head>
