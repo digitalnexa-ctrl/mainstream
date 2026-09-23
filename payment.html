@@ -343,7 +343,107 @@ header{
     }
 
 }
+/* =====================================================
+   MAINSTREAM™ — PREMIUM PAYMENT PAGE
+   ===================================================== */
 
+body{
+    background:#f5f5f0;
+}
+
+.payment-container{
+    max-width:1100px;
+    margin:0 auto;
+    padding:70px 5% 100px;
+}
+
+.payment-title{
+    font-size:clamp(55px,8vw,105px);
+    line-height:.82;
+    letter-spacing:-6px;
+    text-transform:uppercase;
+    margin-bottom:55px;
+}
+
+.payment-card{
+    background:#fff;
+    border:1px solid #deded8;
+    padding:40px;
+    box-shadow:0 15px 40px rgba(0,0,0,.06);
+}
+
+.payment-card h2{
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-size:18px;
+    margin-bottom:25px;
+}
+
+.payment-card input,
+.payment-card select{
+    width:100%;
+    min-height:52px;
+    border:1px solid #ccc;
+    background:#fafaf7;
+    padding:14px 16px;
+    outline:none;
+    transition:.3s ease;
+}
+
+.payment-card input:focus,
+.payment-card select:focus{
+    border-color:#111;
+    background:#fff;
+}
+
+.payment-method{
+    border:1px solid #ddd;
+    padding:18px;
+    margin-bottom:10px;
+    cursor:pointer;
+    transition:.3s ease;
+}
+
+.payment-method:hover{
+    border-color:#111;
+    transform:translateX(4px);
+}
+
+.pay-btn{
+    width:100%;
+    min-height:58px;
+    margin-top:25px;
+    background:#111;
+    color:#fff;
+    border:1px solid #111;
+    font-weight:900;
+    letter-spacing:2px;
+    transition:.35s ease;
+}
+
+.pay-btn:hover{
+    background:#ffd900;
+    color:#111;
+    border-color:#ffd900;
+    transform:translateY(-3px);
+    box-shadow:6px 6px 0 #111;
+}
+
+@media(max-width:700px){
+
+    .payment-container{
+        padding:45px 18px 70px;
+    }
+
+    .payment-title{
+        font-size:58px;
+        letter-spacing:-4px;
+    }
+
+    .payment-card{
+        padding:25px 20px;
+    }
+}
 </style>
 
 </head>
