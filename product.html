@@ -331,6 +331,155 @@ header{
         font-size:34px;
     }
 }
+/* =====================================================
+   MAINSTREAM™ — PREMIUM PRODUCT PAGE
+   ===================================================== */
+
+.product-layout{
+    max-width:1400px;
+    margin:0 auto;
+    padding:70px 5%;
+    gap:70px;
+}
+
+.gallery{
+    position:relative;
+}
+
+.thumbnails{
+    gap:10px;
+}
+
+.thumb{
+    border:1px solid #ddd;
+    transition:.3s ease;
+}
+
+.thumb:hover{
+    border-color:#111;
+    transform:translateY(-3px);
+}
+
+.main-image-box{
+    position:relative;
+    background:#f2f2ee;
+    overflow:hidden;
+}
+
+.main-image-box::before{
+    content:"MAINSTREAM™";
+    position:absolute;
+    top:20px;
+    left:22px;
+    z-index:5;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:4px;
+    color:#fff;
+    mix-blend-mode:difference;
+    pointer-events:none;
+}
+
+.main-image-box::after{
+    content:"RACING / STREET / 2026";
+    position:absolute;
+    bottom:20px;
+    right:22px;
+    z-index:5;
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:3px;
+    color:#fff;
+    mix-blend-mode:difference;
+    pointer-events:none;
+}
+
+.main-image{
+    transition:transform .8s cubic-bezier(.2,.8,.2,1);
+}
+
+.main-image-box:hover .main-image{
+    transform:scale(1.025);
+}
+
+.product-info{
+    padding-top:15px;
+}
+
+.product-name{
+    font-size:clamp(42px,5vw,76px);
+    line-height:.9;
+    letter-spacing:-4px;
+    text-transform:uppercase;
+    margin-bottom:25px;
+}
+
+.product-price{
+    font-size:25px;
+    font-weight:700;
+    margin-bottom:35px;
+}
+
+.product-description{
+    max-width:500px;
+    color:#666;
+    line-height:1.8;
+}
+
+.size-selector{
+    margin-top:35px;
+}
+
+.size-selector button{
+    border:1px solid #ccc;
+    background:#fff;
+    transition:.3s ease;
+}
+
+.size-selector button:hover,
+.size-selector button.active{
+    background:#111;
+    color:#fff;
+    border-color:#111;
+}
+
+.quantity{
+    border:1px solid #111;
+}
+
+.add-cart-btn,
+.buy-now-btn{
+    min-height:55px;
+    transition:.35s ease;
+}
+
+.add-cart-btn:hover{
+    background:#111;
+    color:#fff;
+    box-shadow:6px 6px 0 #ffd900;
+}
+
+.buy-now-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:6px 6px 0 #ffd900;
+}
+
+@media(max-width:800px){
+
+    .product-layout{
+        padding:35px 18px 70px;
+        gap:35px;
+    }
+
+    .product-name{
+        font-size:46px;
+        letter-spacing:-3px;
+    }
+
+    .product-price{
+        font-size:24px;
+    }
+}
 </style>
 </head>
 
