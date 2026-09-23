@@ -1409,6 +1409,97 @@ footer a:hover{
         line-height:1.7;
     }
 }
+    /* =====================================================
+   MAINSTREAM™ — PREMIUM HEADER
+   ===================================================== */
+
+header{
+    height:82px;
+    padding:0 5%;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(17,17,17,.12);
+    transition:.35s ease;
+}
+
+header:hover{
+    background:#fff;
+}
+
+.logo{
+    width:175px;
+    transition:transform .35s ease;
+}
+
+.logo:hover{
+    transform:scale(1.03);
+}
+
+.header-right{
+    gap:18px;
+}
+
+.icon-btn{
+    width:42px;
+    height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid transparent;
+    border-radius:50%;
+    font-size:23px;
+    transition:.3s ease;
+}
+
+.icon-btn:hover{
+    background:#f0f0ec;
+    transform:none;
+}
+
+.cart-btn{
+    min-width:105px;
+    padding:12px 18px;
+    border:1px solid #111;
+    border-radius:0;
+    letter-spacing:1px;
+    transition:.35s ease;
+}
+
+.cart-btn:hover{
+    background:#111;
+    color:#fff;
+    transform:none;
+    box-shadow:5px 5px 0 #ffd900;
+}
+
+@media(max-width:800px){
+
+    header{
+        height:68px;
+        padding:0 18px;
+    }
+
+    .logo{
+        width:145px;
+    }
+
+    .header-right{
+        gap:7px;
+    }
+
+    .icon-btn{
+        width:36px;
+        height:36px;
+        font-size:20px;
+    }
+
+    .cart-btn{
+        min-width:auto;
+        padding:10px 12px;
+        font-size:10px;
+    }
+}
 </style>
 </head>
 <body>
