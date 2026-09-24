@@ -1840,6 +1840,91 @@ section{
         display:none;
     }
 }
+    /* =====================================================
+   MAINSTREAM™ — FASHION NAVIGATION
+   ===================================================== */
+
+header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:30px;
+}
+
+.mainstream-logo-link{
+    display:flex;
+    align-items:center;
+    flex-shrink:0;
+}
+
+.fashion-nav{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:28px;
+    flex:1;
+}
+
+.fashion-nav a{
+    color:#111;
+    text-decoration:none;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    white-space:nowrap;
+    position:relative;
+    transition:.3s ease;
+}
+
+.fashion-nav a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-7px;
+    width:0;
+    height:2px;
+    background:#ffd900;
+    transition:.3s ease;
+}
+
+.fashion-nav a:hover{
+    color:#555;
+}
+
+.fashion-nav a:hover::after{
+    width:100%;
+}
+
+@media(max-width:1000px){
+
+    .fashion-nav{
+        gap:15px;
+    }
+
+    .fashion-nav a{
+        font-size:9px;
+        letter-spacing:1px;
+    }
+}
+
+@media(max-width:800px){
+
+    header{
+        gap:10px;
+    }
+
+    .fashion-nav{
+        display:none;
+    }
+
+    .mainstream-logo-link{
+        flex:1;
+    }
+
+    .header-right{
+        flex-shrink:0;
+    }
+    }
 </style>
 </head>
 <body>
