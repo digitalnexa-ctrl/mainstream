@@ -1852,28 +1852,50 @@ section{
     <div>WEAR THE MAIN.</div>
 </div>
 
-<!-- ================= HEADER ================= -->
+<!-- ================= PREMIUM FASHION HEADER ================= -->
 
 <header>
 
-    <a href="index.html">
-        <img src="mainstream-logo.png" class="logo" alt="MAINSTREAM">
+    <a href="index.html" class="mainstream-logo-link">
+        <img
+            src="mainstream-logo.png"
+            class="logo"
+            alt="MAINSTREAM™">
     </a>
+
+    <nav class="fashion-nav">
+
+        <a href="index.html">HOME</a>
+
+        <a href="shop.html">SHOP</a>
+
+        <a href="shop.html?category=new">NEW ARRIVALS</a>
+
+        <a href="shop.html?category=tees">T-SHIRTS</a>
+
+        <a href="shop.html?category=racing">RACING</a>
+
+    </nav>
 
     <div class="header-right">
 
-        <button class="icon-btn" onclick="openSearch()" aria-label="Search">
-            ⌕
+        <button
+            class="icon-btn"
+            onclick="openSearch()"
+            aria-label="Search">
+            🔍
         </button>
 
         <button
-    class="icon-btn"
-    onclick="window.location.href='wishlist.html'"
-    aria-label="Wishlist">
-    ♡
+            class="icon-btn"
+            onclick="window.location.href='wishlist.html'"
+            aria-label="Wishlist">
+            ♡
         </button>
 
-        <button class="cart-btn" onclick="window.location.href='cart.html'">
+        <button
+            class="cart-btn"
+            onclick="window.location.href='cart.html'">
             CART <span id="cartCount">0</span>
         </button>
 
