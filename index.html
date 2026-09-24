@@ -1801,10 +1801,56 @@ section{
         font-size:13px;
         margin-top:6px;
     }
-}   
+}
+    /* =====================================================
+   MAINSTREAM™ — FASHION ANNOUNCEMENT BAR
+   ===================================================== */
+
+.mainstream-announcement{
+    height:34px;
+    background:#111;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:55px;
+    overflow:hidden;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+.mainstream-announcement div:nth-child(2){
+    color:#ffd900;
+}
+
+@media(max-width:600px){
+
+    .mainstream-announcement{
+        height:30px;
+        gap:30px;
+        justify-content:flex-start;
+        padding-left:20px;
+        font-size:8px;
+        white-space:nowrap;
+    }
+
+    .mainstream-announcement div:nth-child(3){
+        display:none;
+    }
+}
 </style>
 </head>
 <body>
+
+<!-- ================= MAINSTREAM ANNOUNCEMENT BAR ================= -->
+
+<div class="mainstream-announcement">
+    <div>NEW DROP — RACING COLLECTION 2026</div>
+    <div>FREE SHIPPING ON ORDERS ABOVE ₹999</div>
+    <div>WEAR THE MAIN.</div>
+</div>
 
 <!-- ================= HEADER ================= -->
 
