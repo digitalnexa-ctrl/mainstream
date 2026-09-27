@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" type="image/png" href="mainstream-logo.png">
-<meta name="google-site-verification" content="jxQJfj4JRZD45VMb8kr1LO78Pj82HLJsZ5Ui9-NH2GY" />
-<meta name="description" content="MAINSTREAM™ — Premium racing and streetwear T-shirts. Explore our collection of stylish motorsport-inspired apparel.">
-
-<meta name="keywords" content="MAINSTREAM, MAINSTREAM clothing, racing T-shirts, motorsport T-shirts, streetwear, premium T-shirts">
-
-<meta name="author" content="MAINSTREAM™">
-
-<meta name="robots" content="index, follow">
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>MAINSTREAM™ — Wear The Main</title>
 
+<meta name="description" content="MAINSTREAM™ — Premium racing and streetwear.">
+<meta name="theme-color" content="#ffd900">
+
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
 *{
     margin:0;
     padding:0;
@@ -26,813 +23,236 @@ html{
 }
 
 body{
-    font-family:Arial,Helvetica,sans-serif;
-    background:#f5f5f0;
+    font-family:Inter,Arial,sans-serif;
+    background:#f5f5f1;
     color:#111;
     overflow-x:hidden;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+button{
+    font:inherit;
+    border:0;
+    cursor:pointer;
+}
+
+img{
+    max-width:100%;
+    display:block;
 }
 
 /* ================= HEADER ================= */
 
 header{
-    position:sticky;
+    position:fixed;
     top:0;
-    z-index:1000;
+    left:0;
+    width:100%;
     height:78px;
-    background:#fff;
-    border-bottom:1px solid #ddd;
+    z-index:1000;
     display:flex;
     align-items:center;
     justify-content:space-between;
     padding:0 5%;
+    background:rgba(255,255,255,.88);
+    backdrop-filter:blur(18px);
+    border-bottom:1px solid rgba(0,0,0,.08);
 }
 
 .logo{
-    width:190px;
-    max-width:45vw;
+    width:175px;
 }
 
-.header-right{
+.nav{
+    display:flex;
+    gap:34px;
+    align-items:center;
+}
+
+.nav a{
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:2px;
+    position:relative;
+}
+
+.nav a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-7px;
+    width:0;
+    height:2px;
+    background:#ffd900;
+    transition:.3s;
+}
+
+.nav a:hover::after{
+    width:100%;
+}
+
+.header-actions{
     display:flex;
     align-items:center;
-    gap:24px;
+    gap:10px;
 }
 
-.icon-btn{
-    border:0;
-    background:none;
-    font-size:25px;
-    cursor:pointer;
+.icon{
+    width:42px;
+    height:42px;
+    display:grid;
+    place-items:center;
+    border:1px solid #ddd;
+    background:#fff;
+    font-size:18px;
     transition:.3s;
 }
 
-.icon-btn:hover{
-    transform:scale(1.15);
-}
-
-.cart-btn{
+.icon:hover{
     background:#ffd900;
-    border:2px solid #111;
-    padding:12px 18px;
-    font-weight:800;
-    cursor:pointer;
-    transition:.3s;
+    border-color:#111;
+    transform:translateY(-2px);
 }
 
-.cart-btn:hover{
-    transform:translateY(-3px);
-    box-shadow:4px 4px 0 #111;
+.cart{
+    background:#111;
+    color:#fff;
+    padding:13px 18px;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1.5px;
+}
+
+.cart span{
+    color:#ffd900;
+}
+
+/* ================= CATEGORY ================= */
+
+.category-bar{
+    position:fixed;
+    top:78px;
+    left:0;
+    width:100%;
+    height:45px;
+    z-index:900;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:35px;
+    background:#fff;
+    border-bottom:1px solid #ddd;
+}
+
+.category-bar a{
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:2px;
+    white-space:nowrap;
 }
 
 /* ================= HERO ================= */
 
 .hero{
-    min-height:calc(100vh - 78px);
+    min-height:100vh;
+    padding:155px 5% 60px;
     display:grid;
     grid-template-columns:45% 55%;
-    align-items:center;
-    gap:20px;
-    padding:70px 5%;
-}
-
-.hero-content{
-    animation:heroText .9s ease both;
-}
-
-.hero-small{
-    font-size:13px;
-    font-weight:800;
-    letter-spacing:4px;
-    margin-bottom:20px;
-}
-
-.hero-title{
-    font-size:clamp(60px,8vw,125px);
-    line-height:.82;
-    font-weight:900;
-    letter-spacing:-6px;
-    margin-bottom:35px;
-}
-
-.hero-description{
-    max-width:540px;
-    font-size:18px;
-    line-height:1.7;
-    margin-bottom:35px;
-}
-
-.shop-btn{
-    display:inline-block;
-    background:#ffd900;
-    color:#111;
-    border:2px solid #111;
-    padding:18px 34px;
-    text-decoration:none;
-    font-weight:900;
-    letter-spacing:1px;
-    transition:.35s;
-}
-
-.shop-btn:hover{
-    transform:translate(5px,-5px);
-    box-shadow:7px 7px 0 #111;
-}
-
-.hero-visual{
-    position:relative;
-    overflow:hidden;
-    animation:heroImage 1s ease both;
-}
-
-.hero-image-wrap{
-    position:relative;
-    overflow:hidden;
-    background:#ddd;
-}
-
-.hero-image{
-    width:100%;
-    display:block;
-    aspect-ratio:1 / 1;
-    object-fit:cover;
-    transition:opacity .45s ease, transform .8s ease;
-}
-
-.hero-image.next{
-    animation:heroNext .65s ease;
-}
-
-.hero-image.prev{
-    animation:heroPrev .65s ease;
-}
-
-.hero-counter{
-    position:absolute;
-    right:20px;
-    bottom:20px;
-    background:#111;
-    color:#fff;
-    padding:10px 15px;
-    font-size:13px;
-    font-weight:800;
-    letter-spacing:2px;
-}
-
-.swipe-hint{
-    position:absolute;
-    left:20px;
-    bottom:20px;
-    background:#fff;
-    padding:10px 15px;
-    font-size:12px;
-    font-weight:800;
-}
-
-/* ================= NEW DROP ================= */
-
-.drop-banner{
-    margin:0 5% 90px;
-    background:#111;
-    color:#fff;
-    padding:50px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    overflow:hidden;
-    position:relative;
-}
-
-.drop-banner::after{
-    content:"";
-    position:absolute;
-    width:180px;
-    height:180px;
-    border:2px solid #ffd900;
-    border-radius:50%;
-    right:-50px;
-    top:-50px;
-    animation:spin 12s linear infinite;
-}
-
-.drop-title{
-    font-size:clamp(35px,5vw,70px);
-    font-weight:900;
-}
-
-.drop-text{
-    color:#ffd900;
-    font-weight:800;
-    letter-spacing:3px;
-}
-
-/* ================= PRODUCTS ================= */
-
-.products-section{
-    padding:30px 5% 100px;
-}
-
-.section-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:end;
-    margin-bottom:45px;
-}
-
-.section-label{
-    font-size:12px;
-    font-weight:800;
-    letter-spacing:4px;
-}
-
-.section-title{
-    font-size:clamp(38px,5vw,70px);
-    font-weight:900;
-    letter-spacing:-3px;
-}
-
-.product-grid{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:25px;
-}
-
-.product-card{
-    background:#fff;
-    overflow:hidden;
-    position:relative;
-    opacity:0;
-    transform:translateY(45px);
-    transition:
-        opacity .7s ease,
-        transform .7s ease,
-        box-shadow .4s ease;
-}
-
-.product-card.visible{
-    opacity:1;
-    transform:translateY(0);
-}
-
-.product-card:hover{
-    transform:translateY(-10px);
-    box-shadow:0 20px 45px rgba(0,0,0,.16);
-}
-
-.product-card{
-    border:1px solid #e5e5e0;
-    transition:
-        opacity .7s ease,
-        transform .5s cubic-bezier(.2,.8,.2,1),
-        box-shadow .5s ease;
-}
-
-.product-image{
-    position:relative;
-}
-
-.product-image::after{
-    content:"MAINSTREAM™";
-    position:absolute;
-    left:15px;
-    bottom:15px;
-    font-size:9px;
-    font-weight:900;
-    letter-spacing:3px;
-    color:#fff;
-    opacity:.75;
-    pointer-events:none;
-}
-
-.product-image{
-    width:100%;
-    aspect-ratio:1 / 1;
-    overflow:hidden;
-    background:#e8e8e8;
-}
-
-.product-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-    transition:transform .7s cubic-bezier(.2,.8,.2,1);
-}
-
-.product-card:hover .product-image img{
-    transform:scale(1.06);
-}
-
-.product-info{
-    padding:25px;
-}
-
-.product-name{
-    font-size:22px;
-    font-weight:900;
-    margin-bottom:10px;
-}
-
-.product-price{
-    font-size:20px;
-    font-weight:800;
-    margin-bottom:20px;
-}
-
-.product-actions{
-    display:flex;
-    gap:10px;
-}
-
-.product-btn{
-    flex:1;
-    padding:15px 10px;
-    background:#ffd900;
-    border:2px solid #111;
-    color:#111;
-    text-decoration:none;
-    text-align:center;
-    font-size:12px;
-    font-weight:900;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.product-btn:hover{
-    background:#111;
-    color:#fff;
-}
-
-/* ================= VIEW ALL ================= */
-
-.view-all{
-    text-align:center;
-    margin-top:60px;
-}
-
-.view-all a{
-    display:inline-block;
-    background:#111;
-    color:#fff;
-    padding:20px 45px;
-    text-decoration:none;
-    font-weight:900;
-    letter-spacing:2px;
-    border:2px solid #111;
-    transition:.35s;
-}
-
-.view-all a:hover{
-    background:#ffd900;
-    color:#111;
-    transform:translateY(-5px);
-    box-shadow:7px 7px 0 #111;
-}
-
-/* ================= STORY ================= */
-
-.story{
-    margin:0 5% 100px;
-    background:#ffd900;
-    padding:70px;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:60px;
-}
-
-.story h2{
-    font-size:clamp(45px,6vw,85px);
-    line-height:.9;
-    font-weight:900;
-}
-
-.story p{
-    font-size:18px;
-    line-height:1.8;
-    align-self:end;
-}
-
-/* ================= FOOTER ================= */
-
-footer{
-    background:#111;
-    color:#fff;
-    padding:70px 5% 30px;
-}
-
-.footer-grid{
-    display:grid;
-    grid-template-columns:2fr 1fr 1fr 1fr;
-    gap:50px;
-}
-
-.footer-logo{
-    width:210px;
-    background:#ffd900;
-    padding:10px;
-}
-
-.footer-title{
-    color:#ffd900;
-    font-size:12px;
-    font-weight:900;
-    letter-spacing:2px;
-    margin-bottom:18px;
-}
-
-footer a{
-    display:block;
-    color:#fff;
-    text-decoration:none;
-    margin-bottom:12px;
-    transition:.3s;
-}
-
-footer a:hover{
-    color:#ffd900;
-    transform:translateX(5px);
-}
-
-.footer-bottom{
-    border-top:1px solid #444;
-    margin-top:60px;
-    padding-top:25px;
-    font-size:12px;
-    color:#aaa;
-}
-
-/* ================= SEARCH ================= */
-
-.search-overlay{
-    position:fixed;
-    inset:0;
-    background:rgba(17,17,17,.96);
-    z-index:3000;
-    display:none;
-    align-items:center;
-    justify-content:center;
-    padding:30px;
-}
-
-.search-overlay.active{
-    display:flex;
-}
-
-.search-box{
-    width:min(700px,100%);
-}
-
-.search-close{
-    float:right;
-    background:none;
-    border:0;
-    color:#fff;
-    font-size:35px;
-    cursor:pointer;
-    margin-bottom:20px;
-}
-
-.search-input{
-    width:100%;
-    background:transparent;
-    border:0;
-    border-bottom:3px solid #ffd900;
-    color:#fff;
-    font-size:35px;
-    padding:20px 0;
-    outline:none;
-}
-
-/* ================= ANIMATIONS ================= */
-
-@keyframes heroText{
-    from{
-        opacity:0;
-        transform:translateY(40px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-@keyframes heroImage{
-    from{
-        opacity:0;
-        transform:translateX(50px);
-    }
-    to{
-        opacity:1;
-        transform:translateX(0);
-    }
-}
-
-@keyframes heroNext{
-    0%{
-        opacity:0;
-        transform:translateX(70px) scale(1.03);
-    }
-    100%{
-        opacity:1;
-        transform:translateX(0) scale(1);
-    }
-}
-
-@keyframes heroPrev{
-    0%{
-        opacity:0;
-        transform:translateX(-70px) scale(1.03);
-    }
-    100%{
-        opacity:1;
-        transform:translateX(0) scale(1);
-    }
-}
-
-@keyframes spin{
-    to{
-        transform:rotate(360deg);
-    }
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width:800px){
-
-    header{
-        height:68px;
-        padding:0 20px;
-    }
-
-    .logo{
-        width:170px;
-    }
-
-    .header-right{
-        gap:12px;
-    }
-
-    .icon-btn{
-        font-size:21px;
-    }
-
-    .cart-btn{
-        padding:10px 12px;
-        font-size:12px;
-    }
-
-    .hero{
-        display:flex;
-        flex-direction:column;
-        padding:55px 20px 50px;
-        min-height:auto;
-        gap:40px;
-    }
-
-    .hero-content{
-        width:100%;
-    }
-
-    .hero-title{
-        font-size:70px;
-        letter-spacing:-5px;
-    }
-
-    .hero-description{
-        font-size:16px;
-    }
-
-    .hero-visual{
-        width:100%;
-    }
-
-    .drop-banner{
-        margin:0 20px 60px;
-        padding:35px 25px;
-        display:block;
-    }
-
-    .drop-title{
-        margin-bottom:12px;
-    }
-
-    .products-section{
-        padding:20px 20px 70px;
-    }
-
-    .section-top{
-        display:block;
-    }
-
-    .section-label{
-        margin-bottom:10px;
-    }
-
-    .product-grid{
-        grid-template-columns:repeat(2,minmax(0,1fr));
-        gap:10px;
-    }
-
-    .product-image{
-        aspect-ratio:1 / 1;
-    }
-
-    .product-info{
-        padding:15px 12px;
-    }
-
-    .product-name{
-        font-size:14px;
-    }
-
-    .product-price{
-        font-size:15px;
-        margin-bottom:12px;
-    }
-
-    .product-actions{
-        display:block;
-    }
-
-    .product-btn{
-        display:block;
-        width:100%;
-        margin-top:7px;
-        padding:12px 5px;
-        font-size:10px;
-    }
-
-    .view-all{
-        margin-top:40px;
-    }
-
-    .view-all a{
-        padding:17px 25px;
-        font-size:12px;
-    }
-
-    .story{
-        margin:0 20px 70px;
-        padding:40px 25px;
-        display:block;
-    }
-
-    .story h2{
-        margin-bottom:30px;
-    }
-
-    .story p{
-        font-size:16px;
-    }
-
-    .footer-grid{
-        grid-template-columns:1fr 1fr;
-        gap:35px;
-    }
-
-    .footer-brand{
-        grid-column:1/-1;
-    }
-}
-
-@media(max-width:430px){
-
-    .hero-title{
-        font-size:60px;
-    }
-
-    .product-name{
-        font-size:13px;
-    }
-
-    .product-price{
-        font-size:14px;
-    }
-
-    .product-btn{
-        font-size:9px;
-    }
-}
-    /* =====================================================
-   MAINSTREAM™ — PREMIUM HERO UPGRADE
-   ===================================================== */
-
-.hero{
-    position:relative;
-    min-height:calc(100vh - 78px);
-    grid-template-columns:48% 52%;
     gap:0;
-    padding:70px 5%;
-    background:#f5f5f0;
+    background:#f5f5f1;
 }
 
 .hero-content{
-    position:relative;
-    z-index:5;
-    padding-right:40px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding-right:50px;
 }
 
-.hero-small{
+.eyebrow{
     display:flex;
     align-items:center;
     gap:12px;
-    font-size:11px;
-    letter-spacing:5px;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:4px;
     color:#555;
 }
 
-.hero-small::before{
+.eyebrow::before{
     content:"";
     width:35px;
     height:2px;
     background:#ffd900;
 }
 
-.hero-title{
-    font-size:clamp(75px,9vw,145px);
+.hero h1{
+    font-size:clamp(70px,9vw,145px);
     line-height:.78;
-    letter-spacing:-8px;
-    margin:25px 0 40px;
-    text-transform:uppercase;
+    letter-spacing:-9px;
+    margin:30px 0;
+}
+
+.hero h1 span{
+    display:block;
+}
+
+.hero h1 .yellow{
+    color:#ffd900;
+    -webkit-text-stroke:2px #111;
 }
 
 .hero-description{
-    max-width:500px;
-    font-size:17px;
-    line-height:1.75;
-    color:#333;
+    max-width:460px;
+    color:#555;
+    font-size:15px;
+    line-height:1.8;
 }
 
-.shop-btn{
-    position:relative;
-    overflow:hidden;
-    padding:20px 38px;
-    margin-top:5px;
-    font-size:13px;
-    letter-spacing:2px;
-    transition:.4s ease;
-}
-
-.shop-btn::after{
-    content:"";
-    position:absolute;
-    inset:0;
+.hero-button{
+    width:max-content;
+    margin-top:35px;
+    padding:18px 32px;
     background:#111;
-    transform:translateX(-101%);
-    transition:.4s ease;
-    z-index:0;
-}
-
-.shop-btn:hover::after{
-    transform:translateX(0);
-}
-
-.shop-btn:hover{
     color:#fff;
-    transform:none;
-    box-shadow:8px 8px 0 #ffd900;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:2px;
+    transition:.35s;
 }
 
-.shop-btn{
-    isolation:isolate;
-}
-
-.shop-btn::after{
-    z-index:-1;
+.hero-button:hover{
+    background:#ffd900;
+    color:#111;
+    box-shadow:7px 7px 0 #111;
+    transform:translate(-2px,-2px);
 }
 
 .hero-visual{
-    height:100%;
-    min-height:620px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.hero-image-wrap{
-    width:100%;
-    height:100%;
-    max-height:720px;
-    background:#dededb;
+    min-height:680px;
     position:relative;
+    overflow:hidden;
+    background:#ddd;
 }
 
-.hero-image{
+.hero-visual img{
     width:100%;
     height:100%;
-    aspect-ratio:auto;
     object-fit:cover;
-    transition:transform 1s cubic-bezier(.2,.8,.2,1);
+    transition:1s ease;
 }
 
-.hero-image-wrap:hover .hero-image{
+.hero-visual:hover img{
     transform:scale(1.025);
 }
 
-.hero-image-wrap::before{
-    content:"MAINSTREAM™";
+.hero-label{
     position:absolute;
-    z-index:2;
-    top:22px;
+    top:25px;
     left:25px;
     color:#fff;
     font-size:10px;
@@ -841,553 +261,580 @@ footer a:hover{
     mix-blend-mode:difference;
 }
 
-.hero-image-wrap::after{
-    content:"RACING / STREET / 2026";
+.hero-number{
     position:absolute;
-    z-index:2;
-    bottom:25px;
-    right:25px;
-    color:#fff;
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:3px;
-    mix-blend-mode:difference;
-}
-
-.hero-counter{
     right:20px;
     top:20px;
-    bottom:auto;
     padding:12px 16px;
     background:#111;
     color:#ffd900;
-    font-size:11px;
-}
-
-.swipe-hint{
-    left:20px;
-    bottom:20px;
-    padding:12px 18px;
-    font-size:10px;
-    letter-spacing:2px;
-}
-
-/* Premium side detail */
-
-.hero::after{
-    content:"01 — 07";
-    position:absolute;
-    right:1.5%;
-    top:50%;
-    transform:rotate(90deg);
     font-size:10px;
     font-weight:900;
-    letter-spacing:4px;
-    color:#999;
 }
 
-/* Premium mobile */
-
-@media(max-width:800px){
-
-    .hero{
-        padding:45px 20px 35px;
-        gap:30px;
-    }
-
-    .hero-content{
-        padding-right:0;
-    }
-
-    .hero-small{
-        font-size:9px;
-        letter-spacing:3px;
-    }
-
-    .hero-small::before{
-        width:25px;
-    }
-
-    .hero-title{
-        font-size:68px;
-        line-height:.8;
-        letter-spacing:-5px;
-        margin:22px 0 28px;
-    }
-
-    .hero-description{
-        font-size:15px;
-        line-height:1.65;
-        margin-bottom:25px;
-    }
-
-    .shop-btn{
-        padding:17px 28px;
-    }
-
-    .hero-visual{
-        min-height:500px;
-    }
-
-    .hero-image-wrap{
-        height:500px;
-    }
-
-    .hero::after{
-        display:none;
-    }
-
-    .hero-image-wrap::before{
-        top:18px;
-        left:18px;
-        font-size:8px;
-    }
-
-    .hero-image-wrap::after{
-        bottom:18px;
-        right:18px;
-        font-size:7px;
-    }
+.hero-bottom{
+    position:absolute;
+    bottom:20px;
+    left:20px;
+    right:20px;
+    display:flex;
+    justify-content:space-between;
+    color:#fff;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:2px;
+    mix-blend-mode:difference;
 }
 
-@media(max-width:430px){
+/* ================= MARQUEE ================= */
 
-    .hero-title{
-        font-size:59px;
-    }
-
-    .hero-visual{
-        min-height:430px;
-    }
-
-    .hero-image-wrap{
-        height:430px;
-    }
+.marquee{
+    overflow:hidden;
+    background:#ffd900;
+    border-top:1px solid #111;
+    border-bottom:1px solid #111;
+    white-space:nowrap;
 }
-    /* =====================================================
-   PREMIUM NEW DROP — MAINSTREAM™
-   ===================================================== */
 
-.drop-banner{
-    margin:0 5% 100px;
-    min-height:280px;
-    padding:55px 60px;
+.marquee-track{
+    display:inline-flex;
+    padding:17px 0;
+    animation:marquee 18s linear infinite;
+}
+
+.marquee span{
+    margin:0 35px;
+    font-size:12px;
+    font-weight:900;
+    letter-spacing:3px;
+}
+
+@keyframes marquee{
+    from{transform:translateX(0)}
+    to{transform:translateX(-50%)}
+}
+
+/* ================= DROP ================= */
+
+.drop{
+    margin:100px 5% 50px;
+    min-height:330px;
+    padding:55px;
     background:#111;
     color:#fff;
     position:relative;
     overflow:hidden;
     display:flex;
-    align-items:center;
+    align-items:flex-end;
     justify-content:space-between;
-    border:1px solid #222;
 }
 
-.drop-banner::before{
+.drop::before{
     content:"";
     position:absolute;
-    width:420px;
-    height:420px;
-    border:1px solid rgba(255,217,0,.45);
+    width:500px;
+    height:500px;
+    border:1px solid rgba(255,217,0,.35);
     border-radius:50%;
-    right:-150px;
-    top:-170px;
-    animation:dropOrbit 14s linear infinite;
+    right:-200px;
+    top:-240px;
+    animation:spin 18s linear infinite;
 }
 
-.drop-banner::after{
+.drop::after{
     content:"";
     position:absolute;
-    width:260px;
-    height:260px;
+    width:300px;
+    height:300px;
     border:1px solid rgba(255,217,0,.2);
     border-radius:50%;
-    right:-70px;
-    top:-90px;
+    right:-100px;
+    top:-130px;
 }
 
-.drop-text{
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+
+.drop small{
     position:relative;
     z-index:2;
     color:#ffd900;
-    font-size:11px;
+    font-size:10px;
     font-weight:900;
-    letter-spacing:5px;
-    text-transform:uppercase;
+    letter-spacing:4px;
 }
 
-.drop-title{
+.drop h2{
     position:relative;
     z-index:2;
-    margin-top:12px;
-    font-size:clamp(48px,6vw,88px);
-    line-height:.9;
-    letter-spacing:-4px;
-    text-transform:uppercase;
+    margin-top:15px;
+    font-size:clamp(55px,8vw,110px);
+    line-height:.8;
+    letter-spacing:-7px;
 }
 
-.drop-banner > .drop-text{
-    align-self:flex-end;
-    margin-bottom:8px;
+.drop-right{
+    position:relative;
+    z-index:2;
     font-size:10px;
-    white-space:nowrap;
+    font-weight:800;
+    letter-spacing:3px;
 }
 
-@keyframes dropOrbit{
-    from{
-        transform:rotate(0deg);
-    }
-    to{
-        transform:rotate(360deg);
-    }
+/* ================= PRODUCTS ================= */
+
+.section-head{
+    padding:50px 5% 10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
 }
 
-@media(max-width:800px){
-
-    .drop-banner{
-        margin:0 20px 70px;
-        min-height:260px;
-        padding:40px 25px;
-        display:flex;
-        flex-direction:column;
-        align-items:flex-start;
-        justify-content:center;
-    }
-
-    .drop-title{
-        font-size:48px;
-        letter-spacing:-3px;
-    }
-
-    .drop-banner > .drop-text{
-        align-self:flex-start;
-        margin-top:35px;
-        margin-bottom:0;
-    }
-
-    .drop-banner::before{
-        width:300px;
-        height:300px;
-        right:-150px;
-        top:-120px;
-    }
-
-    .drop-banner::after{
-        width:190px;
-        height:190px;
-        right:-80px;
-        top:-70px;
-    }
+.section-head small{
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:3px;
 }
-/* =====================================================
-   MAINSTREAM™ — PREMIUM PRODUCT CARDS
-   ===================================================== */
 
-.product-card{
-    border:1px solid #e2e2dd;
+.section-head h2{
+    margin-top:12px;
+    font-size:clamp(45px,6vw,80px);
+    line-height:.85;
+    letter-spacing:-5px;
+}
+
+.view-all{
+    border-bottom:2px solid #111;
+    padding-bottom:6px;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:2px;
+}
+
+.products{
+    padding:50px 5% 110px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+}
+
+.product{
     background:#fff;
-    transition:
-        transform .5s cubic-bezier(.2,.8,.2,1),
-        box-shadow .5s ease,
-        border-color .4s ease;
+    border:1px solid #ddd;
+    overflow:hidden;
+    transition:.5s cubic-bezier(.2,.8,.2,1);
 }
 
-.product-card:hover{
+.product:hover{
     transform:translateY(-10px);
-    box-shadow:12px 12px 0 #111;
+    box-shadow:0 25px 50px rgba(0,0,0,.14);
     border-color:#111;
 }
 
 .product-image{
     position:relative;
     overflow:hidden;
-    background:#e4e4e1;
-}
-
-.product-image::after{
-    content:"MAINSTREAM™";
-    position:absolute;
-    top:15px;
-    left:15px;
-    font-size:8px;
-    font-weight:900;
-    letter-spacing:3px;
-    color:#fff;
-    mix-blend-mode:difference;
-    pointer-events:none;
+    background:#e9e9e5;
+    aspect-ratio:3/4;
 }
 
 .product-image img{
-    transition:
-        transform .8s cubic-bezier(.2,.8,.2,1),
-        filter .5s ease;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.8s cubic-bezier(.2,.8,.2,1);
 }
 
-.product-card:hover .product-image img{
+.product:hover .product-image img{
     transform:scale(1.045);
 }
 
+.product-tag{
+    position:absolute;
+    left:12px;
+    top:12px;
+    padding:8px 10px;
+    background:#ffd900;
+    color:#111;
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:1px;
+}
+
+.wishlist{
+    position:absolute;
+    right:12px;
+    top:12px;
+    width:38px;
+    height:38px;
+    background:#fff;
+    border:1px solid #ddd;
+    display:grid;
+    place-items:center;
+    font-size:17px;
+    transition:.3s;
+}
+
+.wishlist:hover{
+    background:#ffd900;
+    border-color:#111;
+    transform:scale(1.08);
+}
+
 .product-info{
-    padding:24px;
-    position:relative;
+    padding:20px;
 }
 
 .product-name{
-    font-size:20px;
+    font-size:15px;
+    font-weight:900;
     letter-spacing:.5px;
+}
+
+.product-collection{
+    margin-top:7px;
+    font-size:9px;
+    color:#888;
+    font-weight:700;
+    letter-spacing:1.5px;
     text-transform:uppercase;
 }
 
 .product-price{
-    font-size:18px;
-    color:#555;
+    margin-top:15px;
+    font-size:17px;
+    font-weight:900;
 }
 
-.product-actions{
+.product-buttons{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:8px;
+    margin-top:18px;
 }
 
-.product-btn{
-    min-height:48px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border:1.5px solid #111;
-    letter-spacing:.8px;
-    transition:
-        background .3s ease,
-        color .3s ease,
-        transform .3s ease;
+.product-button{
+    padding:13px 8px;
+    border:1px solid #111;
+    background:#fff;
+    font-size:8px;
+    font-weight:900;
+    letter-spacing:1px;
+    transition:.3s;
 }
 
-.product-btn:hover{
+.product-button:hover{
     background:#111;
     color:#fff;
     transform:translateY(-2px);
 }
 
-/* Wishlist gets a quieter luxury treatment */
-
-.wishlist-btn{
-    grid-column:1 / -1;
-    background:#f5f5f0;
-    border-color:#ddd;
-}
-
-.wishlist-btn:hover{
+.add-cart{
+    grid-column:1/-1;
     background:#ffd900;
-    color:#111;
-    border-color:#111;
 }
 
-/* Mobile */
+.add-cart:hover{
+    background:#111;
+    color:#fff;
+    box-shadow:4px 4px 0 #ffd900;
+}
 
-@media(max-width:800px){
+/* ================= EDITORIAL ================= */
 
-    .product-card:hover{
-        transform:translateY(-4px);
-        box-shadow:5px 5px 0 #111;
-    }
-
-    .product-info{
-        padding:14px 12px;
-    }
-
-    .product-name{
-        font-size:13px;
-        letter-spacing:.3px;
-    }
-
-    .product-price{
-        font-size:14px;
-    }
-
-    .product-actions{
-        display:grid;
-        grid-template-columns:1fr;
-        gap:6px;
-    }
-
-    .product-btn{
-        min-height:42px;
-        font-size:9px;
-    }
-
-    .wishlist-btn{
-        grid-column:auto;
-    }
-}    
-/* =====================================================
-   MAINSTREAM™ — PREMIUM BRAND STORY
-   ===================================================== */
-
-.story{
-    position:relative;
-    overflow:hidden;
-    min-height:430px;
+.editorial{
     margin:0 5% 110px;
-    padding:70px;
-    background:#ffd900;
     display:grid;
-    grid-template-columns:1.1fr .9fr;
-    align-items:end;
-    gap:70px;
-    border:1px solid #111;
+    grid-template-columns:1fr 1fr;
+    min-height:620px;
+    background:#111;
+    color:#fff;
 }
 
-.story::before{
-    content:"01";
-    position:absolute;
-    top:25px;
-    right:35px;
-    font-size:12px;
+.editorial-image{
+    overflow:hidden;
+}
+
+.editorial-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:1s;
+}
+
+.editorial:hover .editorial-image img{
+    transform:scale(1.04);
+}
+
+.editorial-content{
+    padding:70px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.editorial-number{
+    color:#ffd900;
+    font-size:10px;
     font-weight:900;
     letter-spacing:4px;
 }
 
-.story::after{
-    content:"";
-    position:absolute;
-    width:320px;
-    height:320px;
-    border:2px solid rgba(17,17,17,.18);
-    border-radius:50%;
-    right:-120px;
-    bottom:-180px;
-}
-
-.story h2{
-    position:relative;
-    z-index:2;
-    font-size:clamp(55px,7vw,105px);
+.editorial h2{
+    margin:25px 0;
+    font-size:clamp(55px,6vw,95px);
     line-height:.82;
     letter-spacing:-6px;
-    text-transform:uppercase;
 }
 
-.story p{
-    position:relative;
-    z-index:2;
-    max-width:500px;
-    font-size:18px;
-    line-height:1.8;
+.editorial p{
+    max-width:470px;
+    color:#aaa;
+    line-height:1.9;
+    font-size:15px;
 }
 
-@media(max-width:800px){
-
-    .story{
-        min-height:500px;
-        margin:0 20px 70px;
-        padding:40px 25px;
-        display:flex;
-        flex-direction:column;
-        align-items:flex-start;
-        justify-content:flex-end;
-        gap:30px;
-    }
-
-    .story h2{
-        font-size:58px;
-        letter-spacing:-4px;
-    }
-
-    .story p{
-        font-size:16px;
-        line-height:1.7;
-    }
-
-    .story::before{
-        top:20px;
-        right:20px;
-    }
+.editorial-button{
+    margin-top:35px;
+    width:max-content;
+    padding:16px 25px;
+    border:1px solid #fff;
+    color:#fff;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:2px;
+    transition:.3s;
 }
-    /* =====================================================
-   MAINSTREAM™ — PREMIUM FOOTER
-   ===================================================== */
+
+.editorial-button:hover{
+    background:#ffd900;
+    color:#111;
+    border-color:#ffd900;
+}
+
+/* ================= STATEMENT ================= */
+
+.statement{
+    padding:80px 5% 120px;
+    text-align:center;
+}
+
+.statement small{
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:4px;
+}
+
+.statement h2{
+    margin-top:25px;
+    font-size:clamp(55px,10vw,150px);
+    line-height:.8;
+    letter-spacing:-9px;
+}
+
+.statement h2 span{
+    color:#ffd900;
+    -webkit-text-stroke:2px #111;
+}
+
+/* ================= FOOTER ================= */
 
 footer{
-    position:relative;
-    background:#0b0b0b;
+    background:#090909;
     color:#fff;
-    padding:90px 5% 35px;
-    overflow:hidden;
-}
-
-footer::before{
-    content:"MAINSTREAM™";
-    position:absolute;
-    right:-40px;
-    top:25px;
-    font-size:clamp(70px,12vw,180px);
-    font-weight:900;
-    letter-spacing:-8px;
-    color:rgba(255,255,255,.035);
-    pointer-events:none;
+    padding:80px 5% 30px;
 }
 
 .footer-grid{
-    position:relative;
-    z-index:2;
     display:grid;
     grid-template-columns:2fr 1fr 1fr 1fr;
     gap:60px;
 }
 
-.footer-brand{
-    padding-right:30px;
-}
-
 .footer-logo{
-    width:230px;
+    width:200px;
     background:#ffd900;
-    padding:12px 18px;
+    padding:10px 15px;
 }
 
 .footer-brand p{
-    font-size:16px;
+    max-width:380px;
+    margin-top:25px;
+    color:#888;
     line-height:1.8;
-    color:#999 !important;
+    font-size:13px;
 }
 
 .footer-title{
+    margin-bottom:25px;
     color:#ffd900;
-    font-size:11px;
+    font-size:9px;
     font-weight:900;
     letter-spacing:3px;
-    margin-bottom:25px;
 }
 
-footer a{
-    font-size:15px;
-    margin-bottom:16px;
-    color:#ddd;
-    transition:.3s ease;
+.footer-links{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
 }
 
-footer a:hover{
+.footer-links a{
+    color:#aaa;
+    font-size:12px;
+    transition:.3s;
+}
+
+.footer-links a:hover{
     color:#ffd900;
-    transform:translateX(6px);
+    transform:translateX(5px);
 }
 
 .footer-bottom{
-    position:relative;
-    z-index:2;
+    margin-top:70px;
+    padding-top:25px;
+    border-top:1px solid #292929;
     display:flex;
     justify-content:space-between;
-    align-items:center;
-    border-top:1px solid #333;
-    margin-top:75px;
-    padding-top:25px;
-    font-size:11px;
+    color:#666;
+    font-size:9px;
     letter-spacing:1px;
-    color:#777;
 }
 
-@media(max-width:800px){
+/* ================= MOBILE ================= */
 
-    footer{
-        padding:70px 20px 30px;
+@media(max-width:900px){
+
+    header{
+        height:68px;
+        padding:0 18px;
+    }
+
+    .logo{
+        width:140px;
+    }
+
+    .nav{
+        display:none;
+    }
+
+    .category-bar{
+        top:68px;
+        height:42px;
+        justify-content:flex-start;
+        overflow-x:auto;
+        padding:0 18px;
+        gap:25px;
+    }
+
+    .hero{
+        padding:135px 18px 35px;
+        display:flex;
+        flex-direction:column;
+        gap:35px;
+    }
+
+    .hero-content{
+        padding-right:0;
+    }
+
+    .hero h1{
+        font-size:64px;
+        letter-spacing:-5px;
+        margin:25px 0;
+    }
+
+    .hero-description{
+        font-size:14px;
+    }
+
+    .hero-visual{
+        min-height:500px;
+        height:500px;
+    }
+
+    .drop{
+        margin:70px 18px 35px;
+        min-height:300px;
+        padding:40px 25px;
+        display:block;
+    }
+
+    .drop h2{
+        font-size:55px;
+        letter-spacing:-4px;
+    }
+
+    .drop-right{
+        margin-top:35px;
+    }
+
+    .section-head{
+        padding:45px 18px 5px;
+    }
+
+    .section-head h2{
+        font-size:52px;
+        letter-spacing:-4px;
+    }
+
+    .products{
+        padding:35px 18px 75px;
+        grid-template-columns:repeat(2,1fr);
+        gap:12px;
+    }
+
+    .product-info{
+        padding:14px;
+    }
+
+    .product-name{
+        font-size:13px;
+    }
+
+    .product-collection{
+        font-size:8px;
+    }
+
+    .product-price{
+        font-size:15px;
+    }
+
+    .product-buttons{
+        grid-template-columns:1fr;
+    }
+
+    .product-button{
+        min-height:43px;
+    }
+
+    .editorial{
+        margin:0 18px 75px;
+        display:flex;
+        flex-direction:column;
+    }
+
+    .editorial-image{
+        height:430px;
+    }
+
+    .editorial-content{
+        padding:45px 25px 55px;
+    }
+
+    .editorial h2{
+        font-size:58px;
+        letter-spacing:-4px;
+    }
+
+    .statement{
+        padding:50px 18px 80px;
+    }
+
+    .statement h2{
+        font-size:62px;
+        letter-spacing:-5px;
     }
 
     .footer-grid{
@@ -1397,651 +844,136 @@ footer a:hover{
 
     .footer-brand{
         grid-column:1/-1;
-        padding-right:0;
-    }
-
-    .footer-logo{
-        width:200px;
     }
 
     .footer-bottom{
         display:block;
-        line-height:1.7;
-    }
-}
-    /* =====================================================
-   MAINSTREAM™ — PREMIUM HEADER
-   ===================================================== */
-
-header{
-    height:82px;
-    padding:0 5%;
-    background:rgba(255,255,255,.92);
-    backdrop-filter:blur(16px);
-    -webkit-backdrop-filter:blur(16px);
-    border-bottom:1px solid rgba(17,17,17,.12);
-    transition:.35s ease;
-}
-
-header:hover{
-    background:#fff;
-}
-
-.logo{
-    width:175px;
-    transition:transform .35s ease;
-}
-
-.logo:hover{
-    transform:scale(1.03);
-}
-
-.header-right{
-    gap:18px;
-}
-
-.icon-btn{
-    width:42px;
-    height:42px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    border:1px solid transparent;
-    border-radius:50%;
-    font-size:23px;
-    transition:.3s ease;
-}
-
-.icon-btn:hover{
-    background:#f0f0ec;
-    transform:none;
-}
-
-.cart-btn{
-    min-width:105px;
-    padding:12px 18px;
-    border:1px solid #111;
-    border-radius:0;
-    letter-spacing:1px;
-    transition:.35s ease;
-}
-
-.cart-btn:hover{
-    background:#111;
-    color:#fff;
-    transform:none;
-    box-shadow:5px 5px 0 #ffd900;
-}
-
-@media(max-width:800px){
-
-    header{
-        height:68px;
-        padding:0 18px;
-    }
-
-    .logo{
-        width:145px;
-    }
-
-    .header-right{
-        gap:7px;
-    }
-
-    .icon-btn{
-        width:36px;
-        height:36px;
-        font-size:20px;
-    }
-
-    .cart-btn{
-        min-width:auto;
-        padding:10px 12px;
-        font-size:10px;
-    }
-}
-/* =====================================================
-   MAINSTREAM™ — FINAL MOBILE POLISH
-   ===================================================== */
-
-@media(max-width:800px){
-
-    html{
-        overflow-x:hidden;
-    }
-
-    body{
-        overflow-x:hidden;
-    }
-
-    header{
-        position:sticky;
-        top:0;
-        z-index:9999;
-    }
-
-    .hero,
-    .drop-banner,
-    .story,
-    footer{
-        width:auto;
-    }
-
-    .hero{
-        min-height:auto;
-    }
-
-    .hero-content{
-        width:100%;
-    }
-
-    .hero-image{
-        object-fit:cover;
-    }
-
-    .products-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .product-card{
-        min-width:0;
-    }
-
-    .product-image{
-        width:100%;
-    }
-
-    .product-info{
-        overflow:hidden;
-    }
-
-    .product-name{
-        white-space:nowrap;
-        overflow:hidden;
-        text-overflow:ellipsis;
-    }
-
-    .footer-grid{
-        width:100%;
+        line-height:2;
     }
 }
 
 @media(max-width:430px){
 
-    .products-grid{
-        grid-template-columns:1fr 1fr;
-        gap:10px;
+    .header-actions{
+        gap:5px;
     }
 
-    .product-info{
-        padding:12px 10px;
+    .icon{
+        width:35px;
+        height:35px;
     }
 
-    .product-name{
-        font-size:12px;
-    }
-
-    .product-price{
-        font-size:13px;
-    }
-
-    .product-btn{
+    .cart{
+        padding:11px 10px;
         font-size:8px;
     }
 
-    .hero-title{
-        max-width:100%;
-    }
-}
-    /* =====================================================
-   MAINSTREAM™ — FINAL TYPOGRAPHY POLISH
-   ===================================================== */
-
-*{
-    box-sizing:border-box;
-}
-
-body{
-    letter-spacing:.1px;
-}
-
-h1,h2,h3,h4,
-.hero-title,
-.drop-title,
-.product-name,
-.story h2{
-    font-weight:900;
-}
-
-a,
-button{
-    -webkit-tap-highlight-color:transparent;
-}
-
-button{
-    font-family:inherit;
-}
-
-section{
-    scroll-margin-top:90px;
-}
-
-::selection{
-    background:#ffd900;
-    color:#111;
-}
-
-::-webkit-scrollbar{
-    width:8px;
-}
-
-::-webkit-scrollbar-track{
-    background:#f1f1ed;
-}
-
-::-webkit-scrollbar-thumb{
-    background:#111;
-}
-
-::-webkit-scrollbar-thumb:hover{
-    background:#ffd900;
-}
-
-@media(max-width:800px){
-
-    section{
-        scroll-margin-top:75px;
+    .hero h1{
+        font-size:57px;
     }
 
-    ::-webkit-scrollbar{
-        width:4px;
-    }
-}
-/* =====================================================
-   MAINSTREAM™ — PREMIUM SEARCH
-   ===================================================== */
-
-.search-overlay{
-    background:rgba(10,10,10,.94);
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
-    padding:25px;
-}
-
-.search-box{
-    width:min(850px,100%);
-    position:relative;
-}
-
-.search-box::before{
-    content:"SEARCH / MAINSTREAM™";
-    display:block;
-    margin-bottom:20px;
-    color:#ffd900;
-    font-size:10px;
-    font-weight:900;
-    letter-spacing:4px;
-}
-
-.search-close{
-    float:none;
-    position:absolute;
-    right:0;
-    top:-15px;
-    width:48px;
-    height:48px;
-    border:1px solid rgba(255,255,255,.3);
-    border-radius:50%;
-    font-size:30px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    transition:.3s ease;
-}
-
-.search-close:hover{
-    background:#ffd900;
-    color:#111;
-    border-color:#ffd900;
-    transform:rotate(90deg);
-}
-
-.search-input{
-    width:100%;
-    height:80px;
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.25);
-    border-bottom:3px solid #ffd900;
-    color:#fff;
-    font-size:clamp(28px,5vw,55px);
-    font-weight:800;
-    letter-spacing:-2px;
-    padding:15px 25px;
-    transition:.3s ease;
-}
-
-.search-input:focus{
-    background:rgba(255,255,255,.1);
-    border-color:#ffd900;
-    box-shadow:0 15px 50px rgba(255,217,0,.08);
-}
-
-.search-input::placeholder{
-    color:#777;
-    opacity:1;
-}
-
-@media(max-width:600px){
-
-    .search-overlay{
-        padding:20px;
+    .hero-visual{
+        height:430px;
+        min-height:430px;
     }
 
-    .search-box::before{
-        font-size:9px;
-        letter-spacing:3px;
-        margin-bottom:18px;
+    .products{
+        gap:9px;
     }
-
-    .search-close{
-        top:-8px;
-        width:42px;
-        height:42px;
-        font-size:26px;
-    }
-
-    .search-input{
-        height:65px;
-        font-size:28px;
-        padding:12px 16px;
-    }
-}  
- /* =====================================================
-   MAINSTREAM™ — PRODUCT CARD TEXT FIX
-   ===================================================== */
-
-.product-info{
-    min-width:0;
-}
-
-.product-name{
-    display:block;
-    color:#111;
-    font-size:16px;
-    font-weight:900;
-    line-height:1.25;
-    letter-spacing:.5px;
-    white-space:normal;
-    overflow:visible;
-    text-overflow:clip;
-}
-
-.product-price{
-    display:block;
-    margin-top:8px;
-    color:#444;
-    font-size:15px;
-    font-weight:600;
-    line-height:1.4;
-}
-
-@media(max-width:800px){
 
     .product-info{
-        padding:14px 12px;
+        padding:12px;
     }
 
-    .product-name{
-        font-size:13px;
-        line-height:1.3;
-        letter-spacing:.2px;
+    .wishlist{
+        width:32px;
+        height:32px;
     }
-
-    .product-price{
-        font-size:13px;
-        margin-top:6px;
-    }
-}
-    /* =====================================================
-   MAINSTREAM™ — FASHION ANNOUNCEMENT BAR
-   ===================================================== */
-
-.mainstream-announcement{
-    height:34px;
-    background:#111;
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:55px;
-    overflow:hidden;
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:2px;
-    text-transform:uppercase;
-}
-
-.mainstream-announcement div:nth-child(2){
-    color:#ffd900;
-}
-
-@media(max-width:600px){
-
-    .mainstream-announcement{
-        height:30px;
-        gap:30px;
-        justify-content:flex-start;
-        padding-left:20px;
-        font-size:8px;
-        white-space:nowrap;
-    }
-
-    .mainstream-announcement div:nth-child(3){
-        display:none;
-    }
-}
-    /* =====================================================
-   MAINSTREAM™ — FASHION NAVIGATION
-   ===================================================== */
-
-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:30px;
-}
-
-.mainstream-logo-link{
-    display:flex;
-    align-items:center;
-    flex-shrink:0;
-}
-
-.fashion-nav{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:28px;
-    flex:1;
-}
-
-.fashion-nav a{
-    color:#111;
-    text-decoration:none;
-    font-size:11px;
-    font-weight:800;
-    letter-spacing:1.5px;
-    white-space:nowrap;
-    position:relative;
-    transition:.3s ease;
-}
-
-.fashion-nav a::after{
-    content:"";
-    position:absolute;
-    left:0;
-    bottom:-7px;
-    width:0;
-    height:2px;
-    background:#ffd900;
-    transition:.3s ease;
-}
-
-.fashion-nav a:hover{
-    color:#555;
-}
-
-.fashion-nav a:hover::after{
-    width:100%;
-}
-
-@media(max-width:1000px){
-
-    .fashion-nav{
-        gap:15px;
-    }
-
-    .fashion-nav a{
-        font-size:9px;
-        letter-spacing:1px;
-    }
-}
-
-@media(max-width:800px){
-
-    header{
-        gap:10px;
-    }
-
-    .fashion-nav{
-        display:none;
-    }
-
-    .mainstream-logo-link{
-        flex:1;
-    }
-
-    .header-right{
-        flex-shrink:0;
-    }
-    }
-    /* Remove MAINSTREAM™ watermark from product images */
-
-.product-image::after{
-    display:none !important;
 }
 </style>
 </head>
+
 <body>
-
-<!-- ================= MAINSTREAM ANNOUNCEMENT BAR ================= -->
-
-<div class="mainstream-announcement">
-    <div>NEW DROP — RACING COLLECTION 2026</div>
-    <div>FREE SHIPPING ON ORDERS ABOVE ₹999</div>
-    <div>WEAR THE MAIN.</div>
-</div>
-
-<!-- ================= PREMIUM FASHION HEADER ================= -->
 
 <header>
 
-    <a href="index.html" class="mainstream-logo-link">
-        <img
-            src="mainstream-logo.png"
-            class="logo"
-            alt="MAINSTREAM™">
+    <a href="index.html">
+        <img src="mainstream-logo.png" class="logo">
     </a>
 
-    <nav class="fashion-nav">
-
-        <a href="index.html">HOME</a>
-
+    <nav class="nav">
         <a href="shop.html">SHOP</a>
-
-        <a href="shop.html?category=new">NEW ARRIVALS</a>
-
-        <a href="shop.html?category=tees">T-SHIRTS</a>
-
-        <a href="shop.html?category=racing">RACING</a>
-
+        <a href="shop.html">NEW DROP</a>
+        <a href="shop.html">RACING</a>
+        <a href="#story">OUR STORY</a>
     </nav>
 
-    <div class="header-right">
+    <div class="header-actions">
 
-        <button
-            class="icon-btn"
-            onclick="openSearch()"
-            aria-label="Search">
-            🔍
-        </button>
+        <button class="icon" onclick="openSearch()">⌕</button>
 
-        <button
-            class="icon-btn"
-            onclick="window.location.href='wishlist.html'"
-            aria-label="Wishlist">
-            ♡
-        </button>
+        <a href="shop.html" class="icon">♡</a>
 
-        <button
-            class="cart-btn"
-            onclick="window.location.href='cart.html'">
+        <a href="cart.html" class="cart">
             CART <span id="cartCount">0</span>
-        </button>
+        </a>
 
     </div>
 
 </header>
 
+<div class="category-bar">
+    <a href="shop.html">ALL</a>
+    <a href="shop.html">NEW ARRIVALS</a>
+    <a href="shop.html">T-SHIRTS</a>
+    <a href="shop.html">RACING</a>
+    <a href="shop.html">LIMITED DROPS</a>
+    <a href="shop.html">BEST SELLERS</a>
+</div>
 
-<!-- ================= HERO ================= -->
+
+<!-- HERO -->
 
 <section class="hero">
 
     <div class="hero-content">
 
-        <div class="hero-small">
-            MAINSTREAM™ / NEW SEASON
+        <div class="eyebrow">
+            PREMIUM STREETWEAR
         </div>
 
-        <h1 class="hero-title">
-            WEAR<br>
-            THE<br>
+        <h1>
+            WEAR
+            <span class="yellow">THE</span>
             MAIN.
         </h1>
 
         <p class="hero-description">
-            Built for the ones who don't follow the crowd.
-            MAINSTREAM™ brings racing culture, streetwear
-            and everyday attitude together.
+            Motorsport energy meets modern streetwear.
+            Designed for the ones who move different.
         </p>
 
-        <a href="shop.html" class="shop-btn">
-            SHOP NOW →
+        <a href="shop.html" class="hero-button">
+            SHOP COLLECTION →
         </a>
 
     </div>
-
 
     <div class="hero-visual">
 
-        <div class="hero-image-wrap">
+        <img src="max-front.png" alt="MAINSTREAM Racing T-Shirt">
 
-            <img
-                id="heroImage"
-                class="hero-image"
-                src="max-front.png"
-                alt="MAINSTREAM product"
-            >
+        <div class="hero-label">
+            MAINSTREAM™
+        </div>
 
-            <div class="hero-counter" id="heroCounter">
-                01 / 07
-            </div>
+        <div class="hero-number">
+            01 / 07
+        </div>
 
-            <div class="swipe-hint">
-                ← SWIPE →
-            </div>
-
+        <div class="hero-bottom">
+            <span>RACING / STREET</span>
+            <span>2026 COLLECTION</span>
         </div>
 
     </div>
@@ -2049,242 +981,318 @@ header{
 </section>
 
 
-<!-- ================= NEW DROP ================= -->
+<!-- MARQUEE -->
 
-<section class="drop-banner">
+<div class="marquee">
+
+    <div class="marquee-track">
+
+        <span>MAINSTREAM™</span>
+        <span>WEAR THE MAIN</span>
+        <span>RACING CULTURE</span>
+        <span>BUILT FOR THE MAIN</span>
+
+        <span>MAINSTREAM™</span>
+        <span>WEAR THE MAIN</span>
+        <span>RACING CULTURE</span>
+        <span>BUILT FOR THE MAIN</span>
+
+    </div>
+
+</div>
+
+
+<!-- NEW DROP -->
+
+<section class="drop">
 
     <div>
+        <small>NEW DROP / 2026</small>
 
-        <div class="drop-text">
-            MAINSTREAM™ / 2026
-        </div>
-
-        <div class="drop-title">
-            THE NEW DROP.
-        </div>
-
+        <h2>
+            THE<br>
+            RACING<br>
+            EDIT.
+        </h2>
     </div>
 
-    <div class="drop-text">
-        07 RACERS / 01 ATTITUDE
+    <div class="drop-right">
+        07 DESIGNS / LIMITED RELEASE
     </div>
 
 </section>
 
 
-<!-- ================= PRODUCTS ================= -->
+<!-- PRODUCTS -->
 
-<section class="products-section" id="products">
+<div class="section-head">
 
-    <div class="section-top">
+    <div>
+        <small>01 — COLLECTION</small>
 
-        <div>
-            <div class="section-label">
-                SHOP THE COLLECTION
+        <h2>
+            SHOP<br>
+            THE MAIN.
+        </h2>
+    </div>
+
+    <a href="shop.html" class="view-all">
+        VIEW ALL →
+    </a>
+
+</div>
+
+
+<section class="products">
+
+    <!-- MAX -->
+
+    <article class="product">
+
+        <div class="product-image">
+
+            <img src="max.jpg" alt="MAX 03 TEE">
+
+            <span class="product-tag">NEW</span>
+
+            <button class="wishlist"
+                onclick="addWishlist('MAX / 03 TEE')">
+                ♡
+            </button>
+
+        </div>
+
+        <div class="product-info">
+
+            <div class="product-name">
+                MAX / 03 TEE
             </div>
 
-            <h2 class="section-title">
-                NEW DROP
-            </h2>
+            <div class="product-collection">
+                Racing Collection
+            </div>
+
+            <div class="product-price">
+                ₹999
+            </div>
+
+            <div class="product-buttons">
+
+                <button class="product-button"
+                    onclick="location.href='product.html?slug=max-03-tee'">
+                    VIEW PRODUCT
+                </button>
+
+                <button class="product-button"
+                    onclick="addWishlist('MAX / 03 TEE')">
+                    ♡ WISHLIST
+                </button>
+
+                <button class="product-button add-cart"
+                    onclick="addCart('MAX / 03 TEE')">
+                    ADD TO CART
+                </button>
+
+            </div>
+
         </div>
+
+    </article>
+
+
+    <!-- LEWIS -->
+
+    <article class="product">
+
+        <div class="product-image">
+
+            <img src="lewis.jpg" alt="LEWIS 44 TEE">
+
+            <span class="product-tag">NEW</span>
+
+            <button class="wishlist"
+                onclick="addWishlist('LEWIS / 44 TEE')">
+                ♡
+            </button>
+
+        </div>
+
+        <div class="product-info">
+
+            <div class="product-name">
+                LEWIS / 44 TEE
+            </div>
+
+            <div class="product-collection">
+                Racing Collection
+            </div>
+
+            <div class="product-price">
+                ₹999
+            </div>
+
+            <div class="product-buttons">
+
+                <button class="product-button"
+                    onclick="location.href='product.html?slug=lewis-44-tee'">
+                    VIEW PRODUCT
+                </button>
+
+                <button class="product-button"
+                    onclick="addWishlist('LEWIS / 44 TEE')">
+                    ♡ WISHLIST
+                </button>
+
+                <button class="product-button add-cart"
+                    onclick="addCart('LEWIS / 44 TEE')">
+                    ADD TO CART
+                </button>
+
+            </div>
+
+        </div>
+
+    </article>
+
+
+    <!-- CHARLES -->
+
+    <article class="product">
+
+        <div class="product-image">
+
+            <img src="charles.jpg" alt="CHARLES 16 TEE">
+
+            <button class="wishlist"
+                onclick="addWishlist('CHARLES / 16 TEE')">
+                ♡
+            </button>
+
+        </div>
+
+        <div class="product-info">
+
+            <div class="product-name">
+                CHARLES / 16 TEE
+            </div>
+
+            <div class="product-collection">
+                Racing Collection
+            </div>
+
+            <div class="product-price">
+                ₹999
+            </div>
+
+            <div class="product-buttons">
+
+                <button class="product-button"
+                    onclick="location.href='product.html?slug=charles-16-tee'">
+                    VIEW PRODUCT
+                </button>
+
+                <button class="product-button"
+                    onclick="addWishlist('CHARLES / 16 TEE')">
+                    ♡ WISHLIST
+                </button>
+
+                <button class="product-button add-cart"
+                    onclick="addCart('CHARLES / 16 TEE')">
+                    ADD TO CART
+                </button>
+
+            </div>
+
+        </div>
+
+    </article>
+
+
+    <!-- LANDO -->
+
+    <article class="product">
+
+        <div class="product-image">
+
+            <img src="lando.jpg" alt="LANDO 01 TEE">
+
+            <button class="wishlist"
+                onclick="addWishlist('LANDO / 01 TEE')">
+                ♡
+            </button>
+
+        </div>
+
+        <div class="product-info">
+
+            <div class="product-name">
+                LANDO / 01 TEE
+            </div>
+
+            <div class="product-collection">
+                Racing Collection
+            </div>
+
+            <div class="product-price">
+                ₹999
+            </div>
+
+            <div class="product-buttons">
+
+                <button class="product-button"
+                    onclick="location.href='product.html?slug=lando-01-tee'">
+                    VIEW PRODUCT
+                </button>
+
+                <button class="product-button"
+                    onclick="addWishlist('LANDO / 01 TEE')">
+                    ♡ WISHLIST
+                </button>
+
+                <button class="product-button add-cart"
+                    onclick="addCart('LANDO / 01 TEE')">
+                    ADD TO CART
+                </button>
+
+            </div>
+
+        </div>
+
+    </article>
+
+</section>
+
+
+<!-- EDITORIAL -->
+
+<section class="editorial" id="story">
+
+    <div class="editorial-image">
+
+        <img src="oscar.jpg" alt="MAINSTREAM Collection">
 
     </div>
 
+    <div class="editorial-content">
 
-    <div class="product-grid">
-
-        <!-- MAX -->
-
-        <div class="product-card">
-
-            <div class="product-image">
-                <img src="max-front.png" alt="MAX / 03 TEE">
-            </div>
-
-            <div class="product-info">
-
-                <div class="product-name">
-                    MAX / 03 TEE
-                </div>
-
-                <div class="product-price">
-                    ₹999
-                </div>
-
-                <div class="product-actions">
-<button
-    class="product-btn wishlist-btn"
-    onclick="saveProductToWishlist('max')"
->
-    ♡ ADD TO WISHLIST
-</button>
-                    <a
-                        href="product.html?product=max"
-                        class="product-btn"
-                    >
-                        VIEW PRODUCT →
-                    </a>
-
-                    <button
-                        class="product-btn"
-                        onclick="addToCart('MAX / 03 TEE','max-front.png',999)"
-                    >
-                        ADD TO CART
-                    </button>
-
-                </div>
-
-            </div>
-
+        <div class="editorial-number">
+            02 — OUR STORY
         </div>
 
+        <h2>
+            BUILT<br>
+            FOR THE<br>
+            MAIN.
+        </h2>
 
-        <!-- LEWIS -->
+        <p>
+            MAINSTREAM™ is a premium streetwear label inspired by
+            racing culture, speed and individuality. We create pieces
+            that bring motorsport attitude into everyday life.
+        </p>
 
-        <div class="product-card">
-
-            <div class="product-image">
-                <img src="lewis-front.png" alt="LEWIS / 44 TEE">
-            </div>
-
-            <div class="product-info">
-
-                <div class="product-name">
-                    LEWIS / 44 TEE
-                </div>
-
-                <div class="product-price">
-                    ₹999
-                </div>
-
-                <div class="product-actions">
-<button
-    class="product-btn wishlist-btn"
-    onclick="saveProductToWishlist('lewis')"
->
-    ♡ ADD TO WISHLIST
-</button>
-                    <a
-                        href="product.html?product=lewis"
-                        class="product-btn"
-                    >
-                        VIEW PRODUCT →
-                    </a>
-
-                    <button
-                        class="product-btn"
-                        onclick="addToCart('LEWIS / 44 TEE','lewis-front.png',999)"
-                    >
-                        ADD TO CART
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- CHARLES -->
-
-        <div class="product-card">
-
-            <div class="product-image">
-                <img src="charles-front.png" alt="CHARLES / 16 TEE">
-            </div>
-
-            <div class="product-info">
-
-                <div class="product-name">
-                    CHARLES / 16 TEE
-                </div>
-
-                <div class="product-price">
-                    ₹999
-                </div>
-
-                <div class="product-actions">
-<button
-    class="product-btn wishlist-btn"
-    onclick="saveProductToWishlist('charles')"
->
-    ♡ ADD TO WISHLIST
-</button>
-                    <a
-                        href="product.html?product=charles"
-                        class="product-btn"
-                    >
-                        VIEW PRODUCT →
-                    </a>
-
-                    <button
-                        class="product-btn"
-                        onclick="addToCart('CHARLES / 16 TEE','charles-front.png',999)"
-                    >
-                        ADD TO CART
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- LANDO -->
-
-        <div class="product-card">
-
-            <div class="product-image">
-                <img src="lando-front.png" alt="LANDO / 01 TEE">
-            </div>
-
-            <div class="product-info">
-
-                <div class="product-name">
-                    LANDO / 01 TEE
-                </div>
-
-                <div class="product-price">
-                    ₹999
-                </div>
-
-                <div class="product-actions">
-<button
-    class="product-btn wishlist-btn"
-    onclick="saveProductToWishlist('lando')"
->
-    ♡ ADD TO WISHLIST
-</button>
-                    <a
-                        href="product.html?product=lando"
-                        class="product-btn"
-                    >
-                        VIEW PRODUCT →
-                    </a>
-
-                    <button
-                        class="product-btn"
-                        onclick="addToCart('LANDO / 01 TEE','lando-front.png',999)"
-                    >
-                        ADD TO CART
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- VIEW ALL -->
-
-    <div class="view-all">
-
-        <a href="shop.html">
-            VIEW ALL PRODUCTS →
+        <a href="shop.html" class="editorial-button">
+            EXPLORE COLLECTION →
         </a>
 
     </div>
@@ -2292,25 +1300,22 @@ header{
 </section>
 
 
-<!-- ================= STORY ================= -->
+<!-- STATEMENT -->
 
-<section class="story">
+<section class="statement">
+
+    <small>MAINSTREAM™ / EST. 2026</small>
 
     <h2>
-        BUILT FOR<br>
-        THE MAIN.
+        DON'T<br>
+        FOLLOW.<br>
+        <span>LEAD.</span>
     </h2>
-
-    <p>
-        MAINSTREAM™ is a racing-inspired streetwear label
-        built around individuality, speed and everyday attitude.
-        Designed for people who create their own lane.
-    </p>
 
 </section>
 
 
-<!-- ================= FOOTER ================= -->
+<!-- FOOTER -->
 
 <footer>
 
@@ -2318,16 +1323,11 @@ header{
 
         <div class="footer-brand">
 
-            <img
-                src="mainstream-logo.png"
-                class="footer-logo"
-                alt="MAINSTREAM"
-            >
+            <img src="mainstream-logo.png" class="footer-logo">
 
-            <p style="margin-top:20px;line-height:1.7;color:#aaa;">
-                Racing culture.<br>
-                Streetwear.<br>
-                Everyday attitude.
+            <p>
+                Premium racing-inspired streetwear.
+                Designed for those who make their own lane.
             </p>
 
         </div>
@@ -2339,9 +1339,12 @@ header{
                 SHOP
             </div>
 
-            <a href="index.html">Home</a>
-            <a href="shop.html">Shop</a>
-            <a href="shop.html">New Drop</a>
+            <div class="footer-links">
+                <a href="shop.html">All Products</a>
+                <a href="shop.html">New Arrivals</a>
+                <a href="shop.html">Racing</a>
+                <a href="shop.html">Limited Drops</a>
+            </div>
 
         </div>
 
@@ -2349,12 +1352,15 @@ header{
         <div>
 
             <div class="footer-title">
-                CUSTOMER CARE
+                SUPPORT
             </div>
 
-            <a href="shipping.html">Shipping</a>
-            <a href="cart.html">Cart</a>
-            <a href="payment.html">Payment</a>
+            <div class="footer-links">
+                <a href="#">Shipping</a>
+                <a href="#">Returns</a>
+                <a href="#">Size Guide</a>
+                <a href="#">Contact</a>
+            </div>
 
         </div>
 
@@ -2362,11 +1368,14 @@ header{
         <div>
 
             <div class="footer-title">
-                ABOUT
+                SOCIAL
             </div>
 
-            <a href="#story">Our Story</a>
-            <a href="shop.html">Collection</a>
+            <div class="footer-links">
+                <a href="#">Instagram</a>
+                <a href="#">TikTok</a>
+                <a href="#">Pinterest</a>
+            </div>
 
         </div>
 
@@ -2374,434 +1383,84 @@ header{
 
 
     <div class="footer-bottom">
-        © 2026 MAINSTREAM™. ALL RIGHTS RESERVED.
+
+        <span>
+            © 2026 MAINSTREAM™
+        </span>
+
+        <span>
+            WEAR THE MAIN.
+        </span>
+
     </div>
 
 </footer>
 
 
-<!-- ================= SEARCH ================= -->
-
-<div class="search-overlay" id="searchOverlay">
-
-    <div class="search-box">
-
-        <button
-            class="search-close"
-            onclick="closeSearch()"
-        >
-            ×
-        </button>
-
-        <input
-            id="searchInput"
-            class="search-input"
-            type="text"
-            placeholder="SEARCH MAINSTREAM..."
-            onkeydown="handleSearch(event)"
-        >
-
-    </div>
-
-</div>
-
-
 <script>
 
-/* ================= HERO SLIDER ================= */
+function updateCartCount(){
 
-const heroImages = [
-    "max-front.png",
-    "lewis-front.png",
-    "charles-front.png",
-    "lando-front.png",
-    "oscar-front.png",
-    "george-front.png",
-    "kimi-front.png"
-];
+    const cart =
+        JSON.parse(localStorage.getItem("mainstreamCart")) || [];
 
-let heroIndex = 0;
-let heroTimer;
-let touchStartX = 0;
-
-const heroImage = document.getElementById("heroImage");
-const heroCounter = document.getElementById("heroCounter");
-
-
-function showHero(index,direction="next"){
-
-    heroIndex = (index + heroImages.length) % heroImages.length;
-
-heroImage.classList.remove("next","prev");
-
-void heroImage.offsetWidth;
-
-heroImage.classList.add(
-    direction === "next" ? "next" : "prev"
-);
-
-heroImage.src = heroImages[heroIndex];
-
-heroCounter.textContent =
-    String(heroIndex + 1).padStart(2,"0")
-    + " / "
-    + String(heroImages.length).padStart(2,"0");
-}
-
-
-function nextHero(){
-
-    showHero(heroIndex + 1,"next");
-
-    resetHeroTimer();
+    document.getElementById("cartCount").textContent =
+        cart.length;
 
 }
 
+function addCart(name){
 
-function previousHero(){
+    let cart =
+        JSON.parse(localStorage.getItem("mainstreamCart")) || [];
 
-    showHero(heroIndex - 1,"prev");
-
-    resetHeroTimer();
-
-}
-
-
-function resetHeroTimer(){
-
-    clearInterval(heroTimer);
-
-    heroTimer = setInterval(
-        () => showHero(heroIndex + 1,"next"),
-        4000
-    );
-
-}
-
-
-heroImage.addEventListener("touchstart",function(e){
-
-    touchStartX = e.touches[0].clientX;
-
-},{passive:true});
-
-
-heroImage.addEventListener("touchend",function(e){
-
-    const touchEndX = e.changedTouches[0].clientX;
-
-    const distance =
-        touchEndX - touchStartX;
-
-    if(Math.abs(distance) > 50){
-
-        if(distance < 0){
-
-            nextHero();
-
-        }else{
-
-            previousHero();
-
-        }
-
-    }
-
-},{passive:true});
-
-
-resetHeroTimer();
-
-
-/* ================= SCROLL ANIMATION ================= */
-
-const cards =
-    document.querySelectorAll(".product-card");
-
-
-const observer =
-    new IntersectionObserver(
-        entries => {
-
-            entries.forEach(entry => {
-
-                if(entry.isIntersecting){
-
-                    entry.target.classList.add("visible");
-
-                    observer.unobserve(entry.target);
-
-                }
-
-            });
-
-        },
-        {
-            threshold:.15
-        }
-    );
-
-
-cards.forEach((card,index) => {
-
-    card.style.transitionDelay =
-        (index * 100) + "ms";
-
-    observer.observe(card);
-
-});
-
-
-/* ================= CART ================= */
-
-function getCart(){
-
-    try{
-
-        return JSON.parse(
-            localStorage.getItem("mainstreamCart")
-        ) || [];
-
-    }catch(e){
-
-        return [];
-
-    }
-
-}
-
-
-function saveCart(cart){
+    cart.push({
+        name:name,
+        price:999,
+        quantity:1
+    });
 
     localStorage.setItem(
         "mainstreamCart",
         JSON.stringify(cart)
     );
 
-}
-
-
-function updateCartCount(){
-
-    const cart = getCart();
-
-    const count =
-        cart.reduce(
-            (total,item) =>
-            total + (item.quantity || 1),
-            0
-        );
-
-    document.getElementById("cartCount").textContent =
-        count;
-
-}
-
-
-function addToCart(name,image,price){
-
-    const cart = getCart();
-
-    const existing =
-        cart.find(item => item.name === name);
-
-    if(existing){
-
-        existing.quantity =
-            (existing.quantity || 1) + 1;
-
-    }else{
-
-        cart.push({
-
-            name:name,
-            image:image,
-            price:price,
-            quantity:1
-
-        });
-
-    }
-
-    saveCart(cart);
-
     updateCartCount();
 
-    alert(name + " added to cart!");
-
+    alert(name + " added to cart");
 }
 
-/* ================= WISHLIST ================= */
+function addWishlist(name){
 
-function saveProductToWishlist(key){
+    let wishlist =
+        JSON.parse(localStorage.getItem("mainstreamWishlist")) || [];
 
-    let wishlist = [];
-
-    try{
-        wishlist =
-            JSON.parse(
-                localStorage.getItem("mainstreamWishlist")
-            ) || [];
-
-    }catch(error){
-        wishlist = [];
+    if(!wishlist.includes(name)){
+        wishlist.push(name);
     }
 
-    key = key.toLowerCase();
+    localStorage.setItem(
+        "mainstreamWishlist",
+        JSON.stringify(wishlist)
+    );
 
-    if(!wishlist.includes(key)){
-
-        wishlist.push(key);
-
-        localStorage.setItem(
-            "mainstreamWishlist",
-            JSON.stringify(wishlist)
-        );
-
-        alert("Added to wishlist ♡");
-
-    }else{
-
-        alert("Already in your wishlist ♡");
-
-    }
+    alert(name + " added to wishlist");
 }
-/* ================= PRODUCT SELECTION ================= */
-
-const productData = {
-
-    max:{
-        name:"MAX / 03 TEE",
-        price:999,
-        front:"max-front.png",
-        back:"max-back.png",
-        main:"max-front.png",
-        size:"size-chart.png"
-    },
-
-    lewis:{
-        name:"LEWIS / 44 TEE",
-        price:999,
-        front:"lewis-front.png",
-        back:"lewis-back.png",
-        main:"lewis-front.png",
-        size:"size-chart.png"
-    },
-
-    charles:{
-        name:"CHARLES / 16 TEE",
-        price:999,
-        front:"charles-front.png",
-        back:"charles-back.png",
-        main:"charles-front.png",
-        size:"size-chart.png"
-    },
-
-    lando:{
-        name:"LANDO / 01 TEE",
-        price:999,
-        front:"lando-front.png",
-        back:"lando-back.png",
-        main:"lando-front.png",
-        size:"size-chart.png"
-    },
-
-    oscar:{
-        name:"OSCAR / 81 TEE",
-        price:999,
-        front:"oscar-front.png",
-        back:"oscar-back.png",
-        main:"oscar-front.png",
-        size:"size-chart.png"
-    },
-
-    george:{
-        name:"GEORGE / 63 TEE",
-        price:999,
-        front:"george-front.png",
-        back:"george-back.png",
-        main:"george-front.png",
-        size:"size-chart.png"
-    },
-
-    kimi:{
-        name:"KIMI / 12 TEE",
-        price:999,
-        front:"kimi-front.png",
-        back:"kimi-back.png",
-        main:"kimi-front.png",
-        size:"size-chart.png"
-    }
-
-};
-
-
-function selectProduct(id){
-
-    const product =
-        productData[id];
-
-    if(product){
-
-        localStorage.setItem(
-            "selectedProduct",
-            JSON.stringify(product)
-        );
-
-    }
-
-}
-
-
-/* ================= SEARCH ================= */
 
 function openSearch(){
 
-    document
-        .getElementById("searchOverlay")
-        .classList.add("active");
+    const query =
+        prompt("Search MAINSTREAM™");
 
-    setTimeout(() => {
+    if(query && query.trim()){
 
-        document
-            .getElementById("searchInput")
-            .focus();
-
-    },100);
-
-}
-
-
-function closeSearch(){
-
-    document
-        .getElementById("searchOverlay")
-        .classList.remove("active");
-
-}
-
-
-function handleSearch(event){
-
-    if(event.key === "Enter"){
-
-        const query =
-            event.target.value
-            .trim()
-            .toLowerCase();
-
-        if(query){
-
-            window.location.href =
-                "shop.html?search=" +
-                encodeURIComponent(query);
-
-        }
+        window.location.href =
+            "shop.html?search=" +
+            encodeURIComponent(query.trim());
 
     }
 
 }
-
 
 updateCartCount();
 
