@@ -2924,90 +2924,55 @@ function updateDashboardStats(){
 
 function changePeriod(period){
 
-    const salesNumber =
-        document.querySelector(
-            ".big-sales"
-        );
+    const salesNumber = document.getElementById("salesValue");
+    const salesNote = document.getElementById("salesNote");
+    const bars = Array.from(document.querySelectorAll(".mini-bars .bar"));
+    const now = new Date();
 
-    const salesNote =
-        document.querySelector(
-            ".sales-note"
-        );
-
-
-    const bars =
-        document.querySelectorAll(
-            ".mini-bar"
-        );
-
+    let startDate = new Date(now);
+    let note = "Current month revenue";
 
     if(period === "week"){
-
-        if(salesNumber){
-            salesNumber.textContent =
-                "₹0";
-        }
-
-        if(salesNote){
-            salesNote.textContent =
-                "THIS WEEK";
-        }
-
-        bars.forEach(function(bar,index){
-
-            bar.style.height =
-                (20 + index * 6) + "%";
-
-        });
-
+        const day = (now.getDay() + 6) % 7;
+        startDate.setDate(now.getDate() - day);
+        startDate.setHours(0,0,0,0);
+        note = "Revenue since Monday";
+    }else if(period === "year"){
+        startDate = new Date(now.getFullYear(),0,1);
+        note = "Revenue this year";
+    }else{
+        startDate = new Date(now.getFullYear(),now.getMonth(),1);
+        note = "Current month revenue";
     }
 
+    const paidOrders = (dashboardOrders || []).filter(order => {
+        const status = String(order.payment_status || "").toLowerCase();
+        const date = new Date(order.created_at);
+        return ["paid","captured"].includes(status) &&
+            !Number.isNaN(date.getTime()) &&
+            date >= startDate && date <= now;
+    });
 
-    else if(period === "year"){
+    const revenue = paidOrders.reduce((sum,order) => sum + Number(order.total || 0),0);
+    if(salesNumber) salesNumber.textContent = "₹" + revenue.toLocaleString("en-IN");
+    if(salesNote) salesNote.textContent = note;
 
-        if(salesNumber){
-            salesNumber.textContent =
-                "₹0";
-        }
+    const range = Math.max(1, now.getTime() - startDate.getTime());
+    const bucketTotals = Array(bars.length).fill(0);
+    paidOrders.forEach(order => {
+        const elapsed = new Date(order.created_at).getTime() - startDate.getTime();
+        const index = Math.min(bars.length - 1, Math.max(0, Math.floor(elapsed / range * bars.length)));
+        bucketTotals[index] += Number(order.total || 0);
+    });
 
-        if(salesNote){
-            salesNote.textContent =
-                "THIS YEAR";
-        }
-
-        bars.forEach(function(bar,index){
-
-            bar.style.height =
-                (35 + index * 5) + "%";
-
-        });
-
-    }
-
-
-    else{
-
-        if(salesNumber){
-            salesNumber.textContent =
-                "₹0";
-        }
-
-        if(salesNote){
-            salesNote.textContent =
-                "THIS MONTH";
-        }
-
-        bars.forEach(function(bar,index){
-
-            bar.style.height =
-                (25 + index * 7) + "%";
-
-        });
-
-    }
-
+    const maxValue = Math.max(0, ...bucketTotals);
+    bars.forEach((bar,index) => {
+        const height = maxValue ? (bucketTotals[index] / maxValue) * 100 : 0;
+        bar.style.height = height + "%";
+        bar.classList.toggle("highlight",index === bucketTotals.indexOf(maxValue) && maxValue > 0);
+        bar.setAttribute("title","₹" + bucketTotals[index].toLocaleString("en-IN"));
+    });
 }
-
 
 /* =========================================
    LIVE UPDATE
@@ -3053,30 +3018,40 @@ const mainstreamAuth = supabase.createClient(
     SUPABASE_PUBLISHABLE_KEY
 );
 
+let dashboardOrders = [];
+
 async function loadDashboardOrders(){
     const body = document.getElementById("recentOrdersBody");
     try{
         const { data, error } = await mainstreamAuth
             .from("orders")
             .select("order_number, customer_name, items, total, payment_status, order_status, created_at")
-            .order("created_at", { ascending:false })
-            .limit(5);
+            .order("created_at", { ascending:false });
         if(error) throw error;
 
         const orders = data || [];
-        const revenue = orders.reduce((sum, order) =>
+        dashboardOrders = orders;
+        const now = new Date();
+        const monthOrders = orders.filter(order => {
+            const date = new Date(order.created_at);
+            return date.getFullYear() === now.getFullYear() && date.getMonth() === now.getMonth();
+        });
+        const paidRevenue = list => list.reduce((sum, order) =>
             ["paid","captured"].includes(String(order.payment_status || "").toLowerCase())
                 ? sum + Number(order.total || 0) : sum, 0);
+        const totalRevenue = paidRevenue(orders);
+        const monthRevenue = paidRevenue(monthOrders);
 
         const countEl = document.getElementById("ordersValue");
         const revenueEl = document.getElementById("revenueValue");
         const salesEl = document.getElementById("salesValue");
         if(countEl) countEl.textContent = orders.length;
-        if(revenueEl) revenueEl.textContent = "₹" + revenue.toLocaleString("en-IN");
-        if(salesEl) salesEl.textContent = "₹" + revenue.toLocaleString("en-IN");
+        if(revenueEl) revenueEl.textContent = "₹" + totalRevenue.toLocaleString("en-IN");
+        if(salesEl) salesEl.textContent = "₹" + monthRevenue.toLocaleString("en-IN");
+        changePeriod("month");
 
         if(body){
-            body.innerHTML = orders.length ? orders.map(order => {
+            body.innerHTML = orders.length ? orders.slice(0,5).map(order => {
                 const first = Array.isArray(order.items) ? order.items[0] : {};
                 const productLabel = first && first.name
                     ? first.name + (order.items.length > 1 ? " +" + (order.items.length-1) + " more" : "")
@@ -3166,7 +3141,7 @@ async function updateProductCount(){
             outOfStock++;
 
         }
-        else if(stock <= 5){
+        else if(stock <= 10){
 
             lowStock++;
 
