@@ -936,32 +936,11 @@ async function loadProduct(){
                         ? Number(data.price)
                         : Number(fallback.price || 999),
 
-                front:
-                    pick(
-                        data.front_image,
-                        pick(
-                            data.image_url,
-                            fallback.front
-                        )
-                    ),
+                front: fallback.front,
 
-                back:
-                    pick(
-                        data.back_image,
-                        pick(
-                            data.image_url,
-                            fallback.back
-                        )
-                    ),
+                back: fallback.back,
 
-                combined:
-                    pick(
-                        data.combined_image,
-                        pick(
-                            data.image_url,
-                            fallback.combined
-                        )
-                    ),
+                combined: fallback.combined,
 
                 description:
                     data.description || ""
@@ -1518,4 +1497,11 @@ updateCartCount();
   .main-photo.front { object-fit:contain; }
 }
 
+</style>
+
+<style>
+/* Force a single product photo in the main gallery; use the dedicated chart when selected. */
+.main-photo.front { object-fit: contain !important; object-position: center !important; }
+.main-photo.sizechart { object-fit: contain !important; background: #fff !important; }
+.thumb.combined { display:none !important; }
 </style>
