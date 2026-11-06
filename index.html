@@ -1503,6 +1503,61 @@ footer a:hover{
 
 </style>
 
+
+<style>
+/* Reliable immediate product rendering on desktop and mobile */
+#productsGrid.products-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    width: 100%;
+    min-height: 1px;
+}
+#productsGrid .product-card { min-width: 0; }
+#productsGrid .product-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit:contain;
+}
+@media (max-width: 700px) {
+    #productsGrid.products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px;
+    }
+    #productsGrid .product-info { padding: 12px; }
+    #productsGrid .product-name { font-size: 13px; line-height: 1.25; }
+    #productsGrid .product-bottom { align-items: flex-start; gap: 6px; flex-wrap: wrap; }
+    #productsGrid .product-price { font-size: 15px; }
+    #productsGrid .view-btn { font-size: 8px; }
+    #productsGrid .add-cart { min-height: 42px; font-size: 8px; }
+}
+
+/* Targeted mobile spacing correction */
+@media (max-width: 600px) {
+  .drop-section { padding-bottom: 28px !important; }
+  .products-grid { margin-bottom: 0 !important; }
+  .view-all-wrap { padding: 28px 0 42px !important; }
+  .view-all { display: inline-flex; align-items:center; justify-content:center; min-height:54px; }
+}
+
+/* Homepage product cards: clean single product photo, no corner numbering */
+#productsGrid .product-number { display:none !important; }
+#productsGrid .product-image img { object-fit:contain; object-position:center top; }
+
+/* Keep every homepage image fully visible without zoom-cropping. */
+.hero-image, #productsGrid .product-image img { object-fit:contain !important; object-position:center !important; }
+.hero-image-box:hover .hero-image, #productsGrid .product-card:hover .product-image img { transform:none !important; }
+#productsGrid .product-image { background:#eeeeea !important; }
+
+/* Remove the visible grey frame behind the homepage hero image. */
+.hero-image-box {
+    background: transparent !important;
+}
+.hero-image {
+    background: transparent !important;
+}
+</style>
 </head>
 
 
@@ -2833,66 +2888,5 @@ window.addEventListener(
 
 
 
-/* Reliable immediate product rendering on desktop and mobile */
-#productsGrid.products-grid {
-    display: grid !important;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 20px;
-    width: 100%;
-    min-height: 1px;
-}
-#productsGrid .product-card { min-width: 0; }
-#productsGrid .product-image img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit:contain;
-}
-@media (max-width: 700px) {
-    #productsGrid.products-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-        gap: 12px;
-    }
-    #productsGrid .product-info { padding: 12px; }
-    #productsGrid .product-name { font-size: 13px; line-height: 1.25; }
-    #productsGrid .product-bottom { align-items: flex-start; gap: 6px; flex-wrap: wrap; }
-    #productsGrid .product-price { font-size: 15px; }
-    #productsGrid .view-btn { font-size: 8px; }
-    #productsGrid .add-cart { min-height: 42px; font-size: 8px; }
-}
-
 </body>
 </html>
-
-<style>
-/* Targeted mobile spacing correction */
-@media (max-width: 600px) {
-  .drop-section { padding-bottom: 28px !important; }
-  .products-grid { margin-bottom: 0 !important; }
-  .view-all-wrap { padding: 28px 0 42px !important; }
-  .view-all { display: inline-flex; align-items:center; justify-content:center; min-height:54px; }
-}
-</style>
-
-<style>
-/* Homepage product cards: clean single product photo, no corner numbering */
-#productsGrid .product-number { display:none !important; }
-#productsGrid .product-image img { object-fit:contain; object-position:center top; }
-</style>
-
-<style>
-/* Keep every homepage image fully visible without zoom-cropping. */
-.hero-image, #productsGrid .product-image img { object-fit:contain !important; object-position:center !important; }
-.hero-image-box:hover .hero-image, #productsGrid .product-card:hover .product-image img { transform:none !important; }
-#productsGrid .product-image { background:#eeeeea !important; }
-</style>
-
-<style>
-/* Remove the visible grey frame behind the homepage hero image. */
-.hero-image-box {
-    background: transparent !important;
-}
-.hero-image {
-    background: transparent !important;
-}
-</style>
