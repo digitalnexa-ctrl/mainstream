@@ -504,6 +504,18 @@ header .logo{
         margin-right:8px;
     }
 }
+
+/* Make the cart total panel span the same width as the product row. */
+#cartSummary.summary {
+    display:block !important;
+    width:100% !important;
+    max-width:none !important;
+    min-width:0 !important;
+    box-sizing:border-box !important;
+    float:none !important;
+    position:static !important;
+    margin:30px 0 0 !important;
+}
 </style>
 
 </head>
@@ -930,12 +942,4 @@ document.addEventListener(
 
 </html>
 
-<style>
-/* Match the order summary width to the cart item row above it. */
-#cartSummary.summary {
-    width:100% !important;
-    max-width:none !important;
-    box-sizing:border-box !important;
-    margin:30px 0 0 !important;
-}
-</style>
+
