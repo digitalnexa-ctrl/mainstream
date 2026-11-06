@@ -918,6 +918,9 @@ function checkout(){
         return;
     }
 
+    // A cart checkout must not reuse an older Buy Now item.
+    localStorage.removeItem("mainstreamBuyNow");
+    localStorage.setItem("mainstreamCheckoutMode", "cart");
     window.location.href = "shipping.html";
 }
 
