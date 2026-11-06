@@ -481,6 +481,16 @@ header{
         font-size:24px;
     }
 }
+
+/* MAINSTREAM colour selector */
+.color-options{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 30px}
+.color-swatch{width:34px;height:34px;border:2px solid #bbb;border-radius:50%;cursor:pointer;position:relative;display:inline-flex;align-items:center;justify-content:center}
+.color-swatch.black{background:#111}
+.color-swatch.beige{background:#d8c3a5}
+.color-swatch.white{background:#fff}
+.color-swatch.active{outline:2px solid #111;outline-offset:3px;border-color:#fff}
+.color-choice-label{font-size:13px;font-weight:700;letter-spacing:1px;margin-left:4px}
+
 </style>
 </head>
 
@@ -654,6 +664,15 @@ XXL
 
 </div>
 
+
+<div class="option-group color-selector">
+<div class="option-title">COLOUR <span id="selectedColorLabel" class="color-choice-label">BLACK</span></div>
+<div class="color-options">
+<button type="button" class="color-swatch black" aria-label="Black" title="Black" onclick="selectColor('Black',this)"></button>
+<button type="button" class="color-swatch beige" aria-label="Beige" title="Beige" onclick="selectColor('Beige',this)"></button>
+<button type="button" class="color-swatch white" aria-label="White" title="White" onclick="selectColor('White',this)"></button>
+</div>
+</div>
 
 <div class="option-title">
 QUANTITY
@@ -842,6 +861,8 @@ const fallbackProducts = {
 let currentProduct = null;
 
 let selectedSize = "M";
+let selectedColor = (new URLSearchParams(window.location.search).get("color") || "Black");
+if (!["Black","Beige","White"].includes(selectedColor)) selectedColor = "Black";
 
 let quantity = 1;
 
@@ -1026,6 +1047,7 @@ function renderProduct(){
 
 
     updateCartCount();
+    syncColorSelection();
 
 }
 
@@ -1109,6 +1131,21 @@ function selectSize(size,button){
 
 }
 
+
+
+/* ================= COLOUR ================= */
+function syncColorSelection(){
+    document.querySelectorAll(".color-swatch").forEach(function(button){
+        const color = button.getAttribute("aria-label");
+        button.classList.toggle("active", color === selectedColor);
+    });
+    const label = document.getElementById("selectedColorLabel");
+    if(label) label.textContent = selectedColor.toUpperCase();
+}
+function selectColor(color,button){
+    selectedColor = color;
+    syncColorSelection();
+}
 
 /* ================= QUANTITY ================= */
 
@@ -1195,6 +1232,9 @@ function addToCart(){
         size:
             selectedSize,
 
+        color:
+            selectedColor,
+
         quantity:
             quantity
 
@@ -1241,6 +1281,9 @@ function buyNow(){
 
         size:
             selectedSize,
+
+        color:
+            selectedColor,
 
         quantity:
             quantity
