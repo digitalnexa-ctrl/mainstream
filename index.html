@@ -1752,8 +1752,61 @@ footer a:hover{
     <div
         class="products-grid"
         id="productsGrid"
+        aria-live="polite"
     >
-        <!-- Products loaded by JavaScript -->
+        <!-- Immediate HTML fallback: visible before JavaScript or Supabase finishes. -->
+        <article class="product-card">
+            <div class="product-image">
+                <img src="max.jpg" alt="MAX / 03 TEE" loading="eager" fetchpriority="high" width="600" height="800">
+                <div class="product-number">01</div>
+                <button class="product-wishlist" onclick="toggleWishlist('max-03-tee', this)" aria-label="Add MAX tee to wishlist">♡</button>
+            </div>
+            <div class="product-info">
+                <div class="product-category">Racing Collection</div>
+                <div class="product-name">MAX / 03 TEE</div>
+                <div class="product-bottom"><div class="product-price">₹899</div><a class="view-btn" href="product.html?slug=max-03-tee">VIEW PRODUCT →</a></div>
+                <button class="add-cart" onclick="addToCart({id:'max',slug:'max-03-tee',name:'MAX / 03 TEE',price:899,category:'Racing Collection',image:'max.jpg'})">ADD TO CART</button>
+            </div>
+        </article>
+        <article class="product-card">
+            <div class="product-image">
+                <img src="lewis.jpg" alt="LEWIS / 44 TEE" loading="eager" fetchpriority="high" width="600" height="800">
+                <div class="product-number">02</div>
+                <button class="product-wishlist" onclick="toggleWishlist('lewis-44-tee', this)" aria-label="Add Lewis tee to wishlist">♡</button>
+            </div>
+            <div class="product-info">
+                <div class="product-category">Racing Collection</div>
+                <div class="product-name">LEWIS / 44 TEE</div>
+                <div class="product-bottom"><div class="product-price">₹899</div><a class="view-btn" href="product.html?slug=lewis-44-tee">VIEW PRODUCT →</a></div>
+                <button class="add-cart" onclick="addToCart({id:'lewis',slug:'lewis-44-tee',name:'LEWIS / 44 TEE',price:899,category:'Racing Collection',image:'lewis.jpg'})">ADD TO CART</button>
+            </div>
+        </article>
+        <article class="product-card">
+            <div class="product-image">
+                <img src="charles.jpg" alt="CHARLES / 16 TEE" loading="eager" fetchpriority="high" width="600" height="800">
+                <div class="product-number">03</div>
+                <button class="product-wishlist" onclick="toggleWishlist('charles-16-tee', this)" aria-label="Add Charles tee to wishlist">♡</button>
+            </div>
+            <div class="product-info">
+                <div class="product-category">Racing Collection</div>
+                <div class="product-name">CHARLES / 16 TEE</div>
+                <div class="product-bottom"><div class="product-price">₹899</div><a class="view-btn" href="product.html?slug=charles-16-tee">VIEW PRODUCT →</a></div>
+                <button class="add-cart" onclick="addToCart({id:'charles',slug:'charles-16-tee',name:'CHARLES / 16 TEE',price:899,category:'Racing Collection',image:'charles.jpg'})">ADD TO CART</button>
+            </div>
+        </article>
+        <article class="product-card">
+            <div class="product-image">
+                <img src="lando.jpg" alt="LANDO / 01 TEE" loading="eager" fetchpriority="high" width="600" height="800">
+                <div class="product-number">04</div>
+                <button class="product-wishlist" onclick="toggleWishlist('lando-01-tee', this)" aria-label="Add Lando tee to wishlist">♡</button>
+            </div>
+            <div class="product-info">
+                <div class="product-category">Racing Collection</div>
+                <div class="product-name">LANDO / 01 TEE</div>
+                <div class="product-bottom"><div class="product-price">₹899</div><a class="view-btn" href="product.html?slug=lando-01-tee">VIEW PRODUCT →</a></div>
+                <button class="add-cart" onclick="addToCart({id:'lando',slug:'lando-01-tee',name:'LANDO / 01 TEE',price:899,category:'Racing Collection',image:'lando.jpg'})">ADD TO CART</button>
+            </div>
+        </article>
     </div>
 
 
@@ -2788,6 +2841,35 @@ window.addEventListener(
 
 </script>
 
+
+
+/* Reliable immediate product rendering on desktop and mobile */
+#productsGrid.products-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    width: 100%;
+    min-height: 1px;
+}
+#productsGrid .product-card { min-width: 0; }
+#productsGrid .product-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+@media (max-width: 700px) {
+    #productsGrid.products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 12px;
+    }
+    #productsGrid .product-info { padding: 12px; }
+    #productsGrid .product-name { font-size: 13px; line-height: 1.25; }
+    #productsGrid .product-bottom { align-items: flex-start; gap: 6px; flex-wrap: wrap; }
+    #productsGrid .product-price { font-size: 15px; }
+    #productsGrid .view-btn { font-size: 8px; }
+    #productsGrid .add-cart { min-height: 42px; font-size: 8px; }
+}
 
 </body>
 </html>
