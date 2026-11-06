@@ -1302,7 +1302,26 @@ footer a:hover{
     }
 
     .hero-title{
-        font-size:80px;
+        font-size:clamp(52px, 10vw, 72px) !important;
+        line-height:1.08 !important;
+        letter-spacing:-2px !important;
+        margin:24px 0 34px !important;
+    }
+
+    .hero-title span{
+        display:block !important;
+        line-height:1.08 !important;
+        letter-spacing:-2px !important;
+        transform:none !important;
+    }
+
+    /* Keep THE clean and readable on phones/tablets */
+    .hero-title .yellow{
+        color:#ffd900 !important;
+        -webkit-text-stroke:0 !important;
+        text-shadow:none !important;
+        letter-spacing:0 !important;
+        line-height:1.08 !important;
     }
 
     .hero-visual{
