@@ -557,18 +557,6 @@ alt="Front">
 
 
 <div
-class="thumb back"
-onclick="showImage('back',this)">
-
-<img
-id="backThumb"
-src="mainstream-logo.png"
-alt="Back">
-
-</div>
-
-
-<div
 class="thumb sizechart"
 title="View size chart"
 aria-label="View compulsory oversized T-shirt size chart"
@@ -948,7 +936,7 @@ async function loadProduct(){
                 // Prefer the exact images saved for this Supabase product.
                 // The local fallback is used only when an image field is empty.
                 front: pick(
-                    data.front_image || data.frontImage || data.image_url || data.image || data.product_image,
+                    data.image_url || data.combined_image || data.front_image || data.frontImage || data.image || data.product_image,
                     fallback.front
                 ),
 
@@ -1014,12 +1002,6 @@ function renderProduct(){
         "frontThumb"
     ).src =
         currentProduct.front;
-
-
-    document.getElementById(
-        "backThumb"
-    ).src =
-        currentProduct.back;
 
 
     const mainProductImage =
@@ -1410,7 +1392,6 @@ function nextGallery(){
 
     const views = [
         "front",
-        "back",
         "sizechart"
     ];
 
@@ -1449,7 +1430,6 @@ function previousGallery(){
 
     const views = [
         "front",
-        "back",
         "sizechart"
     ];
 
