@@ -2944,10 +2944,30 @@ async function loadShopProducts(){
 
     if(error){
         console.error("Products loading error:", error);
+        // Keep the seven built-in product cards visible if Supabase is unavailable.
+        const fallbackCount = grid.querySelectorAll(".product").length;
+        const count = document.getElementById("productCount");
+        if(count){
+            count.textContent = fallbackCount + (fallbackCount === 1 ? " PRODUCT" : " PRODUCTS");
+        }
+        filterProducts("all", document.querySelector(".filter[onclick*=\"'all'\"]"));
         return;
     }
 
-    // Remove the old hard-coded products
+    // An empty active-products result must never erase the built-in catalogue.
+    // This protects the storefront when products are not yet marked active in Supabase.
+    if(!Array.isArray(data) || data.length === 0){
+        console.warn("No active Supabase products found; showing built-in catalogue.");
+        const fallbackCount = grid.querySelectorAll(".product").length;
+        const count = document.getElementById("productCount");
+        if(count){
+            count.textContent = fallbackCount + (fallbackCount === 1 ? " PRODUCT" : " PRODUCTS");
+        }
+        filterProducts("all", document.querySelector(".filter[onclick*=\"'all'\"]"));
+        return;
+    }
+
+    // Replace fallback cards only after Supabase returns active products.
     grid.innerHTML = "";
 
     data.forEach(function(product, index){
