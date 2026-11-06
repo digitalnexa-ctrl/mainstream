@@ -1032,706 +1032,89 @@ body{
 
 
 <script>
-
-/* =========================================
-   MAINSTREAM™ ORDERS
-========================================= */
-
-
-/* =========================================
-   GET ORDERS
-========================================= */
-
-function getOrders(){
-
-    try{
-
-        return JSON.parse(
-            localStorage.getItem(
-                "mainstreamOrders"
-            )
-        ) || [];
-
-    }catch(error){
-
-        return [];
-
-    }
-
-}
-
-
-/* =========================================
-   SAVE ORDERS
-========================================= */
-
-function saveOrders(orders){
-
-    localStorage.setItem(
-        "mainstreamOrders",
-        JSON.stringify(orders)
-    );
-
-}
-
-
-/* =========================================
-   ESCAPE HTML
-========================================= */
+const ordersAuth = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+let allOrders = [];
 
 function escapeHTML(value){
-
-    return String(value ?? "")
-        .replace(/&/g,"&amp;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;")
-        .replace(/"/g,"&quot;")
-        .replace(/'/g,"&#039;");
-
+    return String(value ?? "").replace(/[&<>"']/g, c => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    })[c]);
 }
-
-
-/* =========================================
-   MONEY
-========================================= */
-
-function money(value){
-
-    return "₹" +
-        Number(value || 0)
-        .toLocaleString("en-IN");
-
-}
-
-
-/* =========================================
-   STATUS CLASS
-========================================= */
-
-function getStatusClass(status){
-
-    const value =
-        String(status || "pending")
-        .toLowerCase();
-
-    if(value === "paid"){
-        return "status-paid";
-    }
-
-    if(value === "shipped"){
-        return "status-shipped";
-    }
-
-    if(value === "delivered"){
-        return "status-delivered";
-    }
-
-    if(value === "cancelled"){
-        return "status-cancelled";
-    }
-
+function money(value){ return "₹" + Number(value || 0).toLocaleString("en-IN"); }
+function statusClass(value){
+    const s=String(value || "pending").toLowerCase();
+    if(s==="paid" || s==="captured" || s==="delivered") return "status-paid";
+    if(s==="shipped") return "status-shipped";
+    if(s==="cancelled") return "status-cancelled";
     return "status-pending";
-
 }
-
-
-/* =========================================
-   STATUS TEXT
-========================================= */
-
-function getStatusText(status){
-
-    const value =
-        String(status || "pending")
-        .toLowerCase();
-
-    return value
-        .replace(
-            /^\w/,
-            function(letter){
-                return letter.toUpperCase();
-            }
-        );
-
-}
-
-
-/* =========================================
-   RENDER ORDERS
-========================================= */
-
 function renderOrders(){
+    const search=document.getElementById("searchBox").value.trim().toLowerCase();
+    const filter=document.getElementById("statusFilter").value;
+    let rows=allOrders.filter(o=>{
+        const hay=[o.order_number,o.customer_name,o.payment_status,o.order_status,
+            ...(Array.isArray(o.items)?o.items.map(i=>i.name):[])].join(" ").toLowerCase();
+        const s=String(o.order_status || "pending_payment").toLowerCase();
+        return (!search || hay.includes(search)) &&
+            (filter==="all" || s===filter || String(o.payment_status).toLowerCase()===filter);
+    });
 
-    const body =
-        document.getElementById(
-            "ordersBody"
-        );
+    const paidRevenue=allOrders.reduce((sum,o)=>
+        ["paid","captured"].includes(String(o.payment_status).toLowerCase()) ? sum+Number(o.total||0) : sum,0);
+    document.getElementById("totalOrders").textContent=allOrders.length;
+    document.getElementById("pendingOrders").textContent=allOrders.filter(o=>!["paid","captured","delivered","cancelled"].includes(String(o.payment_status||"").toLowerCase())).length;
+    document.getElementById("completedOrders").textContent=allOrders.filter(o=>String(o.order_status||"").toLowerCase()==="delivered").length;
+    document.getElementById("totalRevenue").textContent=money(paidRevenue);
 
-
-    const search =
-        document.getElementById(
-            "searchBox"
-        )
-        .value
-        .trim()
-        .toLowerCase();
-
-
-    const filter =
-        document.getElementById(
-            "statusFilter"
-        ).value;
-
-
-    let orders =
-        getOrders();
-
-
-    if(search){
-
-        orders =
-            orders.filter(
-                function(order){
-
-                    const text = [
-
-                        order.id,
-
-                        order.orderId,
-
-                        order.customerName,
-
-                        order.customerEmail,
-
-                        order.productName,
-
-                        order.status
-
-                    ]
-                    .join(" ")
-                    .toLowerCase();
-
-
-                    return text.includes(search);
-
-                }
-            );
-
-    }
-
-
-    if(filter !== "all"){
-
-        orders =
-            orders.filter(
-                function(order){
-
-                    return (
-                        String(
-                            order.status ||
-                            "pending"
-                        )
-                        .toLowerCase()
-                        ===
-                        filter
-                    );
-
-                }
-            );
-
-    }
-
-
-    updateStats(
-        getOrders()
-    );
-
-
-    if(orders.length === 0){
-
-        body.innerHTML = `
-
-            <tr>
-
-                <td colspan="7">
-
-                    <div class="empty">
-
-                        <div class="empty-icon">
-                            #
-                        </div>
-
-                        <div class="empty-title">
-                            No orders found
-                        </div>
-
-                        <div class="empty-text">
-                            Customer orders will appear here when they are recorded.
-                        </div>
-
-                    </div>
-
-                </td>
-
-            </tr>
-
-        `;
-
+    const body=document.getElementById("ordersBody");
+    if(!rows.length){
+        body.innerHTML='<tr><td colspan="7"><div class="empty"><div class="empty-title">No orders found</div><div class="empty-text">Orders recorded from the MAINSTREAM checkout will appear here.</div></div></td></tr>';
         return;
-
     }
-
-
-    body.innerHTML = "";
-
-
-    orders.forEach(
-        function(order){
-
-            const orderId =
-                order.orderId ||
-                order.id ||
-                "MS-ORDER";
-
-
-            const customerName =
-                order.customerName ||
-                order.customer ||
-                "Guest Customer";
-
-
-            const customerEmail =
-                order.customerEmail ||
-                order.email ||
-                "—";
-
-
-            const productName =
-                order.productName ||
-                order.product ||
-                "MAINSTREAM™ Product";
-
-
-            const quantity =
-                Number(
-                    order.quantity || 1
-                );
-
-
-            const amount =
-                Number(
-                    order.total ||
-                    order.amount ||
-                    (
-                        Number(order.price || 0) *
-                        quantity
-                    )
-                );
-
-
-            const status =
-                String(
-                    order.status ||
-                    "pending"
-                )
-                .toLowerCase();
-
-
-            const date =
-                order.date ||
-                order.createdAt ||
-                "—";
-
-
-            const row =
-                document.createElement(
-                    "tr"
-                );
-
-
-            row.innerHTML = `
-
-                <td>
-
-                    <div class="order-id">
-
-                        #${escapeHTML(
-                            orderId
-                        )}
-
-                    </div>
-
-                </td>
-
-
-                <td>
-
-                    <div class="customer-name">
-
-                        ${escapeHTML(
-                            customerName
-                        )}
-
-                    </div>
-
-                    <div class="customer-email">
-
-                        ${escapeHTML(
-                            customerEmail
-                        )}
-
-                    </div>
-
-                </td>
-
-
-                <td>
-
-                    <div class="product-name">
-
-                        ${escapeHTML(
-                            productName
-                        )}
-
-                    </div>
-
-                    <div class="product-quantity">
-
-                        Qty: ${quantity}
-
-                    </div>
-
-                </td>
-
-
-                       </td>
-
-
-                <td>
-
-                    <span
-                        class="status
-                        ${getStatusClass(status)}">
-
-                        ${escapeHTML(
-                            getStatusText(status)
-                        )}
-
-                    </span>
-
-                </td>
-
-
-                <td>
-
-                    ${escapeHTML(
-                        String(date)
-                    )}
-
-                </td>
-
-
-                <td>
-
-                    <a
-                        href="#"
-                        class="view-btn"
-                        onclick="viewOrder('${String(orderId).replace(/'/g,"\\'")}'); return false;">
-
-                        VIEW
-
-                    </a>
-
-                </td>
-
-            `;
-
-
-            body.appendChild(row);
-
-        }
-    );
-
+    body.innerHTML=rows.map(o=>{
+        const items=Array.isArray(o.items)?o.items:[];
+        const label=items.length ? items.map(i=>i.name).join(", ") : "MAINSTREAM PRODUCT";
+        const qty=items.reduce((sum,i)=>sum+Number(i.quantity||1),0);
+        const date=o.created_at ? new Date(o.created_at).toLocaleString("en-IN") : "—";
+        const status=String(o.payment_status || o.order_status || "pending").replace(/_/g," ");
+        return `<tr>
+            <td><div class="order-id">#${escapeHTML(o.order_number)}</div></td>
+            <td><div class="customer-name">${escapeHTML(o.customer_name || "Guest Customer")}</div><div class="customer-email">${escapeHTML(o.payment_method || "—")}</div></td>
+            <td><div class="product-name">${escapeHTML(label)}</div><div class="product-quantity">Qty: ${qty}</div></td>
+            <td class="amount">${money(o.total)}</td>
+            <td><span class="status ${statusClass(o.payment_status)}">${escapeHTML(status.toUpperCase())}</span></td>
+            <td>${escapeHTML(date)}</td>
+            <td><button class="view-btn" onclick="viewOrder('${String(o.order_number).replace(/'/g,"\\'")}')">VIEW</button></td>
+        </tr>`;
+    }).join("");
 }
-
-
-/* =========================================
-   UPDATE STATS
-========================================= */
-
-function updateStats(orders){
-
-    const total =
-        orders.length;
-
-
-    const pending =
-        orders.filter(
-            function(order){
-
-                return String(
-                    order.status || "pending"
-                )
-                .toLowerCase()
-                === "pending";
-
-            }
-        ).length;
-
-
-    const completed =
-        orders.filter(
-            function(order){
-
-                return String(
-                    order.status || ""
-                )
-                .toLowerCase()
-                === "delivered";
-
-            }
-        ).length;
-
-
-    const revenue =
-        orders.reduce(
-            function(sum,order){
-
-                return sum +
-                    Number(
-                        order.total ||
-                        order.amount ||
-                        (
-                            Number(
-                                order.price || 0
-                            ) *
-                            Number(
-                                order.quantity || 1
-                            )
-                        ) ||
-                        0
-                    );
-
-            },
-            0
-        );
-
-
-    document.getElementById(
-        "totalOrders"
-    ).textContent = total;
-
-
-    document.getElementById(
-        "pendingOrders"
-    ).textContent = pending;
-
-
-    document.getElementById(
-        "completedOrders"
-    ).textContent = completed;
-
-
-    document.getElementById(
-        "totalRevenue"
-    ).textContent = money(revenue);
-
+function viewOrder(orderNumber){
+    const o=allOrders.find(x=>String(x.order_number)===String(orderNumber));
+    if(!o) return;
+    const items=(o.items||[]).map(i=>i.name+" × "+(i.quantity||1)).join("\n");
+    alert("ORDER #"+o.order_number+"\n\n"+(o.customer_name||"Guest Customer")+"\n"+items+
+        "\n\nAmount: "+money(o.total)+"\nPayment: "+(o.payment_status||"unpaid_demo")+
+        "\nStatus: "+(o.order_status||"pending_payment"));
 }
-
-
-/* =========================================
-   VIEW ORDER
-========================================= */
-
-function viewOrder(orderId){
-
-    const orders =
-        getOrders();
-
-
-    const order =
-        orders.find(
-            function(item){
-
-                return String(
-                    item.orderId ||
-                    item.id
-                )
-                ===
-                String(orderId);
-
-            }
-        );
-
-
-    if(!order){
-
-        alert("Order not found.");
-
+async function loadOrders(){
+    const {data:{session}}=await ordersAuth.auth.getSession();
+    if(!session){ window.location.href="login.html"; return; }
+    const {data,error}=await ordersAuth.from("orders")
+        .select("*").order("created_at",{ascending:false}).limit(500);
+    if(error){
+        console.error(error);
+        document.getElementById("ordersBody").innerHTML='<tr><td colspan="7"><div class="empty">Orders table not set up yet. Run supabase-orders-setup.sql in Supabase SQL Editor.</div></td></tr>';
         return;
-
     }
-
-
-    const customer =
-        order.customerName ||
-        order.customer ||
-        "Guest Customer";
-
-
-    const product =
-        order.productName ||
-        order.product ||
-        "MAINSTREAM™ Product";
-
-
-    const quantity =
-        Number(
-            order.quantity || 1
-        );
-
-
-    const amount =
-        Number(
-            order.total ||
-            order.amount ||
-            (
-                Number(order.price || 0) *
-                quantity
-            )
-        );
-
-
-    alert(
-
-        "ORDER #" +
-        orderId +
-
-        "\n\nCustomer: " +
-        customer +
-
-        "\nProduct: " +
-        product +
-
-        "\nQuantity: " +
-        quantity +
-
-        "\nAmount: " +
-        money(amount) +
-
-        "\nStatus: " +
-        getStatusText(
-            order.status ||
-            "pending"
-        )
-
-    );
-
+    allOrders=data||[];
+    renderOrders();
 }
-
-
-/* =========================================
-   SEARCH
-========================================= */
-
-document.getElementById(
-    "searchBox"
-).addEventListener(
-    "input",
-    function(){
-
-        renderOrders();
-
-    }
-);
-
-
-/* =========================================
-   STATUS FILTER
-========================================= */
-
-document.getElementById(
-    "statusFilter"
-).addEventListener(
-    "change",
-    function(){
-
-        renderOrders();
-
-    }
-);
-
-
-/* =========================================
-   STORAGE UPDATE
-========================================= */
-
-window.addEventListener(
-    "storage",
-    function(event){
-
-        if(
-            event.key ===
-            "mainstreamOrders"
-        ){
-
-            renderOrders();
-
-        }
-
-    }
-);
-
-
-/* =========================================
-   PAGE RETURN
-========================================= */
-
-window.addEventListener(
-    "pageshow",
-    function(){
-
-        renderOrders();
-
-    }
-);
-
-
-/* =========================================
-   INITIAL LOAD
-========================================= */
-
-renderOrders();
-
+document.getElementById("searchBox").addEventListener("input",renderOrders);
+document.getElementById("statusFilter").addEventListener("change",renderOrders);
+loadOrders();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="supabase-config.js"></script>
-
-<script>
-
-const ordersAuth = supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_PUBLISHABLE_KEY
-);
-
-async function checkOrdersLogin(){
-
-    const {
-        data: { session }
-    } = await ordersAuth.auth.getSession();
-
-    if(!session){
-        window.location.href = "login.html";
-        return;
-    }
-
-    console.log("MAINSTREAM Orders authenticated");
-}
-
-checkOrdersLogin();
-
-</script>
-
 </body>
 
 </html>
