@@ -884,15 +884,22 @@ function pick(value,fallback){
 
 async function loadProduct(){
 
-    const fallback =
-        fallbackProducts[productKey]
-        || fallbackProducts.max;
+    // Only use a local fallback for the seven products that actually exist locally.
+    // Unknown dashboard slugs (for example "lem") must never display MAX by mistake.
+    const fallback = fallbackProducts[productKey] || null;
 
-    // Render the correct local product immediately; Supabase is optional.
-    currentProduct = fallback;
-    renderProduct();
+    if(fallback){
+        currentProduct = fallback;
+        renderProduct();
+    }else{
+        document.getElementById("loading").textContent = "Loading product...";
+    }
 
     if (!mainstreamDB) {
+        if(!fallback){
+            document.getElementById("loading").textContent =
+                "This product needs to be connected in the MAINSTREAM dashboard. Please try again later.";
+        }
         return;
     }
 
@@ -906,73 +913,63 @@ async function loadProduct(){
             .eq("active",true)
             .single();
 
-
         if(error || !data){
 
-            console.warn(
-                "Supabase product not found:",
-                error
-            );
+            console.warn("Supabase product not found for slug:", requestedProduct, error);
 
+            if(fallback){
+                currentProduct = fallback;
+                renderProduct();
+            }else{
+                currentProduct = null;
+                document.getElementById("productLayout").style.display = "none";
+                document.getElementById("loading").style.display = "block";
+                document.getElementById("loading").textContent =
+                    "Product not found. Check that this product is active in the dashboard and its slug is exactly: " + requestedProduct;
+            }
+            return;
+        }
+
+        currentProduct = {
+            id: data.id,
+            name: data.name || (fallback && fallback.name) || requestedProduct,
+            price: Number(data.price) > 0 ? Number(data.price) : (fallback && fallback.price) || 0,
+
+            // Use the image uploaded for this exact dashboard product.
+            front: pick(
+                data.image_url || data.combined_image || data.front_image || data.frontImage || data.image || data.product_image,
+                fallback ? fallback.front : ""
+            ),
+
+            back: pick(
+                data.back_image || data.backImage,
+                fallback ? fallback.back : ""
+            ),
+
+            combined: pick(
+                data.combined_image || data.combinedImage,
+                fallback ? fallback.combined : ""
+            ),
+
+            description: data.description || ""
+        };
+
+        renderProduct();
+
+    }catch(error){
+
+        console.error("Product loading error:", error);
+
+        if(fallback){
             currentProduct = fallback;
-
+            renderProduct();
+        }else{
+            currentProduct = null;
+            document.getElementById("productLayout").style.display = "none";
+            document.getElementById("loading").style.display = "block";
+            document.getElementById("loading").textContent =
+                "Unable to load this product. Please check the dashboard product record and try again.";
         }
-
-        else{
-
-            currentProduct = {
-
-                id:data.id,
-
-                name:
-                    data.name
-                    || fallback.name,
-
-                price:
-                    Number(data.price) > 0
-                        ? Number(data.price)
-                        : Number(fallback.price || 999),
-
-                // Prefer the exact images saved for this Supabase product.
-                // The local fallback is used only when an image field is empty.
-                front: pick(
-                    data.image_url || data.combined_image || data.front_image || data.frontImage || data.image || data.product_image,
-                    fallback.front
-                ),
-
-                back: pick(
-                    data.back_image || data.backImage,
-                    fallback.back
-                ),
-
-                combined: pick(
-                    data.combined_image || data.combinedImage,
-                    fallback.combined
-                ),
-
-                description:
-                    data.description || ""
-
-            };
-
-        }
-
-
-        renderProduct();
-
-
-    }
-
-    catch(error){
-
-        console.error(
-            "Product loading error:",
-            error
-        );
-
-        currentProduct = fallback;
-
-        renderProduct();
 
     }
 
