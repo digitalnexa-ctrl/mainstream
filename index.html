@@ -1757,54 +1757,50 @@ footer a:hover{
         <!-- Immediate HTML fallback: visible before JavaScript or Supabase finishes. -->
         <article class="product-card">
             <div class="product-image">
-                <img src="max.jpg" alt="MAX / 03 TEE" loading="eager" fetchpriority="high" width="600" height="800">
-                <div class="product-number">01</div>
+                <img src="max-front.png" alt="MAX / 03 TEE" loading="eager" fetchpriority="high" width="600" height="800">
                 <button class="product-wishlist" onclick="toggleWishlist('max-03-tee', this)" aria-label="Add MAX tee to wishlist">♡</button>
             </div>
             <div class="product-info">
                 <div class="product-category">Racing Collection</div>
                 <div class="product-name">MAX / 03 TEE</div>
                 <div class="product-bottom"><div class="product-price">₹899</div><a class="view-btn" href="product.html?slug=max-03-tee">VIEW PRODUCT →</a></div>
-                <button class="add-cart" onclick="addToCart({id:'max',slug:'max-03-tee',name:'MAX / 03 TEE',price:899,category:'Racing Collection',image:'max.jpg'})">ADD TO CART</button>
+                <button class="add-cart" onclick="addToCart({id:'max',slug:'max-03-tee',name:'MAX / 03 TEE',price:899,category:'Racing Collection',image:'max-front.png'})">ADD TO CART</button>
             </div>
         </article>
         <article class="product-card">
             <div class="product-image">
-                <img src="lewis.jpg" alt="LEWIS / 44 TEE" loading="eager" fetchpriority="high" width="600" height="800">
-                <div class="product-number">02</div>
+                <img src="lewis-front.png" alt="LEWIS / 44 TEE" loading="eager" fetchpriority="high" width="600" height="800">
                 <button class="product-wishlist" onclick="toggleWishlist('lewis-44-tee', this)" aria-label="Add Lewis tee to wishlist">♡</button>
             </div>
             <div class="product-info">
                 <div class="product-category">Racing Collection</div>
                 <div class="product-name">LEWIS / 44 TEE</div>
                 <div class="product-bottom"><div class="product-price">₹899</div><a class="view-btn" href="product.html?slug=lewis-44-tee">VIEW PRODUCT →</a></div>
-                <button class="add-cart" onclick="addToCart({id:'lewis',slug:'lewis-44-tee',name:'LEWIS / 44 TEE',price:899,category:'Racing Collection',image:'lewis.jpg'})">ADD TO CART</button>
+                <button class="add-cart" onclick="addToCart({id:'lewis',slug:'lewis-44-tee',name:'LEWIS / 44 TEE',price:899,category:'Racing Collection',image:'lewis-front.png'})">ADD TO CART</button>
             </div>
         </article>
         <article class="product-card">
             <div class="product-image">
-                <img src="charles.jpg" alt="CHARLES / 16 TEE" loading="eager" fetchpriority="high" width="600" height="800">
-                <div class="product-number">03</div>
+                <img src="charles-front.png" alt="CHARLES / 16 TEE" loading="eager" fetchpriority="high" width="600" height="800">
                 <button class="product-wishlist" onclick="toggleWishlist('charles-16-tee', this)" aria-label="Add Charles tee to wishlist">♡</button>
             </div>
             <div class="product-info">
                 <div class="product-category">Racing Collection</div>
                 <div class="product-name">CHARLES / 16 TEE</div>
                 <div class="product-bottom"><div class="product-price">₹899</div><a class="view-btn" href="product.html?slug=charles-16-tee">VIEW PRODUCT →</a></div>
-                <button class="add-cart" onclick="addToCart({id:'charles',slug:'charles-16-tee',name:'CHARLES / 16 TEE',price:899,category:'Racing Collection',image:'charles.jpg'})">ADD TO CART</button>
+                <button class="add-cart" onclick="addToCart({id:'charles',slug:'charles-16-tee',name:'CHARLES / 16 TEE',price:899,category:'Racing Collection',image:'charles-front.png'})">ADD TO CART</button>
             </div>
         </article>
         <article class="product-card">
             <div class="product-image">
-                <img src="lando.jpg" alt="LANDO / 01 TEE" loading="eager" fetchpriority="high" width="600" height="800">
-                <div class="product-number">04</div>
+                <img src="lando-front.png" alt="LANDO / 01 TEE" loading="eager" fetchpriority="high" width="600" height="800">
                 <button class="product-wishlist" onclick="toggleWishlist('lando-01-tee', this)" aria-label="Add Lando tee to wishlist">♡</button>
             </div>
             <div class="product-info">
                 <div class="product-category">Racing Collection</div>
                 <div class="product-name">LANDO / 01 TEE</div>
                 <div class="product-bottom"><div class="product-price">₹899</div><a class="view-btn" href="product.html?slug=lando-01-tee">VIEW PRODUCT →</a></div>
-                <button class="add-cart" onclick="addToCart({id:'lando',slug:'lando-01-tee',name:'LANDO / 01 TEE',price:899,category:'Racing Collection',image:'lando.jpg'})">ADD TO CART</button>
+                <button class="add-cart" onclick="addToCart({id:'lando',slug:'lando-01-tee',name:'LANDO / 01 TEE',price:899,category:'Racing Collection',image:'lando-front.png'})">ADD TO CART</button>
             </div>
         </article>
     </div>
@@ -2234,10 +2230,7 @@ async function loadProducts(){
                     product.category ||
                     "Racing Collection",
 
-                image:
-                    product.combined_image ||
-                    product.image_url ||
-                    product.front_image ||
+                image: product.front_image || product.image_url || product.combined_image ||
                     "mainstream-logo.png"
 
             };
@@ -2292,10 +2285,6 @@ function renderProducts(products){
                     alt="${product.name}"
                     loading="lazy"
                 >
-
-                <div class="product-number">
-                    ${String(index+1).padStart(2,"0")}
-                </div>
 
                 <button
                     class="product-wishlist"
@@ -2882,4 +2871,10 @@ window.addEventListener(
   .view-all-wrap { padding: 28px 0 42px !important; }
   .view-all { display: inline-flex; align-items:center; justify-content:center; min-height:54px; }
 }
+</style>
+
+<style>
+/* Homepage product cards: clean single product photo, no corner numbering */
+#productsGrid .product-number { display:none !important; }
+#productsGrid .product-image img { object-fit:cover; object-position:center top; }
 </style>
