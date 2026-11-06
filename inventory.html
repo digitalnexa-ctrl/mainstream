@@ -1069,7 +1069,13 @@ function getSavedProducts(){
 
 /* BUILD COMPLETE PRODUCT LIST */
 
+let inventoryProducts = null;
+
 function getProducts(){
+
+    if(Array.isArray(inventoryProducts)){
+        return inventoryProducts;
+    }
 
     const saved =
         getSavedProducts();
@@ -1718,6 +1724,13 @@ if(deleteError){
         JSON.stringify(updatedProducts)
     );
 
+    if(Array.isArray(inventoryProducts)){
+        inventoryProducts = inventoryProducts.filter(function(item){
+            return String(item.slug || item.id) !== String(product.slug || product.id);
+        });
+        updateStats(inventoryProducts);
+        applyFilters(inventoryProducts);
+    }
 
     addActivity(
         "Product deleted",
@@ -1852,9 +1865,8 @@ if(stockFilter){
 
 /* =========================================
    INITIAL LOAD
+   Supabase provides the canonical inventory list.
 ========================================= */
-
-renderInventory();
 
 
 /* =========================================
@@ -1864,9 +1876,9 @@ renderInventory();
 window.addEventListener(
     "pageshow",
     function(){
-
-        renderInventory();
-
+        if(typeof loadInventoryFromSupabase === "function"){
+            loadInventoryFromSupabase();
+        }
     }
 );
 
@@ -1933,8 +1945,9 @@ async function loadInventoryFromSupabase(){
 
     });
 
+    inventoryProducts = products;
     updateStats(products);
-    renderRows(products);
+    applyFilters(products);
 
     console.log(
         "MAINSTREAM Inventory loaded:",
@@ -1943,6 +1956,8 @@ async function loadInventoryFromSupabase(){
 }
 
 loadInventoryFromSupabase();
+
+</script>
 
 <script>
 
