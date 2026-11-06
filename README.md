@@ -13,3 +13,4 @@ Premium clothing ecommerce starter.
 Upload the contents to a repository, then enable **Settings → Pages → Deploy from branch → main / root**.
 
 Replace the placeholder product visuals with your real product photos when ready.
+<!-- Trigger fresh GitHub Pages deployment -->
