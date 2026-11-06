@@ -988,10 +988,19 @@ function renderProduct(){
         currentProduct.back;
 
 
-    document.getElementById(
-        "mainProductImage"
-    ).src =
-        currentProduct.front;
+    const mainProductImage =
+        document.getElementById("mainProductImage");
+
+    // Keep the image selected by the customer when product data finishes loading.
+    if(currentView === "sizechart"){
+        mainProductImage.src = "size-chart-custom.svg";
+    }
+    else if(currentView === "back"){
+        mainProductImage.src = currentProduct.back;
+    }
+    else{
+        mainProductImage.src = currentProduct.front;
+    }
 
 
     if(currentProduct.description){
