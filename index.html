@@ -1389,10 +1389,22 @@ footer a:hover{
     }
 
     .hero-title{
-        font-size:62px;
-        letter-spacing:-5px;
+        font-size:clamp(54px, 13vw, 62px);
+        line-height:0.92;
+        letter-spacing:-3px;
+        margin:22px 0 32px;
+    }
 
-        margin:22px 0 28px;
+    .hero-title span{
+        display:block;
+        width:max-content;
+        max-width:100%;
+    }
+
+    .hero-title .yellow{
+        position:relative;
+        z-index:1;
+        line-height:0.95;
     }
 
     .hero-description{
