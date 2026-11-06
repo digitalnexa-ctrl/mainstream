@@ -2952,9 +2952,11 @@ async function loadShopProducts(){
 
     data.forEach(function(product, index){
 
+        // Match the approved storefront reference: use the single front product photo.
         const imageFile =
-            product.combined_image ||
             product.image_url ||
+            product.front_image ||
+            product.combined_image ||
             "";
 
         const imageUrl =
@@ -2962,7 +2964,8 @@ async function loadShopProducts(){
     imageFile.startsWith("data:")
     ? imageFile
     : "https://digitalnexa-ctrl.github.io/mainstream/" + imageFile;
-        const price = Number(product.price || 0);
+        // Approved MAINSTREAM T-shirt storefront price.
+        const price = 899;
 
         const team = normalizeShopTeam(product.category, product);
 
