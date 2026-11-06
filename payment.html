@@ -647,31 +647,6 @@ placeholder="example@upi">
 </div>
 
 
-<!-- COD -->
-
-<label
-class="payment-option"
-id="codOption">
-
-<input
-type="radio"
-name="payment"
-value="cod"
-onchange="selectPayment('cod')">
-
-<div class="payment-info">
-
-<h3>CASH ON DELIVERY</h3>
-
-<p>
-Pay when your order arrives
-</p>
-
-</div>
-
-</label>
-
-
 <button
 class="place-order"
 onclick="placeOrder()">
@@ -854,14 +829,6 @@ function selectPayment(type){
 
     }
 
-
-    if(type === "cod"){
-
-        document
-        .getElementById("codOption")
-        .classList.add("selected");
-
-    }
 
 }
 
