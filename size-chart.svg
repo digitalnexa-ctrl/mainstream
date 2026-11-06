@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+<title id="title">MAINSTREAM oversized T-shirt size chart</title>
+<desc id="desc">Measurements in inches for sizes S to XXL: chest 41, 43, 45, 47, 49; length 27, 28, 29, 30, 31; sleeve length 8.5, 9.5, 10.5, 11.5, 12.5.</desc>
+<rect width="1600" height="1000" fill="#fff"/>
+<text x="800" y="105" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="64" font-weight="800" fill="#b94d4d">SIZE CHART - OVERSIZED</text>
+<!-- Shirt outline and measurement guides -->
+<g transform="translate(65 205)" stroke="#222" stroke-width="5" fill="none" stroke-linejoin="round">
+ <path d="M210 100 L325 28 Q385 4 450 28 L565 100 L675 320 L590 365 L535 280 L535 660 Q385 690 235 660 L235 280 L180 365 L95 320 Z"/>
+ <path d="M325 28 Q330 100 385 108 Q440 100 450 28" stroke-width="4"/>
+ <path d="M342 35 Q350 84 385 87 Q420 84 433 35" stroke-width="3"/>
+ <path d="M235 280 L535 280" stroke-dasharray="10 10" stroke-width="2"/>
+ <path d="M205 215 H565" stroke="#777" stroke-width="3"/>
+ <path d="M205 200 V230 M565 200 V230" stroke="#777" stroke-width="3"/>
+ <path d="M185 130 V660" stroke="#777" stroke-width="3"/>
+ <path d="M170 130 H200 M170 660 H200" stroke="#777" stroke-width="3"/>
+ <path d="M575 110 L660 315" stroke="#777" stroke-width="3"/>
+</g>
+<g font-family="Arial,Helvetica,sans-serif" fill="#555" font-size="38">
+ <text x="380" y="430" text-anchor="middle">Chest</text>
+ <text x="235" y="690" transform="rotate(-90 235 690)" text-anchor="middle">Length</text>
+ <text x="690" y="500" transform="rotate(68 690 500)" text-anchor="middle">Sleeve</text>
+</g>
+<!-- Table -->
+<g transform="translate(760 260)" font-family="Arial,Helvetica,sans-serif" text-anchor="middle">
+ <rect x="0" y="0" width="790" height="590" fill="#fff" stroke="#222" stroke-width="5"/>
+ <g fill="#eee"><rect x="0" y="0" width="790" height="115"/></g>
+ <g stroke="#222" stroke-width="4" fill="none">
+  <path d="M210 0 V590 M326 0 V590 M442 0 V590 M558 0 V590 M674 0 V590"/>
+  <path d="M0 115 H790 M0 273 H790 M0 431 H790"/>
+ </g>
+ <g fill="#111" font-size="32" font-weight="700">
+  <text x="105" y="72">SIZE</text><text x="268" y="72">S</text><text x="384" y="72">M</text><text x="500" y="72">L</text><text x="616" y="72">XL</text><text x="732" y="72">XXL</text>
+ </g>
+ <g fill="#222" font-size="31">
+  <text x="105" y="210">Chest</text><text x="268" y="210">41</text><text x="384" y="210">43</text><text x="500" y="210">45</text><text x="616" y="210">47</text><text x="732" y="210">49</text>
+  <text x="105" y="368">Length</text><text x="268" y="368">27</text><text x="384" y="368">28</text><text x="500" y="368">29</text><text x="616" y="368">30</text><text x="732" y="368">31</text>
+  <text x="105" y="526" font-size="26">Sleeve Length</text><text x="268" y="526">8.5</text><text x="384" y="526">9.5</text><text x="500" y="526">10.5</text><text x="616" y="526">11.5</text><text x="732" y="526">12.5</text>
+ </g>
+</g>
+<text x="1155" y="920" text-anchor="middle" font-family="Arial,Helvetica,sans-serif" font-size="25" fill="#555">ALL MEASUREMENTS IN INCHES</text>
+</svg>
