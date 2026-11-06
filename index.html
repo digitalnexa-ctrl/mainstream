@@ -2878,3 +2878,10 @@ window.addEventListener(
 #productsGrid .product-number { display:none !important; }
 #productsGrid .product-image img { object-fit:contain; object-position:center top; }
 </style>
+
+<style>
+/* Keep every homepage image fully visible without zoom-cropping. */
+.hero-image, #productsGrid .product-image img { object-fit:contain !important; object-position:center !important; }
+.hero-image-box:hover .hero-image, #productsGrid .product-card:hover .product-image img { transform:none !important; }
+#productsGrid .product-image { background:#eeeeea !important; }
+</style>
