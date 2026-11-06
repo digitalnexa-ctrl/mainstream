@@ -509,6 +509,13 @@ body{
     z-index:500;
 }
 
+.colour-upload-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}
+.colour-upload-card{background:#111;border:1px solid #333;padding:14px;border-radius:10px;min-width:0}
+.colour-upload-card h3{color:#FFD400;margin:0 0 12px;font-size:15px}
+.colour-upload-card label{display:block;color:#ddd;font-size:12px;margin:12px 0 6px}
+.variant-preview{width:100%;height:110px;object-fit:contain;background:#eee;border-radius:6px;display:none}
+.colour-upload-card input[type=file]{width:100%;color:#aaa;font-size:11px}
+@media(max-width:700px){.colour-upload-grid{grid-template-columns:1fr}.variant-preview{height:150px}}
 </style>
 
 </head>
@@ -788,6 +795,41 @@ body{
 
 
 
+        <!-- COLOUR VARIANT PHOTOS -->
+        <section class="form-section">
+            <div class="section-title">COLOUR VARIANT PHOTOS</div>
+            <p style="color:#888;font-size:13px;line-height:1.6;margin:0 0 18px">
+                Upload separate FRONT and BACK photos for each colour. Customers will see the matching photos when they tap a colour on the product page.
+            </p>
+            <div class="colour-upload-grid">
+                <div class="colour-upload-card">
+                    <h3>Black</h3>
+                    <label for="variant-black-front">Front photo</label>
+                    <img id="preview-black-front" class="variant-preview" alt="Black front preview">
+                    <input id="variant-black-front" type="file" accept="image/png,image/jpeg,image/webp" data-colour="Black" data-side="front">
+                    <label for="variant-black-back">Back photo</label>
+                    <img id="preview-black-back" class="variant-preview" alt="Black back preview">
+                    <input id="variant-black-back" type="file" accept="image/png,image/jpeg,image/webp" data-colour="Black" data-side="back">
+                </div><div class="colour-upload-card">
+                    <h3>Beige</h3>
+                    <label for="variant-beige-front">Front photo</label>
+                    <img id="preview-beige-front" class="variant-preview" alt="Beige front preview">
+                    <input id="variant-beige-front" type="file" accept="image/png,image/jpeg,image/webp" data-colour="Beige" data-side="front">
+                    <label for="variant-beige-back">Back photo</label>
+                    <img id="preview-beige-back" class="variant-preview" alt="Beige back preview">
+                    <input id="variant-beige-back" type="file" accept="image/png,image/jpeg,image/webp" data-colour="Beige" data-side="back">
+                </div><div class="colour-upload-card">
+                    <h3>White</h3>
+                    <label for="variant-white-front">Front photo</label>
+                    <img id="preview-white-front" class="variant-preview" alt="White front preview">
+                    <input id="variant-white-front" type="file" accept="image/png,image/jpeg,image/webp" data-colour="White" data-side="front">
+                    <label for="variant-white-back">Back photo</label>
+                    <img id="preview-white-back" class="variant-preview" alt="White back preview">
+                    <input id="variant-white-back" type="file" accept="image/png,image/jpeg,image/webp" data-colour="White" data-side="back">
+                </div>
+            </div>
+        </section>
+
         <!-- ACTIONS -->
 
         <div class="form-actions">
@@ -870,6 +912,11 @@ const productId =
 
 let currentProduct = null;
 let selectedImage = "";
+let selectedColorImages = {
+    Black: { front: "", back: "" },
+    Beige: { front: "", back: "" },
+    White: { front: "", back: "" }
+};
 
 
 /* =========================================
@@ -970,6 +1017,33 @@ async function loadProduct(){
         data.description || "";
 
 
+    /* EXISTING COLOUR VARIANT PHOTOS */
+    selectedColorImages = {
+        Black: {
+            front: (data.color_images && data.color_images.Black && data.color_images.Black.front) || data.front_image || data.image_url || "",
+            back: (data.color_images && data.color_images.Black && data.color_images.Black.back) || data.back_image || ""
+        },
+        Beige: {
+            front: (data.color_images && data.color_images.Beige && data.color_images.Beige.front) || "",
+            back: (data.color_images && data.color_images.Beige && data.color_images.Beige.back) || ""
+        },
+        White: {
+            front: (data.color_images && data.color_images.White && data.color_images.White.front) || "",
+            back: (data.color_images && data.color_images.White && data.color_images.White.back) || ""
+        }
+    };
+
+    ["Black","Beige","White"].forEach(function(colour){
+        ["front","back"].forEach(function(side){
+            const image = selectedColorImages[colour][side];
+            const preview = document.getElementById("preview-" + colour.toLowerCase() + "-" + side);
+            if(image && preview){
+                preview.src = image;
+                preview.style.display = "block";
+            }
+        });
+    });
+
     /* IMAGE */
 
     const image =
@@ -1067,6 +1141,33 @@ document
 
     }
 );
+
+
+/* =========================================
+   COLOUR VARIANT IMAGE UPLOADS
+========================================= */
+
+document.querySelectorAll("input[data-colour][data-side]").forEach(function(input){
+    input.addEventListener("change", function(event){
+        const file = event.target.files && event.target.files[0];
+        if(!file) return;
+        if(!file.type.startsWith("image/")){
+            alert("Please select a valid image file.");
+            event.target.value = "";
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = function(e){
+            const colour = input.dataset.colour;
+            const side = input.dataset.side;
+            selectedColorImages[colour][side] = e.target.result;
+            const preview = document.getElementById("preview-" + colour.toLowerCase() + "-" + side);
+            preview.src = e.target.result;
+            preview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+    });
+});
 
 
 /* =========================================
@@ -1231,15 +1332,26 @@ async function saveChanges(event){
 
 
     /* -----------------------------------------
-       IMAGE
+       IMAGE + COLOUR VARIANTS
     ----------------------------------------- */
 
     if(selectedImage){
-
-        updateData.image_url =
-            selectedImage;
-
+        updateData.image_url = selectedImage;
     }
+
+    const requiredColours = ["Black","Beige","White"];
+    const missingVariants = requiredColours.filter(function(colour){
+        return !selectedColorImages[colour].front || !selectedColorImages[colour].back;
+    });
+
+    if(missingVariants.length){
+        alert("Please upload both FRONT and BACK photos for: " + missingVariants.join(", ") + ".");
+        return;
+    }
+
+    updateData.color_images = selectedColorImages;
+    updateData.front_image = selectedColorImages.Black.front;
+    updateData.back_image = selectedColorImages.Black.back;
 
 
     /* -----------------------------------------

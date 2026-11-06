@@ -951,6 +951,16 @@ async function loadProduct(){
             // Use the image uploaded for this exact dashboard product.
             // Dashboard front/back uploads are separate gallery images.
             // Prefer these fields over image_url/combined_image, which may contain a collage.
+            baseFront: pick(
+                data.front_image || data.frontImage || data.image_url || data.image || data.product_image,
+                fallback ? fallback.front : ""
+            ),
+
+            baseBack: pick(
+                data.back_image || data.backImage,
+                fallback ? fallback.back : ""
+            ),
+
             front: pick(
                 data.front_image || data.frontImage || data.image_url || data.image || data.product_image,
                 fallback ? fallback.front : ""
@@ -960,6 +970,10 @@ async function loadProduct(){
                 data.back_image || data.backImage,
                 fallback ? fallback.back : ""
             ),
+
+            colorImages: data.color_images && typeof data.color_images === "object"
+                ? data.color_images
+                : {},
 
             combined: pick(
                 data.combined_image || data.combinedImage,
@@ -1010,9 +1024,9 @@ function renderProduct(){
         ).toLocaleString("en-IN");
 
 
-    document.getElementById("frontThumb").src = currentProduct.front;
+    applySelectedColorImages();
 
-    // Show the back-view thumbnail only when a separate back image is available.
+    // Show the selected colour's own front/back gallery images.
     const backThumbWrap = document.getElementById("backThumbWrap");
     const backThumb = document.getElementById("backThumb");
     if(currentProduct.back){
@@ -1155,8 +1169,59 @@ function syncColorSelection(){
     const label = document.getElementById("selectedColorLabel");
     if(label) label.textContent = selectedColor.toUpperCase();
 }
+function applySelectedColorImages(){
+    if(!currentProduct) return;
+
+    const variants = currentProduct.colorImages || {};
+    const variant = variants[selectedColor] || variants[selectedColor.toLowerCase()] || null;
+
+    // Use colour-specific images when uploaded; otherwise retain the product's default images.
+    currentProduct.front = variant && usable(variant.front)
+        ? variant.front
+        : (currentProduct.baseFront || currentProduct.front || "");
+
+    currentProduct.back = variant && usable(variant.back)
+        ? variant.back
+        : (currentProduct.baseBack || currentProduct.back || "");
+
+    const frontThumb = document.getElementById("frontThumb");
+    const backThumb = document.getElementById("backThumb");
+    const backThumbWrap = document.getElementById("backThumbWrap");
+    const mainImage = document.getElementById("mainProductImage");
+
+    if(frontThumb) frontThumb.src = currentProduct.front;
+    if(backThumbWrap && backThumb){
+        if(currentProduct.back){
+            backThumb.src = currentProduct.back;
+            backThumbWrap.style.display = "";
+        }else{
+            backThumbWrap.style.display = "none";
+        }
+    }
+
+    if(mainImage){
+        if(currentView === "back" && currentProduct.back){
+            mainImage.src = currentProduct.back;
+        }else if(currentView === "sizechart"){
+            mainImage.src = "size-chart-custom.svg";
+        }else{
+            currentView = "front";
+            mainImage.src = currentProduct.front;
+        }
+    }
+}
+
 function selectColor(color,button){
+    const variants = currentProduct && currentProduct.colorImages || {};
+    const variant = variants[color] || variants[color.toLowerCase()];
+
+    if(!variant || !usable(variant.front)){
+        alert("The " + color + " colour photos have not been uploaded for this product yet.");
+        return;
+    }
+
     selectedColor = color;
+    applySelectedColorImages();
     syncColorSelection();
 }
 
