@@ -1550,7 +1550,7 @@ BUILT FOR THE MAINSTREAM.
 
 <section class="shop-bar">
 
-<div class="product-count">
+<div class="product-count" id="productCount">
 
 7 PRODUCTS
 
@@ -2649,38 +2649,53 @@ function goToCheckout(){
    FILTER PRODUCTS
 ===================================================== */
 
+let activeShopFilter = "all";
+
+function normalizeShopTeam(value, product){
+    const raw = [
+        value,
+        product && product.brand,
+        product && product.collection,
+        product && product.team,
+        product && product.slug,
+        product && product.name
+    ].filter(Boolean).join(" ").toLowerCase().replace(/[^a-z0-9]/g,"");
+
+    if(raw.includes("ferrari")) return "ferrari";
+    if(raw.includes("mclaren")) return "mclaren";
+    if(raw.includes("mercedes")) return "mercedes";
+    if(raw.includes("redbull")) return "redbull";
+    return "all";
+}
+
+function updateShopProductCount(){
+    const count = document.getElementById("productCount");
+    if(!count) return;
+
+    const visible = Array.from(document.querySelectorAll("#productGrid .product"))
+        .filter(product => product.style.display !== "none").length;
+
+    count.textContent = visible + (visible === 1 ? " PRODUCT" : " PRODUCTS");
+}
+
 function filterProducts(team, button){
+    activeShopFilter = team || "all";
 
-    const products =
-        document.querySelectorAll(".product");
-
-    document
-        .querySelectorAll(".filter")
-        .forEach(function(item){
-
-            item.classList.remove("active");
-
-        });
-
-    button.classList.add("active");
-
-    products.forEach(function(product){
-
-        if(
-            team === "all" ||
-            product.dataset.team === team
-        ){
-
-            product.style.display = "";
-
-        }else{
-
-            product.style.display = "none";
-
-        }
-
+    document.querySelectorAll(".filter").forEach(function(item){
+        item.classList.toggle("active", item === button);
     });
 
+    document.querySelectorAll("#productGrid .product").forEach(function(product){
+        const productTeam = normalizeShopTeam(product.dataset.team, {
+            name: product.dataset.name,
+            slug: product.dataset.slug
+        });
+
+        const matches = activeShopFilter === "all" || productTeam === activeShopFilter;
+        product.style.display = matches ? "" : "none";
+    });
+
+    updateShopProductCount();
 }
 
 
@@ -2885,7 +2900,7 @@ async function loadShopProducts(){
     : "https://digitalnexa-ctrl.github.io/mainstream/" + imageFile;
         const price = Number(product.price || 0);
 
-        const team = product.category || "all";
+        const team = normalizeShopTeam(product.category, product);
 
         const collection =
             team === "all"
@@ -2897,7 +2912,8 @@ async function loadShopProducts(){
         card.className = "product";
 
         card.dataset.team = team;
-        card.dataset.name = product.name;
+        card.dataset.name = product.name || "";
+        card.dataset.slug = product.slug || "";
 
         card.innerHTML = `
             <div class="product-image">
@@ -2960,8 +2976,11 @@ async function loadShopProducts(){
 
     if(productCount){
         productCount.textContent =
-            data.length + " PRODUCTS";
+            data.length + (data.length === 1 ? " PRODUCT" : " PRODUCTS");
     }
+
+    // Re-apply the selected brand after Supabase replaces the fallback cards.
+    filterProducts(activeShopFilter, document.querySelector(".filter.active"));
 
     console.log(
         "MAINSTREAM products loaded:",
