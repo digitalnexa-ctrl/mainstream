@@ -559,23 +559,11 @@ alt="Back">
 
 
 <div
-class="thumb combined"
-onclick="showImage('combined',this)">
-
-<img
-id="combinedThumb"
-src="mainstream-logo.png"
-alt="Combined">
-
-</div>
-
-
-<div
 class="thumb sizechart"
 onclick="showImage('sizechart',this)">
 
 <img
-src="size-chart.svg"
+src="size-chart.png"
 alt="Oversized T-shirt size chart">
 
 </div>
@@ -594,9 +582,7 @@ class="main-photo front"
 src="mainstream-logo.png"
 alt="Product front view">
 
-<div class="drag-label">
-↔ DRAG TO ROTATE
-</div>
+
 
 </div>
 
@@ -1003,12 +989,6 @@ function renderProduct(){
 
 
     document.getElementById(
-        "combinedThumb"
-    ).src =
-        currentProduct.combined;
-
-
-    document.getElementById(
         "mainProductImage"
     ).src =
         currentProduct.front;
@@ -1090,18 +1070,10 @@ function showImage(type,button){
     }
 
 
-    else if(type === "combined"){
-
-        mainImage.src =
-            currentProduct.combined;
-
-    }
-
-
     else if(type === "sizechart"){
 
         mainImage.src =
-            "size-chart.svg";
+            "size-chart.png";
 
     }
 
@@ -1374,7 +1346,6 @@ function nextGallery(){
     const views = [
         "front",
         "back",
-        "combined",
         "sizechart"
     ];
 
@@ -1414,7 +1385,6 @@ function previousGallery(){
     const views = [
         "front",
         "back",
-        "combined",
         "sizechart"
     ];
 
@@ -1504,4 +1474,12 @@ updateCartCount();
 .main-photo.front { object-fit: contain !important; object-position: center !important; }
 .main-photo.sizechart { object-fit: contain !important; background: #fff !important; }
 .thumb.combined { display:none !important; }
+</style>
+
+<style>
+/* Final gallery correction: separate front/back photos and supplied size chart. */
+.main-image-box { background:#f3f3f0 !important; }
+.main-photo { width:100% !important; height:100% !important; object-fit:contain !important; object-position:center !important; }
+.main-photo.sizechart { background:#fff !important; }
+.thumb.combined, .drag-label { display:none !important; }
 </style>
