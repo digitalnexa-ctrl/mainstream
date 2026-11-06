@@ -471,7 +471,7 @@ BACK TO HOME
 <p class="demo-note">
 
 This is a demo order confirmation.
-No real payment has been processed.
+No real payment has been processed. This order will be marked unpaid.
 
 </p>
 
@@ -479,7 +479,12 @@ No real payment has been processed.
 </main>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
 <script>
+
+const mainstreamOrdersDB = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+let supabaseOrderSaveStarted = false;
 
 /* ==============================
    GET PRICE
@@ -826,7 +831,45 @@ function renderOrder(){
             "en-IN"
         );
 
+    saveDemoOrderToSupabase(order, getOrderNumber(), total);
 }
+
+async function saveDemoOrderToSupabase(order, orderNumber, total){
+    if(supabaseOrderSaveStarted) return;
+    supabaseOrderSaveStarted = true;
+
+    const row = {
+        order_number: orderNumber,
+        customer_name: "Guest Customer",
+        items: order.items.map(function(item){
+            return {
+                id: item.id || null,
+                slug: item.slug || null,
+                name: item.name || "MAINSTREAM PRODUCT",
+                image: item.image || null,
+                size: item.size || "M",
+                quantity: Number(item.quantity) || 1,
+                unit_price: getPrice(item.price)
+            };
+        }),
+        total: Number(total) || 0,
+        payment_method: formatPaymentMethod(order.payment),
+        payment_status: "unpaid_demo",
+        order_status: "pending_payment"
+    };
+
+    const { error } = await mainstreamOrdersDB
+        .from("orders")
+        .upsert(row, { onConflict: "order_number", ignoreDuplicates: true });
+
+    const note = document.querySelector(".demo-note");
+    if(note){
+        note.textContent = error
+            ? "Demo order shown here only. Central order saving is not configured yet; please contact the store."
+            : "Demo order recorded. Payment is NOT processed and this order is marked unpaid.";
+    }
+}
+
 
 
 /* ==============================
