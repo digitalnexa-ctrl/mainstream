@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Shipping — MAINSTREAM™</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f4f1;
+  color:#070707;
+}
+
+.header{
+  background:#fff;
+  border-bottom:1px solid #ddd;
+  padding:20px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  width:190px;
+  max-width:45vw;
+}
+
+.back{
+  color:#070707;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:bold;
+  letter-spacing:1px;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:60px 5%;
+}
+
+.steps{
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:3px;
+  margin-bottom:20px;
+}
+
+h1{
+  font-size:clamp(45px,8vw,80px);
+  line-height:.85;
+  letter-spacing:-4px;
+  margin-bottom:45px;
+}
+
+.layout{
+  display:grid;
+  grid-template-columns:1.4fr .8fr;
+  gap:50px;
+}
+
+.form-box,
+.summary{
+  background:#fff;
+  padding:30px;
+}
+
+h2{
+  font-size:22px;
+  margin-bottom:30px;
+  letter-spacing:1px;
+}
+
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+}
+
+.field{
+  margin-bottom:20px;
+}
+
+label{
+  display:block;
+  font-size:11px;
+  font-weight:bold;
+  letter-spacing:1px;
+  margin-bottom:8px;
+}
+
+input,
+select{
+  width:100%;
+  padding:15px;
+  border:1px solid #bbb;
+  background:#fff;
+  font-size:15px;
+  outline:none;
+}
+
+input:focus,
+select:focus{
+  border:2px solid #070707;
+}
+
+.continue{
+  width:100%;
+  margin-top:10px;
+  padding:18px;
+  border:0;
+  background:#ffe000;
+  color:#070707;
+  font-size:14px;
+  font-weight:900;
+  letter-spacing:1px;
+  cursor:pointer;
+}
+
+.continue:active{
+  transform:scale(.99);
+}
+
+.summary h2{
+  margin-bottom:20px;
+}
+
+.summary-item{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  padding:15px 0;
+  border-bottom:1px solid #ddd;
+  font-size:13px;
+}
+
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  padding:15px 0;
+  font-size:14px;
+}
+
+.total{
+  border-top:1px solid #070707;
+  margin-top:10px;
+  padding-top:20px;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.empty{
+  padding:20px 0;
+  font-size:13px;
+  color:#666;
+}
+
+@media(max-width:800px){
+
+  .header{
+    padding:15px 20px;
+  }
+
+  .logo{
+    width:170px;
+  }
+
+  .container{
+    padding:40px 20px;
+  }
+
+  .layout{
+    grid-template-columns:1fr;
+    gap:25px;
+  }
+
+  .form-box,
+  .summary{
+    padding:22px;
+  }
+
+  .row{
+    grid-template-columns:1fr;
+    gap:0;
+  }
+
+  h1{
+    font-size:60px;
+  }
+
+}
+/* =====================================================
+   MAINSTREAM™ — PREMIUM SHIPPING PAGE
+   ===================================================== */
+
+body{
+    background:#f5f5f0;
+}
+
+.shipping-container{
+    max-width:1200px;
+    margin:0 auto;
+    padding:70px 5% 100px;
+}
+
+.shipping-title{
+    font-size:clamp(55px,8vw,110px);
+    line-height:.82;
+    letter-spacing:-6px;
+    text-transform:uppercase;
+    margin-bottom:25px;
+}
+
+.shipping-intro{
+    max-width:600px;
+    color:#666;
+    line-height:1.8;
+    margin-bottom:55px;
+}
+
+.shipping-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+.shipping-card{
+    position:relative;
+    background:#fff;
+    border:1px solid #deded8;
+    padding:35px;
+    min-height:190px;
+    transition:.35s ease;
+}
+
+.shipping-card::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    width:4px;
+    height:0;
+    background:#ffd900;
+    transition:.35s ease;
+}
+
+.shipping-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 18px 40px rgba(0,0,0,.09);
+}
+
+.shipping-card:hover::before{
+    height:100%;
+}
+
+.shipping-card h2{
+    font-size:17px;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    margin-bottom:18px;
+}
+
+.shipping-card p{
+    color:#666;
+    line-height:1.8;
+}
+
+@media(max-width:700px){
+
+    .shipping-container{
+        padding:45px 18px 70px;
+    }
+
+    .shipping-title{
+        font-size:58px;
+        letter-spacing:-4px;
+    }
+
+    .shipping-grid{
+        grid-template-columns:1fr;
+    }
+
+    .shipping-card{
+        padding:25px;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+
+<header class="header">
+
+  <a href="index.html">
+    <img
+      src="mainstream-logo.png"
+      class="logo"
+      alt="MAINSTREAM™"
+    >
+  </a>
+
+  <a href="cart.html" class="back">
+    ← BACK TO CART
+  </a>
+
+</header>
+
+
+<main class="container">
+
+  <div class="steps">
+    01 CART &nbsp; / &nbsp; 02 SHIPPING &nbsp; / &nbsp; 03 PAYMENT
+  </div>
+
+  <h1>
+    SHIPPING
+  </h1>
+
+
+  <div class="layout">
+
+
+    <!-- SHIPPING FORM -->
+
+    <section class="form-box">
+
+      <h2>DELIVERY DETAILS</h2>
+
+      <form id="shippingForm">
+
+        <div class="row">
+
+          <div class="field">
+
+            <label for="firstName">
+              FIRST NAME
+            </label>
+
+            <input
+              type="text"
+              id="firstName"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="lastName">
+              LAST NAME
+            </label>
+
+            <input
+              type="text"
+              id="lastName"
+              required
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="email">
+            EMAIL ADDRESS
+          </label>
+
+          <input
+            type="email"
+            id="email"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="phone">
+            PHONE NUMBER
+          </label>
+
+          <input
+            type="tel"
+            id="phone"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="address">
+            ADDRESS
+          </label>
+
+          <input
+            type="text"
+            id="address"
+            required
+          >
+
+        </div>
+
+
+        <div class="row">
+
+          <div class="field">
+
+            <label for="city">
+              CITY
+            </label>
+
+            <input
+              type="text"
+              id="city"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="pincode">
+              PINCODE
+            </label>
+
+            <input
+              type="text"
+              id="pincode"
+              inputmode="numeric"
+              required
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="state">
+            STATE
+          </label>
+
+          <select id="state" required>
+
+            <option value="">
+              SELECT STATE
+            </option>
+
+            <option>Tamil Nadu</option>
+            <option>Kerala</option>
+            <option>Karnataka</option>
+            <option>Andhra Pradesh</option>
+            <option>Telangana</option>
+            <option>Maharashtra</option>
+            <option>Delhi</option>
+            <option>Other</option>
+
+          </select>
+
+        </div>
+
+
+        <button
+          type="submit"
+          class="continue"
+        >
+          CONTINUE TO PAYMENT →
+        </button>
+
+      </form>
+
+    </section>
+
+
+    <!-- ORDER SUMMARY -->
+
+    <aside class="summary">
+
+      <h2>ORDER SUMMARY</h2>
+
+      <div id="items"></div>
+
+
+      <div class="summary-row">
+
+        <span>Shipping</span>
+
+        <strong>₹0</strong>
+
+      </div>
+
+
+      <div class="summary-row total">
+
+        <span>TOTAL</span>
+
+        <strong id="total">
+          ₹0
+        </strong>
+
+      </div>
+
+    </aside>
+
+  </div>
+
+</main>
+
+
+<script>
+
+const buyNow =
+    JSON.parse(
+        localStorage.getItem("mainstreamBuyNow")
+    );
+
+const cart =
+    buyNow
+        ? [buyNow]
+        : (
+            JSON.parse(
+                localStorage.getItem("mainstreamCart")
+            ) || []
+        );
+
+
+const items =
+  document.getElementById("items");
+
+const totalElement =
+  document.getElementById("total");
+
+
+/* ORDER SUMMARY */
+
+let total = 0;
+
+
+if(cart.length === 0){
+
+  items.innerHTML = `
+    <div class="empty">
+      YOUR CART IS EMPTY.
+    </div>
+  `;
+
+}else{
+
+  cart.forEach(item => {
+
+    const price =
+    parseInt(
+        String(item.price).replace(/[^\d]/g,"")
+    ) || 0;
+
+    const quantity =
+      Number(item.quantity) || 1;
+
+    const itemTotal =
+      price * quantity;
+
+    total += itemTotal;
+
+
+    items.innerHTML += `
+
+      <div class="summary-item">
+
+        <span>
+          ${item.name} × ${quantity}
+        </span>
+
+        <strong>
+          ₹${itemTotal}
+        </strong>
+
+      </div>
+
+    `;
+
+  });
+
+}
+
+
+totalElement.textContent =
+  "₹" + total.toLocaleString("en-IN");
+
+
+/* SAVE SHIPPING + GO TO PAYMENT */
+
+document
+  .getElementById("shippingForm")
+  .addEventListener("submit", function(event){
+
+    event.preventDefault();
+
+
+    const shipping = {
+
+      firstName:
+        document
+        .getElementById("firstName")
+        .value
+        .trim(),
+
+      lastName:
+        document
+        .getElementById("lastName")
+        .value
+        .trim(),
+
+      email:
+        document
+        .getElementById("email")
+        .value
+        .trim(),
+
+      phone:
+        document
+        .getElementById("phone")
+        .value
+        .trim(),
+
+      address:
+        document
+        .getElementById("address")
+        .value
+        .trim(),
+
+      city:
+        document
+        .getElementById("city")
+        .value
+        .trim(),
+
+      pincode:
+        document
+        .getElementById("pincode")
+        .value
+        .trim(),
+
+      state:
+        document
+        .getElementById("state")
+        .value
+
+    };
+
+
+    localStorage.setItem(
+      "mainstreamShipping",
+      JSON.stringify(shipping)
+    );
+
+
+    window.location.href =
+      "payment.html";
+
+  });
+// Restore previously entered delivery details
+const savedShipping = localStorage.getItem("mainstreamShipping");
+
+if (savedShipping) {
+
+  const shipping = JSON.parse(savedShipping);
+
+  Object.keys(shipping).forEach(function(key) {
+
+    const field = document.getElementById(key);
+
+    if (field) {
+      field.value = shipping[key];
+    }
+
+  });
+
+}
+</script>
+
+
+<section style="max-width:1000px;margin:40px auto;padding:30px 6%;line-height:1.8"><h2>MAINSTREAM™ SHIPPING POLICY</h2><p>Free shipping on every order in available locations. Online payments only; Cash on Delivery (COD) is not available yet.</p><p>Orders are processed within 1–3 business days. Delivery usually takes 2–7 business days after dispatch. Tracking details will be shared when available.</p><p>Delays may occur due to courier operations, weather or holidays. Please provide a correct delivery address and phone number.</p><p>Support: 10 AM–10 PM · <a href="mailto:mainstreamofworld@gmail.com">mainstreamofworld@gmail.com</a></p></section>
+</body>
+</html>
