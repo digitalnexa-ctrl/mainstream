@@ -3053,30 +3053,39 @@ const mainstreamAuth = supabase.createClient(
     SUPABASE_PUBLISHABLE_KEY
 );
 
+let dashboardOrders = [];
+
 async function loadDashboardOrders(){
     const body = document.getElementById("recentOrdersBody");
     try{
         const { data, error } = await mainstreamAuth
             .from("orders")
             .select("order_number, customer_name, items, total, payment_status, order_status, created_at")
-            .order("created_at", { ascending:false })
-            .limit(5);
+            .order("created_at", { ascending:false });
         if(error) throw error;
 
         const orders = data || [];
-        const revenue = orders.reduce((sum, order) =>
+        dashboardOrders = orders;
+        const now = new Date();
+        const monthOrders = orders.filter(order => {
+            const date = new Date(order.created_at);
+            return date.getFullYear() === now.getFullYear() && date.getMonth() === now.getMonth();
+        });
+        const paidRevenue = list => list.reduce((sum, order) =>
             ["paid","captured"].includes(String(order.payment_status || "").toLowerCase())
                 ? sum + Number(order.total || 0) : sum, 0);
+        const totalRevenue = paidRevenue(orders);
+        const monthRevenue = paidRevenue(monthOrders);
 
         const countEl = document.getElementById("ordersValue");
         const revenueEl = document.getElementById("revenueValue");
         const salesEl = document.getElementById("salesValue");
         if(countEl) countEl.textContent = orders.length;
-        if(revenueEl) revenueEl.textContent = "₹" + revenue.toLocaleString("en-IN");
-        if(salesEl) salesEl.textContent = "₹" + revenue.toLocaleString("en-IN");
+        if(revenueEl) revenueEl.textContent = "₹" + totalRevenue.toLocaleString("en-IN");
+        if(salesEl) salesEl.textContent = "₹" + monthRevenue.toLocaleString("en-IN");
 
         if(body){
-            body.innerHTML = orders.length ? orders.map(order => {
+            body.innerHTML = orders.length ? orders.slice(0,5).map(order => {
                 const first = Array.isArray(order.items) ? order.items[0] : {};
                 const productLabel = first && first.name
                     ? first.name + (order.items.length > 1 ? " +" + (order.items.length-1) + " more" : "")
@@ -3166,7 +3175,7 @@ async function updateProductCount(){
             outOfStock++;
 
         }
-        else if(stock <= 5){
+        else if(stock <= 10){
 
             lowStock++;
 
