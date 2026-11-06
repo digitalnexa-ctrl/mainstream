@@ -529,19 +529,39 @@ body{
 
 <script>
 
+
+// Keep checkout amounts aligned with the current MAINSTREAM catalogue price.
+function normalizeCurrentProductPrices(items){
+    if(!Array.isArray(items)) return [];
+    let changed = false;
+    items.forEach(function(item){
+        if(!item || typeof item !== "object") return;
+        const amount = parseInt(String(item.price).replace(/[^\d]/g,""),10) || 0;
+        if(amount === 999){
+            item.price = 899;
+            changed = true;
+        }
+    });
+    return items;
+}
+
 const buyNow =
     JSON.parse(
         localStorage.getItem("mainstreamBuyNow")
     );
 
-const cart =
+const cart = normalizeCurrentProductPrices(
     buyNow
-        ? [buyNow]
-        : (
-            JSON.parse(
-                localStorage.getItem("mainstreamCart")
-            ) || []
-        );
+        ? (Array.isArray(buyNow) ? buyNow : [buyNow])
+        : (JSON.parse(localStorage.getItem("mainstreamCart")) || [])
+);
+
+// Persist corrected prices so every checkout step uses the same amounts.
+if(buyNow){
+    localStorage.setItem("mainstreamBuyNow", JSON.stringify(Array.isArray(buyNow) ? cart : cart[0]));
+}else{
+    localStorage.setItem("mainstreamCart", JSON.stringify(cart));
+}
 
 
 const items =
