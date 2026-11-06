@@ -575,8 +575,8 @@ class="thumb sizechart"
 onclick="showImage('sizechart',this)">
 
 <img
-src="size-chart.png"
-alt="Size Chart">
+src="size-chart.svg"
+alt="Oversized T-shirt size chart">
 
 </div>
 
@@ -592,7 +592,7 @@ id="imageBox">
 id="mainProductImage"
 class="main-photo front"
 src="mainstream-logo.png"
-alt="Product">
+alt="Product front view">
 
 <div class="drag-label">
 ↔ DRAG TO ROTATE
@@ -1122,7 +1122,7 @@ function showImage(type,button){
     else if(type === "sizechart"){
 
         mainImage.src =
-            "size-chart.png";
+            "size-chart.svg";
 
     }
 
@@ -1505,4 +1505,17 @@ updateCartCount();
   .size-option { min-width:54px !important; padding:12px 14px !important; }
   .add-cart, .buy-now { padding:16px !important; font-size:15px !important; }
 }
+</style>
+
+<style>
+
+/* Product gallery: show the actual front product photo first; hide the combined collage thumbnail. */
+.thumb.combined { display:none !important; }
+.main-photo.front { object-fit:contain; object-position:center; background:#f3f3f0; }
+.main-photo.sizechart { object-fit:contain; background:#fff; }
+@media (max-width:700px) {
+  .main-image-box { height:auto !important; aspect-ratio: 4 / 5; }
+  .main-photo.front { object-fit:contain; }
+}
+
 </style>
