@@ -2952,10 +2952,21 @@ async function loadShopProducts(){
 
     data.forEach(function(product, index){
 
-        // Match the approved storefront reference: use the single front product photo.
+        // Use the exact first/front image configured on the individual Product page.
+        const frontImages = {
+            max: "max-front.png",
+            lewis: "lewis-front.png",
+            charles: "charles-front.png",
+            lando: "lando-front.png",
+            oscar: "oscar-front.png",
+            george: "george-front.png",
+            kimi: "kimi-front.png"
+        };
+
         const imageFile =
-            product.image_url ||
+            frontImages[String(product.slug || "").toLowerCase()] ||
             product.front_image ||
+            product.image_url ||
             product.combined_image ||
             "";
 
