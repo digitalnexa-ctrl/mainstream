@@ -551,7 +551,20 @@ onclick="showImage('front',this)">
 <img
 id="frontThumb"
 src="mainstream-logo.png"
-alt="Front">
+alt="Front view">
+
+</div>
+
+
+<div
+class="thumb back"
+id="backThumbWrap"
+onclick="showImage('back',this)">
+
+<img
+id="backThumb"
+src="mainstream-logo.png"
+alt="Back view">
 
 </div>
 
@@ -936,8 +949,10 @@ async function loadProduct(){
             price: Number(data.price) > 0 ? Number(data.price) : (fallback && fallback.price) || 0,
 
             // Use the image uploaded for this exact dashboard product.
+            // Dashboard front/back uploads are separate gallery images.
+            // Prefer these fields over image_url/combined_image, which may contain a collage.
             front: pick(
-                data.image_url || data.combined_image || data.front_image || data.frontImage || data.image || data.product_image,
+                data.front_image || data.frontImage || data.image_url || data.image || data.product_image,
                 fallback ? fallback.front : ""
             ),
 
@@ -995,11 +1010,17 @@ function renderProduct(){
         ).toLocaleString("en-IN");
 
 
-    document.getElementById(
-        "frontThumb"
-    ).src =
-        currentProduct.front;
+    document.getElementById("frontThumb").src = currentProduct.front;
 
+    // Show the back-view thumbnail only when a separate back image is available.
+    const backThumbWrap = document.getElementById("backThumbWrap");
+    const backThumb = document.getElementById("backThumb");
+    if(currentProduct.back){
+        backThumb.src = currentProduct.back;
+        backThumbWrap.style.display = "";
+    }else{
+        backThumbWrap.style.display = "none";
+    }
 
     const mainProductImage =
         document.getElementById("mainProductImage");
@@ -1389,6 +1410,7 @@ function nextGallery(){
 
     const views = [
         "front",
+        ...(currentProduct && currentProduct.back ? ["back"] : []),
         "sizechart"
     ];
 
@@ -1427,6 +1449,7 @@ function previousGallery(){
 
     const views = [
         "front",
+        ...(currentProduct && currentProduct.back ? ["back"] : []),
         "sizechart"
     ];
 
