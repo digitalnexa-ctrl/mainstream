@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Us | MAINSTREAM™</title>
+<link rel="icon" href="mainstream-logo.png">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--yellow:#ffdf00;--ink:#080808;--paper:#f5f5f1}
+body{font-family:Inter,Arial,sans-serif;background:var(--paper);color:var(--ink)}
+a{color:inherit;text-decoration:none}
+.site-header{height:70px;background:var(--yellow);display:flex;align-items:center;justify-content:space-between;padding:0 4.3%;gap:20px}
+.logo img{display:block;width:clamp(155px,18vw,270px);height:auto;max-height:38px;object-fit:contain}
+.header-actions{display:flex;align-items:center;gap:24px}
+.header-actions a{font-size:22px;line-height:1}
+.cart{background:#080808;color:white;padding:12px 20px;font-size:10px;font-weight:900;letter-spacing:1.5px}
+main{min-height:510px;padding:40px 4.3% 48px;display:flex;flex-direction:column;justify-content:flex-start}
+.eyebrow{display:flex;align-items:center;gap:17px;font-size:11px;font-weight:800;letter-spacing:2.4px;margin:0 0 20px}
+.eyebrow:before{content:"";width:48px;height:5px;background:var(--yellow);display:block}
+h1{font-size:clamp(58px,8vw,108px);font-weight:900;line-height:.78;letter-spacing:-.065em;text-transform:uppercase;max-width:800px;margin-bottom:28px}
+.copy{max-width:640px;font-size:15px;line-height:1.52;color:#171717}
+.copy p{margin-bottom:14px}
+.closing{font-size:clamp(20px,2.4vw,29px);line-height:1.02;font-weight:900;letter-spacing:-.03em;margin-top:18px}
+footer{background:#080808;color:#fff;padding:28px 4.3% 18px;display:grid;grid-template-columns:1.2fr 1fr;gap:30px;min-height:190px}
+.footer-logo{display:inline-flex;background:var(--yellow);padding:10px 13px;align-items:center}
+.footer-logo img{width:205px;max-width:100%;height:auto;display:block}
+.info{justify-self:center;min-width:210px}
+.info h2{font-size:10px;letter-spacing:2px;color:var(--yellow);margin-bottom:10px}
+.info a{display:block;font-size:12px;line-height:1.65;color:#ddd}
+.copyright{grid-column:1/-1;border-top:1px solid #383838;padding-top:14px;font-size:10px;color:#aaa}
+@media(max-width:600px){
+ .site-header{height:64px;padding:0 18px}
+ .logo img{width:155px}
+ .header-actions{gap:13px}
+ .header-actions a{font-size:19px}
+ .cart{padding:10px 12px;font-size:9px}
+ main{min-height:480px;padding:38px 22px 42px}
+ h1{font-size:clamp(52px,13vw,76px);line-height:.83}
+ .copy{font-size:14px}
+ footer{grid-template-columns:1fr 1fr;padding:28px 22px 18px;gap:25px}
+ .info{justify-self:end;min-width:0}
+ .footer-logo img{width:145px}
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+ <a class="logo" href="index.html" aria-label="MAINSTREAM home"><img src="mainstream-logo.png" alt="MAINSTREAM™"></a>
+ <nav class="header-actions" aria-label="Quick links">
+  <a href="shop.html" aria-label="Search">⌕</a>
+  <a href="login.html" aria-label="Account">♙</a>
+  <a href="wishlist.html" aria-label="Wishlist">♡</a>
+  <a class="cart" href="cart.html">CART 🛒</a>
+ </nav>
+</header>
+<main>
+ <div class="eyebrow">ABOUT US</div>
+ <h1>BUILT FOR<br>THE MAIN.</h1>
+ <div class="copy">
+  <p>MAINSTREAM™ is for people who don’t fit into just one category. We create clothing inspired by pop culture, music, sports, racing, memes, social media, streetwear, trends and everyday life — turning the things people love into designs they can wear.</p>
+  <p>Our goal is simple: create pieces that feel relatable, expressive and connected to the world around us.</p>
+ </div>
+ <div class="closing">DIFFERENT INTERESTS.<br>ONE COMMUNITY.</div>
+</main>
+<footer>
+ <div><a class="footer-logo" href="index.html"><img src="mainstream-logo.png" alt="MAINSTREAM™"></a></div>
+ <div class="info">
+  <h2>INFORMATION</h2>
+  <a href="privacy.html">Privacy Policy</a>
+  <a href="returns.html">Refund Policy</a>
+  <a href="terms.html">Terms of Service</a>
+  <a href="shipping.html">Shipping Policy</a>
+  <a href="mailto:mainstreamofworld@gmail.com">Contact Information</a>
+ </div>
+ <div class="copyright">© 2026 MAINSTREAM™. ALL RIGHTS RESERVED.</div>
+</footer>
+</body>
+</html>
