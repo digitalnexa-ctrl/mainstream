@@ -570,11 +570,13 @@ alt="Back">
 
 <div
 class="thumb sizechart"
+title="View size chart"
+aria-label="View compulsory oversized T-shirt size chart"
 onclick="showImage('sizechart',this)">
 
 <img
 src="size-chart-custom.svg"
-alt="Oversized T-shirt size chart">
+alt="MAINSTREAM oversized T-shirt size chart">
 
 </div>
 
@@ -943,11 +945,22 @@ async function loadProduct(){
                         ? Number(data.price)
                         : Number(fallback.price || 999),
 
-                front: fallback.front,
+                // Prefer the exact images saved for this Supabase product.
+                // The local fallback is used only when an image field is empty.
+                front: pick(
+                    data.front_image || data.frontImage || data.image_url || data.image || data.product_image,
+                    fallback.front
+                ),
 
-                back: fallback.back,
+                back: pick(
+                    data.back_image || data.backImage,
+                    fallback.back
+                ),
 
-                combined: fallback.combined,
+                combined: pick(
+                    data.combined_image || data.combinedImage,
+                    fallback.combined
+                ),
 
                 description:
                     data.description || ""
