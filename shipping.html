@@ -545,10 +545,10 @@ function normalizeCurrentProductPrices(items){
     return items;
 }
 
-const buyNow =
-    JSON.parse(
-        localStorage.getItem("mainstreamBuyNow")
-    );
+const checkoutMode = localStorage.getItem("mainstreamCheckoutMode") || "buynow";
+const buyNow = checkoutMode === "cart"
+    ? null
+    : JSON.parse(localStorage.getItem("mainstreamBuyNow"));
 
 const cart = normalizeCurrentProductPrices(
     buyNow
