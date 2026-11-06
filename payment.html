@@ -742,6 +742,22 @@ Please select a payment method.
    CART
 ========================= */
 
+
+// Keep checkout amounts aligned with the current MAINSTREAM catalogue price.
+function normalizeCurrentProductPrices(items){
+    if(!Array.isArray(items)) return [];
+    let changed = false;
+    items.forEach(function(item){
+        if(!item || typeof item !== "object") return;
+        const amount = parseInt(String(item.price).replace(/[^\d]/g,""),10) || 0;
+        if(amount === 999){
+            item.price = 899;
+            changed = true;
+        }
+    });
+    return items;
+}
+
 function getCart(){
     try{
 
@@ -751,14 +767,14 @@ function getCart(){
             );
 
         if(buyNow){
-            return Array.isArray(buyNow)
-                ? buyNow
-                : [buyNow];
+            const items = normalizeCurrentProductPrices(Array.isArray(buyNow) ? buyNow : [buyNow]);
+            localStorage.setItem("mainstreamBuyNow", JSON.stringify(Array.isArray(buyNow) ? items : items[0]));
+            return items;
         }
 
-        return JSON.parse(
-            localStorage.getItem("mainstreamCart")
-        ) || [];
+        const items = normalizeCurrentProductPrices(JSON.parse(localStorage.getItem("mainstreamCart")) || []);
+        localStorage.setItem("mainstreamCart", JSON.stringify(items));
+        return items;
 
     }catch(error){
         return [];
