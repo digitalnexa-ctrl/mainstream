@@ -485,6 +485,22 @@ No real payment has been processed.
    GET PRICE
 ============================== */
 
+
+// Keep checkout amounts aligned with the current MAINSTREAM catalogue price.
+function normalizeCurrentProductPrices(items){
+    if(!Array.isArray(items)) return [];
+    let changed = false;
+    items.forEach(function(item){
+        if(!item || typeof item !== "object") return;
+        const amount = parseInt(String(item.price).replace(/[^\d]/g,""),10) || 0;
+        if(amount === 999){
+            item.price = 899;
+            changed = true;
+        }
+    });
+    return items;
+}
+
 function getPrice(price){
 
     if(typeof price === "number"){
@@ -519,6 +535,9 @@ function getOrder(){
             savedOrder.items.length > 0
         ){
 
+            savedOrder.items = normalizeCurrentProductPrices(savedOrder.items);
+            savedOrder.total = savedOrder.items.reduce((sum,item) => sum + getPrice(item.price) * (Number(item.quantity) || 1), 0);
+            localStorage.setItem("mainstreamOrder", JSON.stringify(savedOrder));
             return savedOrder;
         }
 
@@ -535,10 +554,8 @@ function getOrder(){
 
         if(buyNow){
 
-            const items =
-                Array.isArray(buyNow)
-                ? buyNow
-                : [buyNow];
+            const items = normalizeCurrentProductPrices(Array.isArray(buyNow) ? buyNow : [buyNow]);
+            localStorage.setItem("mainstreamBuyNow", JSON.stringify(Array.isArray(buyNow) ? items : items[0]));
 
 
             return {
@@ -568,12 +585,8 @@ function getOrder(){
 
         /* NORMAL CART FALLBACK */
 
-        const cart =
-            JSON.parse(
-                localStorage.getItem(
-                    "mainstreamCart"
-                )
-            ) || [];
+        const cart = normalizeCurrentProductPrices(JSON.parse(localStorage.getItem("mainstreamCart")) || []);
+        localStorage.setItem("mainstreamCart", JSON.stringify(cart));
 
 
         return {
