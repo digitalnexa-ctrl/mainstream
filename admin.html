@@ -3051,6 +3051,57 @@ const mainstreamAuth = supabase.createClient(
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
 );
+
+async function loadDashboardOrders(){
+    const body = document.getElementById("recentOrdersBody");
+    try{
+        const { data, error } = await mainstreamAuth
+            .from("orders")
+            .select("order_number, customer_name, items, total, payment_status, order_status, created_at")
+            .order("created_at", { ascending:false })
+            .limit(5);
+        if(error) throw error;
+
+        const orders = data || [];
+        const revenue = orders.reduce((sum, order) =>
+            ["paid","captured"].includes(String(order.payment_status || "").toLowerCase())
+                ? sum + Number(order.total || 0) : sum, 0);
+
+        const countEl = document.getElementById("ordersValue");
+        const revenueEl = document.getElementById("revenueValue");
+        const salesEl = document.getElementById("salesValue");
+        if(countEl) countEl.textContent = orders.length;
+        if(revenueEl) revenueEl.textContent = "₹" + revenue.toLocaleString("en-IN");
+        if(salesEl) salesEl.textContent = "₹" + revenue.toLocaleString("en-IN");
+
+        if(body){
+            body.innerHTML = orders.length ? orders.map(order => {
+                const first = Array.isArray(order.items) ? order.items[0] : {};
+                const productLabel = first && first.name
+                    ? first.name + (order.items.length > 1 ? " +" + (order.items.length-1) + " more" : "")
+                    : "MAINSTREAM ORDER";
+                const status = String(order.payment_status || order.order_status || "pending").toUpperCase().replace(/_/g," ");
+                return `<tr>
+                    <td>#${escapeDashboardHTML(order.order_number)}</td>
+                    <td>${escapeDashboardHTML(order.customer_name || "Guest Customer")}</td>
+                    <td>${escapeDashboardHTML(productLabel)}</td>
+                    <td>₹${Number(order.total || 0).toLocaleString("en-IN")}</td>
+                    <td><span class="status ${status.includes("PAID") || status==="CAPTURED" ? "good" : "low"}">${escapeDashboardHTML(status)}</span></td>
+                </tr>`;
+            }).join("") : '<tr><td colspan="5" class="empty">No orders recorded yet.</td></tr>';
+        }
+    }catch(error){
+        console.error("Could not load Supabase orders:", error);
+        if(body) body.innerHTML = '<tr><td colspan="5" class="empty">Orders database setup is required. See supabase-orders-setup.sql.</td></tr>';
+    }
+}
+function escapeDashboardHTML(value){
+    return String(value ?? "").replace(/[&<>"']/g, char => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"
+    })[char]);
+}
+
+
 async function updateProductCount(){
 
     const { data, error } = await mainstreamAuth
@@ -3214,6 +3265,7 @@ async function checkAdminLogin(){
     console.log("MAINSTREAM admin authenticated");
 
    updateProductCount();
+   loadDashboardOrders();
    }
 
 checkAdminLogin();
