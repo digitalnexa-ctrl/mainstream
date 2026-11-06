@@ -1862,6 +1862,8 @@ body{
 
     <div class="top-actions">
 
+        <a class="panel-action" href="index.html" style="font-size:10px;padding:11px 14px;">← VIEW STORE</a>
+
         <button
             class="notification"
             onclick="openActivity()">
@@ -3160,7 +3162,45 @@ async function updateProductCount(){
     }
 
 }
-   async function checkAdminLogin(){
+   
+
+// =========================================
+// DASHBOARD NAVIGATION + SESSION CONTROLS
+// =========================================
+function go(page){
+    window.location.href = page;
+}
+
+function openActivity(){
+    window.location.href = "activity.html";
+}
+
+function showMessage(section){
+    alert(section + " section is not connected yet.");
+}
+
+async function logout(){
+    try{
+        await mainstreamAuth.auth.signOut();
+    }finally{
+        window.location.href = "login.html";
+    }
+}
+
+function setDashboardDate(){
+    const el = document.getElementById("currentDate");
+    if(el){
+        el.textContent = new Intl.DateTimeFormat("en-IN", {
+            month:"long",
+            year:"numeric"
+        }).format(new Date()).toUpperCase();
+    }
+}
+
+setDashboardDate();
+
+
+async function checkAdminLogin(){
 
     const {
         data: { session }
