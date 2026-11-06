@@ -3019,3 +3019,15 @@ loadShopProducts();
 .product-card:hover .product-image img { transform:none !important; }
 .product-image { background:#eeeeea !important; }
 </style>
+
+<style>
+/* Remove the extra framed/background box around each shop product image. */
+.product-image {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+}
+.product-image::after {
+    display: none !important;
+}
+</style>
