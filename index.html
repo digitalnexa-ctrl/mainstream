@@ -1334,6 +1334,34 @@ footer a:hover{
 
 @media(max-width:600px){
 
+    /* Mobile hero headline: keep WEAR / THE / MAIN clearly separated */
+    .hero .hero-copy .hero-title{
+        display:flex !important;
+        flex-direction:column !important;
+        align-items:flex-start !important;
+        gap:0 !important;
+        font-size:clamp(48px, 12vw, 58px) !important;
+        line-height:1.02 !important;
+        letter-spacing:-1.5px !important;
+        margin:22px 0 32px !important;
+        overflow:visible !important;
+    }
+    .hero .hero-copy .hero-title span{
+        display:block !important;
+        width:auto !important;
+        max-width:100% !important;
+        line-height:1.02 !important;
+        letter-spacing:-1.5px !important;
+        transform:none !important;
+    }
+    .hero .hero-copy .hero-title .yellow{
+        position:static !important;
+        color:#ffd900 !important;
+        -webkit-text-stroke:0 !important;
+        line-height:1.02 !important;
+        margin:0 !important;
+    }
+
     .announcement{
         font-size:8px;
         letter-spacing:1.5px;
