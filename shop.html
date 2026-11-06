@@ -3012,3 +3012,10 @@ loadShopProducts();
   .wishlist-btn, .view-btn, .add-btn { width:100% !important; min-height:42px !important; font-size:9px !important; }
 }
 </style>
+
+<style>
+/* Keep every shop product photo fully visible without zoom-cropping. */
+.product-image img { object-fit:contain !important; object-position:center !important; }
+.product-card:hover .product-image img { transform:none !important; }
+.product-image { background:#eeeeea !important; }
+</style>
