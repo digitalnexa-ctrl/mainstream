@@ -1492,3 +1492,9 @@ updateCartCount();
 .main-photo.sizechart { background:#fff !important; }
 .thumb.combined, .drag-label { display:none !important; }
 </style>
+
+<style>
+/* Keep product gallery photos and thumbnails fully visible. */
+.thumb img, .main-photo { object-fit:contain !important; object-position:center !important; }
+.main-image-box:hover .main-image { transform:none !important; }
+</style>
