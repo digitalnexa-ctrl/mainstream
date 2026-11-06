@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="945" viewBox="0 0 1536 945">
+<rect width="1536" height="945" fill="#fff"/>
+<g font-family="Arial,Helvetica,sans-serif" fill="#171717">
+<text x="765" y="145" font-size="66" font-weight="800" fill="#b94b4b">SIZE CHART - OVERSIZED</text>
+</g>
+<g fill="none" stroke="#222" stroke-width="9" stroke-linejoin="round">
+<path d="M250 260 L370 205 Q430 170 500 205 L620 260 L730 500 L650 545 L590 455 L590 790 L280 790 L280 455 L220 545 L140 500 Z"/>
+<path d="M370 205 Q380 285 435 300 Q490 285 500 205" stroke-width="7"/>
+<path d="M280 790 Q435 820 590 790" stroke-width="5"/>
+</g>
+<g stroke="#777" stroke-width="4" fill="none">
+<path d="M300 400 H570"/><path d="M300 400 l20 -12 M300 400 l20 12 M570 400 l-20 -12 M570 400 l-20 12"/>
+<path d="M250 300 V760"/><path d="M250 300 l-12 20 M250 300 l12 20 M250 760 l-12 -20 M250 760 l12 -20"/>
+<path d="M625 300 L710 485"/><path d="M625 300 l18 12 M625 300 l-3 21 M710 485 l-18 -12 M710 485 l3 -21"/>
+</g>
+<g font-family="Arial,Helvetica,sans-serif" fill="#333" font-size="34">
+<text x="365" y="385">Chest</text><text x="225" y="575" transform="rotate(-90 225 575)">Length</text><text x="675" y="390" transform="rotate(64 675 390)">Sleeve</text>
+</g>
+<g transform="translate(770 220)" font-family="Arial,Helvetica,sans-serif">
+<rect x="0" y="0" width="720" height="500" fill="#fff" stroke="#222" stroke-width="5"/>
+<g fill="#e9e9e9" stroke="#222" stroke-width="4">
+<rect x="0" y="0" width="720" height="100"/>
+<rect x="0" y="100" width="720" height="100" fill="#fff"/>
+<rect x="0" y="200" width="720" height="100" fill="#fff"/>
+<rect x="0" y="300" width="720" height="100" fill="#fff"/>
+<rect x="0" y="400" width="720" height="100" fill="#fff"/>
+<path d="M240 0 V500 M336 0 V500 M432 0 V500 M528 0 V500 M624 0 V500" fill="none"/>
+</g>
+<g fill="#111" font-size="34" font-weight="700" text-anchor="middle">
+<text x="120" y="64">SIZE</text><text x="288" y="64">S</text><text x="384" y="64">M</text><text x="480" y="64">L</text><text x="576" y="64">XL</text><text x="672" y="64">XXL</text>
+</g>
+<g fill="#333" font-size="31" text-anchor="middle">
+<text x="120" y="163">Chest</text><text x="288" y="163">41</text><text x="384" y="163">43</text><text x="480" y="163">45</text><text x="576" y="163">47</text><text x="672" y="163">49</text>
+<text x="120" y="263">Length</text><text x="288" y="263">27</text><text x="384" y="263">28</text><text x="480" y="263">29</text><text x="576" y="263">30</text><text x="672" y="263">31</text>
+<text x="120" y="363">Sleeve Length</text><text x="288" y="363">8.5</text><text x="384" y="363">9.5</text><text x="480" y="363">10.5</text><text x="576" y="363">11.5</text><text x="672" y="363">12.5</text>
+</g>
+<g fill="#333" font-size="22"><text x="120" y="490">Measurements in inches</text></g>
+</g>
+</svg>
