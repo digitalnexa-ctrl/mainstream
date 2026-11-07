@@ -238,11 +238,11 @@ header{
     color:white;
 }
 
-/* DEMO NOTE */
+/* PAYMENT CONFIRMATION NOTE */
 
 .demo-note{
-    margin-top:45px;
-    color:#777;
+    margin-top:30px;
+    color:#555;
     font-size:13px;
     line-height:1.6;
 }
@@ -395,9 +395,9 @@ ORDER CONFIRMED
 </h1>
 
 
-<p class="subtitle">
+<p class="subtitle" id="confirmationSubtitle">
 Thank you for shopping with MAINSTREAM™.<br>
-Your order has been successfully placed.
+Your payment has been verified.
 </p>
 
 
@@ -468,11 +468,8 @@ BACK TO HOME
 </div>
 
 
-<p class="demo-note">
-
-This is a demo order confirmation.
-No real payment has been processed. This order will be marked unpaid.
-
+<p class="demo-note" id="confirmationNote" style="margin-top:30px;color:#555;font-size:13px">
+Your payment was verified securely by Razorpay.
 </p>
 
 
@@ -698,8 +695,20 @@ function renderOrder(){
         );
 
 
-    orderNumberElement.textContent =
-        getOrderNumber();
+    if(order.paymentStatus !== "paid" || !order.orderNumber){
+        document.querySelector(".check-circle").style.display = "none";
+        document.querySelector(".confirmation h1").textContent = "PAYMENT NOT VERIFIED";
+        document.getElementById("confirmationSubtitle").textContent =
+            "We cannot confirm this order yet. Please do not assume payment was successful.";
+        document.querySelector(".order-box").style.display = "none";
+        document.querySelector(".buttons").innerHTML =
+            '<a href="payment.html" class="shop-btn">RETURN TO PAYMENT</a><a href="mailto:mainstreamofworld@gmail.com" class="home-btn">CONTACT SUPPORT</a>';
+        document.getElementById("confirmationNote").textContent =
+            "If money was debited, contact MAINSTREAM support with your Razorpay payment reference before attempting another payment.";
+        return;
+    }
+
+    orderNumberElement.textContent = order.orderNumber;
 
 
     paymentElement.textContent =
@@ -831,46 +840,9 @@ function renderOrder(){
             "en-IN"
         );
 
-    saveDemoOrderToSupabase(order, getOrderNumber(), total);
+    const note = document.getElementById("confirmationNote");
+    if(note) note.textContent = "Payment verified by Razorpay · Payment ID: " + (order.paymentId || "confirmed");
 }
-
-async function saveDemoOrderToSupabase(order, orderNumber, total){
-    if(supabaseOrderSaveStarted) return;
-    supabaseOrderSaveStarted = true;
-
-    const row = {
-        order_number: orderNumber,
-        customer_name: "Guest Customer",
-        items: order.items.map(function(item){
-            return {
-                id: item.id || null,
-                slug: item.slug || null,
-                name: item.name || "MAINSTREAM PRODUCT",
-                image: item.image || null,
-                size: item.size || "M",
-                quantity: Number(item.quantity) || 1,
-                unit_price: getPrice(item.price)
-            };
-        }),
-        total: Number(total) || 0,
-        payment_method: formatPaymentMethod(order.payment),
-        payment_status: "unpaid_demo",
-        order_status: "pending_payment"
-    };
-
-    const { error } = await mainstreamOrdersDB
-        .from("orders")
-        .upsert(row, { onConflict: "order_number", ignoreDuplicates: true });
-
-    const note = document.querySelector(".demo-note");
-    if(note){
-        note.textContent = error
-            ? "Demo order shown here only. Central order saving is not configured yet; please contact the store."
-            : "Demo order recorded. Payment is NOT processed and this order is marked unpaid.";
-    }
-}
-
-
 
 /* ==============================
    PAYMENT NAME
