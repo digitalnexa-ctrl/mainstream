@@ -607,7 +607,8 @@ if(cart.length === 0){
       <div class="summary-item">
 
         <span>
-          ${item.name} × ${quantity}
+          ${item.name} × ${quantity}<br>
+          <small>SIZE: ${item.size || "M"} · COLOUR: ${["Black","White","Yellow"].includes(item.color) ? item.color : "Black"}</small>
         </span>
 
         <strong>
