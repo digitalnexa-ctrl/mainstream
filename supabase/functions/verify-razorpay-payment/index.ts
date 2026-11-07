@@ -47,10 +47,7 @@ Deno.serve(async (req) => {
       new TextEncoder().encode(`${razorpay_order_id}|${razorpay_payment_id}`),
     );
     const expected = toHex(new Uint8Array(signed));
-    if (expected.length !== razorpay_signature.length ||
-        !crypto.subtle.timingSafeEqual) {
-      // Use a constant-time byte comparison below (WebCrypto has no portable timingSafeEqual).
-    }
+    // Compare the HMAC hex strings without an early exit.
     const expectedBytes = new TextEncoder().encode(expected);
     const receivedBytes = new TextEncoder().encode(razorpay_signature);
     let diff = expectedBytes.length ^ receivedBytes.length;
