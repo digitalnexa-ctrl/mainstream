@@ -505,165 +505,28 @@ CONTINUE SHOPPING
 
 <div class="card">
 
-<h2>CHOOSE PAYMENT METHOD</h2>
+<h2>SECURE PAYMENT</h2>
 
-
-<!-- CARD -->
-
-<label
-class="payment-option"
-id="cardOption">
-
-<input
-type="radio"
-name="payment"
-value="card"
-onchange="selectPayment('card')">
-
-<div class="payment-info">
-
-<h3>CREDIT / DEBIT CARD</h3>
-
-<p>
-Visa · Mastercard · RuPay
+<p style="color:#666;line-height:1.7;margin-bottom:22px">
+Pay securely using UPI, credit card, debit card, net banking or supported wallets through Razorpay.
 </p>
 
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:24px">
+  <span class="icon google">G</span>
+  <span class="icon phonepe">P</span>
+  <span class="icon paytm">Pay</span>
+  <span style="border:1px solid #ddd;border-radius:7px;padding:10px 14px;font-size:12px;font-weight:bold">CARDS</span>
+  <span style="border:1px solid #ddd;border-radius:7px;padding:10px 14px;font-size:12px;font-weight:bold">NET BANKING</span>
 </div>
 
-</label>
-
-
-<div
-class="details"
-id="cardDetails">
-
-<div class="field">
-
-<label>CARDHOLDER NAME</label>
-
-<input
-type="text"
-id="cardName"
-placeholder="Name on card">
-
-</div>
-
-
-<div class="field">
-
-<label>CARD NUMBER</label>
-
-<input
-type="text"
-id="cardNumber"
-placeholder="1234 5678 9012 3456"
-maxlength="19">
-
-</div>
-
-
-<div class="two">
-
-<div class="field">
-
-<label>EXPIRY</label>
-
-<input
-type="text"
-id="expiry"
-placeholder="MM/YY"
-maxlength="5">
-
-</div>
-
-
-<div class="field">
-
-<label>CVV</label>
-
-<input
-type="password"
-id="cvv"
-placeholder="CVV"
-maxlength="4">
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- UPI -->
-
-<label
-class="payment-option"
-id="upiOption">
-
-<input
-type="radio"
-name="payment"
-value="upi"
-onchange="selectPayment('upi')">
-
-<div class="payment-info">
-
-<h3>UPI</h3>
-
-<p>
-Google Pay · PhonePe · Paytm
-</p>
-
-<div class="icon-row">
-
-<div class="icon google">G</div>
-
-<div class="icon phonepe">P</div>
-
-<div class="icon paytm">Pay</div>
-
-</div>
-
-</div>
-
-</label>
-
-
-<div
-class="details"
-id="upiDetails">
-
-<div class="field">
-
-<label>UPI ID</label>
-
-<input
-type="text"
-id="upiId"
-placeholder="example@upi">
-
-</div>
-
-</div>
-
-
-<button
-class="place-order"
-onclick="placeOrder()">
-
-PLACE ORDER →
-
+<button type="button" class="place-order" id="payNowButton" onclick="placeOrder()">
+PAY SECURELY →
 </button>
 
-
-<div class="security">
-
-🔒 <strong>Your payment information is protected.</strong>
-
+<div class="security" id="paymentMessage" aria-live="polite">
+🔒 <strong>Secure Razorpay checkout.</strong>
 <br><br>
-
-This is a demo checkout. Real payment verification requires a secure payment gateway.
-
+Your payment is confirmed only after MAINSTREAM verifies it with Razorpay.
 </div>
 
 </div>
@@ -711,7 +574,11 @@ Please select a payment method.
 </div>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
+const paymentsDB = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
 /* =========================
    CART
@@ -771,66 +638,7 @@ function getPrice(price){
 }
 
 
-/* =========================
-   PAYMENT SELECTION
-========================= */
-
-let selectedPayment = "";
-
-
-function selectPayment(type){
-
-    selectedPayment = type;
-
-
-    document
-    .querySelectorAll(".payment-option")
-    .forEach(function(option){
-
-        option.classList.remove("selected");
-
-    });
-
-
-    if(type === "card"){
-
-        document
-        .getElementById("cardOption")
-        .classList.add("selected");
-
-        document
-        .getElementById("cardDetails")
-        .classList.add("active");
-
-    }else{
-
-        document
-        .getElementById("cardDetails")
-        .classList.remove("active");
-
-    }
-
-
-    if(type === "upi"){
-
-        document
-        .getElementById("upiOption")
-        .classList.add("selected");
-
-        document
-        .getElementById("upiDetails")
-        .classList.add("active");
-
-    }else{
-
-        document
-        .getElementById("upiDetails")
-        .classList.remove("active");
-
-    }
-
-
-}
+/* Razorpay Checkout supplies the customer's chosen payment method. */
 
 
 /* =========================
@@ -944,203 +752,156 @@ function showToast(message){
 
 
 /* =========================
-   PLACE ORDER
+   SECURE RAZORPAY CHECKOUT
 ========================= */
 
-function placeOrder(){
+let paymentInProgress = false;
 
-    const cart = getCart();
-
-
-    if(cart.length === 0){
-
-        showToast(
-            "Your cart is empty."
-        );
-
-        return;
-
+function setPaymentMessage(message, isError){
+    const el = document.getElementById("paymentMessage");
+    if(el){
+        el.textContent = message;
+        el.style.color = isError ? "#b42318" : "#555";
     }
-
-
-    if(selectedPayment === ""){
-
-        showToast(
-            "Please select a payment method."
-        );
-
-        return;
-
-    }
-
-
-    /* CARD VALIDATION */
-
-    if(selectedPayment === "card"){
-
-        const cardName =
-            document
-            .getElementById("cardName")
-            .value.trim();
-
-        const cardNumber =
-            document
-            .getElementById("cardNumber")
-            .value
-            .replace(/\s/g,"");
-
-        const expiry =
-            document
-            .getElementById("expiry")
-            .value.trim();
-
-        const cvv =
-            document
-            .getElementById("cvv")
-            .value.trim();
-
-
-        if(
-            !cardName ||
-            cardNumber.length < 12 ||
-            !expiry ||
-            cvv.length < 3
-        ){
-
-            showToast(
-                "Please enter valid card details."
-            );
-
-            return;
-
-        }
-
-    }
-
-
-    /* UPI VALIDATION */
-
-    if(selectedPayment === "upi"){
-
-        const upi =
-            document
-            .getElementById("upiId")
-            .value.trim();
-
-
-        if(!upi || !upi.includes("@")){
-
-            showToast(
-                "Please enter a valid UPI ID."
-            );
-
-            return;
-
-        }
-
-    }
-
-
-    /* SAVE PAYMENT METHOD */
-
-    localStorage.setItem(
-        "mainstreamPaymentMethod",
-        selectedPayment
-    );
-
-
-    /* SAVE ORDER */
-
-    localStorage.setItem(
-        "mainstreamOrder",
-        JSON.stringify({
-            items:cart,
-            payment:selectedPayment,
-            total:cart.reduce(
-                function(sum,item){
-
-                    return sum +
-                        getPrice(item.price) *
-                        (Number(item.quantity) || 1);
-
-                },0
-            ),
-            createdAt:
-                new Date().toISOString()
-        })
-    );
-
-
-    /*
-       DEMO CHECKOUT ONLY.
-       No real payment is processed here.
-    */
-
-
-    window.location.href =
-        "confirmation.html";
-
 }
 
+async function placeOrder(){
+    if(paymentInProgress) return;
 
-/* =========================
-   CARD NUMBER FORMAT
-========================= */
-
-document
-.getElementById("cardNumber")
-.addEventListener(
-    "input",
-    function(){
-
-        let value =
-            this.value
-            .replace(/\D/g,"")
-            .substring(0,16);
-
-        value =
-            value.match(/.{1,4}/g);
-
-        this.value =
-            value
-            ? value.join(" ")
-            : "";
-
+    const cart = getCart();
+    if(!cart.length){
+        showToast("Your cart is empty.");
+        return;
     }
-);
 
+    let shipping = {};
+    try{
+        shipping = JSON.parse(localStorage.getItem("mainstreamShipping") || "{}");
+    }catch(_){}
 
-/* =========================
-   EXPIRY FORMAT
-========================= */
+    const required = ["firstName","lastName","email","phone","address","city","pincode","state"];
+    if(required.some(key => !String(shipping[key] || "").trim())){
+        showToast("Please complete your delivery details first.");
+        window.location.href = "shipping.html";
+        return;
+    }
 
-document
-.getElementById("expiry")
-.addEventListener(
-    "input",
-    function(){
+    if(typeof Razorpay === "undefined" || !paymentsDB){
+        setPaymentMessage("Secure payment is temporarily unavailable. Please try again later.", true);
+        return;
+    }
 
-        let value =
-            this.value
-            .replace(/\D/g,"")
-            .substring(0,4);
+    const button = document.getElementById("payNowButton");
+    paymentInProgress = true;
+    button.disabled = true;
+    button.textContent = "CONNECTING TO RAZORPAY...";
+    setPaymentMessage("Creating your secure payment order. Please wait.", false);
 
+    try{
+        const payloadItems = cart.map(item => ({
+            slug: String(item.slug || item.id || "").toLowerCase(),
+            size: item.size || "M",
+            color: item.color || "Black",
+            quantity: Number(item.quantity) || 1
+        }));
 
-        if(value.length >= 3){
-
-            value =
-                value.substring(0,2)
-                + "/" +
-                value.substring(2);
-
+        const {data: orderData, error: orderError} = await paymentsDB.functions.invoke(
+            "create-razorpay-order",
+            {body: {items: payloadItems, shipping}}
+        );
+        if(orderError) throw new Error(orderData && orderData.error || orderError.message || "Could not create payment order.");
+        if(!orderData || !orderData.razorpayOrderId || !orderData.keyId) {
+            throw new Error(orderData && orderData.error || "Payment order response was incomplete.");
         }
 
+        const options = {
+            key: orderData.keyId,
+            amount: orderData.amount,
+            currency: orderData.currency || "INR",
+            name: "MAINSTREAM",
+            description: "MAINSTREAM order " + orderData.orderNumber,
+            order_id: orderData.razorpayOrderId,
+            prefill: orderData.customer || {},
+            notes: {order_number: orderData.orderNumber},
+            theme: {color: "#FFD400"},
+            modal: {
+                ondismiss: function(){
+                    paymentInProgress = false;
+                    button.disabled = false;
+                    button.textContent = "PAY SECURELY →";
+                    setPaymentMessage("Payment window closed. Your order is still unpaid; you can try again.", true);
+                }
+            },
+            handler: async function(response){
+                setPaymentMessage("Payment received. Verifying securely with Razorpay...", false);
+                try{
+                    const {data: verified, error: verifyError} = await paymentsDB.functions.invoke(
+                        "verify-razorpay-payment",
+                        {body: response}
+                    );
+                    if(verifyError) throw new Error(verified && verified.error || verifyError.message || "Payment verification failed.");
+                    if(!verified || verified.verified !== true) throw new Error("Payment could not be verified.");
 
-        this.value = value;
+                    const confirmedItems = (verified.items || []).map(function(item){
+                        const source = cart.find(x => String(x.slug || x.id).toLowerCase() === String(item.slug).toLowerCase()
+                            && String(x.size || "M").toUpperCase() === String(item.size || "M").toUpperCase()
+                            && String(x.color || "Black") === String(item.color || "Black"));
+                        return {
+                            id: item.slug,
+                            slug: item.slug,
+                            name: item.name,
+                            image: source && source.image || "",
+                            size: item.size,
+                            color: item.color,
+                            quantity: Number(item.quantity) || 1,
+                            price: Number(item.unit_price)
+                        };
+                    });
 
+                    const confirmedOrder = {
+                        orderNumber: verified.orderNumber,
+                        items: confirmedItems,
+                        total: Number(verified.total),
+                        payment: "Razorpay (" + (verified.paymentMethod || "online") + ")",
+                        paymentStatus: "paid",
+                        paymentId: verified.paymentId,
+                        createdAt: new Date().toISOString(),
+                        shipping: shipping
+                    };
+                    localStorage.setItem("mainstreamOrder", JSON.stringify(confirmedOrder));
+                    localStorage.setItem("mainstreamOrderNumber", verified.orderNumber);
+                    localStorage.removeItem("mainstreamCart");
+                    localStorage.removeItem("mainstreamBuyNow");
+                    window.location.href = "confirmation.html";
+                }catch(verifyError){
+                    console.error("MAINSTREAM payment verification error", verifyError);
+                    paymentInProgress = false;
+                    button.disabled = false;
+                    button.textContent = "PAY SECURELY →";
+                    setPaymentMessage("We could not verify this payment yet. Do not pay again. Contact MAINSTREAM support with your Razorpay payment ID: " + (response.razorpay_payment_id || "unavailable"), true);
+                }
+            }
+        };
+
+        const checkout = new Razorpay(options);
+        checkout.on("payment.failed", function(response){
+            paymentInProgress = false;
+            button.disabled = false;
+            button.textContent = "PAY SECURELY →";
+            const description = response && response.error && response.error.description;
+            setPaymentMessage(description || "Payment failed. No paid order has been recorded. Please try again.", true);
+        });
+        checkout.open();
+        button.textContent = "RAZORPAY OPENED";
+        setPaymentMessage("Complete payment in the secure Razorpay window.", false);
+    }catch(error){
+        console.error("MAINSTREAM checkout error", error);
+        paymentInProgress = false;
+        button.disabled = false;
+        button.textContent = "PAY SECURELY →";
+        setPaymentMessage(error.message || "Unable to start checkout. Please try again.", true);
     }
-);
-
+}
 
 /* =========================
    LOAD PAGE
