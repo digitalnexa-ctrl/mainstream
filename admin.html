@@ -23,7 +23,7 @@
 }
 
 :root{
-    --yellow:#FFD400;
+    --beige:#FFD400;
     --black:#080808;
     --dark:#101010;
     --card:#151515;
@@ -119,8 +119,8 @@ select{
 }
 
 .notification:hover{
-    border-color:var(--yellow);
-    color:var(--yellow);
+    border-color:var(--beige);
+    color:var(--beige);
 }
 
 .admin-profile{
@@ -135,7 +135,7 @@ select{
 
     border-radius:50%;
 
-    background:var(--yellow);
+    background:var(--beige);
     color:#111;
 
     display:flex;
@@ -231,7 +231,7 @@ select{
 }
 
 .nav-item.active{
-    background:var(--yellow);
+    background:var(--beige);
     color:#080808;
 }
 
@@ -330,7 +330,7 @@ select{
 
     border-radius:50%;
 
-    background:var(--yellow);
+    background:var(--beige);
 
     opacity:.05;
 
@@ -381,8 +381,8 @@ select{
     color:var(--green);
 }
 
-.yellow{
-    color:var(--yellow);
+.beige{
+    color:var(--beige);
 }
 
 .red{
@@ -446,7 +446,7 @@ select{
     border:1px solid #333;
 
     background:#111;
-    color:var(--yellow);
+    color:var(--beige);
 
     padding:8px 11px;
 
@@ -461,7 +461,7 @@ select{
 }
 
 .panel-action:hover{
-    background:var(--yellow);
+    background:var(--beige);
     color:#000;
 }
 
@@ -511,7 +511,7 @@ select{
 }
 
 .bar.highlight{
-    background:var(--yellow);
+    background:var(--beige);
 }
 
 .chart-labels{
@@ -560,7 +560,7 @@ select{
 
     border-radius:50%;
 
-    background:var(--yellow);
+    background:var(--beige);
 
     margin-top:5px;
 
@@ -650,7 +650,7 @@ tr:last-child td{
 
 .status.low{
     background:rgba(255,212,0,.12);
-    color:var(--yellow);
+    color:var(--beige);
 }
 
 .status.out{
@@ -720,7 +720,7 @@ tr:last-child td{
 }
 
 .product-price{
-    color:var(--yellow);
+    color:var(--beige);
 
     font-size:11px;
     font-weight:bold;
@@ -900,7 +900,7 @@ tr:last-child td{
     }
 
     .mobile-nav button.active{
-        color:var(--yellow);
+        color:var(--beige);
     }
 
 }
@@ -2184,7 +2184,7 @@ body{
             </div>
 
 
-            <div class="stat-change yellow">
+            <div class="stat-change beige">
                 Active products
             </div>
 
@@ -3053,7 +3053,7 @@ async function loadDashboardOrders(){
         if(body){
             body.innerHTML = orders.length ? orders.slice(0,5).map(order => {
                 const first = Array.isArray(order.items) ? order.items[0] : {};
-                const firstColour = first && ["Black","White","Yellow"].includes(first.color) ? first.color : "Colour not recorded";
+                const firstColour = first && ["Black","White","Beige"].includes(first.color) ? first.color : "Colour not recorded";
                 const productLabel = first && first.name
                     ? first.name + " · " + firstColour + (order.items.length > 1 ? " +" + (order.items.length-1) + " more" : "")
                     : "MAINSTREAM ORDER";
