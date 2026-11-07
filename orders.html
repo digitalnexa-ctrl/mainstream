@@ -276,27 +276,14 @@ body{
     border-color:var(--beige);
 }
 
-.delete-all-btn{
-    background:#2b1010;
-    color:#ff7777;
-    border:1px solid #713030;
-    border-radius:7px;
-    padding:11px 13px;
-    font-family:inherit;
-    font-size:10px;
-    font-weight:900;
-    cursor:pointer;
-    white-space:nowrap;
+.delete-selected-btn{
+    background:#2b1010;color:#ff7777;border:1px solid #713030;border-radius:7px;
+    padding:11px 13px;font-family:inherit;font-size:10px;font-weight:900;cursor:pointer;white-space:nowrap;
 }
-.delete-all-btn:hover{
-    background:#ff5c5c;
-    color:#080808;
-    border-color:#ff5c5c;
-}
-.delete-all-btn:disabled{
-    opacity:.5;
-    cursor:not-allowed;
-}
+.delete-selected-btn:hover{background:#ff5c5c;color:#080808;border-color:#ff5c5c}
+.delete-selected-btn:disabled{opacity:.45;cursor:not-allowed}
+.select-order{width:16px;height:16px;accent-color:#ffd400;cursor:pointer}
+.selection-count{color:#aaa;font-size:10px;font-weight:700;white-space:nowrap}
 .delete-warning{
     display:none;
     padding:12px 20px;
@@ -982,8 +969,9 @@ body{
 
                 </select>
 
-                <button type="button" id="deleteAllOrdersBtn" class="delete-all-btn" onclick="deleteAllOrders()">
-                    DELETE ALL ORDERS
+                <span id="selectionCount" class="selection-count">0 selected</span>
+                <button type="button" id="deleteSelectedOrdersBtn" class="delete-selected-btn" onclick="deleteSelectedOrders()" disabled>
+                    DELETE SELECTED
                 </button>
 
             </div>
@@ -995,10 +983,6 @@ body{
 
         <!-- TABLE -->
 
-        <div id="deleteWarning" class="delete-warning" role="status">
-            This action permanently deletes every order in the database, including PAID orders. It cannot be undone.
-        </div>
-
         <div class="table-wrap">
 
 
@@ -1009,6 +993,7 @@ body{
 
                     <tr>
 
+                        <th><input type="checkbox" id="selectAllOrders" class="select-order" aria-label="Select all visible orders" title="Select all visible orders"></th>
                         <th>
                             ORDER
                         </th>
@@ -1075,6 +1060,7 @@ body{
 <script>
 const ordersAuth = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 let allOrders = [];
+const selectedOrderNumbers = new Set();
 
 function escapeHTML(value){
     return String(value ?? "").replace(/[&<>"']/g, c => ({
@@ -1109,7 +1095,7 @@ function renderOrders(){
 
     const body=document.getElementById("ordersBody");
     if(!rows.length){
-        body.innerHTML='<tr><td colspan="7"><div class="empty"><div class="empty-title">No orders found</div><div class="empty-text">Orders recorded from the MAINSTREAM checkout will appear here.</div></div></td></tr>';
+        body.innerHTML='<tr><td colspan="8"><div class="empty"><div class="empty-title">No orders found</div><div class="empty-text">Orders recorded from the MAINSTREAM checkout will appear here.</div></div></td></tr>';
         return;
     }
     body.innerHTML=rows.map(o=>{
@@ -1119,6 +1105,7 @@ function renderOrders(){
         const date=o.created_at ? new Date(o.created_at).toLocaleString("en-IN") : "—";
         const status=String(o.payment_status || o.order_status || "pending").replace(/_/g," ");
         return `<tr>
+            <td><input type="checkbox" class="select-order order-row-checkbox" data-order-number="${escapeHTML(o.order_number)}" ${selectedOrderNumbers.has(String(o.order_number)) ? "checked" : ""} aria-label="Select order ${escapeHTML(o.order_number)}"></td>
             <td><div class="order-id">#${escapeHTML(o.order_number)}</div></td>
             <td><div class="customer-name">${escapeHTML(o.customer_name || "Guest Customer")}</div><div class="customer-email">${escapeHTML(o.payment_method || "—")}</div></td>
             <td><div class="product-name">${escapeHTML(label)}</div><div class="product-quantity">Qty: ${qty}</div></td>
@@ -1128,6 +1115,25 @@ function renderOrders(){
             <td><button class="view-btn" onclick="viewOrder('${String(o.order_number).replace(/'/g,"\\'")}')">VIEW</button></td>
         </tr>`;
     }).join("");
+    syncOrderSelectionUI();
+}
+function syncOrderSelectionUI(){
+    const visible = Array.from(document.querySelectorAll(".order-row-checkbox"));
+    const checked = visible.filter(box => box.checked);
+    const selectAll = document.getElementById("selectAllOrders");
+    const count = document.getElementById("selectionCount");
+    const deleteButton = document.getElementById("deleteSelectedOrdersBtn");
+    if(selectAll){
+        selectAll.checked = visible.length > 0 && checked.length === visible.length;
+        selectAll.indeterminate = checked.length > 0 && checked.length < visible.length;
+    }
+    if(count) count.textContent = selectedOrderNumbers.size + " selected";
+    if(deleteButton){
+        deleteButton.disabled = selectedOrderNumbers.size === 0;
+        deleteButton.textContent = selectedOrderNumbers.size
+            ? "DELETE SELECTED (" + selectedOrderNumbers.size + ")"
+            : "DELETE SELECTED";
+    }
 }
 function viewOrder(orderNumber){
     const o=allOrders.find(x=>String(x.order_number)===String(orderNumber));
@@ -1137,60 +1143,40 @@ function viewOrder(orderNumber){
         "\n\nAmount: "+money(o.total)+"\nPayment: "+(o.payment_status||"unpaid_demo")+
         "\nStatus: "+(o.order_status||"pending_payment"));
 }
-async function deleteAllOrders(){
-    if(!allOrders.length){
-        alert("There are no orders to delete.");
+async function deleteSelectedOrders(){
+    const selected = Array.from(selectedOrderNumbers);
+    if(!selected.length){
+        alert("Select at least one order first.");
         return;
     }
-
     const confirmed = window.confirm(
-        "DELETE ALL " + allOrders.length + " ORDERS?\\n\\nThis includes PAID, CREATED and UNPAID orders. This action is permanent and cannot be undone."
+        "Delete " + selected.length + " selected order(s)? This includes any selected PAID orders and cannot be undone."
     );
     if(!confirmed) return;
 
-    const typed = window.prompt('Type DELETE to permanently remove all ' + allOrders.length + ' orders:');
-    if(typed !== "DELETE"){
-        alert("Deletion cancelled. No orders were removed.");
-        return;
-    }
-
-    const button = document.getElementById("deleteAllOrdersBtn");
-    const warning = document.getElementById("deleteWarning");
+    const button = document.getElementById("deleteSelectedOrdersBtn");
     if(button){
         button.disabled = true;
         button.textContent = "DELETING...";
     }
-    if(warning) warning.style.display = "block";
-
     try{
         const {data:{session}} = await ordersAuth.auth.getSession();
         if(!session) throw new Error("Your admin session has expired. Please log in again.");
 
-        // order_number is present on every order; this filter targets all rows.
         const {error} = await ordersAuth
             .from("orders")
             .delete()
-            .not("order_number","is",null);
-
+            .in("order_number", selected);
         if(error) throw error;
 
-        allOrders = [];
-        renderOrders();
-        if(warning){
-            warning.textContent = "All orders were deleted successfully.";
-            warning.style.color = "#8be0b0";
-            warning.style.background = "#10291e";
-            warning.style.borderColor = "#1d5239";
-        }
-        if(button) button.textContent = "ALL ORDERS DELETED";
+        selected.forEach(number => selectedOrderNumbers.delete(number));
+        await loadOrders();
+        alert(selected.length + " selected order(s) deleted.");
     }catch(error){
-        console.error("Delete all orders failed:",error);
-        alert("Could not delete orders: " + (error.message || "Database permission denied. Check Supabase DELETE policy for the admin role."));
-        if(button){
-            button.disabled = false;
-            button.textContent = "DELETE ALL ORDERS";
-        }
-        if(warning) warning.style.display = "none";
+        console.error("Delete selected orders failed:", error);
+        alert("Could not delete selected orders: " + (error.message || "Check the Supabase DELETE policy for the admin role."));
+        if(button) button.textContent = "DELETE SELECTED";
+        syncOrderSelectionUI();
     }
 }
 
@@ -1209,6 +1195,23 @@ async function loadOrders(){
 }
 document.getElementById("searchBox").addEventListener("input",renderOrders);
 document.getElementById("statusFilter").addEventListener("change",renderOrders);
+document.getElementById("selectAllOrders").addEventListener("change",function(){
+    document.querySelectorAll(".order-row-checkbox").forEach(box => {
+        box.checked = this.checked;
+        const number = box.dataset.orderNumber;
+        if(this.checked) selectedOrderNumbers.add(number);
+        else selectedOrderNumbers.delete(number);
+    });
+    syncOrderSelectionUI();
+});
+document.getElementById("ordersBody").addEventListener("change",function(event){
+    const box = event.target.closest(".order-row-checkbox");
+    if(!box) return;
+    const number = box.dataset.orderNumber;
+    if(box.checked) selectedOrderNumbers.add(number);
+    else selectedOrderNumbers.delete(number);
+    syncOrderSelectionUI();
+});
 loadOrders();
 </script>
 </body>
