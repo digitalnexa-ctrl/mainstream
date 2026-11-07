@@ -1075,7 +1075,7 @@ function renderOrders(){
     }
     body.innerHTML=rows.map(o=>{
         const items=Array.isArray(o.items)?o.items:[];
-        const label=items.length ? items.map(i=>i.name).join(", ") : "MAINSTREAM PRODUCT";
+        const label=items.length ? items.map(i=>i.name + " (" + (["Black","White","Yellow"].includes(i.color) ? i.color : "Black") + ")").join(", ") : "MAINSTREAM PRODUCT";
         const qty=items.reduce((sum,i)=>sum+Number(i.quantity||1),0);
         const date=o.created_at ? new Date(o.created_at).toLocaleString("en-IN") : "—";
         const status=String(o.payment_status || o.order_status || "pending").replace(/_/g," ");
@@ -1093,7 +1093,7 @@ function renderOrders(){
 function viewOrder(orderNumber){
     const o=allOrders.find(x=>String(x.order_number)===String(orderNumber));
     if(!o) return;
-    const items=(o.items||[]).map(i=>i.name+" × "+(i.quantity||1)).join("\n");
+    const items=(o.items||[]).map(i=>i.name+" × "+(i.quantity||1)+" · Size: "+(i.size||"M")+" · Colour: "+(["Black","White","Yellow"].includes(i.color)?i.color:"Black")).join("\n");
     alert("ORDER #"+o.order_number+"\n\n"+(o.customer_name||"Guest Customer")+"\n"+items+
         "\n\nAmount: "+money(o.total)+"\nPayment: "+(o.payment_status||"unpaid_demo")+
         "\nStatus: "+(o.order_status||"pending_payment"));
