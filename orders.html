@@ -276,6 +276,38 @@ body{
     border-color:var(--beige);
 }
 
+.delete-all-btn{
+    background:#2b1010;
+    color:#ff7777;
+    border:1px solid #713030;
+    border-radius:7px;
+    padding:11px 13px;
+    font-family:inherit;
+    font-size:10px;
+    font-weight:900;
+    cursor:pointer;
+    white-space:nowrap;
+}
+.delete-all-btn:hover{
+    background:#ff5c5c;
+    color:#080808;
+    border-color:#ff5c5c;
+}
+.delete-all-btn:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+.delete-warning{
+    display:none;
+    padding:12px 20px;
+    color:#ffb0b0;
+    background:#241010;
+    border-bottom:1px solid #542222;
+    font-size:10px;
+    line-height:1.5;
+}
+
+
 .search-box::placeholder{
     color:#555;
 }
@@ -950,6 +982,9 @@ body{
 
                 </select>
 
+                <button type="button" id="deleteAllOrdersBtn" class="delete-all-btn" onclick="deleteAllOrders()">
+                    DELETE ALL ORDERS
+                </button>
 
             </div>
 
@@ -959,6 +994,10 @@ body{
 
 
         <!-- TABLE -->
+
+        <div id="deleteWarning" class="delete-warning" role="status">
+            This action permanently deletes every order in the database, including PAID orders. It cannot be undone.
+        </div>
 
         <div class="table-wrap">
 
@@ -1098,6 +1137,63 @@ function viewOrder(orderNumber){
         "\n\nAmount: "+money(o.total)+"\nPayment: "+(o.payment_status||"unpaid_demo")+
         "\nStatus: "+(o.order_status||"pending_payment"));
 }
+async function deleteAllOrders(){
+    if(!allOrders.length){
+        alert("There are no orders to delete.");
+        return;
+    }
+
+    const confirmed = window.confirm(
+        "DELETE ALL " + allOrders.length + " ORDERS?\\n\\nThis includes PAID, CREATED and UNPAID orders. This action is permanent and cannot be undone."
+    );
+    if(!confirmed) return;
+
+    const typed = window.prompt('Type DELETE to permanently remove all ' + allOrders.length + ' orders:');
+    if(typed !== "DELETE"){
+        alert("Deletion cancelled. No orders were removed.");
+        return;
+    }
+
+    const button = document.getElementById("deleteAllOrdersBtn");
+    const warning = document.getElementById("deleteWarning");
+    if(button){
+        button.disabled = true;
+        button.textContent = "DELETING...";
+    }
+    if(warning) warning.style.display = "block";
+
+    try{
+        const {data:{session}} = await ordersAuth.auth.getSession();
+        if(!session) throw new Error("Your admin session has expired. Please log in again.");
+
+        // order_number is present on every order; this filter targets all rows.
+        const {error} = await ordersAuth
+            .from("orders")
+            .delete()
+            .not("order_number","is",null);
+
+        if(error) throw error;
+
+        allOrders = [];
+        renderOrders();
+        if(warning){
+            warning.textContent = "All orders were deleted successfully.";
+            warning.style.color = "#8be0b0";
+            warning.style.background = "#10291e";
+            warning.style.borderColor = "#1d5239";
+        }
+        if(button) button.textContent = "ALL ORDERS DELETED";
+    }catch(error){
+        console.error("Delete all orders failed:",error);
+        alert("Could not delete orders: " + (error.message || "Database permission denied. Check Supabase DELETE policy for the admin role."));
+        if(button){
+            button.disabled = false;
+            button.textContent = "DELETE ALL ORDERS";
+        }
+        if(warning) warning.style.display = "none";
+    }
+}
+
 async function loadOrders(){
     const {data:{session}}=await ordersAuth.auth.getSession();
     if(!session){ window.location.href="login.html"; return; }
