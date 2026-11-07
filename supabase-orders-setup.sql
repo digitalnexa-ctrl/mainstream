@@ -30,8 +30,14 @@ on public.orders for select
 to authenticated
 using (auth.uid() is not null);
 
+drop policy if exists "Authenticated admins can delete orders" on public.orders;
+create policy "Authenticated admins can delete orders"
+on public.orders for delete
+to authenticated
+using (auth.uid() is not null);
+
 grant insert on public.orders to anon, authenticated;
-grant select on public.orders to authenticated;
+grant select, delete on public.orders to authenticated;
 
 create index if not exists orders_created_at_idx
 on public.orders (created_at desc);
