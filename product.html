@@ -946,17 +946,32 @@ async function loadProduct(){
         const databaseProductSlug =
             databaseSlugAliases[requestedProduct] || requestedProduct;
 
-        const {data,error} =
-            await mainstreamDB
-            .from("products")
-            .select("*")
-            .eq("slug",databaseProductSlug)
-            .eq("active",true)
-            .single();
+        // Try both the URL slug and the dashboard-generated slug. Older
+        // products may still have the short slug, while edited products use
+        // the full name-based slug.
+        let data = null;
+        let error = null;
+        const slugsToTry = [...new Set([requestedProduct, databaseProductSlug])];
 
-        if(error || !data){
+        for (const slugToTry of slugsToTry) {
+            const result = await mainstreamDB
+                .from("products")
+                .select("*")
+                .eq("slug", slugToTry)
+                .eq("active", true)
+                .maybeSingle();
 
-            console.warn("Supabase product not found for slug:", requestedProduct, error);
+            if (result.data) {
+                data = result.data;
+                error = null;
+                break;
+            }
+            if (result.error) error = result.error;
+        }
+
+        if(!data){
+
+            console.warn("Supabase product not found. Tried slugs:", slugsToTry, error);
 
             if(fallback){
                 currentProduct = fallback;
