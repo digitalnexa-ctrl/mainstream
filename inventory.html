@@ -1919,8 +1919,8 @@ async function loadInventoryFromSupabase(){
 
     const { data, error } = await mainstreamDB
         .from("products")
-        .select("*")
-        .order("created_at", { ascending: true });
+        // Inventory needs only text/stock fields. Avoid downloading large image data.
+        .select("slug,name,price,stock,category,active");
 
     if(error){
         console.error("Inventory Supabase error:", error);
