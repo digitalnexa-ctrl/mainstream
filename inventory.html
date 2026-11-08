@@ -1920,15 +1920,16 @@ async function loadInventoryFromSupabase(){
     const { data, error } = await mainstreamDB
         .from("products")
         .select("*")
-        .eq("active", true)
         .order("created_at", { ascending: true });
 
     if(error){
         console.error("Inventory Supabase error:", error);
+        const tbody=document.querySelector("tbody");
+        if(tbody) tbody.innerHTML=`<tr><td colspan="5" style="padding:24px;color:#ff7777;text-align:center">Unable to load inventory: ${escapeHTML(error.message || "Database error")}</td></tr>`;
         return;
     }
 
-    const products = data.map(function(product){
+    const products = (data || []).filter(product => product.active !== false).map(function(product){
 
         return {
             id: product.slug,
