@@ -932,11 +932,25 @@ async function loadProduct(){
 
     try{
 
+        // Shop uses short product keys (for example "max"), while
+        // Dashboard saves the full slug generated from the product name.
+        const databaseSlugAliases = {
+            max: "max-03-tee",
+            lewis: "lewis-44-tee",
+            charles: "charles-16-tee",
+            lando: "lando-01-tee",
+            oscar: "oscar-81-tee",
+            george: "george-63-tee",
+            kimi: "kimi-12-tee"
+        };
+        const databaseProductSlug =
+            databaseSlugAliases[requestedProduct] || requestedProduct;
+
         const {data,error} =
             await mainstreamDB
             .from("products")
             .select("*")
-            .eq("slug",requestedProduct)
+            .eq("slug",databaseProductSlug)
             .eq("active",true)
             .single();
 
