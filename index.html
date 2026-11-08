@@ -2620,6 +2620,29 @@ function getWishlist(){
 }
 
 
+function getWishlistVisitorId(){
+    let id=localStorage.getItem("mainstreamWishlistVisitorId");
+    if(!id){
+        id=(window.crypto && crypto.randomUUID) ? crypto.randomUUID() : "visitor-"+Date.now()+"-"+Math.random().toString(36).slice(2);
+        localStorage.setItem("mainstreamWishlistVisitorId",id);
+    }
+    return id;
+}
+async function syncWishlistItem(slug,add){
+    try{
+        const client=mainstreamDB || (window.supabase && window.supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY));
+        if(!client) return;
+        const visitorId=getWishlistVisitorId();
+        if(add){
+            const p=fallbackProducts.find(x=>x.slug===slug);
+            const {error}=await client.from("wishlist_items").upsert({visitor_id:visitorId,product_slug:slug,product_name:p?.name||slug,product_image:p?.image||""},{onConflict:"visitor_id,product_slug"});
+            if(error) console.error("Wishlist sync failed:",error);
+        }else{
+            const {error}=await client.from("wishlist_items").delete().eq("visitor_id",visitorId).eq("product_slug",slug);
+            if(error) console.error("Wishlist removal sync failed:",error);
+        }
+    }catch(error){console.error("Wishlist sync failed:",error);}
+}
 function toggleWishlist(slug,button){
 
     let wishlist =
@@ -2633,6 +2656,7 @@ function toggleWishlist(slug,button){
     if(index === -1){
 
         wishlist.push(slug);
+        syncWishlistItem(slug,true);
 
         button.classList.add("active");
 
@@ -2643,6 +2667,7 @@ function toggleWishlist(slug,button){
     }else{
 
         wishlist.splice(index,1);
+        syncWishlistItem(slug,false);
 
         button.classList.remove("active");
 
