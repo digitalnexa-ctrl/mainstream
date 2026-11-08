@@ -971,9 +971,14 @@ async function loadProduct(){
                 fallback ? fallback.back : ""
             ),
 
-            colorImages: data.color_images && typeof data.color_images === "object"
-                ? data.color_images
-                : {},
+            colorImages: (() => {
+                let saved = data.color_images || data.colorImages || {};
+                // Supabase JSON columns normally return objects; tolerate JSON text too.
+                if (typeof saved === "string") {
+                    try { saved = JSON.parse(saved); } catch (_) { saved = {}; }
+                }
+                return saved && typeof saved === "object" ? saved : {};
+            })(),
 
             combined: pick(
                 data.combined_image || data.combinedImage,
@@ -1177,20 +1182,22 @@ function applySelectedColorImages(){
     const variantKey = Object.keys(variants).find(
         key => String(key).trim().toLowerCase() === selectedColor.toLowerCase()
     );
-    const variant = variantKey ? variants[variantKey] : null;
+    const rawVariant = variantKey ? variants[variantKey] : null;
+    const variant = typeof rawVariant === "string"
+        ? { front: rawVariant }
+        : (rawVariant || {});
 
-    // A selected colour must use its own uploaded photo; never silently show another colour.
-    currentProduct.front = variant && usable(variant.front)
-        ? variant.front
-        : (selectedColor === "Black"
-            ? (currentProduct.baseFront || currentProduct.front || "")
-            : "");
+    const variantFront = variant.front || variant.front_image || variant.frontImage || variant.image || "";
+    const variantBack = variant.back || variant.back_image || variant.backImage || "";
 
-    currentProduct.back = variant && usable(variant.back)
-        ? variant.back
-        : (selectedColor === "Black"
-            ? (currentProduct.baseBack || currentProduct.back || "")
-            : "");
+    // Each colour uses its own uploaded photo. The base image is only the Black fallback.
+    currentProduct.front = usable(variantFront)
+        ? variantFront
+        : (selectedColor === "Black" ? (currentProduct.baseFront || "") : "");
+
+    currentProduct.back = usable(variantBack)
+        ? variantBack
+        : (selectedColor === "Black" ? (currentProduct.baseBack || "") : "");
 
     const frontThumb = document.getElementById("frontThumb");
     const backThumb = document.getElementById("backThumb");
