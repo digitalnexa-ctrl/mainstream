@@ -2341,7 +2341,7 @@ async function saveProductToWishlist(productKey){
         const productName=productCard?.querySelector("h2")?.textContent?.trim() || productKey;
         const productImage=productCard?.querySelector("img")?.getAttribute("src") || "";
         const client=supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
-        const {error}=await client.from("wishlist_items").upsert({visitor_id:visitorId,product_slug:productKey,product_name:productName,product_image:productImage},{onConflict:"visitor_id,product_slug"});
+        const {error}=await client.from("wishlist_items").insert({visitor_id:visitorId,product_slug:productKey,product_name:productName,product_image:productImage});
         if(error) console.error("Wishlist sync failed:",error);
     }catch(error){console.error("Wishlist sync failed:",error);}
     alert("Added to Wishlist ❤️");
