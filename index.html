@@ -2635,7 +2635,7 @@ async function syncWishlistItem(slug,add){
         const visitorId=getWishlistVisitorId();
         if(add){
             const p=fallbackProducts.find(x=>x.slug===slug);
-            const {error}=await client.from("wishlist_items").upsert({visitor_id:visitorId,product_slug:slug,product_name:p?.name||slug,product_image:p?.image||""},{onConflict:"visitor_id,product_slug"});
+            const {error}=await client.from("wishlist_items").insert({visitor_id:visitorId,product_slug:slug,product_name:p?.name||slug,product_image:p?.image||""});
             if(error) console.error("Wishlist sync failed:",error);
         }else{
             const {error}=await client.from("wishlist_items").delete().eq("visitor_id",visitorId).eq("product_slug",slug);
