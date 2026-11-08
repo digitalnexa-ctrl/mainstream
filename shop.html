@@ -1562,7 +1562,7 @@ BUILT FOR THE MAINSTREAM.
 
 <div class="product-count" id="productCount">
 
-LOADING PRODUCTS
+5 PRODUCTS
 
 </div>
 
@@ -1625,7 +1625,7 @@ RED BULL
 
 <section class="products">
 
-<div class="product-grid" id="productGrid" style="visibility:hidden">
+<div class="product-grid" id="productGrid">
 
 
 <!-- MAX -->
@@ -1921,141 +1921,13 @@ ADD TO CART
 
 <!-- OSCAR -->
 
-<article
-class="product"
-data-team="mclaren"
-data-name="OSCAR / 81 TEE">
 
-<div class="product-image">
-
-<span class="product-number">
-05
-</span>
-
-<img
-src="oscar-front.png"
-alt="OSCAR / 81 TEE">
-
-</div>
-
-
-<div class="product-info">
-
-<h2>
-OSCAR / 81 TEE
-</h2>
-
-<p class="collection">
-MCLAREN COLLECTION
-</p>
-
-<div class="price">
-₹899
-</div>
-
-
-<div class="card-colours" aria-label="Available colours">
-<span class="card-colours-label">COLOURS</span>
-<button type="button" class="color-swatch black" aria-label="Black" title="Black" onclick="window.location.href='product.html?product=oscar&color=Black'"></button>
-<button type="button" class="color-swatch beige" aria-label="Beige" title="Beige" onclick="window.location.href='product.html?product=oscar&color=Beige'"></button>
-<button type="button" class="color-swatch white" aria-label="White" title="White" onclick="window.location.href='product.html?product=oscar&color=White'"></button>
-</div>
-<div class="actions">
-
-<button
-class="wishlist-btn"
-onclick="saveProductToWishlist('oscar')">
-♡ ADD TO WISHLIST
-</button>
-
-<button
-class="view-btn"
-onclick="window.location.href='product.html?product=oscar'">
-VIEW PRODUCT
-</button>
-
-<button
-class="add-btn"
-onclick="addToCart('OSCAR / 81 TEE',899,'oscar-front.png')">
-
-ADD TO CART
-
-</button>
-
-</div>
-
-</div>
-
-</article>
 
 
 
 <!-- GEORGE -->
 
-<article
-class="product"
-data-team="mercedes"
-data-name="GEORGE / 63 TEE">
 
-<div class="product-image">
-
-<span class="product-number">
-06
-</span>
-
-<img
-src="george-front.png"
-alt="GEORGE / 63 TEE">
-
-</div>
-
-
-<div class="product-info">
-
-<h2>
-GEORGE / 63 TEE
-</h2>
-
-<p class="collection">
-MERCEDES COLLECTION
-</p>
-
-<div class="price">
-₹899
-</div>
-
-
-<div class="card-colours" aria-label="Available colours">
-<span class="card-colours-label">COLOURS</span>
-<button type="button" class="color-swatch black" aria-label="Black" title="Black" onclick="window.location.href='product.html?product=george&color=Black'"></button>
-<button type="button" class="color-swatch beige" aria-label="Beige" title="Beige" onclick="window.location.href='product.html?product=george&color=Beige'"></button>
-<button type="button" class="color-swatch white" aria-label="White" title="White" onclick="window.location.href='product.html?product=george&color=White'"></button>
-</div>
-<div class="actions">
-
-<button
-class="wishlist-btn"
-onclick="saveProductToWishlist('GEORGE')">
-♡ ADD TO WISHLIST
-</button>
-
-<button
-class="view-btn"
-onclick="window.location.href='product.html?product=george'">
-VIEW PRODUCT
-</button>
-
-<button
-class="add-btn"
-onclick="addToCart('GEORGE / 63 TEE',899,'george-front.png')">
-ADD TO CART
-</button>
-
-</div>
-
-</div>
-
-</article>
 
 
 
@@ -2938,13 +2810,14 @@ async function loadShopProducts(){
 
     const { data, error } = await mainstreamDB
         .from("products")
-        .select("*")
-        .eq("active", true)
-        .order("created_at", { ascending: true });
+        // Fetch only the small fields needed to build product cards.
+        // Product images are served as static front-image files below.
+        .select("slug,name,category,active")
+        .eq("active", true);
 
     if(error){
         console.error("Products loading error:", error);
-        // Keep the seven built-in product cards visible if Supabase is unavailable.
+        // Keep the five built-in product cards visible if Supabase is unavailable.
         const fallbackCount = grid.querySelectorAll(".product").length;
         const count = document.getElementById("productCount");
         if(count){
