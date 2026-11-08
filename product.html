@@ -1173,16 +1173,24 @@ function applySelectedColorImages(){
     if(!currentProduct) return;
 
     const variants = currentProduct.colorImages || {};
-    const variant = variants[selectedColor] || variants[selectedColor.toLowerCase()] || null;
+    // Accept colour keys saved with any capitalisation by the dashboard.
+    const variantKey = Object.keys(variants).find(
+        key => String(key).trim().toLowerCase() === selectedColor.toLowerCase()
+    );
+    const variant = variantKey ? variants[variantKey] : null;
 
-    // Use colour-specific images when uploaded; otherwise retain the product's default images.
+    // A selected colour must use its own uploaded photo; never silently show another colour.
     currentProduct.front = variant && usable(variant.front)
         ? variant.front
-        : (currentProduct.baseFront || currentProduct.front || "");
+        : (selectedColor === "Black"
+            ? (currentProduct.baseFront || currentProduct.front || "")
+            : "");
 
     currentProduct.back = variant && usable(variant.back)
         ? variant.back
-        : (currentProduct.baseBack || currentProduct.back || "");
+        : (selectedColor === "Black"
+            ? (currentProduct.baseBack || currentProduct.back || "")
+            : "");
 
     const frontThumb = document.getElementById("frontThumb");
     const backThumb = document.getElementById("backThumb");
