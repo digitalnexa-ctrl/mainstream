@@ -2857,18 +2857,19 @@ async function loadShopProducts(){
             kimi: "kimi-front.png"
         };
 
+        const productSlug = String(product.slug || "").trim().toLowerCase();
         const imageFile =
-            frontImages[String(product.slug || "").toLowerCase()] ||
+            frontImages[productSlug] ||
             product.front_image ||
             product.image_url ||
             product.combined_image ||
-            "";
+            "mainstream-logo.png";
 
+        // Resolve image paths relative to the currently served GitHub Pages site.
         const imageUrl =
-    imageFile.startsWith("http") ||
-    imageFile.startsWith("data:")
-    ? imageFile
-    : "https://digitalnexa-ctrl.github.io/mainstream/" + imageFile;
+            /^(https?:|data:)/i.test(String(imageFile))
+            ? String(imageFile)
+            : new URL(String(imageFile).replace(/^\\//, ""), window.location.href).href;
         // Approved MAINSTREAM T-shirt storefront price.
         const price = 899;
 
@@ -2897,7 +2898,9 @@ async function loadShopProducts(){
                 <img
                     src="${imageUrl}"
                     alt="${product.name}"
-                    loading="lazy"
+                    loading="eager"
+                    decoding="async"
+                    onerror="this.onerror=null;this.src='mainstream-logo.png';"
                 >
 
             </div>
