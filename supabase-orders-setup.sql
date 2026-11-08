@@ -12,6 +12,18 @@ create table if not exists public.orders (
   created_at timestamptz not null default now()
 );
 
+-- Delivery and payment identifiers used by checkout and the admin orders page.
+alter table public.orders
+  add column if not exists customer_email text,
+  add column if not exists customer_phone text,
+  add column if not exists shipping_address text,
+  add column if not exists shipping_city text,
+  add column if not exists shipping_pincode text,
+  add column if not exists shipping_state text,
+  add column if not exists razorpay_order_id text,
+  add column if not exists razorpay_payment_id text,
+  add column if not exists paid_at timestamptz;
+
 alter table public.orders enable row level security;
 
 drop policy if exists "Public can create unpaid demo orders" on public.orders;
