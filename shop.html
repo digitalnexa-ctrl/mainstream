@@ -1562,7 +1562,7 @@ BUILT FOR THE MAINSTREAM.
 
 <div class="product-count" id="productCount">
 
-7 PRODUCTS
+LOADING PRODUCTS
 
 </div>
 
@@ -1625,7 +1625,7 @@ RED BULL
 
 <section class="products">
 
-<div class="product-grid" id="productGrid">
+<div class="product-grid" id="productGrid" style="visibility:hidden">
 
 
 <!-- MAX -->
@@ -2950,6 +2950,7 @@ async function loadShopProducts(){
         if(count){
             count.textContent = fallbackCount + (fallbackCount === 1 ? " PRODUCT" : " PRODUCTS");
         }
+        grid.style.visibility = "visible";
         filterProducts("all", document.querySelector(".filter[onclick*=\"'all'\"]"));
         return;
     }
@@ -3076,6 +3077,9 @@ async function loadShopProducts(){
         productCount.textContent =
             data.length + (data.length === 1 ? " PRODUCT" : " PRODUCTS");
     }
+
+    // Reveal the catalogue only after the database product list has replaced fallback cards.
+    grid.style.visibility = "visible";
 
     // Re-apply the selected brand after Supabase replaces the fallback cards.
     filterProducts(activeShopFilter, document.querySelector(".filter.active"));
