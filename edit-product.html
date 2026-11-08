@@ -862,8 +862,10 @@ body{
 
 
                 <button
-                    type="submit"
-                    class="save-btn">
+                    type="button"
+                    id="saveChangesButton"
+                    class="save-btn"
+                    onclick="saveChanges(event)">
 
                     SAVE CHANGES
 
@@ -1594,6 +1596,15 @@ function cancelEdit(){
 /* =========================================
    START
 ========================================= */
+
+// Explicitly wire the save button so the action works consistently.
+document.getElementById("saveChangesButton")?.addEventListener("click", function(event){
+    event.preventDefault();
+    saveChanges(event).catch(function(error){
+        console.error("MAINSTREAM save failed:", error);
+        alert("Could not save product. Please check the browser console and Supabase connection.\n\n" + (error?.message || error));
+    });
+});
 
 loadProduct();
 
