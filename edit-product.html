@@ -799,7 +799,7 @@ body{
         <section class="form-section">
             <div class="section-title">COLOUR VARIANT PHOTOS</div>
             <p style="color:#888;font-size:13px;line-height:1.6;margin:0 0 18px">
-                Upload separate FRONT and BACK photos for each colour. Customers will see the matching photos when they tap a colour on the product page.
+                Optional: Upload FRONT and BACK photos for any colour you want. You can save the product without uploading colour photos.
             </p>
             <div class="colour-upload-grid">
                 <div class="colour-upload-card">
@@ -1339,16 +1339,8 @@ async function saveChanges(event){
         updateData.image_url = selectedImage;
     }
 
-    const requiredColours = ["Black","Beige","White"];
-    const missingVariants = requiredColours.filter(function(colour){
-        return !selectedColorImages[colour].front || !selectedColorImages[colour].back;
-    });
-
-    if(missingVariants.length){
-        alert("Please upload both FRONT and BACK photos for: " + missingVariants.join(", ") + ".");
-        return;
-    }
-
+    // Colour variant photos are optional. Keep existing photos and
+    // save any newly selected images without blocking the product update.
     updateData.color_images = selectedColorImages;
     updateData.front_image = selectedColorImages.Black.front;
     updateData.back_image = selectedColorImages.Black.back;
