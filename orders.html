@@ -1003,6 +1003,10 @@ body{
                         </th>
 
                         <th>
+                            DELIVERY ADDRESS
+                        </th>
+
+                        <th>
                             PRODUCT
                         </th>
 
@@ -1095,7 +1099,7 @@ function renderOrders(){
 
     const body=document.getElementById("ordersBody");
     if(!rows.length){
-        body.innerHTML='<tr><td colspan="8"><div class="empty"><div class="empty-title">No orders found</div><div class="empty-text">Orders recorded from the MAINSTREAM checkout will appear here.</div></div></td></tr>';
+        body.innerHTML='<tr><td colspan="9"><div class="empty"><div class="empty-title">No orders found</div><div class="empty-text">Orders recorded from the MAINSTREAM checkout will appear here.</div></div></td></tr>';
         return;
     }
     body.innerHTML=rows.map(o=>{
@@ -1107,7 +1111,8 @@ function renderOrders(){
         return `<tr>
             <td><input type="checkbox" class="select-order order-row-checkbox" data-order-number="${escapeHTML(o.order_number)}" ${selectedOrderNumbers.has(String(o.order_number)) ? "checked" : ""} aria-label="Select order ${escapeHTML(o.order_number)}"></td>
             <td><div class="order-id">#${escapeHTML(o.order_number)}</div></td>
-            <td><div class="customer-name">${escapeHTML(o.customer_name || "Guest Customer")}</div><div class="customer-email">${escapeHTML(o.payment_method || "—")}</div></td>
+            <td><div class="customer-name">${escapeHTML(o.customer_name || "Guest Customer")}</div><div class="customer-email">${escapeHTML(o.customer_email || "Email unavailable")}</div><div class="customer-email">${escapeHTML(o.customer_phone || "Phone unavailable")}</div></td>
+            <td><div class="customer-address">${escapeHTML([o.shipping_address,o.shipping_city,o.shipping_state,o.shipping_pincode].filter(Boolean).join(", ") || "Address not available")}</div></td>
             <td><div class="product-name">${escapeHTML(label)}</div><div class="product-quantity">Qty: ${qty}</div></td>
             <td class="amount">${money(o.total)}</td>
             <td><span class="status ${statusClass(o.payment_status)}">${escapeHTML(status.toUpperCase())}</span></td>
@@ -1139,7 +1144,8 @@ function viewOrder(orderNumber){
     const o=allOrders.find(x=>String(x.order_number)===String(orderNumber));
     if(!o) return;
     const items=(o.items||[]).map(i=>i.name+" × "+(i.quantity||1)+" · Size: "+(i.size||"M")+" · Colour: "+(["Black","White","Beige"].includes(i.color)?i.color:"Black")).join("\n");
-    alert("ORDER #"+o.order_number+"\n\n"+(o.customer_name||"Guest Customer")+"\n"+items+
+    const address = [o.shipping_address,o.shipping_city,o.shipping_state,o.shipping_pincode].filter(Boolean).join(", ") || "Not available";
+    alert("ORDER #"+o.order_number+"\n\nCUSTOMER: "+(o.customer_name||"Guest Customer")+\n"\nEmail: "+(o.customer_email||"Not available")+"\nPhone: "+(o.customer_phone||"Not available")+"\nAddress: "+address+"\n\nPRODUCTS:\n"+items+
         "\n\nAmount: "+money(o.total)+"\nPayment: "+(o.payment_status||"unpaid_demo")+
         "\nStatus: "+(o.order_status||"pending_payment"));
 }
