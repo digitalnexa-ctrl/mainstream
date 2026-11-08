@@ -1145,7 +1145,7 @@ function viewOrder(orderNumber){
     if(!o) return;
     const items=(o.items||[]).map(i=>i.name+" × "+(i.quantity||1)+" · Size: "+(i.size||"M")+" · Colour: "+(["Black","White","Beige"].includes(i.color)?i.color:"Black")).join("\n");
     const address = [o.shipping_address,o.shipping_city,o.shipping_state,o.shipping_pincode].filter(Boolean).join(", ") || "Not available";
-    alert("ORDER #"+o.order_number+"\n\nCUSTOMER: "+(o.customer_name||"Guest Customer")+\n"\nEmail: "+(o.customer_email||"Not available")+"\nPhone: "+(o.customer_phone||"Not available")+"\nAddress: "+address+"\n\nPRODUCTS:\n"+items+
+    alert("ORDER #"+o.order_number+"\n\nCUSTOMER: "+(o.customer_name||"Guest Customer")+"\n\nEmail: "+(o.customer_email||"Not available")+"\nPhone: "+(o.customer_phone||"Not available")+"\nAddress: "+address+"\n\nPRODUCTS:\n"+items+
         "\n\nAmount: "+money(o.total)+"\nPayment: "+(o.payment_status||"unpaid_demo")+
         "\nStatus: "+(o.order_status||"pending_payment"));
 }
