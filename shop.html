@@ -2322,29 +2322,29 @@ ADDED TO CART
 function addToWishlist(){
     window.location.href = "wishlist.html";
 }
-function saveProductToWishlist(productKey){
-
-    let wishlist =
-        JSON.parse(
-            localStorage.getItem("mainstreamWishlist")
-        ) || [];
-
-    if(!wishlist.includes(productKey)){
-
-        wishlist.push(productKey);
-
-        localStorage.setItem(
-            "mainstreamWishlist",
-            JSON.stringify(wishlist)
-        );
-
-        alert("Added to Wishlist ❤️");
-
-    }else{
-
-        alert("Already in Wishlist ❤️");
-
+function getWishlistVisitorId(){
+    let id=localStorage.getItem("mainstreamWishlistVisitorId");
+    if(!id){
+        id=(window.crypto && crypto.randomUUID) ? crypto.randomUUID() : "visitor-"+Date.now()+"-"+Math.random().toString(36).slice(2);
+        localStorage.setItem("mainstreamWishlistVisitorId",id);
     }
+    return id;
+}
+async function saveProductToWishlist(productKey){
+    let wishlist=JSON.parse(localStorage.getItem("mainstreamWishlist")||"[]");
+    if(wishlist.includes(productKey)){alert("Already in Wishlist ❤️");return;}
+    wishlist.push(productKey);
+    localStorage.setItem("mainstreamWishlist",JSON.stringify(wishlist));
+    try{
+        const visitorId=getWishlistVisitorId();
+        const productCard=[...document.querySelectorAll(".product")].find(card=>card.dataset.slug===productKey || card.dataset.name===productKey);
+        const productName=productCard?.querySelector("h2")?.textContent?.trim() || productKey;
+        const productImage=productCard?.querySelector("img")?.getAttribute("src") || "";
+        const client=supabase.createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY);
+        const {error}=await client.from("wishlist_items").upsert({visitor_id:visitorId,product_slug:productKey,product_name:productName,product_image:productImage},{onConflict:"visitor_id,product_slug"});
+        if(error) console.error("Wishlist sync failed:",error);
+    }catch(error){console.error("Wishlist sync failed:",error);}
+    alert("Added to Wishlist ❤️");
 }    
     
 /* =====================================================
