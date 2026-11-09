@@ -1874,7 +1874,7 @@ LANDO / 01 TEE
 </h2>
 
 <p class="collection">
-MCLAREN COLLECTION
+RACING COLLECTION
 </p>
 
 <div class="price">
@@ -1958,7 +1958,7 @@ KIMI / 12 TEE
 </h2>
 
 <p class="collection">
-MERCEDES COLLECTION
+RACING COLLECTION
 </p>
 
 <div class="price">
@@ -2875,10 +2875,8 @@ async function loadShopProducts(){
 
         const team = normalizeShopTeam(product.category, product);
 
-        const collection =
-            team === "all"
-            ? "MAINSTREAM COLLECTION"
-            : team.toUpperCase() + " COLLECTION";
+        // Display the exact collection saved in Dashboard; team is only for filtering.
+        const collection = product.category || "MAINSTREAM COLLECTION";
 
         const card = document.createElement("article");
 
