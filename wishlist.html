@@ -265,285 +265,151 @@ header{
 
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
 <script>
+const mainstreamDB = supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
 
-const wishlistProducts = {
-
-max:{
-name:"MAX / 03 TEE",
-category:"RED BULL COLLECTION",
-price:999,
-image:"max.jpg"
-},
-
-lewis:{
-name:"LEWIS / 44 TEE",
-category:"RACING COLLECTION",
-price:999,
-image:"lewis.jpg"
-},
-
-charles:{
-name:"CHARLES / 16 TEE",
-category:"FERRARI COLLECTION",
-price:999,
-image:"charles.jpg"
-},
-
-lando:{
-name:"LANDO / 01 TEE",
-category:"MCLAREN COLLECTION",
-price:999,
-image:"lando.jpg"
-},
-
-oscar:{
-name:"OSCAR / 81 TEE",
-category:"MCLAREN COLLECTION",
-price:999,
-image:"oscar.jpg"
-},
-
-george:{
-name:"GEORGE / 63 TEE",
-category:"MERCEDES COLLECTION",
-price:999,
-image:"george.jpg"
-},
-
-kimi:{
-name:"KIMI / 12 TEE",
-category:"RACING COLLECTION",
-price:999,
-image:"kimi.jpg"
-}
-
+const fallbackImages = {
+    max:"max-front.png", lewis:"lewis-front.png", charles:"charles-front.png",
+    lando:"lando-front.png", oscar:"oscar-front.png", george:"george-front.png",
+    kimi:"kimi-front.png"
 };
 
-
 function getWishlist(){
-
-    try{
-
-        return JSON.parse(
-            localStorage.getItem("mainstreamWishlist")
-        ) || [];
-
-    }catch(error){
-
-        return [];
-
-    }
-
+    try { return JSON.parse(localStorage.getItem("mainstreamWishlist") || "[]"); }
+    catch(error) { return []; }
 }
-
 
 function saveWishlist(wishlist){
-
-    localStorage.setItem(
-        "mainstreamWishlist",
-        JSON.stringify(wishlist)
-    );
-
+    localStorage.setItem("mainstreamWishlist", JSON.stringify(wishlist));
 }
 
+async function getWishlistProducts(){
+    const keys = getWishlist().map(key => String(key).toLowerCase());
+    if(!keys.length) return [];
+
+    const {data, error} = await mainstreamDB
+        .from("products")
+        .select("slug,name,category,price,image_url,front_image,color_images")
+        .in("slug", keys);
+
+    if(error){
+        console.error("Wishlist products loading error:", error);
+        return [];
+    }
+
+    const bySlug = new Map((data || []).map(product => [String(product.slug).toLowerCase(), product]));
+    return keys.map(key => {
+        const product = bySlug.get(key);
+        if(!product) return null;
+        const blackFront = product.color_images?.Black?.front || product.color_images?.black?.front || "";
+        const image = blackFront || product.front_image || product.image_url || fallbackImages[key] || "mainstream-logo.png";
+        return {
+            key,
+            name: product.name || key.toUpperCase(),
+            category: product.category || "MAINSTREAM COLLECTION",
+            price: Number(product.price || 0),
+            image
+        };
+    }).filter(Boolean);
+}
 
 function addToCart(product){
-
     let cart = [];
-
-    try{
-
-        cart =
-            JSON.parse(
-                localStorage.getItem("mainstreamCart")
-            ) || [];
-
-    }catch(error){
-
-        cart = [];
-
-    }
-
-
-    const existing =
-        cart.find(
-            item => item.name === product.name
-        );
-
-
+    try { cart = JSON.parse(localStorage.getItem("mainstreamCart") || "[]"); } catch(error) {}
+    const existing = cart.find(item => item.name === product.name);
     if(existing){
-
-        existing.quantity =
-            Number(existing.quantity || 1) + 1;
-
+        existing.quantity = Number(existing.quantity || 1) + 1;
     }else{
-
         cart.push({
-
-            name:product.name,
-
-            price:"₹" + product.price,
-
-            image:product.image,
-
-            size:"M",
-
-            quantity:1
-
+            name: product.name,
+            price: "₹" + product.price,
+            image: product.image,
+            size: "M",
+            quantity: 1
         });
-
     }
-
-
-    localStorage.setItem(
-        "mainstreamCart",
-        JSON.stringify(cart)
-    );
-
-
-    alert(
-        product.name +
-        " added to cart 🛒"
-    );
-
+    localStorage.setItem("mainstreamCart", JSON.stringify(cart));
+    alert(product.name + " added to cart 🛒");
 }
-
 
 function removeFromWishlist(key){
-
-    let wishlist = getWishlist();
-
-    wishlist =
-        wishlist.filter(
-            item => item !== key
-        );
-
-    saveWishlist(wishlist);
-
+    saveWishlist(getWishlist().filter(item => String(item).toLowerCase() !== key));
     renderWishlist();
-
 }
 
+async function renderWishlist(){
+    const container = document.getElementById("wishlistContainer");
+    const wishlist = getWishlist();
 
-function renderWishlist(){
-
-    const container =
-        document.getElementById(
-            "wishlistContainer"
-        );
-
-    const wishlist =
-        getWishlist();
-
-
-    if(wishlist.length === 0){
-
+    if(!wishlist.length){
         container.innerHTML = `
-
-        <div class="empty">
-
-            <h2>Your wishlist is empty</h2>
-
-            <p>
-                Save your favourite products here.
-            </p>
-
-            <a
-                href="shop.html"
-                class="shop-btn">
-                CONTINUE SHOPPING
-            </a>
-
-        </div>
-
-        `;
-
+            <div class="empty">
+                <h2>Your wishlist is empty</h2>
+                <p>Save your favourite products here.</p>
+                <a href="shop.html" class="shop-btn">CONTINUE SHOPPING</a>
+            </div>`;
         return;
-
     }
 
+    container.innerHTML = "<p style='text-align:center;color:#777;padding:25px'>Loading wishlist...</p>";
+    const products = await getWishlistProducts();
 
-    const grid =
-        document.createElement("div");
+    if(!products.length){
+        container.innerHTML = `
+            <div class="empty">
+                <h2>Wishlist products unavailable</h2>
+                <p>Please open the shop and add the products again.</p>
+                <a href="shop.html" class="shop-btn">CONTINUE SHOPPING</a>
+            </div>`;
+        return;
+    }
 
-    grid.className =
-        "wishlist-grid";
+    const grid = document.createElement("div");
+    grid.className = "wishlist-grid";
 
+    products.forEach(product => {
+        const item = document.createElement("div");
+        item.className = "wishlist-item";
+        const image = document.createElement("img");
+        image.src = product.image;
+        image.alt = product.name;
+        image.onerror = function(){ this.onerror=null; this.src="mainstream-logo.png"; };
+        const imageWrap = document.createElement("div");
+        imageWrap.className = "product-image";
+        imageWrap.appendChild(image);
 
-    wishlist.forEach(function(key){
-
-        const product =
-            wishlistProducts[key];
-
-        if(!product){
-            return;
-        }
-
-
-        const item =
-            document.createElement("div");
-
-        item.className =
-            "wishlist-item";
-
-
-        item.innerHTML = `
-
-        <div class="product-image">
-
-            <img
-                src="${product.image}"
-                alt="${product.name}"
-                onerror="this.src='mainstream-logo.png'">
-
-        </div>
-
-        <div class="product-info">
-
-            <h3>${product.name}</h3>
-
-            <p>${product.category}</p>
-
-            <div class="price">
-                ₹${product.price.toLocaleString("en-IN")}
-            </div>
-
-            <div class="buttons">
-
-                <button
-                    class="cart-btn"
-                    onclick="addToCart(wishlistProducts['${key}'])">
-                    ADD TO CART
-                </button>
-
-                <button
-                    class="remove-btn"
-                    onclick="removeFromWishlist('${key}')">
-                    REMOVE
-                </button>
-
-            </div>
-
-        </div>
-
-        `;
-
-
+        const info = document.createElement("div");
+        info.className = "product-info";
+        const name = document.createElement("h3");
+        name.textContent = product.name;
+        const category = document.createElement("p");
+        category.textContent = product.category;
+        const price = document.createElement("div");
+        price.className = "price";
+        price.textContent = "₹" + product.price.toLocaleString("en-IN");
+        const buttons = document.createElement("div");
+        buttons.className = "buttons";
+        const cart = document.createElement("button");
+        cart.className = "cart-btn";
+        cart.textContent = "ADD TO CART";
+        cart.addEventListener("click", () => addToCart(product));
+        const remove = document.createElement("button");
+        remove.className = "remove-btn";
+        remove.textContent = "REMOVE";
+        remove.addEventListener("click", () => removeFromWishlist(product.key));
+        buttons.append(cart, remove);
+        info.append(name, category, price, buttons);
+        item.append(imageWrap, info);
         grid.appendChild(item);
-
     });
 
-
     container.innerHTML = "";
-
     container.appendChild(grid);
-
 }
 
-
 renderWishlist();
-
 </script>
 
 </body>
