@@ -85,18 +85,44 @@ a{
     color:#fff;
     display:flex;
     align-items:center;
-    justify-content:center;
-    gap:30px;
+    overflow:hidden;
+    white-space:nowrap;
     font-size:9px;
     font-weight:800;
     letter-spacing:2.5px;
     text-transform:uppercase;
-    overflow:hidden;
-    white-space:nowrap;
 }
 
-.announcement span{
-    color:#ffd900;
+.announcement-track{
+    display:flex;
+    align-items:center;
+    flex:0 0 auto;
+    width:max-content;
+    animation:announcement-scroll 42s linear infinite;
+    will-change:transform;
+}
+
+.announcement-group{
+    display:flex;
+    align-items:center;
+    flex:0 0 auto;
+    gap:30px;
+    padding-right:30px;
+}
+
+.announcement span{ color:#ffd900; }
+
+@keyframes announcement-scroll{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(-50%); }
+}
+
+.announcement:hover .announcement-track{
+    animation-play-state:paused;
+}
+
+@media(prefers-reduced-motion:reduce){
+    .announcement-track{ animation:none; }
 }
 
 
@@ -1671,14 +1697,19 @@ footer a:hover{
      ANNOUNCEMENT
 ===================================================== -->
 
-<div class="announcement">
-
-    <span>NEW DROP</span>
-
-    — RACING COLLECTION 2026 —
-
-    FREE SHIPPING ON EVERY ORDER
-
+<div class="announcement" aria-label="Store announcements">
+    <div class="announcement-track">
+        <div class="announcement-group">
+            <span>NEW DROP</span>
+            <span>— RACING COLLECTION 2026 —</span>
+            <span>FREE SHIPPING ON EVERY ORDER</span>
+        </div>
+        <div class="announcement-group" aria-hidden="true">
+            <span>NEW DROP</span>
+            <span>— RACING COLLECTION 2026 —</span>
+            <span>FREE SHIPPING ON EVERY ORDER</span>
+        </div>
+    </div>
 </div>
 
 
