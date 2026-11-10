@@ -286,25 +286,40 @@ function saveWishlist(wishlist){
 }
 
 async function getWishlistProducts(){
-    const keys = getWishlist().map(key => String(key).toLowerCase());
+    const keys = getWishlist().map(key => String(key).trim().toLowerCase()).filter(Boolean);
     if(!keys.length) return [];
 
+    // Load the current catalogue, then resolve both short legacy keys (e.g. "max")
+    // and full Dashboard slugs (e.g. "max-03-tee") against the same product record.
     const {data, error} = await mainstreamDB
         .from("products")
-        .select("slug,name,category,price,image_url,front_image,color_images")
-        .in("slug", keys);
+        .select("slug,name,category,price,image_url,front_image,color_images");
 
     if(error){
         console.error("Wishlist products loading error:", error);
         return [];
     }
 
-    const bySlug = new Map((data || []).map(product => [String(product.slug).toLowerCase(), product]));
+    const catalogue = data || [];
     return keys.map(key => {
-        const product = bySlug.get(key);
+        const keyCompact = key.replace(/[^a-z0-9]/g, "");
+        const product = catalogue.find(item => {
+            const slug = String(item.slug || "").toLowerCase();
+            const name = String(item.name || "").toLowerCase();
+            const slugCompact = slug.replace(/[^a-z0-9]/g, "");
+            const nameCompact = name.replace(/[^a-z0-9]/g, "");
+            return slug === key ||
+                slugCompact === keyCompact ||
+                slugCompact.startsWith(keyCompact) ||
+                nameCompact.startsWith(keyCompact);
+        });
         if(!product) return null;
-        const blackFront = product.color_images?.Black?.front || product.color_images?.black?.front || "";
-        const image = blackFront || product.front_image || product.image_url || fallbackImages[key] || "mainstream-logo.png";
+
+        const variants = product.color_images || {};
+        const black = variants.Black || variants.black || {};
+        const image = black.front || product.front_image || product.image_url ||
+            fallbackImages[key] || "mainstream-logo.png";
+
         return {
             key,
             name: product.name || key.toUpperCase(),
