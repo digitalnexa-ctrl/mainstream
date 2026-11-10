@@ -2683,42 +2683,33 @@ function closeSearch(event){
 
 function searchProducts(){
 
-    const input =
-        document.getElementById("searchInput");
+    const input = document.getElementById("searchInput");
+    if(!input) return;
 
-    if(!input){
-        return;
-    }
-
-    const value =
-        input.value
-        .toLowerCase()
-        .trim();
-
-    const products =
-        document.querySelectorAll(".product");
+    const value = input.value.toLowerCase().trim();
+    const products = document.querySelectorAll("#productGrid .product");
 
     products.forEach(function(product){
+        const searchable = [
+            product.dataset.name,
+            product.dataset.slug,
+            product.dataset.team,
+            product.querySelector(".collection")?.textContent || ""
+        ].join(" ").toLowerCase();
 
-        const name =
-            product.dataset.name
-            .toLowerCase();
-
-        if(
-            value === "" ||
-            name.includes(value)
-        ){
-
-            product.style.display = "";
-
-        }else{
-
-            product.style.display = "none";
-
-        }
-
+        product.style.display = (!value || searchable.includes(value)) ? "" : "none";
     });
 
+    updateShopProductCount();
+}
+
+// Apply searches submitted from the homepage (shop.html?search=...)
+function applyUrlSearch(){
+    const params = new URLSearchParams(window.location.search);
+    const query = (params.get("search") || "").trim();
+    const input = document.getElementById("searchInput");
+    if(input && query) input.value = query;
+    if(query) searchProducts();
 }
 
 
@@ -2955,8 +2946,13 @@ async function loadShopProducts(){
     // Reveal the catalogue only after the database product list has replaced fallback cards.
     grid.style.visibility = "visible";
 
+    // Apply any homepage search only after Supabase has rendered the product cards.
+    applyUrlSearch();
+
     // Re-apply the selected brand after Supabase replaces the fallback cards.
-    filterProducts(activeShopFilter, document.querySelector(".filter.active"));
+    if(!new URLSearchParams(window.location.search).has("search")){
+        filterProducts(activeShopFilter, document.querySelector(".filter.active"));
+    }
 
     console.log(
         "MAINSTREAM products loaded:",
