@@ -2202,7 +2202,7 @@ function getWishlistVisitorId(){
     }
     return id;
 }
-async function saveProductToWishlist(productKey){
+async async function saveProductToWishlist(productKey){
     let wishlist=JSON.parse(localStorage.getItem("mainstreamWishlist")||"[]");
     if(wishlist.includes(productKey)){alert("Already in Wishlist ❤️");return;}
     wishlist.push(productKey);
