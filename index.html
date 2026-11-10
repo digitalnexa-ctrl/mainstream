@@ -2688,8 +2688,7 @@ function toggleWishlist(slug,button){
 
 function openWishlist(){
 
-    window.location.href =
-        "shop.html#wishlist";
+    window.location.href = "wishlist.html";
 
 }
 
@@ -2700,18 +2699,16 @@ function openWishlist(){
 
 function openSearch(){
 
-    const overlay =
-        document.getElementById("searchOverlay");
+    const overlay = document.getElementById("searchOverlay");
+    const input = document.getElementById("searchInput");
+
+    if(!overlay || !input){
+        window.location.href = "shop.html";
+        return;
+    }
 
     overlay.classList.add("active");
-
-    setTimeout(function(){
-
-        document
-        .getElementById("searchInput")
-        .focus();
-
-    },100);
+    setTimeout(function(){ input.focus(); },100);
 
 }
 
