@@ -3215,7 +3215,7 @@ async function logout(){
     try{
         await mainstreamAuth.auth.signOut();
     }finally{
-        window.location.href = "login.html";
+        window.location.replace("https://digitalnexa-ctrl.github.io/mainstream/login.html");
     }
 }
 
@@ -3239,7 +3239,7 @@ async function checkAdminLogin(){
     } = await mainstreamAuth.auth.getSession();
 
     if(!session){
-        window.location.href = "login.html";
+        window.location.replace("https://digitalnexa-ctrl.github.io/mainstream/login.html");
         return;
     }
 
