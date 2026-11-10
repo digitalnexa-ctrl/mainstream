@@ -2320,6 +2320,8 @@ const fallbackProducts = [
    LOAD PRODUCTS
 ========================================================= */
 
+let homeProducts = fallbackProducts.slice();
+
 async function loadProducts(){
 
     const grid =
@@ -2327,7 +2329,8 @@ async function loadProducts(){
 
     // Show the four featured products immediately. This prevents a blank
     // NEW DROP section on mobile when the database request is slow or blocked.
-    renderProducts(fallbackProducts.slice(0,4));
+    homeProducts = fallbackProducts.slice();
+    renderProducts(homeProducts.slice(0,4));
 
     // Keep the storefront usable if the Supabase library is unavailable.
     if (!mainstreamDB) return;
@@ -2351,8 +2354,9 @@ async function loadProducts(){
             data.length === 0
         ){
 
+            homeProducts = fallbackProducts.slice();
             renderProducts(
-                fallbackProducts.slice(0,4)
+                homeProducts.slice(0,4)
             );
 
             return;
@@ -2389,8 +2393,9 @@ async function loadProducts(){
         });
 
 
+        homeProducts = products;
         renderProducts(
-            products.slice(0,4)
+            homeProducts.slice(0,4)
         );
 
 
@@ -2740,41 +2745,41 @@ document
 );
 
 
-document
-.getElementById("searchInput")
-.addEventListener(
-    "keydown",
-    function(event){
+const homeSearchInput = document.getElementById("searchInput");
 
-        if(
-            event.key === "Enter"
-        ){
+function runHomeSearch(){
+    const query = homeSearchInput.value.trim().toLowerCase();
+    if(!query) return;
 
-            const query =
-                this.value.trim();
+    const matches = homeProducts.filter(product => {
+        const searchable = [
+            product.name, product.slug, product.category, product.id
+        ].join(" ").toLowerCase();
+        return searchable.includes(query);
+    });
 
+    const grid = document.getElementById("productsGrid");
+    const heading = document.querySelector(".drop-section .section-title");
+    if(heading) heading.textContent = "SEARCH RESULTS";
 
-            if(query){
-
-                window.location.href =
-                    "shop.html?search=" +
-                    encodeURIComponent(query);
-
-            }
-
-        }
-
-
-        if(
-            event.key === "Escape"
-        ){
-
-            closeSearch();
-
-        }
-
+    if(matches.length){
+        renderProducts(matches);
+    }else{
+        grid.innerHTML = '<p class="home-search-empty" style="grid-column:1/-1;text-align:center;padding:45px 15px;font-weight:700;">NO PRODUCTS FOUND. TRY ANOTHER SEARCH.</p>';
     }
-);
+
+    closeSearch();
+    document.querySelector(".drop-section")?.scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+homeSearchInput.addEventListener("keydown", function(event){
+    if(event.key === "Enter"){
+        event.preventDefault();
+        runHomeSearch();
+    }
+    if(event.key === "Escape") closeSearch();
+});
+
 
 
 /* =========================================================
