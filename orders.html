@@ -975,7 +975,7 @@ body{
 
                 <span id="selectionCount" class="selection-count">0 selected</span>
                 <button type="button" id="deleteSelectedOrdersBtn" class="delete-selected-btn" onclick="deleteSelectedOrders()" disabled>
-                    DELETE SELECTED
+                    CANCEL & RESTORE STOCK
                 </button>
 
             </div>
@@ -1159,33 +1159,55 @@ async function deleteSelectedOrders(){
         alert("Select at least one order first.");
         return;
     }
+
+    const selectedRows = allOrders.filter(order => selected.includes(String(order.order_number)));
+    const paidCount = selectedRows.filter(order =>
+        ["paid","captured"].includes(String(order.payment_status || "").toLowerCase())
+    ).length;
     const confirmed = window.confirm(
-        "Delete " + selected.length + " selected order(s)? This includes any selected PAID orders and cannot be undone."
+        "Cancel " + selected.length + " selected order(s)?\n\n" +
+        paidCount + " paid order(s) will have their stock restored automatically. " +
+        "This does NOT issue a customer refund. The order records will be kept as CANCELLED."
     );
     if(!confirmed) return;
 
     const button = document.getElementById("deleteSelectedOrdersBtn");
     if(button){
         button.disabled = true;
-        button.textContent = "DELETING...";
+        button.textContent = "CANCELLING...";
     }
+
+    const completed = [];
+    const failed = [];
     try{
         const {data:{session}} = await ordersAuth.auth.getSession();
         if(!session) throw new Error("Your admin session has expired. Please log in again.");
 
-        const {error} = await ordersAuth
-            .from("orders")
-            .delete()
-            .in("order_number", selected);
-        if(error) throw error;
+        for(const orderNumber of selected){
+            const {data, error} = await ordersAuth.rpc("cancel_mainstream_order", {
+                p_order_number: orderNumber
+            });
+            if(error) failed.push(orderNumber + ": " + error.message);
+            else {
+                completed.push(orderNumber);
+                selectedOrderNumbers.delete(orderNumber);
+            }
+        }
 
-        selected.forEach(number => selectedOrderNumbers.delete(number));
         await loadOrders();
-        alert(selected.length + " selected order(s) deleted.");
+        if(failed.length){
+            alert(
+                completed.length + " order(s) cancelled.\n\nCould not cancel:\n" +
+                failed.join("\n")
+            );
+        }else{
+            alert(completed.length + " order(s) cancelled. Stock restoration was handled by the database where stock had been deducted.");
+        }
     }catch(error){
-        console.error("Delete selected orders failed:", error);
-        alert("Could not delete selected orders: " + (error.message || "Check the Supabase DELETE policy for the admin role."));
-        if(button) button.textContent = "DELETE SELECTED";
+        console.error("Cancel selected orders failed:", error);
+        alert("Could not cancel selected orders: " + (error.message || "Please check the database function."));
+    }finally{
+        if(button) button.textContent = "CANCEL & RESTORE STOCK";
         syncOrderSelectionUI();
     }
 }
