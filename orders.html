@@ -1140,8 +1140,8 @@ function syncOrderSelectionUI(){
     if(deleteButton){
         deleteButton.disabled = selectedOrderNumbers.size === 0;
         deleteButton.textContent = selectedOrderNumbers.size
-            ? "DELETE SELECTED (" + selectedOrderNumbers.size + ")"
-            : "DELETE SELECTED";
+            ? "CANCEL & RESTORE STOCK (" + selectedOrderNumbers.size + ")"
+            : "CANCEL & RESTORE STOCK";
     }
 }
 function viewOrder(orderNumber){
