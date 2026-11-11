@@ -2296,7 +2296,7 @@ const fallbackProducts = [
         name:"LEWIS / 44 TEE",
         price:899,
         category:"Racing Collection",
-        image:"lewis-front.png"
+        image:"01-lewis-beige-front.jpg"
     },
 
     {
@@ -2305,7 +2305,7 @@ const fallbackProducts = [
         name:"CHARLES / 16 TEE",
         price:899,
         category:"Racing Collection",
-        image:"charles-front.png"
+        image:"CHARLES – Beige Front.jpg"
     },
 
     {
@@ -2314,7 +2314,7 @@ const fallbackProducts = [
         name:"LANDO / 01 TEE",
         price:899,
         category:"Racing Collection",
-        image:"lando-front.png"
+        image:"09-lando-white-front.jpg"
     },
 
     {
@@ -2418,10 +2418,16 @@ async function loadProducts(){
 
                 image: (String(product.slug || "").toLowerCase().startsWith("max")
                     ? "MAX-Black-Front.jpg"
-                    : String(product.slug || "").toLowerCase().startsWith("kimi")
-                        ? "KIMI-Black-Front.jpg"
-                        : product.front_image || product.image_url || product.combined_image ||
-                            "mainstream-logo.png")
+                    : String(product.slug || "").toLowerCase().startsWith("charles")
+                        ? "CHARLES – Beige Front.jpg"
+                        : String(product.slug || "").toLowerCase().startsWith("lando")
+                            ? "09-lando-white-front.jpg"
+                            : String(product.slug || "").toLowerCase().startsWith("lewis")
+                                ? "01-lewis-beige-front.jpg"
+                                : String(product.slug || "").toLowerCase().startsWith("kimi")
+                                    ? "KIMI-Black-Front.jpg"
+                                    : product.front_image || product.image_url || product.combined_image ||
+                                        "mainstream-logo.png")
 
             };
 
