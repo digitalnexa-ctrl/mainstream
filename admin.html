@@ -2751,6 +2751,28 @@ const mainstreamAuth = supabase.createClient(
 
 let dashboardOrders = [];
 
+function changePeriod(period = "month"){
+    const now = new Date();
+    const filtered = dashboardOrders.filter(order => {
+        if(!["paid","captured"].includes(String(order.payment_status || "").toLowerCase())) return false;
+        const date = new Date(order.created_at);
+        if(Number.isNaN(date.getTime())) return false;
+        if(period === "week"){
+            const start = new Date(now);
+            start.setHours(0,0,0,0);
+            start.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+            return date >= start && date <= now;
+        }
+        if(period === "year") return date.getFullYear() === now.getFullYear();
+        return date.getFullYear() === now.getFullYear() && date.getMonth() === now.getMonth();
+    });
+    const total = filtered.reduce((sum, order) => sum + Number(order.total || 0), 0);
+    const salesEl = document.getElementById("salesValue");
+    const noteEl = document.getElementById("salesNote");
+    if(salesEl) salesEl.textContent = "₹" + total.toLocaleString("en-IN");
+    if(noteEl) noteEl.textContent = period === "week" ? "Current week revenue" : period === "year" ? "Current year revenue" : "Current month revenue";
+}
+
 async function loadDashboardOrders(){
     const body = document.getElementById("recentOrdersBody");
     try{
