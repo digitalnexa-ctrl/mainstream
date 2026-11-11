@@ -804,7 +804,8 @@ const productKeyAliases = {
     "lando-01-tee": "lando",
     "oscar-81-tee": "oscar",
     "george-63-tee": "george",
-    "kimi-12-tee": "kimi"
+    "kimi-12-tee": "kimi",
+    "ms": "ms"
 };
 
 const productKey =
@@ -870,6 +871,14 @@ const fallbackProducts = {
         front:"kimi-front.png",
         back:"kimi-back.png",
         combined:"kimi.jpg"
+    },
+
+    ms:{
+        name:"MS",
+        price:1,
+        front:"mainstream-logo.png",
+        back:"mainstream-logo.png",
+        combined:"mainstream-logo.png"
     }
 
 };
@@ -941,7 +950,8 @@ async function loadProduct(){
             lando: "lando-01-tee",
             oscar: "oscar-81-tee",
             george: "george-63-tee",
-            kimi: "kimi-12-tee"
+            kimi: "kimi-12-tee",
+            ms: "ms"
         };
         const databaseProductSlug =
             databaseSlugAliases[requestedProduct] || requestedProduct;
