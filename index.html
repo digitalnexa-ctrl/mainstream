@@ -1993,6 +1993,18 @@ footer a:hover{
                 <button class="add-cart" onclick="addToCart({id:'lando',slug:'lando-01-tee',name:'LANDO / 01 TEE',price:899,category:'Racing Collection',image:'lando-front.png'})">ADD TO CART</button>
             </div>
         </article>
+        <article class="product-card">
+            <div class="product-image">
+                <img src="KIMI-Black-Front.jpg" alt="KIMI / 12 TEE" loading="eager" fetchpriority="high" width="600" height="800">
+                <button class="product-wishlist" onclick="toggleWishlist('kimi-12-tee', this)" aria-label="Add Kimi tee to wishlist">♡</button>
+            </div>
+            <div class="product-info">
+                <div class="product-category">Racing Collection</div>
+                <div class="product-name">KIMI / 12 TEE</div>
+                <div class="product-bottom"><div class="product-price">₹899</div><a class="view-btn" href="product.html?slug=kimi-12-tee">VIEW PRODUCT →</a></div>
+                <button class="add-cart" onclick="addToCart({id:'kimi',slug:'kimi-12-tee',name:'KIMI / 12 TEE',price:899,category:'Racing Collection',image:'KIMI-Black-Front.jpg'})">ADD TO CART</button>
+            </div>
+        </article>
     </div>
 
 
@@ -2358,10 +2370,10 @@ async function loadProducts(){
     const grid =
         document.getElementById("productsGrid");
 
-    // Show the four featured products immediately. This prevents a blank
-    // NEW DROP section on mobile when the database request is slow or blocked.
+    // Show five featured products immediately, including KIMI.
+    // This prevents a blank NEW DROP section while the database request loads.
     homeProducts = fallbackProducts.slice();
-    renderProducts(homeProducts.slice(0,4));
+    renderProducts(homeProducts.slice(0,5));
 
     // Keep the storefront usable if the Supabase library is unavailable.
     if (!mainstreamDB) return;
@@ -2387,7 +2399,7 @@ async function loadProducts(){
 
             homeProducts = fallbackProducts.slice();
             renderProducts(
-                homeProducts.slice(0,4)
+                homeProducts.slice(0,5)
             );
 
             return;
@@ -2416,8 +2428,12 @@ async function loadProducts(){
                     product.category ||
                     "Racing Collection",
 
-                image: product.front_image || product.image_url || product.combined_image ||
-                    "mainstream-logo.png"
+                image: (String(product.slug || "").toLowerCase().startsWith("max")
+                    ? "MAX-Black-Front.jpg"
+                    : String(product.slug || "").toLowerCase().startsWith("kimi")
+                        ? "KIMI-Black-Front.jpg"
+                        : product.front_image || product.image_url || product.combined_image ||
+                            "mainstream-logo.png")
 
             };
 
@@ -2426,7 +2442,7 @@ async function loadProducts(){
 
         homeProducts = products;
         renderProducts(
-            homeProducts.slice(0,4)
+            homeProducts.slice(0,5)
         );
 
 
