@@ -95,6 +95,7 @@ Deno.serve(async (req) => {
 
     return json({
       verified: true,
+      paid: true,
       stock: completion,
       orderNumber: order.order_number,
       total: order.total,
