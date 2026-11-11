@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://digitalnexa-ctrl.github.io/mainstream/sitemap.xml
+Sitemap: https://mainstream-4c6.pages.dev/sitemap.xml
