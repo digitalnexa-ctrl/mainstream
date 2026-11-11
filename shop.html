@@ -2854,7 +2854,7 @@ async function loadShopProducts(){
     // Replace fallback cards only after Supabase returns active products.
     grid.innerHTML = "";
 
-    data.forEach(function(product, index){
+    productsToRender.forEach(function(product, index){
 
         // Use the exact first/front image configured on the individual Product page.
         const frontImages = {
