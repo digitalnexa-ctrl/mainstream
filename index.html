@@ -2885,6 +2885,11 @@ function changeHero(){
         image.src =
             heroImages[heroIndex];
 
+        // Lift the dark exposure slightly on MAX and KIMI black-shirt slides.
+        const blackProductSlide = /(?:03-max|04-max|07-kimi|08-kimi)-black/i.test(heroImages[heroIndex]);
+        image.style.filter = blackProductSlide
+            ? "brightness(1.14) contrast(1.04) saturate(1.03)"
+            : "none";
 
         number.textContent =
             String(heroIndex+1).padStart(2,"0")
