@@ -2926,7 +2926,7 @@ async function loadShopProducts(){
 
                     <button
                         class="add-btn"
-                        onclick="addToCart('${product.name}',${price},'${imageUrl}')">
+                        type="button">
                         ADD TO CART
                     </button>
 
@@ -2934,6 +2934,15 @@ async function loadShopProducts(){
 
             </div>
         `;
+
+        // Keep potentially large base64 image data out of inline HTML/JavaScript.
+        // This avoids creating a huge onclick attribute for products stored as data URLs.
+        const addButton = card.querySelector(".add-btn");
+        if(addButton){
+            addButton.addEventListener("click", function(){
+                addToCart(product.name || "MAINSTREAM PRODUCT", price, imageUrl);
+            });
+        }
 
         grid.appendChild(card);
 
