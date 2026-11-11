@@ -2864,7 +2864,7 @@ async function loadShopProducts(){
         const imageUrl =
             /^(https?:|data:)/i.test(String(imageFile))
             ? String(imageFile)
-            : new URL(String(imageFile).replace(/^\\//, ""), window.location.href).href;
+            : new URL(String(imageFile).replace(/^\//, ""), window.location.href).href;
         // Approved MAINSTREAM T-shirt storefront price.
         const price = Number(product.price) > 0 ? Number(product.price) : 899;
 
