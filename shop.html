@@ -2846,26 +2846,30 @@ async function loadShopProducts(){
 
     productsToRender.forEach(function(product, index){
 
-        // Use the exact first/front image configured on the individual Product page.
+        // Shop-only storefront thumbnails: one correct colour image per product.
+        // Product detail page and admin/edit-product files remain unchanged.
         const frontImages = {
-            max: "max-front.png",
-            lewis: "lewis-front.png",
-            charles: "charles-front.png",
-            lando: "lando-front.png",
+            max: "03-max-black-front.jpg",
+            lewis: "01-lewis-beige-front.jpg",
+            charles: "05-charles-white-front.jpg",
+            lando: "09-lando-white-front.jpg",
+            kimi: "07-kimi-black-front.jpg",
             oscar: "oscar-front.png",
             george: "george-front.png",
-            kimi: "kimi-front.png",
             ms: "ms-front.png"
         };
 
         const productSlug = String(product.slug || "").trim().toLowerCase();
+        const matchingFrontImage = Object.entries(frontImages).find(
+            ([slug]) => productSlug === slug || productSlug.startsWith(slug + "-")
+        );
         const imageFile =
+            (matchingFrontImage && matchingFrontImage[1]) ||
             product.front_image ||
             product.frontImage ||
             product.image_url ||
             product.image ||
             product.product_image ||
-            frontImages[productSlug] ||
             product.combined_image ||
             "mainstream-logo.png";
 
