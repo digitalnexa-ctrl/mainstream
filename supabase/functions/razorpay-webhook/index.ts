@@ -67,21 +67,17 @@ Deno.serve(async (req) => {
       return json({ error: "Webhook payment amount does not match the order." }, 400);
     }
 
-    if (order.payment_status !== "paid") {
-      const { error: updateError } = await supabase
-        .from("orders")
-        .update({
-          payment_status: "paid",
-          order_status: "processing",
-          payment_method: payment.method || "Razorpay",
-          razorpay_payment_id: payment.id,
-          paid_at: new Date().toISOString(),
-        })
-        .eq("id", order.id);
-      if (updateError) throw updateError;
-    }
+    const { data: completion, error: completionError } = await supabase.rpc(
+      "complete_razorpay_order",
+      {
+        p_razorpay_order_id: payment.order_id,
+        p_payment_id: payment.id,
+        p_payment_method: payment.method || "Razorpay",
+      },
+    );
+    if (completionError) throw completionError;
 
-    return json({ received: true, paid: true });
+    return json({ received: true, paid: true, completion });
   } catch (error) {
     console.error("razorpay-webhook error", error);
     return json({ error: "Webhook processing failed." }, 500);
