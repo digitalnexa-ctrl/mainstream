@@ -2878,6 +2878,10 @@ async function loadShopProducts(){
             /^(https?:|data:)/i.test(String(imageFile))
             ? String(imageFile)
             : new URL(String(imageFile).replace(/^\//, ""), window.location.href).href;
+        // Slightly lift exposure on MAX and KIMI black-shirt shop thumbnails only.
+        const shopImageFilter = /^(max|kimi)(?:-|$)/i.test(productSlug)
+            ? "brightness(1.14) contrast(1.04) saturate(1.03)"
+            : "none";
         // Approved MAINSTREAM T-shirt storefront price.
         const price = Number(product.price) > 0 ? Number(product.price) : 899;
 
@@ -2904,6 +2908,7 @@ async function loadShopProducts(){
                 <img
                     src="${imageUrl}"
                     alt="${product.name}"
+                    style="filter:${shopImageFilter}"
                     loading="eager"
                     decoding="async"
                     onerror="this.onerror=null;this.src='mainstream-logo.png';"
