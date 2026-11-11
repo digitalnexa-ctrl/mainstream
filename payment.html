@@ -841,7 +841,13 @@ async function placeOrder(){
                         {body: response}
                     );
                     if(verifyError) throw new Error(verified && verified.error || verifyError.message || "Payment verification failed.");
-                    if(!verified || verified.verified !== true) throw new Error("Payment could not be verified.");
+                    
+if (!verified || verified.paid !== true) {
+  throw new Error(
+    verified?.error || "Payment could not be verified."
+  );
+}
+
 
                     const confirmedItems = (verified.items || []).map(function(item){
                         const source = cart.find(x => String(x.slug || x.id).toLowerCase() === String(item.slug).toLowerCase()
