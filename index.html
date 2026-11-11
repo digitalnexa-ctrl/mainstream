@@ -483,18 +483,16 @@ header.scrolled{
 .hero-image{
     width:100%;
     height:100%;
-
     object-fit:contain;
-
     display:block;
-
-    transition:
-        opacity .5s ease,
-        transform 1s cubic-bezier(.2,.8,.2,1);
+    opacity:1;
+    transform:none;
+    filter:none;
+    transition:opacity .45s ease;
 }
 
 .hero-image-box:hover .hero-image{
-    transform:scale(1.025);
+    transform:none;
 }
 
 .hero-label{
@@ -2879,37 +2877,31 @@ let heroIndex = 0;
 
 function changeHero(){
 
-    const image =
-        document.getElementById("heroImage");
+    const image = document.getElementById("heroImage");
+    const number = document.getElementById("heroNumber");
+    const nextSrc = heroImages[heroIndex];
 
+    // Preload the next frame before swapping to avoid a white/blank flash.
+    const preload = new Image();
+    preload.onload = function(){
+        image.style.opacity = "0";
 
-    const number =
-        document.getElementById("heroNumber");
+        setTimeout(function(){
+            image.src = nextSrc;
+            image.style.filter = "none";
+            image.style.transform = "none";
+            number.textContent =
+                String(heroIndex+1).padStart(2,"0") + " / 10";
 
-
-    image.style.opacity = "0";
-
-
-    setTimeout(function(){
-
-        image.src =
-            heroImages[heroIndex];
-
-        // Lift the dark exposure slightly on MAX and KIMI black-shirt slides.
-        const blackProductSlide = /(?:03-max|04-max|07-kimi|08-kimi)-black/i.test(heroImages[heroIndex]);
-        image.style.filter = blackProductSlide
-            ? "brightness(1.14) contrast(1.04) saturate(1.03)"
-            : "none";
-
-        number.textContent =
-            String(heroIndex+1).padStart(2,"0")
-            + " / 10";
-
-
-        image.style.opacity =
-            "1";
-
-    },250);
+            requestAnimationFrame(function(){
+                image.style.opacity = "1";
+            });
+        }, 180);
+    };
+    preload.onerror = function(){
+        image.style.opacity = "1";
+    };
+    preload.src = nextSrc;
 
 }
 
