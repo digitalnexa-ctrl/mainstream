@@ -2801,7 +2801,7 @@ async function loadShopProducts(){
 
     const { data, error } = await mainstreamDB
         .from("products")
-        .select("*")
+        .select("id,slug,name,active,price,category,front_image,combined_image,image_url")
         .eq("active", true);
 
     // Explicitly retrieve the MS row as a safeguard if the catalogue query
@@ -2810,7 +2810,7 @@ async function loadShopProducts(){
     if (!error) {
         const msResult = await mainstreamDB
             .from("products")
-            .select("*")
+            .select("id,slug,name,active,price,category,front_image,combined_image,image_url")
             .eq("slug", "ms")
             .eq("active", true)
             .maybeSingle();
