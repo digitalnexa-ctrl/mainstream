@@ -975,7 +975,7 @@ body{
 
                 <span id="selectionCount" class="selection-count">0 selected</span>
                 <button type="button" id="deleteSelectedOrdersBtn" class="delete-selected-btn" onclick="deleteSelectedOrders()" disabled>
-                    CANCEL & RESTORE STOCK
+                    DELETE SELECTED
                 </button>
 
             </div>
@@ -1138,8 +1138,8 @@ function syncOrderSelectionUI(){
     if(deleteButton){
         deleteButton.disabled = selectedOrderNumbers.size === 0;
         deleteButton.textContent = selectedOrderNumbers.size
-            ? "CANCEL & RESTORE STOCK (" + selectedOrderNumbers.size + ")"
-            : "CANCEL & RESTORE STOCK";
+            ? "DELETE SELECTED (" + selectedOrderNumbers.size + ")"
+            : "DELETE SELECTED";
     }
 }
 function viewOrder(orderNumber){
@@ -1162,50 +1162,39 @@ async function deleteSelectedOrders(){
     const paidCount = selectedRows.filter(order =>
         ["paid","captured"].includes(String(order.payment_status || "").toLowerCase())
     ).length;
+
     const confirmed = window.confirm(
-        "Cancel " + selected.length + " selected order(s)?\n\n" +
-        paidCount + " paid order(s) will have their stock restored automatically. " +
-        "This does NOT issue a customer refund. The order records will be kept as CANCELLED."
+        "PERMANENTLY DELETE " + selected.length + " selected order(s)?\\n\\n" +
+        paidCount + " are paid orders. This removes their order records only. " +
+        "It does NOT issue refunds or restore stock. This action cannot be undone."
     );
     if(!confirmed) return;
 
     const button = document.getElementById("deleteSelectedOrdersBtn");
     if(button){
         button.disabled = true;
-        button.textContent = "CANCELLING...";
+        button.textContent = "DELETING...";
     }
 
-    const completed = [];
-    const failed = [];
     try{
         const {data:{session}} = await ordersAuth.auth.getSession();
         if(!session) throw new Error("Your admin session has expired. Please log in again.");
 
-        for(const orderNumber of selected){
-            const {data, error} = await ordersAuth.rpc("cancel_mainstream_order", {
-                p_order_number: orderNumber
-            });
-            if(error) failed.push(orderNumber + ": " + error.message);
-            else {
-                completed.push(orderNumber);
-                selectedOrderNumbers.delete(orderNumber);
-            }
-        }
+        const {error} = await ordersAuth
+            .from("orders")
+            .delete()
+            .in("order_number", selected);
 
+        if(error) throw error;
+
+        selected.forEach(number => selectedOrderNumbers.delete(number));
         await loadOrders();
-        if(failed.length){
-            alert(
-                completed.length + " order(s) cancelled.\n\nCould not cancel:\n" +
-                failed.join("\n")
-            );
-        }else{
-            alert(completed.length + " order(s) cancelled. Stock restoration was handled by the database where stock had been deducted.");
-        }
+        alert(selected.length + " order(s) permanently deleted. No refund or stock adjustment was made.");
     }catch(error){
-        console.error("Cancel selected orders failed:", error);
-        alert("Could not cancel selected orders: " + (error.message || "Please check the database function."));
+        console.error("Delete selected orders failed:", error);
+        alert("Could not delete selected orders: " + (error.message || "Please try again."));
     }finally{
-        if(button) button.textContent = "CANCEL & RESTORE STOCK";
+        if(button) button.textContent = "DELETE SELECTED";
         syncOrderSelectionUI();
     }
 }
