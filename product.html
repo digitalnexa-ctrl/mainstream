@@ -1270,11 +1270,11 @@ function applySelectedColorImages(){
     // Each colour uses its own uploaded photo. The base image is only the Black fallback.
     currentProduct.front = usable(variantFront)
         ? variantFront
-        : (selectedColor === "Black" ? (currentProduct.baseFront || "") : "");
+        : (currentProduct.baseFront || "");
 
     currentProduct.back = usable(variantBack)
         ? variantBack
-        : (selectedColor === "Black" ? (currentProduct.baseBack || "") : "");
+        : (currentProduct.baseBack || "");
 
     const frontThumb = document.getElementById("frontThumb");
     const backThumb = document.getElementById("backThumb");
