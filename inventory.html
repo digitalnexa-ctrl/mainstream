@@ -443,6 +443,21 @@ tr:last-child td{
     gap:7px;
 }
 
+.stock-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:7px 10px;
+    border-radius:5px;
+    font-size:8px;
+    font-weight:bold;
+    cursor:pointer;
+    color:var(--green);
+    border:1px solid #244735;
+    background:transparent;
+}
+.stock-btn:hover{background:var(--green);color:#000;}
+
 .edit-btn,
 .delete-btn{
     display:inline-flex;
@@ -1613,6 +1628,15 @@ function renderRows(products){
 
                     <div class="actions">
 
+                        <button
+                            type="button"
+                            class="stock-btn"
+                            onclick="updateStock('${productId.replace(/'/g,"\\'")}')">
+
+                            STOCK
+
+                        </button>
+
                         <a
                             href="edit-product.html?product=${encodeURIComponent(productId)}"
                             class="edit-btn">
@@ -1644,6 +1668,45 @@ function renderRows(products){
     );
 
 }
+
+/* =========================================
+   QUICK STOCK UPDATE
+========================================= */
+
+async function updateStock(productId){
+    const product = getProducts().find(item =>
+        String(item.slug || item.id) === String(productId)
+    );
+    if(!product) return alert("Product not found.");
+
+    const entered = prompt(
+        "Enter the new stock quantity for " + product.name + ":",
+        String(Number(product.stock || 0))
+    );
+    if(entered === null) return;
+
+    const nextStock = Number(entered.trim());
+    if(!Number.isInteger(nextStock) || nextStock < 0){
+        alert("Please enter a whole number (0 or more).");
+        return;
+    }
+
+    const { error } = await mainstreamDB
+        .from("products")
+        .update({ stock: nextStock, updated_at: new Date().toISOString() })
+        .eq("slug", product.slug || product.id);
+
+    if(error){
+        console.error("Stock update error:", error);
+        alert("Stock update failed: " + error.message);
+        return;
+    }
+
+    addActivity("Stock updated", product.name + " · " + nextStock + " units");
+    await loadInventoryFromSupabase();
+    alert("Stock updated successfully.");
+}
+
 
 /* =========================================
    DELETE PRODUCT
@@ -1920,7 +1983,7 @@ async function loadInventoryFromSupabase(){
     const { data, error } = await mainstreamDB
         .from("products")
         // Inventory needs only text/stock fields. Avoid downloading large image data.
-        .select("slug,name,price,stock,category,active", { count: "exact" });
+        .select("slug,name,price,stock,category,active,image_url,front_image", { count: "exact" });
 
     if(error){
         console.error("Inventory Supabase error:", error);
@@ -1939,7 +2002,7 @@ async function loadInventoryFromSupabase(){
             stock: product.stock,
             category: product.category || "Racing Collection",
             image:
-                product.combined_image ||
+                product.front_image ||
                 product.image_url ||
                 "mainstream-logo.png"
         };
