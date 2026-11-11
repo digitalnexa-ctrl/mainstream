@@ -1052,9 +1052,7 @@ body{
 
     <div class="note">
 
-        Orders shown here are stored locally until a real backend/database
-        is connected. Customer orders from other devices will require a
-        shared database and secure server-side order processing.
+        Orders are loaded from the MAINSTREAM Supabase database. Paid order cancellations use the secure database function to restore stock exactly once. Customer refunds must be processed separately through the payment provider.
 
     </div>
 
