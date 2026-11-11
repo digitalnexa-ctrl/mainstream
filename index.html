@@ -1947,14 +1947,14 @@ footer a:hover{
         <!-- Immediate HTML fallback: visible before JavaScript or Supabase finishes. -->
         <article class="product-card">
             <div class="product-image">
-                <img src="max-front.png" alt="MAX / 03 TEE" loading="eager" fetchpriority="high" width="600" height="800">
+                <img src="MAX-Black-Front.jpg" alt="MAX / 03 TEE" loading="eager" fetchpriority="high" width="600" height="800">
                 <button class="product-wishlist" onclick="toggleWishlist('max-03-tee', this)" aria-label="Add MAX tee to wishlist">♡</button>
             </div>
             <div class="product-info">
                 <div class="product-category">Racing Collection</div>
                 <div class="product-name">MAX / 03 TEE</div>
                 <div class="product-bottom"><div class="product-price">₹899</div><a class="view-btn" href="product.html?slug=max-03-tee">VIEW PRODUCT →</a></div>
-                <button class="add-cart" onclick="addToCart({id:'max',slug:'max-03-tee',name:'MAX / 03 TEE',price:899,category:'Racing Collection',image:'max-front.png'})">ADD TO CART</button>
+                <button class="add-cart" onclick="addToCart({id:'max',slug:'max-03-tee',name:'MAX / 03 TEE',price:899,category:'Racing Collection',image:'MAX-Black-Front.jpg'})">ADD TO CART</button>
             </div>
         </article>
         <article class="product-card">
@@ -1991,18 +1991,6 @@ footer a:hover{
                 <div class="product-name">LANDO / 01 TEE</div>
                 <div class="product-bottom"><div class="product-price">₹899</div><a class="view-btn" href="product.html?slug=lando-01-tee">VIEW PRODUCT →</a></div>
                 <button class="add-cart" onclick="addToCart({id:'lando',slug:'lando-01-tee',name:'LANDO / 01 TEE',price:899,category:'Racing Collection',image:'lando-front.png'})">ADD TO CART</button>
-            </div>
-        </article>
-        <article class="product-card">
-            <div class="product-image">
-                <img src="KIMI-Black-Front.jpg" alt="KIMI / 12 TEE" loading="eager" fetchpriority="high" width="600" height="800">
-                <button class="product-wishlist" onclick="toggleWishlist('kimi-12-tee', this)" aria-label="Add Kimi tee to wishlist">♡</button>
-            </div>
-            <div class="product-info">
-                <div class="product-category">Racing Collection</div>
-                <div class="product-name">KIMI / 12 TEE</div>
-                <div class="product-bottom"><div class="product-price">₹899</div><a class="view-btn" href="product.html?slug=kimi-12-tee">VIEW PRODUCT →</a></div>
-                <button class="add-cart" onclick="addToCart({id:'kimi',slug:'kimi-12-tee',name:'KIMI / 12 TEE',price:899,category:'Racing Collection',image:'KIMI-Black-Front.jpg'})">ADD TO CART</button>
             </div>
         </article>
     </div>
@@ -2299,7 +2287,7 @@ const fallbackProducts = [
         name:"MAX / 03 TEE",
         price:899,
         category:"Racing Collection",
-        image:"max-front.png"
+        image:"MAX-Black-Front.jpg"
     },
 
     {
@@ -2353,7 +2341,7 @@ const fallbackProducts = [
         name:"KIMI / 12 TEE",
         price:899,
         category:"Racing Collection",
-        image:"kimi-front.png"
+        image:"KIMI-Black-Front.jpg"
     }
 
 ];
@@ -2373,7 +2361,7 @@ async function loadProducts(){
     // Show five featured products immediately, including KIMI.
     // This prevents a blank NEW DROP section while the database request loads.
     homeProducts = fallbackProducts.slice();
-    renderProducts(homeProducts.slice(0,5));
+    renderProducts(homeProducts.slice(0,4));
 
     // Keep the storefront usable if the Supabase library is unavailable.
     if (!mainstreamDB) return;
