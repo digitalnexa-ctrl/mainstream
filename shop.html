@@ -2803,7 +2803,7 @@ async function loadShopProducts(){
         .from("products")
         // Fetch only the small fields needed to build product cards.
         // Product images are served as static front-image files below.
-        .select("slug,name,category,active")
+        .select("*")
         .eq("active", true);
 
     if(error){
@@ -2845,14 +2845,18 @@ async function loadShopProducts(){
             lando: "lando-front.png",
             oscar: "oscar-front.png",
             george: "george-front.png",
-            kimi: "kimi-front.png"
+            kimi: "kimi-front.png",
+            ms: "ms-front.png"
         };
 
         const productSlug = String(product.slug || "").trim().toLowerCase();
         const imageFile =
-            frontImages[productSlug] ||
             product.front_image ||
+            product.frontImage ||
             product.image_url ||
+            product.image ||
+            product.product_image ||
+            frontImages[productSlug] ||
             product.combined_image ||
             "mainstream-logo.png";
 
@@ -2862,7 +2866,7 @@ async function loadShopProducts(){
             ? String(imageFile)
             : new URL(String(imageFile).replace(/^\\//, ""), window.location.href).href;
         // Approved MAINSTREAM T-shirt storefront price.
-        const price = 899;
+        const price = Number(product.price) > 0 ? Number(product.price) : 899;
 
         const team = normalizeShopTeam(product.category, product);
 
