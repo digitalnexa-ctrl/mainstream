@@ -39,12 +39,24 @@ Deno.serve(async (req) => {
       return json({ error: "Enter a valid email address." }, 400);
     }
 
-    const normalized = inputItems.map((item: Record<string, unknown>) => ({
-      slug: String(item.slug || "").trim().toLowerCase(),
+    // The storefront uses short product keys, while Supabase stores full catalogue slugs.
+    const productSlugAliases: Record<string, string> = {
+      max: "max-03-tee",
+      lewis: "lewis-44-tee",
+      lando: "lando-01-tee",
+      charles: "charles-16-tee",
+      kimi: "kimi-12-tee",
+    };
+
+    const normalized = inputItems.map((item: Record<string, unknown>) => {
+      const requestedSlug = String(item.slug || "").trim().toLowerCase();
+      return {
+      slug: productSlugAliases[requestedSlug] || requestedSlug,
       size: String(item.size || "M").trim().toUpperCase(),
       color: String(item.color || "Black").trim(),
       quantity: Number(item.quantity || 1),
-    }));
+      };
+    });
     if (normalized.some((item) =>
       !/^[a-z0-9-]{1,80}$/.test(item.slug) ||
       !["S", "M", "L", "XL", "XXL"].includes(item.size) ||
