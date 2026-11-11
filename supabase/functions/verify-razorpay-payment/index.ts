@@ -83,22 +83,19 @@ Deno.serve(async (req) => {
       return json({ error: "Payment amount does not match the order." }, 400);
     }
 
-    if (order.payment_status !== "paid") {
-      const { error: updateError } = await supabase
-        .from("orders")
-        .update({
-          payment_status: "paid",
-          order_status: "processing",
-          payment_method: payment.method || "Razorpay",
-          razorpay_payment_id,
-          paid_at: new Date().toISOString(),
-        })
-        .eq("id", order.id);
-      if (updateError) throw updateError;
-    }
+    const { data: completion, error: completionError } = await supabase.rpc(
+      "complete_razorpay_order",
+      {
+        p_razorpay_order_id: razorpay_order_id,
+        p_payment_id: razorpay_payment_id,
+        p_payment_method: payment.method || "Razorpay",
+      },
+    );
+    if (completionError) throw completionError;
 
     return json({
       verified: true,
+      stock: completion,
       orderNumber: order.order_number,
       total: order.total,
       items: order.items,
